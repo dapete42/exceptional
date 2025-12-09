@@ -1,7 +1,7 @@
-[![Maven](https://github.com/dapete42/exceptional/actions/workflows/maven-verify.yml/badge.svg)](https://github.com/dapete42/locks/actions/workflows/maven-verify.yml)
-[![CodeQL](https://github.com/dapete42/exceptional/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/dapete42/locks/actions/workflows/codeql-analysis.yml)
-[![CodeFactor](https://www.codefactor.io/repository/github/dapete42/exceptional/badge)](https://www.codefactor.io/repository/github/dapete42/locks)
-[![Codecov](https://codecov.io/gh/dapete42/exceptional/graph/badge.svg?token=HzTCLFKSYD)](https://codecov.io/gh/dapete42/locks)
+[![Maven](https://github.com/dapete42/exceptional/actions/workflows/maven-verify.yml/badge.svg)](https://github.com/dapete42/exceptional/actions/workflows/maven-verify.yml)
+[![CodeQL](https://github.com/dapete42/exceptional/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/dapete42/exceptional/actions/workflows/codeql-analysis.yml)
+[![CodeFactor](https://www.codefactor.io/repository/github/dapete42/exceptional/badge)](https://www.codefactor.io/repository/github/dapete42/exceptional)
+[![Codecov](https://codecov.io/gh/dapete42/exceptional/graph/badge.svg?token=HzTCLFKSYD)](https://codecov.io/gh/dapete42/exceptional)
 
 # Exceptional!
 
