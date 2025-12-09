@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ExceptionalWrapper.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Exceptional!</a> &gt; <a href="index.source.html" class="el_package">net.dapete.exceptional</a> &gt; <span class="el_source">ExceptionalWrapper.java</span></div><h1>ExceptionalWrapper.java</h1><pre class="source lang-java linenums">package net.dapete.exceptional;
+
+import net.dapete.exceptional.function.*;
+import org.jspecify.annotations.NonNull;
+
+import java.util.function.*;
+
+public final class ExceptionalWrapper {
+
+    private ExceptionalWrapper() {
+    }
+
+    private static RuntimeException toRuntimeException(Exception exception) {
+<span class="pc bpc" id="L14" title="1 of 2 branches missed.">        if (exception instanceof RuntimeException runtimeException) {</span>
+<span class="nc" id="L15">            return runtimeException;</span>
+        } else {
+<span class="fc" id="L17">            return new WrappedExceptionalException(exception);</span>
+        }
+    }
+
+    public static &lt;T, U, E extends Exception&gt; @NonNull BiConsumer&lt;T, U&gt; wrap(ExceptionalBiConsumer&lt;? super T, ? super U, E&gt; biConsumer) {
+<span class="nc" id="L22">        return (t, u) -&gt; {</span>
+            try {
+<span class="nc" id="L24">                biConsumer.accept(t, u);</span>
+<span class="nc" id="L25">            } catch (Exception e) {</span>
+<span class="nc" id="L26">                throw toRuntimeException(e);</span>
+<span class="nc" id="L27">            }</span>
+<span class="nc" id="L28">        };</span>
+    }
+
+    public static &lt;T, U, R, E extends Exception&gt; @NonNull BiFunction&lt;T, U, R&gt; wrap(ExceptionalBiFunction&lt;? super T, ? super U, ? extends R, E&gt; biFunction) {
+<span class="nc" id="L32">        return (t, u) -&gt; {</span>
+            try {
+<span class="nc" id="L34">                return biFunction.apply(t, u);</span>
+<span class="nc" id="L35">            } catch (Exception e) {</span>
+<span class="nc" id="L36">                throw toRuntimeException(e);</span>
+            }
+        };
+    }
+
+    public static &lt;T, U, E extends Exception&gt; @NonNull BiPredicate&lt;T, U&gt; wrap(ExceptionalBiPredicate&lt;? super T, ? super U, E&gt; biFunction) {
+<span class="nc" id="L42">        return (t, u) -&gt; {</span>
+            try {
+<span class="nc" id="L44">                return biFunction.test(t, u);</span>
+<span class="nc" id="L45">            } catch (Exception e) {</span>
+<span class="nc" id="L46">                throw toRuntimeException(e);</span>
+            }
+        };
+    }
+
+    public static &lt;T, E extends Exception&gt; @NonNull BinaryOperator&lt;T&gt; wrap(ExceptionalBinaryOperator&lt;T, E&gt; binaryOperator) {
+<span class="nc" id="L52">        return (t, u) -&gt; {</span>
+            try {
+<span class="nc" id="L54">                return binaryOperator.apply(t, u);</span>
+<span class="nc" id="L55">            } catch (Exception e) {</span>
+<span class="nc" id="L56">                throw toRuntimeException(e);</span>
+            }
+        };
+    }
+
+    public static &lt;T, E extends Exception&gt; @NonNull Consumer&lt;T&gt; wrap(ExceptionalConsumer&lt;? super T, E&gt; consumer) {
+<span class="fc" id="L62">        return t -&gt; {</span>
+            try {
+<span class="nc" id="L64">                consumer.accept(t);</span>
+<span class="fc" id="L65">            } catch (Exception e) {</span>
+<span class="fc" id="L66">                throw toRuntimeException(e);</span>
+<span class="nc" id="L67">            }</span>
+<span class="nc" id="L68">        };</span>
+    }
+
+    public static &lt;T, E extends Exception&gt; @NonNull IntConsumer wrap(ExceptionalIntConsumer&lt;E&gt; consumer) {
+<span class="nc" id="L72">        return t -&gt; {</span>
+            try {
+<span class="nc" id="L74">                consumer.accept(t);</span>
+<span class="nc" id="L75">            } catch (Exception e) {</span>
+<span class="nc" id="L76">                throw toRuntimeException(e);</span>
+<span class="nc" id="L77">            }</span>
+<span class="nc" id="L78">        };</span>
+    }
+
+    public static &lt;T, E extends Exception&gt; @NonNull LongConsumer wrap(ExceptionalLongConsumer&lt;E&gt; consumer) {
+<span class="nc" id="L82">        return t -&gt; {</span>
+            try {
+<span class="nc" id="L84">                consumer.accept(t);</span>
+<span class="nc" id="L85">            } catch (Exception e) {</span>
+<span class="nc" id="L86">                throw toRuntimeException(e);</span>
+<span class="nc" id="L87">            }</span>
+<span class="nc" id="L88">        };</span>
+    }
+
+    public static &lt;T, E extends Exception&gt; @NonNull DoubleConsumer wrap(ExceptionalDoubleConsumer&lt;E&gt; consumer) {
+<span class="nc" id="L92">        return t -&gt; {</span>
+            try {
+<span class="nc" id="L94">                consumer.accept(t);</span>
+<span class="nc" id="L95">            } catch (Exception e) {</span>
+<span class="nc" id="L96">                throw toRuntimeException(e);</span>
+<span class="nc" id="L97">            }</span>
+<span class="nc" id="L98">        };</span>
+    }
+
+    public static &lt;T, R, E extends Exception&gt; @NonNull Function&lt;T, R&gt; wrap(ExceptionalFunction&lt;? super T, ? extends R, E&gt; function) {
+<span class="fc" id="L102">        return t -&gt; {</span>
+            try {
+<span class="nc" id="L104">                return function.apply(t);</span>
+<span class="fc" id="L105">            } catch (Exception e) {</span>
+<span class="fc" id="L106">                throw toRuntimeException(e);</span>
+            }
+        };
+    }
+
+    public static &lt;T, E extends Exception&gt; @NonNull ToIntFunction&lt;T&gt; wrap(ExceptionalToIntFunction&lt;? super T, E&gt; toIntFunction) {
+<span class="nc" id="L112">        return t -&gt; {</span>
+            try {
+<span class="nc" id="L114">                return toIntFunction.applyAsInt(t);</span>
+<span class="nc" id="L115">            } catch (Exception e) {</span>
+<span class="nc" id="L116">                throw toRuntimeException(e);</span>
+            }
+        };
+    }
+
+    public static &lt;T, E extends Exception&gt; @NonNull ToLongFunction&lt;T&gt; wrap(ExceptionalToLongFunction&lt;? super T, E&gt; toLongFunction) {
+<span class="nc" id="L122">        return t -&gt; {</span>
+            try {
+<span class="nc" id="L124">                return toLongFunction.applyAsLong(t);</span>
+<span class="nc" id="L125">            } catch (Exception e) {</span>
+<span class="nc" id="L126">                throw toRuntimeException(e);</span>
+            }
+        };
+    }
+
+    public static &lt;T, E extends Exception&gt; @NonNull ToDoubleFunction&lt;T&gt; wrap(ExceptionalToDoubleFunction&lt;? super T, E&gt; toDoubleFunction) {
+<span class="nc" id="L132">        return t -&gt; {</span>
+            try {
+<span class="nc" id="L134">                return toDoubleFunction.applyAsDouble(t);</span>
+<span class="nc" id="L135">            } catch (Exception e) {</span>
+<span class="nc" id="L136">                throw toRuntimeException(e);</span>
+            }
+        };
+    }
+
+    public static &lt;T, E extends Exception&gt; @NonNull Predicate&lt;T&gt; wrap(ExceptionalPredicate&lt;? super T, E&gt; predicate) {
+<span class="nc" id="L142">        return t -&gt; {</span>
+            try {
+<span class="nc" id="L144">                return predicate.test(t);</span>
+<span class="nc" id="L145">            } catch (Exception e) {</span>
+<span class="nc" id="L146">                throw toRuntimeException(e);</span>
+            }
+        };
+    }
+
+    public static &lt;E extends Exception&gt; @NonNull Runnable wrap(ExceptionalRunnable runnable) {
+<span class="nc" id="L152">        return () -&gt; {</span>
+            try {
+<span class="nc" id="L154">                runnable.run();</span>
+<span class="nc" id="L155">            } catch (Exception e) {</span>
+<span class="nc" id="L156">                throw toRuntimeException(e);</span>
+<span class="nc" id="L157">            }</span>
+<span class="nc" id="L158">        };</span>
+    }
+
+    public static &lt;T, E extends Exception&gt; @NonNull Supplier&lt;T&gt; wrap(ExceptionalSupplier&lt;T, E&gt; supplier) {
+<span class="nc" id="L162">        return () -&gt; {</span>
+            try {
+<span class="nc" id="L164">                return supplier.get();</span>
+<span class="nc" id="L165">            } catch (Exception e) {</span>
+<span class="nc" id="L166">                throw toRuntimeException(e);</span>
+            }
+        };
+    }
+
+    /* Specialized method names for easier use. */
+
+    public static &lt;T, E extends Exception&gt; @NonNull Consumer&lt;T&gt; wrapConsumer(ExceptionalConsumer&lt;T, E&gt; consumer) {
+<span class="fc" id="L174">        return wrap(consumer);</span>
+    }
+
+    public static &lt;T, R, E extends Exception&gt; @NonNull Function&lt;T, R&gt; wrapFunction(ExceptionalFunction&lt;T, R, E&gt; function) {
+<span class="fc" id="L178">        return wrap(function);</span>
+    }
+
+    public static &lt;E extends Exception&gt; @NonNull Runnable wrapRunnable(ExceptionalRunnable runnable) {
+<span class="nc" id="L182">        return wrap(runnable);</span>
+    }
+
+    public static &lt;T, E extends Exception&gt; @NonNull Supplier&lt;T&gt; wrapSupplier(ExceptionalSupplier&lt;T, E&gt; supplier) {
+<span class="nc" id="L186">        return wrap(supplier);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>
