@@ -92,7 +92,7 @@ public final class ExceptionalWrapper {
         };
     }
 
-    public static <T, E extends Exception> @NonNull IntConsumer wrap(ExceptionalIntConsumer<E> consumer) {
+    public static <E extends Exception> @NonNull IntConsumer wrap(ExceptionalIntConsumer<E> consumer) {
         return t -> {
             try {
                 consumer.accept(t);
@@ -102,7 +102,7 @@ public final class ExceptionalWrapper {
         };
     }
 
-    public static <T, E extends Exception> @NonNull LongConsumer wrap(ExceptionalLongConsumer<E> consumer) {
+    public static <E extends Exception> @NonNull LongConsumer wrap(ExceptionalLongConsumer<E> consumer) {
         return t -> {
             try {
                 consumer.accept(t);
@@ -112,7 +112,7 @@ public final class ExceptionalWrapper {
         };
     }
 
-    public static <T, E extends Exception> @NonNull DoubleConsumer wrap(ExceptionalDoubleConsumer<E> consumer) {
+    public static <E extends Exception> @NonNull DoubleConsumer wrap(ExceptionalDoubleConsumer<E> consumer) {
         return t -> {
             try {
                 consumer.accept(t);
@@ -172,7 +172,7 @@ public final class ExceptionalWrapper {
         };
     }
 
-    public static <E extends Exception> @NonNull Runnable wrap(ExceptionalRunnable runnable) {
+    public static <E extends Exception> @NonNull Runnable wrap(ExceptionalRunnable<E> runnable) {
         return () -> {
             try {
                 runnable.run();
@@ -202,7 +202,7 @@ public final class ExceptionalWrapper {
         return wrap(function);
     }
 
-    public static <E extends Exception> @NonNull Runnable wrapRunnable(ExceptionalRunnable runnable) {
+    public static <E extends Exception> @NonNull Runnable wrapRunnable(ExceptionalRunnable<E> runnable) {
         return wrap(runnable);
     }
 
