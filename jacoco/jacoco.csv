@@ -2,4 +2,4 @@ GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_
 Exceptional!,net.dapete.exceptional,ExceptionalStream,84,26,0,0,16,7,16,5,16,5
 Exceptional!,net.dapete.exceptional,WrappedExceptionalException,0,4,0,0,0,2,0,1,0,1
 Exceptional!,net.dapete.exceptional,ExceptionalWrapper,170,28,1,1,69,10,29,7,28,7
-Exceptional!,net.dapete.exceptional,OnlyExceptionalStream,127,12,0,0,22,4,20,2,20,2
+Exceptional!,net.dapete.exceptional,OnlyExceptionalStream,134,12,0,0,23,4,21,2,21,2

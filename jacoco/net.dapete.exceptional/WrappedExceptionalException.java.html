@@ -2,11 +2,16 @@
 
 import org.jspecify.annotations.NonNull;
 
+/**
+ * Exception that wraps exceptions returned by the lambdas in the {@link net.dapete.exceptional.function} package.
+ * &lt;p&gt;
+ * Used by {@link ExceptionalWrapper}.
+ */
 public class WrappedExceptionalException extends RuntimeException {
 
     WrappedExceptionalException(@NonNull Exception cause) {
-<span class="fc" id="L8">        super(cause);</span>
-<span class="fc" id="L9">    }</span>
+<span class="fc" id="L13">        super(cause);</span>
+<span class="fc" id="L14">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

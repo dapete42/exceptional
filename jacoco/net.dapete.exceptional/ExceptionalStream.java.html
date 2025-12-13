@@ -10,109 +10,178 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
+/**
+ * A Stream with additional functionality.
+ * &lt;p&gt;Using {@link #exceptional()} and {@link }#exceptional(Class)}, it is possible to switch to an instance of the
+ * stream-like class {@link OnlyExceptionalStream} which implements methods analogue to {@link Stream#map} , {@link Stream#filter} etc. to allow lambdas that
+ * throw exceptions (from the {@link net.dapete.exceptional.function} package).
+ *
+ * @param &lt;T&gt; the type of the stream elements
+ */
 public final class ExceptionalStream&lt;T&gt; implements Stream&lt;T&gt; {
 
     @Delegate
     private final Stream&lt;T&gt; stream;
 
-<span class="fc" id="L18">    private ExceptionalStream(Stream&lt;T&gt; stream) {</span>
-<span class="fc" id="L19">        this.stream = stream;</span>
-<span class="fc" id="L20">    }</span>
+<span class="fc" id="L26">    private ExceptionalStream(Stream&lt;T&gt; stream) {</span>
+<span class="fc" id="L27">        this.stream = stream;</span>
+<span class="fc" id="L28">    }</span>
 
+    /**
+     * Create an instance from an existing Stream.
+     *
+     * @param &lt;T&gt; the type of the stream elements
+     * @return instance from an existing Stream
+     */
     public static &lt;T&gt; ExceptionalStream&lt;T&gt; of(Stream&lt;T&gt; stream) {
-<span class="fc" id="L23">        return new ExceptionalStream&lt;&gt;(stream);</span>
+<span class="fc" id="L37">        return new ExceptionalStream&lt;&gt;(stream);</span>
     }
 
+    /**
+     * Create an instance from a collection.
+     *
+     * @param &lt;T&gt; the type of the stream elements
+     * @return instance from a collection
+     */
     public static &lt;T&gt; ExceptionalStream&lt;T&gt; of(Collection&lt;T&gt; collection) {
-<span class="nc" id="L27">        return of(collection.stream());</span>
+<span class="nc" id="L47">        return of(collection.stream());</span>
     }
 
     /* Static methods from Stream to create streams. */
 
+    /**
+     * Returns an empty instance.
+     *
+     * @param &lt;T&gt; the type of the stream elements
+     * @return an empty instance
+     */
     public static &lt;T&gt; ExceptionalStream&lt;T&gt; empty() {
-<span class="nc" id="L33">        return of(Stream.empty());</span>
+<span class="nc" id="L59">        return of(Stream.empty());</span>
     }
 
+    /**
+     * Returns an instance containing a single element.
+     *
+     * @param &lt;T&gt; the type of the stream elements
+     * @return an instance containing a single element
+     */
     public static &lt;T&gt; ExceptionalStream&lt;T&gt; of(T t) {
-<span class="nc" id="L37">        return of(Stream.of(t));</span>
+<span class="nc" id="L69">        return of(Stream.of(t));</span>
     }
 
+    /**
+     * Returns an instance containing a single element, if non-null, otherwise returns an empty instance.
+     *
+     * @param &lt;T&gt; the type of the stream elements
+     * @return a stream with a single element if the specified element is non-null, otherwise an empty stream
+     */
     public static &lt;T&gt; ExceptionalStream&lt;T&gt; ofNullable(T t) {
-<span class="nc" id="L41">        return of(Stream.ofNullable(t));</span>
+<span class="nc" id="L79">        return of(Stream.ofNullable(t));</span>
     }
 
+    /**
+     * Returns an instance whose elements are the specified values.
+     *
+     * @param &lt;T&gt; the type of the stream elements
+     * @return the new instance
+     */
+    @SafeVarargs
     public static &lt;T&gt; ExceptionalStream&lt;T&gt; of(T... values) {
-<span class="fc" id="L45">        return of(Stream.of(values));</span>
+<span class="fc" id="L90">        return of(Stream.of(values));</span>
     }
 
+    /**
+     * Return an {@link OnlyExceptionalStream} for the same values that allows all exceptions.
+     *
+     * @return an {@link OnlyExceptionalStream} for the same values that allows all exceptions
+     */
     public OnlyExceptionalStream&lt;T, Exception&gt; exceptional() {
-<span class="nc" id="L49">        return new OnlyExceptionalStream&lt;&gt;(this);</span>
+<span class="nc" id="L99">        return new OnlyExceptionalStream&lt;&gt;(this);</span>
     }
 
+    /**
+     * Return an {@link OnlyExceptionalStream} for the same values that allows exceptions of type {@link E}.
+     *
+     * @param &lt;E&gt;            the type of exceptions thrown
+     * @param exceptionClass the class of the type of exceptions thrown
+     * @return an {@link OnlyExceptionalStream} for the same values that allows exceptions of type {@link E}
+     */
+    @SuppressWarnings(&quot;unused&quot;)
     public &lt;E extends Exception&gt; OnlyExceptionalStream&lt;T, E&gt; exceptional(Class&lt;E&gt; exceptionClass) {
-<span class="fc" id="L53">        return new OnlyExceptionalStream&lt;&gt;(this);</span>
+<span class="fc" id="L111">        return new OnlyExceptionalStream&lt;&gt;(this);</span>
     }
 
     /* Override all methods that usually return Stream to return an ExceptionalStream. */
 
     @Override
     public ExceptionalStream&lt;T&gt; filter(Predicate&lt;? super T&gt; predicate) {
-<span class="nc" id="L60">        return of(stream.filter(predicate));</span>
+<span class="nc" id="L118">        return of(stream.filter(predicate));</span>
     }
 
+    // @inheritDocs
     @Override
     public &lt;R&gt; ExceptionalStream&lt;R&gt; map(Function&lt;? super T, ? extends R&gt; mapper) {
-<span class="fc" id="L65">        return of(stream.map(mapper));</span>
+<span class="fc" id="L124">        return of(stream.map(mapper));</span>
     }
 
+    // @inheritDocs
     @Override
     public &lt;R&gt; ExceptionalStream&lt;R&gt; flatMap(Function&lt;? super T, ? extends Stream&lt;? extends R&gt;&gt; mapper) {
-<span class="nc" id="L70">        return of(stream.flatMap(mapper));</span>
+<span class="nc" id="L130">        return of(stream.flatMap(mapper));</span>
     }
 
+    // @inheritDocs
     @Override
     public &lt;R&gt; ExceptionalStream&lt;R&gt; mapMulti(BiConsumer&lt;? super T, ? super Consumer&lt;R&gt;&gt; mapper) {
-<span class="nc" id="L75">        return of(stream.mapMulti(mapper));</span>
+<span class="nc" id="L136">        return of(stream.mapMulti(mapper));</span>
     }
 
+    // @inheritDocs
     @Override
     public ExceptionalStream&lt;T&gt; distinct() {
-<span class="nc" id="L80">        return of(stream.distinct());</span>
+<span class="nc" id="L142">        return of(stream.distinct());</span>
     }
 
+    // @inheritDocs
     @Override
     public ExceptionalStream&lt;T&gt; sorted() {
-<span class="nc" id="L85">        return of(stream.sorted());</span>
+<span class="nc" id="L148">        return of(stream.sorted());</span>
     }
 
+    // @inheritDocs
     @Override
     public ExceptionalStream&lt;T&gt; sorted(Comparator&lt;? super T&gt; comparator) {
-<span class="nc" id="L90">        return of(stream.sorted(comparator));</span>
+<span class="nc" id="L154">        return of(stream.sorted(comparator));</span>
     }
 
+    // @inheritDocs
     @Override
     public ExceptionalStream&lt;T&gt; peek(Consumer&lt;? super T&gt; action) {
-<span class="nc" id="L95">        return of(stream.peek(action));</span>
+<span class="nc" id="L160">        return of(stream.peek(action));</span>
     }
 
+    // @inheritDocs
     @Override
     public ExceptionalStream&lt;T&gt; limit(long maxSize) {
-<span class="nc" id="L100">        return of(stream.limit(maxSize));</span>
+<span class="nc" id="L166">        return of(stream.limit(maxSize));</span>
     }
 
+    // @inheritDocs
     @Override
     public ExceptionalStream&lt;T&gt; skip(long n) {
-<span class="nc" id="L105">        return of(stream.skip(n));</span>
+<span class="nc" id="L172">        return of(stream.skip(n));</span>
     }
 
+    // @inheritDocs
     @Override
     public ExceptionalStream&lt;T&gt; takeWhile(Predicate&lt;? super T&gt; predicate) {
-<span class="nc" id="L110">        return of(stream.takeWhile(predicate));</span>
+<span class="nc" id="L178">        return of(stream.takeWhile(predicate));</span>
     }
 
+    // @inheritDocs
     @Override
     public ExceptionalStream&lt;T&gt; dropWhile(Predicate&lt;? super T&gt; predicate) {
-<span class="nc" id="L115">        return of(stream.dropWhile(predicate));</span>
+<span class="nc" id="L184">        return of(stream.dropWhile(predicate));</span>
     }
 
 }
