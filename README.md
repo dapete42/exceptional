@@ -7,7 +7,7 @@
 
 **TODO**
 
-Requires JRE 17 or later to use and JDK 23 or later to build.
+Requires Java 17 or later to use and build.
 
 ## Example
 
