@@ -100,6 +100,10 @@ public final class OnlyExceptionalStream<T, E extends Exception> {
         return exceptionalStream.reduce(wrap(accumulator));
     }
 
+    public T reduce(T identity, ExceptionalBinaryOperator<T, ? extends E> accumulator) {
+        return exceptionalStream.reduce(identity, wrap(accumulator));
+    }
+
     public <U> U reduce(U identity, ExceptionalBiFunction<U, ? super T, U, ? extends E> accumulator, ExceptionalBinaryOperator<U, ? extends E> combiner) {
         return exceptionalStream.reduce(identity, wrap(accumulator), wrap(combiner));
     }
