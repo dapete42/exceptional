@@ -5,8 +5,13 @@ import org.jspecify.annotations.NonNull;
 
 import java.util.function.*;
 
+/**
+ * Utility class to wrap exceptions thrown in lambas from the {@link net.dapete.exceptional.function} package in runtime exceptions of type
+ * {@link WrappedExceptionalException}, or leave them as they are if they are already runtime exceptions.
+ */
 public final class ExceptionalWrapper {
 
+    // Utility class with private constructor
     private ExceptionalWrapper() {
     }
 
@@ -18,6 +23,15 @@ public final class ExceptionalWrapper {
         }
     }
 
+    /**
+     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param biConsumer lambda with exceptions
+     * @param <T>        the type of the first argument to the operation
+     * @param <U>        the type of the second argument to the operation
+     * @param <E>        the type of exception thrown by {@code biConsumer}
+     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     */
     public static <T, U, E extends Exception> @NonNull BiConsumer<T, U> wrap(ExceptionalBiConsumer<? super T, ? super U, E> biConsumer) {
         return (t, u) -> {
             try {
@@ -28,6 +42,16 @@ public final class ExceptionalWrapper {
         };
     }
 
+    /**
+     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param biFunction lambda with exceptions
+     * @param <T>        the type of the first argument to the function
+     * @param <U>        the type of the second argument to the function
+     * @param <R>        the type of the result of the function
+     * @param <E>        the type of exception thrown by {@code biFunction}
+     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     */
     public static <T, U, R, E extends Exception> @NonNull BiFunction<T, U, R> wrap(ExceptionalBiFunction<? super T, ? super U, ? extends R, E> biFunction) {
         return (t, u) -> {
             try {
