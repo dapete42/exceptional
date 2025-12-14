@@ -12,8 +12,9 @@ import java.util.stream.Stream;
 
 /**
  * A Stream with additional functionality.
- * <p>Using {@link #exceptional()} and {@link }#exceptional(Class)}, it is possible to switch to an instance of the
- * stream-like class {@link OnlyExceptionalStream} which implements methods analogue to {@link Stream#map} , {@link Stream#filter} etc. to allow lambdas that
+ * <p>
+ * Using {@link #wrapExceptions()} and {@link #wrapExceptions(Class)}, it is possible to switch to an instance of the
+ * stream-like class {@link ActiveExceptionalStream} which implements methods analogue to {@link Stream#map} , {@link Stream#filter} etc. to allow lambdas that
  * throw exceptions (from the {@link net.dapete.exceptional.function} package).
  *
  * @param <T> the type of the stream elements
