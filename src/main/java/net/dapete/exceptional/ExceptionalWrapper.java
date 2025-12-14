@@ -193,6 +193,36 @@ public final class ExceptionalWrapper {
         };
     }
 
+    public static <E extends Exception> IntSupplier wrap(ExceptionalIntSupplier<E> supplier) {
+        return () -> {
+            try {
+                return supplier.getAsInt();
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
+    }
+
+    public static <E extends Exception> LongSupplier wrap(ExceptionalLongSupplier<E> supplier) {
+        return () -> {
+            try {
+                return supplier.getAsLong();
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
+    }
+
+    public static <E extends Exception> DoubleSupplier wrap(ExceptionalDoubleSupplier<E> supplier) {
+        return () -> {
+            try {
+                return supplier.getAsDouble();
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
+    }
+
     /* Specialized method names for easier use. */
 
     public static <T, E extends Exception> Consumer<T> wrapConsumer(ExceptionalConsumer<T, E> consumer) {
