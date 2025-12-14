@@ -91,24 +91,24 @@ public final class ExceptionalStream<T> implements Stream<T> {
     }
 
     /**
-     * Return an {@link OnlyExceptionalStream} for the same values that allows all exceptions.
+     * Return an {@link ActiveExceptionalStream} for the same values that allows exception of type {@link Exception}.
      *
-     * @return an {@link OnlyExceptionalStream} for the same values that allows all exceptions
+     * @return an {@link ActiveExceptionalStream} for the same values that allows exception of type {@link Exception}
      */
-    public OnlyExceptionalStream<T, Exception> exceptional() {
-        return new OnlyExceptionalStream<>(this);
+    public ActiveExceptionalStream<T, Exception> wrapExceptions() {
+        return new ActiveExceptionalStream<>(this);
     }
 
     /**
-     * Return an {@link OnlyExceptionalStream} for the same values that allows exceptions of type {@link E}.
+     * Return an {@link ActiveExceptionalStream} for the same values that allows exceptions of type {@link E}.
      *
      * @param <E>            the type of exceptions thrown
      * @param exceptionClass the class of the type of exceptions thrown
-     * @return an {@link OnlyExceptionalStream} for the same values that allows exceptions of type {@link E}
+     * @return an {@link ActiveExceptionalStream} for the same values that allows exceptions of type {@link E}
      */
     @SuppressWarnings("unused")
-    public <E extends Exception> OnlyExceptionalStream<T, E> exceptional(Class<E> exceptionClass) {
-        return new OnlyExceptionalStream<>(this);
+    public <E extends Exception> ActiveExceptionalStream<T, E> wrapExceptions(Class<E> exceptionClass) {
+        return new ActiveExceptionalStream<>(this);
     }
 
     /* Override all methods that usually return Stream to return an ExceptionalStream. */

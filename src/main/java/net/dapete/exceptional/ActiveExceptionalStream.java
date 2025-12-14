@@ -4,10 +4,7 @@ import net.dapete.exceptional.function.*;
 
 import java.util.Optional;
 import java.util.function.*;
-import java.util.stream.DoubleStream;
-import java.util.stream.IntStream;
-import java.util.stream.LongStream;
-import java.util.stream.Stream;
+import java.util.stream.*;
 
 import static net.dapete.exceptional.ExceptionalWrapper.wrap;
 
@@ -20,11 +17,11 @@ import static net.dapete.exceptional.ExceptionalWrapper.wrap;
  * @param <T> the type of the stream elements
  * @param <E> the type of exceptions thrown
  */
-public final class OnlyExceptionalStream<T, E extends Exception> {
+public final class ActiveExceptionalStream<T, E extends Exception> {
 
     private final ExceptionalStream<T> exceptionalStream;
 
-    OnlyExceptionalStream(ExceptionalStream<T> exceptionalStream) {
+    ActiveExceptionalStream(ExceptionalStream<T> exceptionalStream) {
         this.exceptionalStream = exceptionalStream;
     }
 
