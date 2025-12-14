@@ -1,6 +1,7 @@
 package net.dapete.exceptional;
 
 import net.dapete.exceptional.function.*;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.Optional;
 import java.util.function.*;
@@ -21,6 +22,7 @@ import static net.dapete.exceptional.ExceptionalWrapper.wrap;
  * @param <T> the type of the stream elements
  * @param <E> the type of exceptions thrown
  */
+@NullMarked
 public final class ActiveExceptionalStream<T, E extends Exception> {
 
     private final ExceptionalStream<T> exceptionalStream;

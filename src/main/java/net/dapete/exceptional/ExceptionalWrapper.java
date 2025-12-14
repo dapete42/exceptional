@@ -1,7 +1,7 @@
 package net.dapete.exceptional;
 
 import net.dapete.exceptional.function.*;
-import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.function.*;
 
@@ -9,6 +9,7 @@ import java.util.function.*;
  * Utility class to wrap exceptions thrown in lambas from the {@link net.dapete.exceptional.function} package in runtime exceptions of type
  * {@link WrappedExceptionalException}, or leave them as they are if they are already runtime exceptions.
  */
+@NullMarked
 public final class ExceptionalWrapper {
 
     // Utility class with private constructor
@@ -32,7 +33,7 @@ public final class ExceptionalWrapper {
      * @param <E>        the type of exception thrown by {@code biConsumer}
      * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
      */
-    public static <T, U, E extends Exception> @NonNull BiConsumer<T, U> wrap(ExceptionalBiConsumer<? super T, ? super U, E> biConsumer) {
+    public static <T, U, E extends Exception> BiConsumer<T, U> wrap(ExceptionalBiConsumer<? super T, ? super U, E> biConsumer) {
         return (t, u) -> {
             try {
                 biConsumer.accept(t, u);
@@ -52,7 +53,7 @@ public final class ExceptionalWrapper {
      * @param <E>        the type of exception thrown by {@code biFunction}
      * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
      */
-    public static <T, U, R, E extends Exception> @NonNull BiFunction<T, U, R> wrap(ExceptionalBiFunction<? super T, ? super U, ? extends R, E> biFunction) {
+    public static <T, U, R, E extends Exception> BiFunction<T, U, R> wrap(ExceptionalBiFunction<? super T, ? super U, ? extends R, E> biFunction) {
         return (t, u) -> {
             try {
                 return biFunction.apply(t, u);
@@ -62,7 +63,7 @@ public final class ExceptionalWrapper {
         };
     }
 
-    public static <T, U, E extends Exception> @NonNull BiPredicate<T, U> wrap(ExceptionalBiPredicate<? super T, ? super U, E> biFunction) {
+    public static <T, U, E extends Exception> BiPredicate<T, U> wrap(ExceptionalBiPredicate<? super T, ? super U, E> biFunction) {
         return (t, u) -> {
             try {
                 return biFunction.test(t, u);
@@ -72,7 +73,7 @@ public final class ExceptionalWrapper {
         };
     }
 
-    public static <T, E extends Exception> @NonNull BinaryOperator<T> wrap(ExceptionalBinaryOperator<T, E> binaryOperator) {
+    public static <T, E extends Exception> BinaryOperator<T> wrap(ExceptionalBinaryOperator<T, E> binaryOperator) {
         return (t, u) -> {
             try {
                 return binaryOperator.apply(t, u);
@@ -82,7 +83,7 @@ public final class ExceptionalWrapper {
         };
     }
 
-    public static <T, E extends Exception> @NonNull Consumer<T> wrap(ExceptionalConsumer<? super T, E> consumer) {
+    public static <T, E extends Exception> Consumer<T> wrap(ExceptionalConsumer<? super T, E> consumer) {
         return t -> {
             try {
                 consumer.accept(t);
@@ -92,7 +93,7 @@ public final class ExceptionalWrapper {
         };
     }
 
-    public static <E extends Exception> @NonNull IntConsumer wrap(ExceptionalIntConsumer<E> consumer) {
+    public static <E extends Exception> IntConsumer wrap(ExceptionalIntConsumer<E> consumer) {
         return t -> {
             try {
                 consumer.accept(t);
@@ -102,7 +103,7 @@ public final class ExceptionalWrapper {
         };
     }
 
-    public static <E extends Exception> @NonNull LongConsumer wrap(ExceptionalLongConsumer<E> consumer) {
+    public static <E extends Exception> LongConsumer wrap(ExceptionalLongConsumer<E> consumer) {
         return t -> {
             try {
                 consumer.accept(t);
@@ -112,7 +113,7 @@ public final class ExceptionalWrapper {
         };
     }
 
-    public static <E extends Exception> @NonNull DoubleConsumer wrap(ExceptionalDoubleConsumer<E> consumer) {
+    public static <E extends Exception> DoubleConsumer wrap(ExceptionalDoubleConsumer<E> consumer) {
         return t -> {
             try {
                 consumer.accept(t);
@@ -122,7 +123,7 @@ public final class ExceptionalWrapper {
         };
     }
 
-    public static <T, R, E extends Exception> @NonNull Function<T, R> wrap(ExceptionalFunction<? super T, ? extends R, E> function) {
+    public static <T, R, E extends Exception> Function<T, R> wrap(ExceptionalFunction<? super T, ? extends R, E> function) {
         return t -> {
             try {
                 return function.apply(t);
@@ -132,7 +133,7 @@ public final class ExceptionalWrapper {
         };
     }
 
-    public static <T, E extends Exception> @NonNull ToIntFunction<T> wrap(ExceptionalToIntFunction<? super T, E> toIntFunction) {
+    public static <T, E extends Exception> ToIntFunction<T> wrap(ExceptionalToIntFunction<? super T, E> toIntFunction) {
         return t -> {
             try {
                 return toIntFunction.applyAsInt(t);
@@ -142,7 +143,7 @@ public final class ExceptionalWrapper {
         };
     }
 
-    public static <T, E extends Exception> @NonNull ToLongFunction<T> wrap(ExceptionalToLongFunction<? super T, E> toLongFunction) {
+    public static <T, E extends Exception> ToLongFunction<T> wrap(ExceptionalToLongFunction<? super T, E> toLongFunction) {
         return t -> {
             try {
                 return toLongFunction.applyAsLong(t);
@@ -152,7 +153,7 @@ public final class ExceptionalWrapper {
         };
     }
 
-    public static <T, E extends Exception> @NonNull ToDoubleFunction<T> wrap(ExceptionalToDoubleFunction<? super T, E> toDoubleFunction) {
+    public static <T, E extends Exception> ToDoubleFunction<T> wrap(ExceptionalToDoubleFunction<? super T, E> toDoubleFunction) {
         return t -> {
             try {
                 return toDoubleFunction.applyAsDouble(t);
@@ -162,7 +163,7 @@ public final class ExceptionalWrapper {
         };
     }
 
-    public static <T, E extends Exception> @NonNull Predicate<T> wrap(ExceptionalPredicate<? super T, E> predicate) {
+    public static <T, E extends Exception> Predicate<T> wrap(ExceptionalPredicate<? super T, E> predicate) {
         return t -> {
             try {
                 return predicate.test(t);
@@ -172,7 +173,7 @@ public final class ExceptionalWrapper {
         };
     }
 
-    public static <E extends Exception> @NonNull Runnable wrap(ExceptionalRunnable<E> runnable) {
+    public static <E extends Exception> Runnable wrap(ExceptionalRunnable<E> runnable) {
         return () -> {
             try {
                 runnable.run();
@@ -182,7 +183,7 @@ public final class ExceptionalWrapper {
         };
     }
 
-    public static <T, E extends Exception> @NonNull Supplier<T> wrap(ExceptionalSupplier<T, E> supplier) {
+    public static <T, E extends Exception> Supplier<T> wrap(ExceptionalSupplier<T, E> supplier) {
         return () -> {
             try {
                 return supplier.get();
@@ -194,19 +195,19 @@ public final class ExceptionalWrapper {
 
     /* Specialized method names for easier use. */
 
-    public static <T, E extends Exception> @NonNull Consumer<T> wrapConsumer(ExceptionalConsumer<T, E> consumer) {
+    public static <T, E extends Exception> Consumer<T> wrapConsumer(ExceptionalConsumer<T, E> consumer) {
         return wrap(consumer);
     }
 
-    public static <T, R, E extends Exception> @NonNull Function<T, R> wrapFunction(ExceptionalFunction<T, R, E> function) {
+    public static <T, R, E extends Exception> Function<T, R> wrapFunction(ExceptionalFunction<T, R, E> function) {
         return wrap(function);
     }
 
-    public static <E extends Exception> @NonNull Runnable wrapRunnable(ExceptionalRunnable<E> runnable) {
+    public static <E extends Exception> Runnable wrapRunnable(ExceptionalRunnable<E> runnable) {
         return wrap(runnable);
     }
 
-    public static <T, E extends Exception> @NonNull Supplier<T> wrapSupplier(ExceptionalSupplier<T, E> supplier) {
+    public static <T, E extends Exception> Supplier<T> wrapSupplier(ExceptionalSupplier<T, E> supplier) {
         return wrap(supplier);
     }
 
