@@ -16,7 +16,7 @@ public final class ExceptionalWrapper {
     private ExceptionalWrapper() {
     }
 
-    private static RuntimeException toRuntimeException(Exception exception) {
+    public static RuntimeException toRuntimeException(Exception exception) {
         if (exception instanceof RuntimeException runtimeException) {
             return runtimeException;
         } else {
@@ -164,6 +164,36 @@ public final class ExceptionalWrapper {
     }
 
     public static <T, E extends Exception> Predicate<T> wrap(ExceptionalPredicate<? super T, E> predicate) {
+        return t -> {
+            try {
+                return predicate.test(t);
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
+    }
+
+    public static <E extends Exception> IntPredicate wrap(ExceptionalIntPredicate<E> predicate) {
+        return t -> {
+            try {
+                return predicate.test(t);
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
+    }
+
+    public static <E extends Exception> LongPredicate wrap(ExceptionalLongPredicate<E> predicate) {
+        return t -> {
+            try {
+                return predicate.test(t);
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
+    }
+
+    public static <E extends Exception> DoublePredicate wrap(ExceptionalDoublePredicate<E> predicate) {
         return t -> {
             try {
                 return predicate.test(t);
