@@ -88,7 +88,7 @@ public final class ExceptionalStream<T> implements Stream<T> {
      * @param <T> the type of the stream elements
      * @return an empty instance
      */
-    public static <T> @NonNull ExceptionalStream<T> empty() {
+    public static <T> @NonNull ExceptionalStream<@NonNull T> empty() {
         return of(Stream.empty());
     }
 
@@ -98,7 +98,7 @@ public final class ExceptionalStream<T> implements Stream<T> {
      * @param <T> the type of the stream elements
      * @return an instance containing a single element
      */
-    public static <T> @NonNull ExceptionalStream<T> of(@NonNull T t) {
+    public static <T> @NonNull ExceptionalStream<T> of(T t) {
         return of(Stream.of(t));
     }
 
@@ -119,7 +119,7 @@ public final class ExceptionalStream<T> implements Stream<T> {
      * @return the new instance
      */
     @SafeVarargs
-    public static <T> @NonNull ExceptionalStream<T> of(@Nullable T... values) {
+    public static <T> @NonNull ExceptionalStream<T> of(T... values) {
         return of(Stream.of(values));
     }
 
@@ -139,70 +139,70 @@ public final class ExceptionalStream<T> implements Stream<T> {
      * @param exceptionClass the class of the type of exceptions thrown
      * @return an {@link ActiveExceptionalStream} for the same values that allows exceptions of type {@link E}
      */
-    @SuppressWarnings("unused")
-    public <E extends Exception> @NonNull ActiveExceptionalStream<T, E> wrapExceptions(Class<E> exceptionClass) {
+
+    public <E extends Exception> @NonNull ActiveExceptionalStream<T, E> wrapExceptions(@SuppressWarnings("unused") Class<E> exceptionClass) {
         return new ActiveExceptionalStream<>(this);
     }
 
     /* Override all methods that usually return Stream to return an ExceptionalStream. */
 
     @Override
-    public ExceptionalStream<T> filter(Predicate<? super T> predicate) {
+    public @NonNull ExceptionalStream<T> filter(Predicate<? super T> predicate) {
         return of(stream.filter(predicate));
     }
 
     @Override
-    public <R> ExceptionalStream<R> map(Function<? super T, ? extends R> mapper) {
+    public <R> @NonNull ExceptionalStream<@Nullable R> map(Function<? super T, ? extends R> mapper) {
         return of(stream.map(mapper));
     }
 
     @Override
-    public <R> ExceptionalStream<R> flatMap(Function<? super T, ? extends Stream<? extends R>> mapper) {
+    public <R> @NonNull ExceptionalStream<@Nullable R> flatMap(Function<? super T, ? extends Stream<? extends R>> mapper) {
         return of(stream.flatMap(mapper));
     }
 
     @Override
-    public <R> ExceptionalStream<R> mapMulti(BiConsumer<? super T, ? super Consumer<R>> mapper) {
+    public <R> @NonNull ExceptionalStream<@Nullable R> mapMulti(BiConsumer<? super T, ? super Consumer<R>> mapper) {
         return of(stream.mapMulti(mapper));
     }
 
     @Override
-    public ExceptionalStream<T> distinct() {
+    public @NonNull ExceptionalStream<T> distinct() {
         return of(stream.distinct());
     }
 
     @Override
-    public ExceptionalStream<T> sorted() {
+    public @NonNull ExceptionalStream<T> sorted() {
         return of(stream.sorted());
     }
 
     @Override
-    public ExceptionalStream<T> sorted(Comparator<? super T> comparator) {
+    public @NonNull ExceptionalStream<T> sorted(Comparator<? super T> comparator) {
         return of(stream.sorted(comparator));
     }
 
     @Override
-    public ExceptionalStream<T> peek(Consumer<? super T> action) {
+    public @NonNull ExceptionalStream<T> peek(Consumer<? super T> action) {
         return of(stream.peek(action));
     }
 
     @Override
-    public ExceptionalStream<T> limit(long maxSize) {
+    public @NonNull ExceptionalStream<T> limit(long maxSize) {
         return of(stream.limit(maxSize));
     }
 
     @Override
-    public ExceptionalStream<T> skip(long n) {
+    public @NonNull ExceptionalStream<T> skip(long n) {
         return of(stream.skip(n));
     }
 
     @Override
-    public ExceptionalStream<T> takeWhile(Predicate<? super T> predicate) {
+    public @NonNull ExceptionalStream<T> takeWhile(Predicate<? super T> predicate) {
         return of(stream.takeWhile(predicate));
     }
 
     @Override
-    public ExceptionalStream<T> dropWhile(Predicate<? super T> predicate) {
+    public @NonNull ExceptionalStream<T> dropWhile(Predicate<? super T> predicate) {
         return of(stream.dropWhile(predicate));
     }
 
