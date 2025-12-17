@@ -10,6 +10,9 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.DoubleStream;
+import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
 /**
@@ -38,6 +41,33 @@ public final class ExceptionalStream<T> implements Stream<T> {
      */
     public static <T> @NonNull ExceptionalStream<T> of(@NonNull Stream<T> stream) {
         return new ExceptionalStream<>(stream);
+    }
+
+    /**
+     * Create an instance from an existing IntStream.
+     *
+     * @return instance from an existing Stream
+     */
+    public static @NonNull ExceptionalStream<@NonNull Integer> of(@NonNull IntStream stream) {
+        return new ExceptionalStream<>(stream.boxed());
+    }
+
+    /**
+     * Create an instance from an existing LongStream.
+     *
+     * @return instance from an existing Stream
+     */
+    public static @NonNull ExceptionalStream<@NonNull Long> of(@NonNull LongStream stream) {
+        return new ExceptionalStream<>(stream.boxed());
+    }
+
+    /**
+     * Create an instance from an existing IntStream.
+     *
+     * @return instance from an existing Stream
+     */
+    public static @NonNull ExceptionalStream<@NonNull Double> of(@NonNull DoubleStream stream) {
+        return new ExceptionalStream<>(stream.boxed());
     }
 
     /**
