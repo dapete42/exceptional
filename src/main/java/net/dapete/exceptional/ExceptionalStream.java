@@ -139,7 +139,6 @@ public final class ExceptionalStream<T> implements Stream<T> {
      * @param exceptionClass the class of the type of exceptions thrown
      * @return an {@link ActiveExceptionalStream} for the same values that allows exceptions of type {@link E}
      */
-
     public <E extends Exception> @NonNull ActiveExceptionalStream<T, E> wrapExceptions(@SuppressWarnings("unused") Class<E> exceptionClass) {
         return new ActiveExceptionalStream<>(this);
     }
@@ -152,17 +151,17 @@ public final class ExceptionalStream<T> implements Stream<T> {
     }
 
     @Override
-    public <R> @NonNull ExceptionalStream<@Nullable R> map(Function<? super T, ? extends R> mapper) {
+    public <R> @NonNull ExceptionalStream<R> map(Function<? super T, ? extends R> mapper) {
         return of(stream.map(mapper));
     }
 
     @Override
-    public <R> @NonNull ExceptionalStream<@Nullable R> flatMap(Function<? super T, ? extends Stream<? extends R>> mapper) {
+    public <R> @NonNull ExceptionalStream<R> flatMap(Function<? super T, ? extends Stream<? extends R>> mapper) {
         return of(stream.flatMap(mapper));
     }
 
     @Override
-    public <R> @NonNull ExceptionalStream<@Nullable R> mapMulti(BiConsumer<? super T, ? super Consumer<R>> mapper) {
+    public <R> @NonNull ExceptionalStream<R> mapMulti(BiConsumer<? super T, ? super Consumer<R>> mapper) {
         return of(stream.mapMulti(mapper));
     }
 
