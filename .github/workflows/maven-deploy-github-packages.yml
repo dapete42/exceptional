@@ -1,6 +1,6 @@
 ---
 
-name: Maven deploy (Maven Central)
+name: Maven deploy (GitHub Packages)
 
 on:
   push:
