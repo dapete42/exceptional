@@ -1,12 +1,19 @@
 package net.dapete.exceptional;
 
+import net.dapete.exceptional.function.AllExceptionalFunctionalInterfacesArgumentsProvider;
 import org.junit.jupiter.api.Test;
-
-import java.util.stream.Stream;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ArgumentsSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ExceptionalWrapperTest {
+
+    @ParameterizedTest
+    @ArgumentsSource(AllExceptionalFunctionalInterfacesArgumentsProvider.class)
+    void checkIsWrapImplementedForAllExceptionalFunctionalInterfaces(Class<?> clazz) throws NoSuchMethodException {
+        assertNotNull(ExceptionalWrapper.class.getMethod("wrap", clazz));
+    }
 
     @Test
     void wrapConsumer() {
@@ -29,19 +36,6 @@ class ExceptionalWrapperTest {
 
         final var thrown = assertThrowsExactly(WrappedExceptionalException.class,
                 () -> wrappedFunction.apply(null));
-
-        assertInstanceOf(Exception.class, thrown.getCause());
-        assertEquals("Test", thrown.getCause().getMessage());
-    }
-
-    @Test
-    void test() {
-        final var thrown = assertThrows(Exception.class,
-                () -> Stream.of(1, 2, 3)
-                        .map(ExceptionalWrapper.wrapFunction(t -> {
-                            throw new Exception("Test");
-                        }))
-                        .toList());
 
         assertInstanceOf(Exception.class, thrown.getCause());
         assertEquals("Test", thrown.getCause().getMessage());
