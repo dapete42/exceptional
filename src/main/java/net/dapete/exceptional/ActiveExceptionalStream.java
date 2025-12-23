@@ -8,11 +8,11 @@ import java.util.function.*;
 import java.util.stream.*;
 
 /**
- * Class similar to {@link Stream} which implements methods analogue to {@link Stream#map(Function)}, {@link Stream#filter(Predicate)} etc. to allow lambdas
- * that throw exceptions. These the functional interface for these are from the {@link net.dapete.exceptional.function} package.
+ * Class similar to {@link Stream} which implements methods analogue to {@link Stream#map(Function)}, {@link Stream#filter(Predicate)} etc. to allow functional
+ * interfaces that throw exceptions. These come from the {@link net.dapete.exceptional.function} package.
  * <p>
- * If an exception of type {@link E} is thrown by a lambda, a {@link WrappedExceptionalException}, which is a runtime exception, will be thrown instead. This
- * will have the original exception as its {@link Throwable#getCause() cause}.
+ * If an exception of type {@link E} is thrown by a functional interface, a {@link WrappedExceptionalException}, which is a runtime exception, will be thrown
+ * instead. This will have the original exception as its {@link Throwable#getCause() cause}.
  * <p>
  * Note that this exception will likely not be thrown when the method is called, but only when a <em>terminal operation</em> like
  * {@link Stream#collect(Collector)} is used on the stream.
@@ -28,7 +28,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
         this.exceptionalStream = exceptionalStream;
     }
 
-    /* Implement versions of all methods from Stream that use lambdas, using lambdas with Exceptions instead. */
+    /* Implement versions of all methods from Stream that use functional interfaces, using their counterparts with Exceptions instead. */
 
     /**
      * Equivalent of {@link Stream#filter}.

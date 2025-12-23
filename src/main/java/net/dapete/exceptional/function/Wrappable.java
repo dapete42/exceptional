@@ -3,18 +3,18 @@ package net.dapete.exceptional.function;
 import net.dapete.exceptional.WrappedExceptionalException;
 
 /**
- * Interfaces which extend this can wrap a lambda using the {@link #wrap()} method, allowing it to be used in contexts where exceptions are not allowed to be
- * thrown directly.
+ * Interfaces which extend this can wrap functional interfaces throwing exceptions using the {@link #wrap()} method, allowing them to be used in contexts where
+ * exceptions are not allowed to be thrown directly.
  * <p>
  * If a checked exception is thrown, a {@link WrappedExceptionalException}, which is a runtime exception, will be thrown instead. This will have the
  * original exception as its {@link Throwable#getCause() cause}.
  *
- * @param <W> the type the lambda is wrapped in
+ * @param <W> the type the functional interface returned by {@link #wrap()}
  */
 public interface Wrappable<W> {
 
     /**
-     * Wraps this lambda, allowing it to be used in contexts where exceptions are not allowed to be thrown directly.
+     * Wraps this functional interface, allowing it to be used in contexts where exceptions are not allowed to be thrown directly.
      * <p>
      * If a checked exception is thrown, a {@link WrappedExceptionalException}, which is a runtime exception, will be thrown instead. This will have the
      * original exception as its {@link Throwable#getCause() cause}.
