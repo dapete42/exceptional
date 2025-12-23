@@ -2,7 +2,7 @@ package net.dapete.exceptional.function;
 
 import net.dapete.exceptional.WrappedExceptionalException;
 
-interface Wrappable<W> {
+public interface Wrappable<W> {
 
     /**
      * Wraps this lambda, allowing it to be used in contexts where exceptions are not allowed to be thrown directly.
