@@ -1,9 +1,15 @@
 package net.dapete.exceptional;
 
 import net.dapete.exceptional.function.*;
+import net.dapete.exceptional.stream.ActiveExceptionalDoubleStream;
+import net.dapete.exceptional.stream.ActiveExceptionalIntStream;
+import net.dapete.exceptional.stream.ActiveExceptionalLongStream;
 import org.jspecify.annotations.NonNull;
 
 import java.util.function.*;
+import java.util.stream.DoubleStream;
+import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 
 /**
  * Utility class to wrap exceptions thrown in functional interfaces from the {@link net.dapete.exceptional.function} package in runtime exceptions of type
@@ -15,7 +21,13 @@ public final class ExceptionalWrapper {
     private ExceptionalWrapper() {
     }
 
-    private static RuntimeException toRuntimeException(Exception exception) {
+    /**
+     * If {@code exception} is not already a runtime exception, wrap it in an {@link ExceptionalException}.
+     *
+     * @param exception exception
+     * @return {@code exception} or {@code exception} wrapped in an {@link ExceptionalException}
+     */
+    public static RuntimeException toRuntimeException(Exception exception) {
         if (exception instanceof RuntimeException runtimeException) {
             return runtimeException;
         } else {
@@ -43,7 +55,7 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Truns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
      * @param biConsumer functional interface with exceptions
      * @param <T>        the type of the object argument to the operation
@@ -61,7 +73,7 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Truns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
      * @param biConsumer functional interface with exceptions
      * @param <T>        the type of the object argument to the operation
@@ -79,7 +91,7 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Truns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
      * @param biConsumer functional interface with exceptions
      * @param <T>        the type of the object argument to the operation
@@ -97,7 +109,7 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Truns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
      * @param biFunction functional interface with exceptions
      * @param <T>        the type of the first argument to the function
@@ -118,7 +130,7 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Truns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
      * @param biFunction functional interface with exceptions
      * @param <T>        the type of the first argument to the function
@@ -137,7 +149,7 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Truns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
      * @param biFunction functional interface with exceptions
      * @param <T>        the type of the first argument to the function
@@ -156,7 +168,7 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Truns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
      * @param biFunction functional interface with exceptions
      * @param <T>        the type of the first argument to the function
@@ -175,7 +187,7 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Truns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
      * @param biPredicate functional interface with exceptions
      * @param <T>         the type of the first argument to the predicate
@@ -194,7 +206,7 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Truns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
      * @param binaryOperator functional interface with exceptions
      * @param <T>            the type of the operands and result of the operator
@@ -212,7 +224,7 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Truns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
      * @param binaryOperator functional interface with exceptions
      * @param <E>            the type of exception thrown by {@code binaryOperator}
@@ -229,7 +241,7 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Truns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
      * @param binaryOperator functional interface with exceptions
      * @param <E>            the type of exception thrown by {@code binaryOperator}
@@ -246,7 +258,7 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Truns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
      * @param binaryOperator functional interface with exceptions
      * @param <E>            the type of exception thrown by {@code binaryOperator}
@@ -263,7 +275,7 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Truns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
      * @param consumer functional interface with exceptions
      * @param <T>      the type of the input to the operation
@@ -281,7 +293,7 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Truns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
      * @param consumer functional interface with exceptions
      * @param <E>      the type of exception thrown by {@code consumer}
@@ -298,7 +310,7 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Truns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
      * @param consumer functional interface with exceptions
      * @param <E>      the type of exception thrown by {@code consumer}
@@ -315,7 +327,7 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Truns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
      * @param consumer functional interface with exceptions
      * @param <E>      the type of exception thrown by {@code consumer}
@@ -332,7 +344,7 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Truns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
      * @param function functional interface with exceptions
      * @param <T>      the type of the input to the function
@@ -351,7 +363,7 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Truns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
      * @param function functional interface with exceptions
      * @param <R>      the type of the result of the function
@@ -369,7 +381,7 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Truns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
      * @param function functional interface with exceptions
      * @param <R>      the type of the result of the function
@@ -387,7 +399,7 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Truns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
      * @param function functional interface with exceptions
      * @param <R>      the type of the result of the function
@@ -405,7 +417,7 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Truns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
      * @param function functional interface with exceptions
      * @param <T>      the type of the input to the function
@@ -423,7 +435,7 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Truns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
      * @param function functional interface with exceptions
      * @param <E>      the type of exception thrown by {@code function}
@@ -440,7 +452,7 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Truns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
      * @param function functional interface with exceptions
      * @param <E>      the type of exception thrown by {@code function}
@@ -457,7 +469,7 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Truns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
      * @param function functional interface with exceptions
      * @param <T>      the type of the input to the function
@@ -475,7 +487,7 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Truns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
      * @param function functional interface with exceptions
      * @param <E>      the type of exception thrown by {@code function}
@@ -492,7 +504,7 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Truns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
      * @param function functional interface with exceptions
      * @param <E>      the type of exception thrown by {@code function}
@@ -509,7 +521,7 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Truns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
      * @param function functional interface with exceptions
      * @param <T>      the type of the input to the function
@@ -527,7 +539,7 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Truns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
      * @param function functional interface with exceptions
      * @param <E>      the type of exception thrown by {@code function}
@@ -544,7 +556,7 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Truns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
      * @param function functional interface with exceptions
      * @param <E>      the type of exception thrown by {@code function}
@@ -561,7 +573,7 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Truns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
      * @param predicate functional interface with exceptions
      * @param <T>       the type of the input to the predicate
@@ -579,7 +591,7 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Truns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
      * @param predicate functional interface with exceptions
      * @param <E>       the type of exception thrown by {@code predicate}
@@ -596,7 +608,7 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Truns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
      * @param predicate functional interface with exceptions
      * @param <E>       the type of exception thrown by {@code predicate}
@@ -613,7 +625,7 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Truns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
      * @param predicate functional interface with exceptions
      * @param <E>       the type of exception thrown by {@code predicate}
@@ -630,7 +642,7 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Truns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
      * @param runnable functional interface with exceptions
      * @param <E>      the type of exception thrown by {@code runnable}
@@ -647,7 +659,7 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Truns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
      * @param supplier functional interface with exceptions
      * @param <T>      the type of results supplied by this supplier
@@ -665,7 +677,7 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Truns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
      * @param supplier functional interface with exceptions
      * @param <E>      the type of exception thrown by {@code supplier}
@@ -682,7 +694,7 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Truns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
      * @param supplier functional interface with exceptions
      * @param <E>      the type of exception thrown by {@code supplier}
@@ -699,7 +711,7 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Truns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
      * @param supplier functional interface with exceptions
      * @param <E>      the type of exception thrown by {@code supplier}
@@ -716,7 +728,7 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Truns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
      * @param supplier functional interface with exceptions
      * @param <E>      the type of exception thrown by {@code supplier}
@@ -733,7 +745,7 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Truns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
      * @param unaryOperator functional interface with exceptions
      * @param <T>           the type of the operand and result of the operator
@@ -751,7 +763,7 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Truns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
      * @param unaryOperator functional interface with exceptions
      * @param <E>           the type of exception thrown by {@code unaryOperator}
@@ -768,7 +780,7 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Truns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
      * @param unaryOperator functional interface with exceptions
      * @param <E>           the type of exception thrown by {@code unaryOperator}
@@ -785,7 +797,7 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Truns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
      * @param unaryOperator functional interface with exceptions
      * @param <E>           the type of exception thrown by {@code unaryOperator}
@@ -795,6 +807,60 @@ public final class ExceptionalWrapper {
         return t -> {
             try {
                 return unaryOperator.applyAsLong(t);
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
+    }
+
+    /**
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param consumer functional interface with exceptions
+     * @param <E>      the type of exception thrown by {@code consumer}
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
+     */
+    public static <E extends Exception> DoubleStream.@NonNull DoubleMapMultiConsumer wrap(
+            ActiveExceptionalDoubleStream.@NonNull ExceptionalDoubleMapMultiConsumer<E> consumer) {
+        return (value, ic) -> {
+            try {
+                consumer.accept(value, ic);
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
+    }
+
+    /**
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param consumer functional interface with exceptions
+     * @param <E>      the type of exception thrown by {@code consumer}
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
+     */
+    public static <E extends Exception> IntStream.@NonNull IntMapMultiConsumer wrap(
+            ActiveExceptionalIntStream.@NonNull ExceptionalIntMapMultiConsumer<E> consumer) {
+        return (value, ic) -> {
+            try {
+                consumer.accept(value, ic);
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
+    }
+
+    /**
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param consumer functional interface with exceptions
+     * @param <E>      the type of exception thrown by {@code consumer}
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
+     */
+    public static <E extends Exception> LongStream.@NonNull LongMapMultiConsumer wrap(
+            ActiveExceptionalLongStream.@NonNull ExceptionalLongMapMultiConsumer<E> consumer) {
+        return (value, ic) -> {
+            try {
+                consumer.accept(value, ic);
             } catch (Exception e) {
                 throw toRuntimeException(e);
             }

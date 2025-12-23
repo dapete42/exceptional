@@ -1,21 +1,23 @@
-package net.dapete.exceptional;
+package net.dapete.exceptional.stream;
 
+import net.dapete.exceptional.ExceptionalException;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ExceptionalStreamTest {
+class ExceptionalLongStreamTest {
 
     @Test
     void map_exception() {
         final var thrown = assertThrows(ExceptionalException.class,
-                () -> ExceptionalStream.of(1, 2, 3)
+                () -> ExceptionalLongStream.of(1, 2, 3)
                         .wrapExceptions(IOException.class)
                         .map(t -> {
                             throw new IOException("Test");
                         })
+                        .boxed()
                         .toList());
 
         assertInstanceOf(IOException.class, thrown.getCause());
@@ -24,7 +26,7 @@ class ExceptionalStreamTest {
 
     @Test
     void map_noExceptionBeforeEndOperation() {
-        ExceptionalStream.of(1, 2, 3)
+        ExceptionalLongStream.of(1, 2, 3)
                 .wrapExceptions(IOException.class)
                 .map(t -> {
                     throw new IOException("Test");

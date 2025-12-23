@@ -1,5 +1,6 @@
-package net.dapete.exceptional;
+package net.dapete.exceptional.stream;
 
+import net.dapete.exceptional.ExceptionalException;
 import net.dapete.exceptional.function.*;
 import org.jspecify.annotations.NonNull;
 
@@ -64,6 +65,22 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
     }
 
     /**
+     * Equivalent of {@link Stream#mapToDouble}.
+     * <p>
+     * If {@code mapper} throws an exception of type {@link E}, a {@link ExceptionalException} will be thrown instead.
+     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * <p>
+     * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like
+     * {@link Stream#collect(Collector)} is used on the stream.
+     *
+     * @param mapper see {@link Stream#mapToDouble}
+     * @return see {@link Stream#mapToDouble}
+     */
+    public @NonNull ExceptionalDoubleStream mapToDouble(@NonNull ExceptionalToDoubleFunction<? super T, ? extends E> mapper) {
+        return ExceptionalDoubleStream.of(exceptionalStream.mapToDouble(mapper.wrap()));
+    }
+
+    /**
      * Equivalent of {@link Stream#mapToInt}.
      * <p>
      * If {@code mapper} throws an exception of type {@link E}, a {@link ExceptionalException} will be thrown instead.
@@ -75,7 +92,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
      * @param mapper see {@link Stream#mapToInt}
      * @return see {@link Stream#mapToInt}
      */
-    public @NonNull IntStream mapToInt(@NonNull ExceptionalToIntFunction<? super T, ? extends E> mapper) {
+    public @NonNull ExceptionalIntStream mapToInt(@NonNull ExceptionalToIntFunction<? super T, ? extends E> mapper) {
         return exceptionalStream.mapToInt(mapper.wrap());
     }
 
@@ -91,24 +108,8 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
      * @param mapper see {@link Stream#mapToLong}
      * @return see {@link Stream#mapToLong}
      */
-    public @NonNull LongStream mapToLong(@NonNull ExceptionalToLongFunction<? super T, ? extends E> mapper) {
-        return exceptionalStream.mapToLong(mapper.wrap());
-    }
-
-    /**
-     * Equivalent of {@link Stream#mapToDouble}.
-     * <p>
-     * If {@code mapper} throws an exception of type {@link E}, a {@link ExceptionalException} will be thrown instead.
-     * This will have the original exception as its {@link Throwable#getCause() cause}.
-     * <p>
-     * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like
-     * {@link Stream#collect(Collector)} is used on the stream.
-     *
-     * @param mapper see {@link Stream#mapToDouble}
-     * @return see {@link Stream#mapToDouble}
-     */
-    public @NonNull DoubleStream mapToDouble(@NonNull ExceptionalToDoubleFunction<? super T, ? extends E> mapper) {
-        return exceptionalStream.mapToDouble(mapper.wrap());
+    public @NonNull ExceptionalLongStream mapToLong(@NonNull ExceptionalToLongFunction<? super T, ? extends E> mapper) {
+        return ExceptionalLongStream.of(exceptionalStream.mapToLong(mapper.wrap()));
     }
 
     /**
@@ -129,6 +130,22 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
     }
 
     /**
+     * Equivalent of {@link Stream#flatMapToDouble}.
+     * <p>
+     * If {@code mapper} throws an exception of type {@link E}, a {@link ExceptionalException} will be thrown instead.
+     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * <p>
+     * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like
+     * {@link Stream#collect(Collector)} is used on the stream.
+     *
+     * @param mapper see {@link Stream#flatMapToDouble}
+     * @return see {@link Stream#flatMapToDouble}
+     */
+    public @NonNull ExceptionalDoubleStream flatMapToDouble(@NonNull ExceptionalFunction<? super T, ? extends DoubleStream, ? extends E> mapper) {
+        return ExceptionalDoubleStream.of(exceptionalStream.flatMapToDouble(mapper.wrap()));
+    }
+
+    /**
      * Equivalent of {@link Stream#flatMapToInt}.
      * <p>
      * If {@code mapper} throws an exception of type {@link E}, a {@link ExceptionalException} will be thrown instead.
@@ -140,8 +157,8 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
      * @param mapper see {@link Stream#flatMapToInt}
      * @return see {@link Stream#flatMapToInt}
      */
-    public @NonNull IntStream flatMapToInt(@NonNull ExceptionalFunction<? super T, ? extends IntStream, ? extends E> mapper) {
-        return exceptionalStream.flatMapToInt(mapper.wrap());
+    public @NonNull ExceptionalIntStream flatMapToInt(@NonNull ExceptionalFunction<? super T, ? extends IntStream, ? extends E> mapper) {
+        return ExceptionalIntStream.of(exceptionalStream.flatMapToInt(mapper.wrap()));
     }
 
     /**
@@ -156,24 +173,8 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
      * @param mapper see {@link Stream#flatMapToLong}
      * @return see {@link Stream#flatMapToLong}
      */
-    public @NonNull LongStream flatMapToLong(@NonNull ExceptionalFunction<? super T, ? extends LongStream, ? extends E> mapper) {
-        return exceptionalStream.flatMapToLong(mapper.wrap());
-    }
-
-    /**
-     * Equivalent of {@link Stream#flatMapToDouble}.
-     * <p>
-     * If {@code mapper} throws an exception of type {@link E}, a {@link ExceptionalException} will be thrown instead.
-     * This will have the original exception as its {@link Throwable#getCause() cause}.
-     * <p>
-     * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like
-     * {@link Stream#collect(Collector)} is used on the stream.
-     *
-     * @param mapper see {@link Stream#flatMapToDouble}
-     * @return see {@link Stream#flatMapToDouble}
-     */
-    public @NonNull DoubleStream flatMapToDouble(@NonNull ExceptionalFunction<? super T, ? extends DoubleStream, ? extends E> mapper) {
-        return exceptionalStream.flatMapToDouble(mapper.wrap());
+    public @NonNull ExceptionalLongStream flatMapToLong(@NonNull ExceptionalFunction<? super T, ? extends LongStream, ? extends E> mapper) {
+        return ExceptionalLongStream.of(exceptionalStream.flatMapToLong(mapper.wrap()));
     }
 
     /**
@@ -191,6 +192,22 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
      */
     public <R> @NonNull ExceptionalStream<R> mapMulti(@NonNull ExceptionalBiConsumer<? super T, ? super Consumer<R>, ? extends E> mapper) {
         return exceptionalStream.mapMulti(mapper.wrap());
+    }
+
+    /**
+     * Equivalent of {@link Stream#mapMultiToDouble}.
+     * <p>
+     * If {@code mapper} throws an exception of type {@link E}, a {@link ExceptionalException} will be thrown instead.
+     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * <p>
+     * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like
+     * {@link Stream#collect(Collector)} is used on the stream.
+     *
+     * @param mapper see {@link Stream#mapMultiToDouble}
+     * @return see {@link Stream#mapMultiToDouble}
+     */
+    public @NonNull DoubleStream mapMultiToDouble(@NonNull ExceptionalBiConsumer<? super T, ? super DoubleConsumer, ? extends E> mapper) {
+        return exceptionalStream.mapMultiToDouble(mapper.wrap());
     }
 
     /**
@@ -223,22 +240,6 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
      */
     public @NonNull LongStream mapMultiToLong(@NonNull ExceptionalBiConsumer<? super T, ? super LongConsumer, ? extends E> mapper) {
         return exceptionalStream.mapMultiToLong(mapper.wrap());
-    }
-
-    /**
-     * Equivalent of {@link Stream#mapMultiToDouble}.
-     * <p>
-     * If {@code mapper} throws an exception of type {@link E}, a {@link ExceptionalException} will be thrown instead.
-     * This will have the original exception as its {@link Throwable#getCause() cause}.
-     * <p>
-     * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like
-     * {@link Stream#collect(Collector)} is used on the stream.
-     *
-     * @param mapper see {@link Stream#mapMultiToDouble}
-     * @return see {@link Stream#mapMultiToDouble}
-     */
-    public @NonNull DoubleStream mapMultiToDouble(@NonNull ExceptionalBiConsumer<? super T, ? super DoubleConsumer, ? extends E> mapper) {
-        return exceptionalStream.mapMultiToDouble(mapper.wrap());
     }
 
     /**

@@ -1,4 +1,4 @@
-package net.dapete.exceptional;
+package net.dapete.exceptional.stream;
 
 import lombok.experimental.Delegate;
 import org.jspecify.annotations.NonNull;
@@ -6,10 +6,7 @@ import org.jspecify.annotations.Nullable;
 
 import java.util.Collection;
 import java.util.Comparator;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Predicate;
+import java.util.function.*;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
@@ -45,6 +42,16 @@ public final class ExceptionalStream<T> implements Stream<T> {
     }
 
     /**
+     * Create an instance from an existing DoubleStream.
+     *
+     * @param stream existing stream
+     * @return instance from an existing Stream
+     */
+    public static @NonNull ExceptionalStream<@NonNull Double> of(@NonNull DoubleStream stream) {
+        return new ExceptionalStream<>(stream.boxed());
+    }
+
+    /**
      * Create an instance from an existing IntStream.
      *
      * @param stream existing stream
@@ -55,22 +62,12 @@ public final class ExceptionalStream<T> implements Stream<T> {
     }
 
     /**
-     * Create an instance from an existing LongStream.
-     *
-     * @param stream existing stream
-     * @return instance from an existing Stream
-     */
-    public static @NonNull ExceptionalStream<@NonNull Long> of(@NonNull LongStream stream) {
-        return new ExceptionalStream<>(stream.boxed());
-    }
-
-    /**
      * Create an instance from an existing IntStream.
      *
      * @param stream existing stream
      * @return instance from an existing Stream
      */
-    public static @NonNull ExceptionalStream<@NonNull Double> of(@NonNull DoubleStream stream) {
+    public static @NonNull ExceptionalStream<@NonNull Long> of(@NonNull LongStream stream) {
         return new ExceptionalStream<>(stream.boxed());
     }
 
@@ -211,6 +208,57 @@ public final class ExceptionalStream<T> implements Stream<T> {
     @Override
     public @NonNull ExceptionalStream<T> dropWhile(Predicate<? super T> predicate) {
         return of(stream.dropWhile(predicate));
+    }
+
+    /* Override all methods that usually return DoubleStream to return an ExceptionalDoubleStream. */
+
+    @Override
+    public ExceptionalDoubleStream mapToDouble(ToDoubleFunction<? super T> mapper) {
+        return ExceptionalDoubleStream.of(stream.mapToDouble(mapper));
+    }
+
+    @Override
+    public ExceptionalDoubleStream flatMapToDouble(Function<? super T, ? extends DoubleStream> mapper) {
+        return ExceptionalDoubleStream.of(stream.flatMapToDouble(mapper));
+    }
+
+    @Override
+    public ExceptionalDoubleStream mapMultiToDouble(BiConsumer<? super T, ? super DoubleConsumer> mapper) {
+        return ExceptionalDoubleStream.of(stream.mapMultiToDouble(mapper));
+    }
+
+    /* Override all methods that usually return IntStream to return an ExceptionalIntStream. */
+
+    @Override
+    public ExceptionalIntStream mapToInt(ToIntFunction<? super T> mapper) {
+        return ExceptionalIntStream.of(stream.mapToInt(mapper));
+    }
+
+    @Override
+    public ExceptionalIntStream flatMapToInt(Function<? super T, ? extends IntStream> mapper) {
+        return ExceptionalIntStream.of(stream.flatMapToInt(mapper));
+    }
+
+    @Override
+    public ExceptionalIntStream mapMultiToInt(BiConsumer<? super T, ? super IntConsumer> mapper) {
+        return ExceptionalIntStream.of(stream.mapMultiToInt(mapper));
+    }
+
+    /* Override all methods that usually return LongStream to return an ExceptionalLongStream. */
+
+    @Override
+    public ExceptionalLongStream mapToLong(ToLongFunction<? super T> mapper) {
+        return ExceptionalLongStream.of(stream.mapToLong(mapper));
+    }
+
+    @Override
+    public ExceptionalLongStream flatMapToLong(Function<? super T, ? extends LongStream> mapper) {
+        return ExceptionalLongStream.of(stream.flatMapToLong(mapper));
+    }
+
+    @Override
+    public ExceptionalLongStream mapMultiToLong(BiConsumer<? super T, ? super LongConsumer> mapper) {
+        return ExceptionalLongStream.of(stream.mapMultiToLong(mapper));
     }
 
 }
