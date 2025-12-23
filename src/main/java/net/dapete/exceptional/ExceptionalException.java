@@ -7,9 +7,9 @@ import org.jspecify.annotations.NonNull;
  * <p>
  * Used by {@link ExceptionalWrapper}.
  */
-public class WrappedExceptionalException extends RuntimeException {
+public class ExceptionalException extends RuntimeException {
 
-    WrappedExceptionalException(@NonNull Exception cause) {
+    ExceptionalException(@NonNull Exception cause) {
         super(cause);
     }
 

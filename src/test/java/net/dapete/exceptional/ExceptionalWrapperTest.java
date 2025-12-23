@@ -37,7 +37,7 @@ class ExceptionalWrapperTest {
             throw new Exception("Test");
         });
 
-        final var thrown = assertThrowsExactly(WrappedExceptionalException.class,
+        final var thrown = assertThrowsExactly(ExceptionalException.class,
                 () -> wrappedConsumer.accept(null));
 
         assertInstanceOf(Exception.class, thrown.getCause());
@@ -50,7 +50,7 @@ class ExceptionalWrapperTest {
             throw new Exception("Test");
         });
 
-        final var thrown = assertThrowsExactly(WrappedExceptionalException.class,
+        final var thrown = assertThrowsExactly(ExceptionalException.class,
                 () -> wrappedFunction.apply(null));
 
         assertInstanceOf(Exception.class, thrown.getCause());

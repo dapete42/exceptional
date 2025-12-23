@@ -19,7 +19,7 @@ import java.util.stream.Stream;
  * A Stream with additional functionality.
  * <p>
  * Using {@link #wrapExceptions()} and {@link #wrapExceptions(Class)}, it is possible to switch to an instance of the stream-like class
- * {@link ActiveExceptionalStream} which implements methods analogue to {@link Stream#map} , {@link Stream#filter} etc. to allow functional interfaces that
+ * {@link ActiveExceptionalStream} which implements methods analogue to {@link Stream#map}, {@link Stream#filter} etc. to allow functional interfaces that
  * throw exceptions (from the {@link net.dapete.exceptional.function} package).
  *
  * @param <T> the type of the stream elements

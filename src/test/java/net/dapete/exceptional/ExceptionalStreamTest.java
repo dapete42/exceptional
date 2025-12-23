@@ -10,7 +10,7 @@ class ExceptionalStreamTest {
 
     @Test
     void map_exception() {
-        final var thrown = assertThrows(WrappedExceptionalException.class,
+        final var thrown = assertThrows(ExceptionalException.class,
                 () -> ExceptionalStream.of(1, 2, 3)
                         .wrapExceptions(IOException.class)
                         .map(t -> {
@@ -24,7 +24,7 @@ class ExceptionalStreamTest {
 
     @Test
     void map_noExceptionBeforeEndOperation() {
-        var unused = ExceptionalStream.of(1, 2, 3)
+        ExceptionalStream.of(1, 2, 3)
                 .wrapExceptions(IOException.class)
                 .map(t -> {
                     throw new IOException("Test");

@@ -11,7 +11,7 @@ import java.util.stream.*;
  * Class similar to {@link Stream} which implements methods analogue to {@link Stream#map(Function)}, {@link Stream#filter(Predicate)} etc. to allow functional
  * interfaces that throw exceptions. These come from the {@link net.dapete.exceptional.function} package.
  * <p>
- * If an exception of type {@link E} is thrown by a functional interface, a {@link WrappedExceptionalException}, which is a runtime exception, will be thrown
+ * If an exception of type {@link E} is thrown by a functional interface, a {@link ExceptionalException}, which is a runtime exception, will be thrown
  * instead. This will have the original exception as its {@link Throwable#getCause() cause}.
  * <p>
  * Note that this exception will likely not be thrown when the method is called, but only when a <em>terminal operation</em> like
@@ -33,7 +33,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
     /**
      * Equivalent of {@link Stream#filter}.
      * <p>
-     * If {@code predicate} throws an exception of type {@link E}, a {@link WrappedExceptionalException} will be thrown instead.
+     * If {@code predicate} throws an exception of type {@link E}, a {@link ExceptionalException} will be thrown instead.
      * This will have the original exception as its {@link Throwable#getCause() cause}.
      * <p>
      * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like
@@ -49,7 +49,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
     /**
      * Equivalent of {@link Stream#map}.
      * <p>
-     * If {@code mapper} throws an exception of type {@link E}, a {@link WrappedExceptionalException} will be thrown instead.
+     * If {@code mapper} throws an exception of type {@link E}, a {@link ExceptionalException} will be thrown instead.
      * This will have the original exception as its {@link Throwable#getCause() cause}.
      * <p>
      * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like
@@ -66,7 +66,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
     /**
      * Equivalent of {@link Stream#mapToInt}.
      * <p>
-     * If {@code mapper} throws an exception of type {@link E}, a {@link WrappedExceptionalException} will be thrown instead.
+     * If {@code mapper} throws an exception of type {@link E}, a {@link ExceptionalException} will be thrown instead.
      * This will have the original exception as its {@link Throwable#getCause() cause}.
      * <p>
      * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like
@@ -82,7 +82,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
     /**
      * Equivalent of {@link Stream#mapToLong}.
      * <p>
-     * If {@code mapper} throws an exception of type {@link E}, a {@link WrappedExceptionalException} will be thrown instead.
+     * If {@code mapper} throws an exception of type {@link E}, a {@link ExceptionalException} will be thrown instead.
      * This will have the original exception as its {@link Throwable#getCause() cause}.
      * <p>
      * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like
@@ -98,7 +98,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
     /**
      * Equivalent of {@link Stream#mapToDouble}.
      * <p>
-     * If {@code mapper} throws an exception of type {@link E}, a {@link WrappedExceptionalException} will be thrown instead.
+     * If {@code mapper} throws an exception of type {@link E}, a {@link ExceptionalException} will be thrown instead.
      * This will have the original exception as its {@link Throwable#getCause() cause}.
      * <p>
      * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like
@@ -114,7 +114,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
     /**
      * Equivalent of {@link Stream#flatMap}.
      * <p>
-     * If {@code mapper} throws an exception of type {@link E}, a {@link WrappedExceptionalException} will be thrown instead.
+     * If {@code mapper} throws an exception of type {@link E}, a {@link ExceptionalException} will be thrown instead.
      * This will have the original exception as its {@link Throwable#getCause() cause}.
      * <p>
      * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like
@@ -131,7 +131,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
     /**
      * Equivalent of {@link Stream#flatMapToInt}.
      * <p>
-     * If {@code mapper} throws an exception of type {@link E}, a {@link WrappedExceptionalException} will be thrown instead.
+     * If {@code mapper} throws an exception of type {@link E}, a {@link ExceptionalException} will be thrown instead.
      * This will have the original exception as its {@link Throwable#getCause() cause}.
      * <p>
      * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like
@@ -147,7 +147,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
     /**
      * Equivalent of {@link Stream#flatMapToLong}.
      * <p>
-     * If {@code mapper} throws an exception of type {@link E}, a {@link WrappedExceptionalException} will be thrown instead.
+     * If {@code mapper} throws an exception of type {@link E}, a {@link ExceptionalException} will be thrown instead.
      * This will have the original exception as its {@link Throwable#getCause() cause}.
      * <p>
      * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like
@@ -163,7 +163,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
     /**
      * Equivalent of {@link Stream#flatMapToDouble}.
      * <p>
-     * If {@code mapper} throws an exception of type {@link E}, a {@link WrappedExceptionalException} will be thrown instead.
+     * If {@code mapper} throws an exception of type {@link E}, a {@link ExceptionalException} will be thrown instead.
      * This will have the original exception as its {@link Throwable#getCause() cause}.
      * <p>
      * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like
@@ -179,7 +179,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
     /**
      * Equivalent of {@link Stream#mapMulti}.
      * <p>
-     * If {@code mapper} throws an exception of type {@link E}, a {@link WrappedExceptionalException} will be thrown instead.
+     * If {@code mapper} throws an exception of type {@link E}, a {@link ExceptionalException} will be thrown instead.
      * This will have the original exception as its {@link Throwable#getCause() cause}.
      * <p>
      * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like
@@ -196,7 +196,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
     /**
      * Equivalent of {@link Stream#mapMultiToInt}.
      * <p>
-     * If {@code mapper} throws an exception of type {@link E}, a {@link WrappedExceptionalException} will be thrown instead.
+     * If {@code mapper} throws an exception of type {@link E}, a {@link ExceptionalException} will be thrown instead.
      * This will have the original exception as its {@link Throwable#getCause() cause}.
      * <p>
      * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like
@@ -212,7 +212,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
     /**
      * Equivalent of {@link Stream#mapMultiToLong}.
      * <p>
-     * If {@code mapper} throws an exception of type {@link E}, a {@link WrappedExceptionalException} will be thrown instead.
+     * If {@code mapper} throws an exception of type {@link E}, a {@link ExceptionalException} will be thrown instead.
      * This will have the original exception as its {@link Throwable#getCause() cause}.
      * <p>
      * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like
@@ -228,7 +228,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
     /**
      * Equivalent of {@link Stream#mapMultiToDouble}.
      * <p>
-     * If {@code mapper} throws an exception of type {@link E}, a {@link WrappedExceptionalException} will be thrown instead.
+     * If {@code mapper} throws an exception of type {@link E}, a {@link ExceptionalException} will be thrown instead.
      * This will have the original exception as its {@link Throwable#getCause() cause}.
      * <p>
      * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like
@@ -244,7 +244,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
     /**
      * Equivalent of {@link Stream#peek}.
      * <p>
-     * If {@code action} throws an exception of type {@link E}, a {@link WrappedExceptionalException} will be thrown instead.
+     * If {@code action} throws an exception of type {@link E}, a {@link ExceptionalException} will be thrown instead.
      * This will have the original exception as its {@link Throwable#getCause() cause}.
      * <p>
      * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like
@@ -260,7 +260,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
     /**
      * Equivalent of {@link Stream#takeWhile}.
      * <p>
-     * If {@code predicate} throws an exception of type {@link E}, a {@link WrappedExceptionalException} will be thrown instead.
+     * If {@code predicate} throws an exception of type {@link E}, a {@link ExceptionalException} will be thrown instead.
      * This will have the original exception as its {@link Throwable#getCause() cause}.
      * <p>
      * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like
@@ -276,7 +276,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
     /**
      * Equivalent of {@link Stream#takeWhile}.
      * <p>
-     * If {@code predicate} throws an exception of type {@link E}, a {@link WrappedExceptionalException} will be thrown instead.
+     * If {@code predicate} throws an exception of type {@link E}, a {@link ExceptionalException} will be thrown instead.
      * This will have the original exception as its {@link Throwable#getCause() cause}.
      * <p>
      * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like
@@ -292,7 +292,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
     /**
      * Equivalent of {@link Stream#forEach}.
      * <p>
-     * If {@code action} throws an exception of type {@link E}, a {@link WrappedExceptionalException} will be thrown instead.
+     * If {@code action} throws an exception of type {@link E}, a {@link ExceptionalException} will be thrown instead.
      * This will have the original exception as its {@link Throwable#getCause() cause}.
      * <p>
      * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like
@@ -307,7 +307,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
     /**
      * Equivalent of {@link Stream#forEachOrdered}.
      * <p>
-     * If {@code action} throws an exception of type {@link E}, a {@link WrappedExceptionalException} will be thrown instead.
+     * If {@code action} throws an exception of type {@link E}, a {@link ExceptionalException} will be thrown instead.
      * This will have the original exception as its {@link Throwable#getCause() cause}.
      * <p>
      * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like
@@ -322,7 +322,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
     /**
      * Equivalent of {@link Stream#reduce(BinaryOperator)}.
      * <p>
-     * If {@code accumulator} throws an exception of type {@link E}, a {@link WrappedExceptionalException} will be thrown instead.
+     * If {@code accumulator} throws an exception of type {@link E}, a {@link ExceptionalException} will be thrown instead.
      * This will have the original exception as its {@link Throwable#getCause() cause}.
      * <p>
      * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like
@@ -338,7 +338,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
     /**
      * Equivalent of {@link Stream#reduce(Object, BinaryOperator)}.
      * <p>
-     * If {@code accumulator} throws an exception of type {@link E}, a {@link WrappedExceptionalException} will be thrown instead.
+     * If {@code accumulator} throws an exception of type {@link E}, a {@link ExceptionalException} will be thrown instead.
      * This will have the original exception as its {@link Throwable#getCause() cause}.
      * <p>
      * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like
@@ -355,7 +355,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
     /**
      * Equivalent of {@link Stream#reduce(Object, BiFunction, BinaryOperator)}.
      * <p>
-     * If {@code accumulator} or {@code combiner} throw an exception of type {@link E}, a {@link WrappedExceptionalException} will be thrown instead.
+     * If {@code accumulator} or {@code combiner} throw an exception of type {@link E}, a {@link ExceptionalException} will be thrown instead.
      * This will have the original exception as its {@link Throwable#getCause() cause}.
      * <p>
      * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like
@@ -375,7 +375,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
     /**
      * Equivalent of {@link Stream#collect(Supplier, BiConsumer, BiConsumer)}.
      * <p>
-     * If {@code supplier}, {@code accumulator} or {@code combiner} throw an exception of type {@link E}, a {@link WrappedExceptionalException} will be thrown
+     * If {@code supplier}, {@code accumulator} or {@code combiner} throw an exception of type {@link E}, a {@link ExceptionalException} will be thrown
      * instead. This will have the original exception as its {@link Throwable#getCause() cause}.
      * <p>
      * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like
