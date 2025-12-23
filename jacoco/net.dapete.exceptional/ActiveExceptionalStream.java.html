@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ActiveExceptionalStream.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Exceptional!</a> &gt; <a href="index.source.html" class="el_package">net.dapete.exceptional</a> &gt; <span class="el_source">ActiveExceptionalStream.java</span></div><h1>ActiveExceptionalStream.java</h1><pre class="source lang-java linenums">package net.dapete.exceptional;
+
+import net.dapete.exceptional.function.*;
+import org.jspecify.annotations.NonNull;
+
+import java.util.Optional;
+import java.util.function.*;
+import java.util.stream.*;
+
+/**
+ * Class similar to {@link Stream} which implements methods analogue to {@link Stream#map(Function)}, {@link Stream#filter(Predicate)} etc. to allow lambdas
+ * that throw exceptions. These the functional interface for these are from the {@link net.dapete.exceptional.function} package.
+ * &lt;p&gt;
+ * If an exception of type {@link E} is thrown by a lambda, a {@link WrappedExceptionalException}, which is a runtime exception, will be thrown instead. This
+ * will have the original exception as its {@link Throwable#getCause() cause}.
+ * &lt;p&gt;
+ * Note that this exception will likely not be thrown when the method is called, but only when a &lt;em&gt;terminal operation&lt;/em&gt; like
+ * {@link Stream#collect(Collector)} is used on the stream.
+ *
+ * @param &lt;T&gt; the type of the stream elements
+ * @param &lt;E&gt; the type of exceptions thrown
+ */
+public final class ActiveExceptionalStream&lt;T, E extends Exception&gt; {
+
+    private final @NonNull ExceptionalStream&lt;T&gt; exceptionalStream;
+
+<span class="fc" id="L27">    ActiveExceptionalStream(@NonNull ExceptionalStream&lt;T&gt; exceptionalStream) {</span>
+<span class="fc" id="L28">        this.exceptionalStream = exceptionalStream;</span>
+<span class="fc" id="L29">    }</span>
+
+    /* Implement versions of all methods from Stream that use lambdas, using lambdas with Exceptions instead. */
+
+    /**
+     * Equivalent of {@link Stream#filter}.
+     * &lt;p&gt;
+     * If {@code predicate} throws an exception of type {@link E}, a {@link WrappedExceptionalException} will be thrown instead.
+     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * &lt;p&gt;
+     * Note that this exception will likely not be thrown when this method is called, but only when a &lt;em&gt;terminal operation&lt;/em&gt; like
+     * {@link Stream#collect(Collector)} is used on the stream.
+     *
+     * @param predicate see {@link Stream#filter}
+     * @return see {@link Stream#filter}
+     */
+    public @NonNull ExceptionalStream&lt;T&gt; filter(@NonNull ExceptionalPredicate&lt;? super T, ? extends E&gt; predicate) {
+<span class="nc" id="L46">        return exceptionalStream.filter(predicate.wrap());</span>
+    }
+
+    /**
+     * Equivalent of {@link Stream#map}.
+     * &lt;p&gt;
+     * If {@code mapper} throws an exception of type {@link E}, a {@link WrappedExceptionalException} will be thrown instead.
+     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * &lt;p&gt;
+     * Note that this exception will likely not be thrown when this method is called, but only when a &lt;em&gt;terminal operation&lt;/em&gt; like
+     * {@link Stream#collect(Collector)} is used on the stream.
+     *
+     * @param &lt;R&gt;    The element type of the new stream
+     * @param mapper see {@link Stream#map}
+     * @return see {@link Stream#map}
+     */
+    public &lt;R&gt; @NonNull ExceptionalStream&lt;R&gt; map(@NonNull ExceptionalFunction&lt;? super T, ? extends R, ? extends E&gt; mapper) {
+<span class="fc" id="L63">        return exceptionalStream.map(mapper.wrap());</span>
+    }
+
+    /**
+     * Equivalent of {@link Stream#mapToInt}.
+     * &lt;p&gt;
+     * If {@code mapper} throws an exception of type {@link E}, a {@link WrappedExceptionalException} will be thrown instead.
+     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * &lt;p&gt;
+     * Note that this exception will likely not be thrown when this method is called, but only when a &lt;em&gt;terminal operation&lt;/em&gt; like
+     * {@link Stream#collect(Collector)} is used on the stream.
+     *
+     * @param mapper see {@link Stream#mapToInt}
+     * @return see {@link Stream#mapToInt}
+     */
+    public @NonNull IntStream mapToInt(@NonNull ExceptionalToIntFunction&lt;? super T, ? extends E&gt; mapper) {
+<span class="nc" id="L79">        return exceptionalStream.mapToInt(mapper.wrap());</span>
+    }
+
+    /**
+     * Equivalent of {@link Stream#mapToLong}.
+     * &lt;p&gt;
+     * If {@code mapper} throws an exception of type {@link E}, a {@link WrappedExceptionalException} will be thrown instead.
+     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * &lt;p&gt;
+     * Note that this exception will likely not be thrown when this method is called, but only when a &lt;em&gt;terminal operation&lt;/em&gt; like
+     * {@link Stream#collect(Collector)} is used on the stream.
+     *
+     * @param mapper see {@link Stream#mapToLong}
+     * @return see {@link Stream#mapToLong}
+     */
+    public @NonNull LongStream mapToLong(@NonNull ExceptionalToLongFunction&lt;? super T, ? extends E&gt; mapper) {
+<span class="nc" id="L95">        return exceptionalStream.mapToLong(mapper.wrap());</span>
+    }
+
+    /**
+     * Equivalent of {@link Stream#mapToDouble}.
+     * &lt;p&gt;
+     * If {@code mapper} throws an exception of type {@link E}, a {@link WrappedExceptionalException} will be thrown instead.
+     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * &lt;p&gt;
+     * Note that this exception will likely not be thrown when this method is called, but only when a &lt;em&gt;terminal operation&lt;/em&gt; like
+     * {@link Stream#collect(Collector)} is used on the stream.
+     *
+     * @param mapper see {@link Stream#mapToDouble}
+     * @return see {@link Stream#mapToDouble}
+     */
+    public @NonNull DoubleStream mapToDouble(@NonNull ExceptionalToDoubleFunction&lt;? super T, ? extends E&gt; mapper) {
+<span class="nc" id="L111">        return exceptionalStream.mapToDouble(mapper.wrap());</span>
+    }
+
+    /**
+     * Equivalent of {@link Stream#flatMap}.
+     * &lt;p&gt;
+     * If {@code mapper} throws an exception of type {@link E}, a {@link WrappedExceptionalException} will be thrown instead.
+     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * &lt;p&gt;
+     * Note that this exception will likely not be thrown when this method is called, but only when a &lt;em&gt;terminal operation&lt;/em&gt; like
+     * {@link Stream#collect(Collector)} is used on the stream.
+     *
+     * @param &lt;R&gt;    The element type of the new stream
+     * @param mapper see {@link Stream#flatMap}
+     * @return see {@link Stream#flatMap}
+     */
+    public &lt;R&gt; @NonNull ExceptionalStream&lt;R&gt; flatMap(@NonNull ExceptionalFunction&lt;? super T, ? extends Stream&lt;? extends R&gt;, ? extends E&gt; mapper) {
+<span class="nc" id="L128">        return exceptionalStream.flatMap(mapper.wrap());</span>
+    }
+
+    /**
+     * Equivalent of {@link Stream#flatMapToInt}.
+     * &lt;p&gt;
+     * If {@code mapper} throws an exception of type {@link E}, a {@link WrappedExceptionalException} will be thrown instead.
+     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * &lt;p&gt;
+     * Note that this exception will likely not be thrown when this method is called, but only when a &lt;em&gt;terminal operation&lt;/em&gt; like
+     * {@link Stream#collect(Collector)} is used on the stream.
+     *
+     * @param mapper see {@link Stream#flatMapToInt}
+     * @return see {@link Stream#flatMapToInt}
+     */
+    public @NonNull IntStream flatMapToInt(@NonNull ExceptionalFunction&lt;? super T, ? extends IntStream, ? extends E&gt; mapper) {
+<span class="nc" id="L144">        return exceptionalStream.flatMapToInt(mapper.wrap());</span>
+    }
+
+    /**
+     * Equivalent of {@link Stream#flatMapToLong}.
+     * &lt;p&gt;
+     * If {@code mapper} throws an exception of type {@link E}, a {@link WrappedExceptionalException} will be thrown instead.
+     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * &lt;p&gt;
+     * Note that this exception will likely not be thrown when this method is called, but only when a &lt;em&gt;terminal operation&lt;/em&gt; like
+     * {@link Stream#collect(Collector)} is used on the stream.
+     *
+     * @param mapper see {@link Stream#flatMapToLong}
+     * @return see {@link Stream#flatMapToLong}
+     */
+    public @NonNull LongStream flatMapToLong(@NonNull ExceptionalFunction&lt;? super T, ? extends LongStream, ? extends E&gt; mapper) {
+<span class="nc" id="L160">        return exceptionalStream.flatMapToLong(mapper.wrap());</span>
+    }
+
+    /**
+     * Equivalent of {@link Stream#flatMapToDouble}.
+     * &lt;p&gt;
+     * If {@code mapper} throws an exception of type {@link E}, a {@link WrappedExceptionalException} will be thrown instead.
+     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * &lt;p&gt;
+     * Note that this exception will likely not be thrown when this method is called, but only when a &lt;em&gt;terminal operation&lt;/em&gt; like
+     * {@link Stream#collect(Collector)} is used on the stream.
+     *
+     * @param mapper see {@link Stream#flatMapToDouble}
+     * @return see {@link Stream#flatMapToDouble}
+     */
+    public @NonNull DoubleStream flatMapToDouble(@NonNull ExceptionalFunction&lt;? super T, ? extends DoubleStream, ? extends E&gt; mapper) {
+<span class="nc" id="L176">        return exceptionalStream.flatMapToDouble(mapper.wrap());</span>
+    }
+
+    /**
+     * Equivalent of {@link Stream#mapMulti}.
+     * &lt;p&gt;
+     * If {@code mapper} throws an exception of type {@link E}, a {@link WrappedExceptionalException} will be thrown instead.
+     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * &lt;p&gt;
+     * Note that this exception will likely not be thrown when this method is called, but only when a &lt;em&gt;terminal operation&lt;/em&gt; like
+     * {@link Stream#collect(Collector)} is used on the stream.
+     *
+     * @param &lt;R&gt;    The element type of the new stream
+     * @param mapper see {@link Stream#mapMulti}
+     * @return see {@link Stream#mapMulti}
+     */
+    public &lt;R&gt; @NonNull ExceptionalStream&lt;R&gt; mapMulti(@NonNull ExceptionalBiConsumer&lt;? super T, ? super Consumer&lt;R&gt;, ? extends E&gt; mapper) {
+<span class="nc" id="L193">        return exceptionalStream.mapMulti(mapper.wrap());</span>
+    }
+
+    /**
+     * Equivalent of {@link Stream#mapMultiToInt}.
+     * &lt;p&gt;
+     * If {@code mapper} throws an exception of type {@link E}, a {@link WrappedExceptionalException} will be thrown instead.
+     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * &lt;p&gt;
+     * Note that this exception will likely not be thrown when this method is called, but only when a &lt;em&gt;terminal operation&lt;/em&gt; like
+     * {@link Stream#collect(Collector)} is used on the stream.
+     *
+     * @param mapper see {@link Stream#mapMultiToInt}
+     * @return see {@link Stream#mapMultiToInt}
+     */
+    public @NonNull IntStream mapMultiToInt(@NonNull ExceptionalBiConsumer&lt;? super T, ? super IntConsumer, ? extends E&gt; mapper) {
+<span class="nc" id="L209">        return exceptionalStream.mapMultiToInt(mapper.wrap());</span>
+    }
+
+    /**
+     * Equivalent of {@link Stream#mapMultiToLong}.
+     * &lt;p&gt;
+     * If {@code mapper} throws an exception of type {@link E}, a {@link WrappedExceptionalException} will be thrown instead.
+     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * &lt;p&gt;
+     * Note that this exception will likely not be thrown when this method is called, but only when a &lt;em&gt;terminal operation&lt;/em&gt; like
+     * {@link Stream#collect(Collector)} is used on the stream.
+     *
+     * @param mapper see {@link Stream#mapMultiToLong}
+     * @return see {@link Stream#mapMultiToLong}
+     */
+    public @NonNull LongStream mapMultiToLong(@NonNull ExceptionalBiConsumer&lt;? super T, ? super LongConsumer, ? extends E&gt; mapper) {
+<span class="nc" id="L225">        return exceptionalStream.mapMultiToLong(mapper.wrap());</span>
+    }
+
+    /**
+     * Equivalent of {@link Stream#mapMultiToDouble}.
+     * &lt;p&gt;
+     * If {@code mapper} throws an exception of type {@link E}, a {@link WrappedExceptionalException} will be thrown instead.
+     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * &lt;p&gt;
+     * Note that this exception will likely not be thrown when this method is called, but only when a &lt;em&gt;terminal operation&lt;/em&gt; like
+     * {@link Stream#collect(Collector)} is used on the stream.
+     *
+     * @param mapper see {@link Stream#mapMultiToDouble}
+     * @return see {@link Stream#mapMultiToDouble}
+     */
+    public @NonNull DoubleStream mapMultiToDouble(@NonNull ExceptionalBiConsumer&lt;? super T, ? super DoubleConsumer, ? extends E&gt; mapper) {
+<span class="nc" id="L241">        return exceptionalStream.mapMultiToDouble(mapper.wrap());</span>
+    }
+
+    /**
+     * Equivalent of {@link Stream#peek}.
+     * &lt;p&gt;
+     * If {@code action} throws an exception of type {@link E}, a {@link WrappedExceptionalException} will be thrown instead.
+     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * &lt;p&gt;
+     * Note that this exception will likely not be thrown when this method is called, but only when a &lt;em&gt;terminal operation&lt;/em&gt; like
+     * {@link Stream#collect(Collector)} is used on the stream.
+     *
+     * @param action see {@link Stream#peek}
+     * @return see {@link Stream#peek}
+     */
+    public @NonNull ExceptionalStream&lt;T&gt; peek(@NonNull ExceptionalConsumer&lt;? super T, ? extends E&gt; action) {
+<span class="nc" id="L257">        return exceptionalStream.peek(action.wrap());</span>
+    }
+
+    /**
+     * Equivalent of {@link Stream#takeWhile}.
+     * &lt;p&gt;
+     * If {@code predicate} throws an exception of type {@link E}, a {@link WrappedExceptionalException} will be thrown instead.
+     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * &lt;p&gt;
+     * Note that this exception will likely not be thrown when this method is called, but only when a &lt;em&gt;terminal operation&lt;/em&gt; like
+     * {@link Stream#collect(Collector)} is used on the stream.
+     *
+     * @param predicate see {@link Stream#takeWhile}
+     * @return see {@link Stream#takeWhile}
+     */
+    public @NonNull ExceptionalStream&lt;T&gt; takeWhile(@NonNull ExceptionalPredicate&lt;? super T, ? extends E&gt; predicate) {
+<span class="nc" id="L273">        return exceptionalStream.takeWhile(predicate.wrap());</span>
+    }
+
+    /**
+     * Equivalent of {@link Stream#takeWhile}.
+     * &lt;p&gt;
+     * If {@code predicate} throws an exception of type {@link E}, a {@link WrappedExceptionalException} will be thrown instead.
+     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * &lt;p&gt;
+     * Note that this exception will likely not be thrown when this method is called, but only when a &lt;em&gt;terminal operation&lt;/em&gt; like
+     * {@link Stream#collect(Collector)} is used on the stream.
+     *
+     * @param predicate see {@link Stream#takeWhile}
+     * @return see {@link Stream#takeWhile}
+     */
+    public @NonNull ExceptionalStream&lt;T&gt; dropWhile(@NonNull ExceptionalPredicate&lt;? super T, ? extends E&gt; predicate) {
+<span class="nc" id="L289">        return exceptionalStream.dropWhile(predicate.wrap());</span>
+    }
+
+    /**
+     * Equivalent of {@link Stream#forEach}.
+     * &lt;p&gt;
+     * If {@code action} throws an exception of type {@link E}, a {@link WrappedExceptionalException} will be thrown instead.
+     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * &lt;p&gt;
+     * Note that this exception will likely not be thrown when this method is called, but only when a &lt;em&gt;terminal operation&lt;/em&gt; like
+     * {@link Stream#collect(Collector)} is used on the stream.
+     *
+     * @param action see {@link Stream#forEach}
+     */
+    public void forEach(@NonNull ExceptionalConsumer&lt;? super T, ? extends E&gt; action) {
+<span class="nc" id="L304">        exceptionalStream.forEach(action.wrap());</span>
+<span class="nc" id="L305">    }</span>
+
+    /**
+     * Equivalent of {@link Stream#forEachOrdered}.
+     * &lt;p&gt;
+     * If {@code action} throws an exception of type {@link E}, a {@link WrappedExceptionalException} will be thrown instead.
+     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * &lt;p&gt;
+     * Note that this exception will likely not be thrown when this method is called, but only when a &lt;em&gt;terminal operation&lt;/em&gt; like
+     * {@link Stream#collect(Collector)} is used on the stream.
+     *
+     * @param action see {@link Stream#forEachOrdered}
+     */
+    public void forEachOrdered(@NonNull ExceptionalConsumer&lt;? super T, ? extends E&gt; action) {
+<span class="nc" id="L319">        exceptionalStream.forEachOrdered(action.wrap());</span>
+<span class="nc" id="L320">    }</span>
+
+    /**
+     * Equivalent of {@link Stream#reduce(BinaryOperator)}.
+     * &lt;p&gt;
+     * If {@code accumulator} throws an exception of type {@link E}, a {@link WrappedExceptionalException} will be thrown instead.
+     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * &lt;p&gt;
+     * Note that this exception will likely not be thrown when this method is called, but only when a &lt;em&gt;terminal operation&lt;/em&gt; like
+     * {@link Stream#collect(Collector)} is used on the stream.
+     *
+     * @param accumulator see {@link Stream#reduce(BinaryOperator)}
+     * @return see {@link Stream#reduce(BinaryOperator)}
+     */
+    public @NonNull Optional&lt;T&gt; reduce(@NonNull ExceptionalBinaryOperator&lt;T, ? extends E&gt; accumulator) {
+<span class="nc" id="L335">        return exceptionalStream.reduce(accumulator.wrap());</span>
+    }
+
+    /**
+     * Equivalent of {@link Stream#reduce(Object, BinaryOperator)}.
+     * &lt;p&gt;
+     * If {@code accumulator} throws an exception of type {@link E}, a {@link WrappedExceptionalException} will be thrown instead.
+     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * &lt;p&gt;
+     * Note that this exception will likely not be thrown when this method is called, but only when a &lt;em&gt;terminal operation&lt;/em&gt; like
+     * {@link Stream#collect(Collector)} is used on the stream.
+     *
+     * @param identity    see {@link Stream#reduce(Object, BiFunction, BinaryOperator)}
+     * @param accumulator see {@link Stream#reduce(Object, BinaryOperator)}
+     * @return see {@link Stream#reduce(Object, BinaryOperator)}
+     */
+    public T reduce(T identity, @NonNull ExceptionalBinaryOperator&lt;T, ? extends E&gt; accumulator) {
+<span class="nc" id="L352">        return exceptionalStream.reduce(identity, accumulator.wrap());</span>
+    }
+
+    /**
+     * Equivalent of {@link Stream#reduce(Object, BiFunction, BinaryOperator)}.
+     * &lt;p&gt;
+     * If {@code accumulator} or {@code combiner} throw an exception of type {@link E}, a {@link WrappedExceptionalException} will be thrown instead.
+     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * &lt;p&gt;
+     * Note that this exception will likely not be thrown when this method is called, but only when a &lt;em&gt;terminal operation&lt;/em&gt; like
+     * {@link Stream#collect(Collector)} is used on the stream.
+     *
+     * @param &lt;U&gt;         The type of the result
+     * @param identity    see {@link Stream#reduce(Object, BiFunction, BinaryOperator)}
+     * @param accumulator see {@link Stream#reduce(Object, BiFunction, BinaryOperator)}
+     * @param combiner    see {@link Stream#reduce(Object, BiFunction, BinaryOperator)}
+     * @return see {@link Stream#reduce(Object, BiFunction, BinaryOperator)}
+     */
+    public &lt;U&gt; U reduce(U identity, @NonNull ExceptionalBiFunction&lt;U, ? super T, U, ? extends E&gt; accumulator,
+                        @NonNull ExceptionalBinaryOperator&lt;U, ? extends E&gt; combiner) {
+<span class="nc" id="L372">        return exceptionalStream.reduce(identity, accumulator.wrap(), combiner.wrap());</span>
+    }
+
+    /**
+     * Equivalent of {@link Stream#collect(Supplier, BiConsumer, BiConsumer)}.
+     * &lt;p&gt;
+     * If {@code supplier}, {@code accumulator} or {@code combiner} throw an exception of type {@link E}, a {@link WrappedExceptionalException} will be thrown
+     * instead. This will have the original exception as its {@link Throwable#getCause() cause}.
+     * &lt;p&gt;
+     * Note that this exception will likely not be thrown when this method is called, but only when a &lt;em&gt;terminal operation&lt;/em&gt; like
+     * {@link Stream#collect(Collector)} is used on the stream.
+     *
+     * @param &lt;R&gt;         the type of the mutable result container
+     * @param supplier    see {@link Stream#collect(Supplier, BiConsumer, BiConsumer)}
+     * @param accumulator see {@link Stream#collect(Supplier, BiConsumer, BiConsumer)}
+     * @param combiner    see {@link Stream#collect(Supplier, BiConsumer, BiConsumer)}
+     * @return see {@link Stream#collect(Supplier, BiConsumer, BiConsumer)}
+     */
+    public &lt;R&gt; R collect(@NonNull ExceptionalSupplier&lt;R, ? extends E&gt; supplier, @NonNull ExceptionalBiConsumer&lt;R, ? super T, ? extends E&gt; accumulator,
+                         @NonNull ExceptionalBiConsumer&lt;R, R, ? extends E&gt; combiner) {
+<span class="nc" id="L392">        return exceptionalStream.collect(supplier.wrap(), accumulator.wrap(), combiner.wrap());</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ExceptionalObjIntConsumer.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Exceptional!</a> &gt; <a href="index.source.html" class="el_package">net.dapete.exceptional.function</a> &gt; <span class="el_source">ExceptionalObjIntConsumer.java</span></div><h1>ExceptionalObjIntConsumer.java</h1><pre class="source lang-java linenums">package net.dapete.exceptional.function;
+
+import net.dapete.exceptional.ExceptionalWrapper;
+
+import java.util.function.ObjIntConsumer;
+
+/**
+ * Equivalent of an {@link java.util.function.ObjIntConsumer} that can throw exceptions.
+ *
+ * @param &lt;T&gt; the type of the object argument to the operation
+ * @param &lt;E&gt; the type of exception thrown
+ */
+@FunctionalInterface
+public interface ExceptionalObjIntConsumer&lt;T, E extends Exception&gt; extends Wrappable&lt;ObjIntConsumer&lt;T&gt;&gt; {
+
+    /**
+     * Performs this operation on the given arguments.
+     *
+     * @param t     the first input argument
+     * @param value the second input argument
+     * @throws E potentially
+     */
+    void accept(T t, int value) throws E;
+
+    @Override
+    default ObjIntConsumer&lt;T&gt; wrap() {
+<span class="nc" id="L27">        return ExceptionalWrapper.wrap(this);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

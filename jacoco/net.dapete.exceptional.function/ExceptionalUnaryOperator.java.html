@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ExceptionalUnaryOperator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Exceptional!</a> &gt; <a href="index.source.html" class="el_package">net.dapete.exceptional.function</a> &gt; <span class="el_source">ExceptionalUnaryOperator.java</span></div><h1>ExceptionalUnaryOperator.java</h1><pre class="source lang-java linenums">package net.dapete.exceptional.function;
+
+import net.dapete.exceptional.ExceptionalWrapper;
+
+import java.util.function.UnaryOperator;
+
+/**
+ * Equivalent of a {@link java.util.function.UnaryOperator} that can throw exceptions.
+ *
+ * @param &lt;T&gt; the type of the operand and result of the operator
+ * @param &lt;E&gt; the type of exception thrown
+ */
+@FunctionalInterface
+public interface ExceptionalUnaryOperator&lt;T, E extends Exception&gt; extends Wrappable&lt;UnaryOperator&lt;T&gt;&gt; {
+
+    /**
+     * Applies this operator to the given argument.
+     *
+     * @param t the operator argument
+     * @return the operator result
+     * @throws E potentially
+     */
+    T apply(T t) throws E;
+
+    @Override
+    default UnaryOperator&lt;T&gt; wrap() {
+<span class="nc" id="L27">        return ExceptionalWrapper.wrap(this);</span>
+    }
+
+    /**
+     * Returns a unary operator that always returns its input argument.
+     *
+     * @param &lt;T&gt; the type of the input and output of the operator
+     * @param &lt;E&gt; the type of exception thrown
+     * @return a unary operator that always returns its input argument
+     */
+    static &lt;T, E extends Exception&gt; ExceptionalUnaryOperator&lt;T, E&gt; identity() {
+<span class="nc" id="L38">        return t -&gt; t;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>
