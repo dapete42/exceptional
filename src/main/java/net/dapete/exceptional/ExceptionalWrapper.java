@@ -507,22 +507,4 @@ public final class ExceptionalWrapper {
         };
     }
 
-    /* Specialized method names for easier use. */
-
-    public static <T, E extends Exception> @NonNull Consumer<T> wrapConsumer(@NonNull ExceptionalConsumer<T, E> consumer) {
-        return wrap(consumer);
-    }
-
-    public static <T, R, E extends Exception> @NonNull Function<T, R> wrapFunction(@NonNull ExceptionalFunction<T, R, E> function) {
-        return wrap(function);
-    }
-
-    public static <E extends Exception> @NonNull Runnable wrapRunnable(@NonNull ExceptionalRunnable<E> runnable) {
-        return wrap(runnable);
-    }
-
-    public static <T, E extends Exception> @NonNull Supplier<T> wrapSupplier(@NonNull ExceptionalSupplier<T, E> supplier) {
-        return wrap(supplier);
-    }
-
 }

@@ -1,6 +1,8 @@
 package net.dapete.exceptional;
 
 import net.dapete.exceptional.function.AllExceptionalFunctionalInterfacesArgumentsProvider;
+import net.dapete.exceptional.function.ExceptionalConsumer;
+import net.dapete.exceptional.function.ExceptionalFunction;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ArgumentsSource;
@@ -30,8 +32,8 @@ class ExceptionalWrapperTest {
     }
 
     @Test
-    void wrapConsumer() {
-        final var wrappedConsumer = ExceptionalWrapper.wrapConsumer(t -> {
+    void wrap_consumer() {
+        final var wrappedConsumer = ExceptionalWrapper.wrap((ExceptionalConsumer<?, ?>) t -> {
             throw new Exception("Test");
         });
 
@@ -43,8 +45,8 @@ class ExceptionalWrapperTest {
     }
 
     @Test
-    void wrapFunction() {
-        final var wrappedFunction = ExceptionalWrapper.wrapFunction(t -> {
+    void wrap_function() {
+        final var wrappedFunction = ExceptionalWrapper.wrap((ExceptionalFunction<?, ?, ?>) t -> {
             throw new Exception("Test");
         });
 
