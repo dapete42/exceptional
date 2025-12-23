@@ -6,7 +6,7 @@
 
     <groupId>net.dapete</groupId>
     <artifactId>exceptional</artifactId>
-    <version>0.1.1</version>
+    <version>0.1.2</version>
 
     <name>Exceptional!</name>
     <description>Library for functions and streams that support exceptions</description>
@@ -74,6 +74,11 @@
                 <artifactId>jspecify</artifactId>
                 <version>1.0.0</version>
             </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-junit-jupiter</artifactId>
+                <version>5.21.0</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -90,6 +95,11 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -252,7 +262,7 @@
                         <path>
                             <groupId>com.uber.nullaway</groupId>
                             <artifactId>nullaway</artifactId>
-                            <version>0.12.14</version>
+                            <version>0.12.15</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
@@ -275,7 +285,8 @@
                 <configuration>
                     <!-- @{argLine}: hack for Jacoco; it sets Surefire's argLine, but <argLine> entries overwrite this.
                          This is also the reason this is a single <argLine>. -->
-                    <argLine>@{argLine}</argLine>
+                    <!-- EnableDynamicAgentLoading: Mockito loads byte-buddy dynamically -->
+                    <argLine>@{argLine} -XX:+EnableDynamicAgentLoading</argLine>
                 </configuration>
             </plugin>
             <plugin>

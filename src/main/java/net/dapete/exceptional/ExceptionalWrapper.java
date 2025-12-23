@@ -32,7 +32,61 @@ public final class ExceptionalWrapper {
      * @param <E>        the type of exception thrown by {@code biConsumer}
      * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
      */
-    public static <T, U, E extends Exception> @NonNull BiConsumer<T, U> wrap(ExceptionalBiConsumer<? super T, ? super U, E> biConsumer) {
+    public static <T, U, E extends Exception> @NonNull BiConsumer<T, U> wrap(@NonNull ExceptionalBiConsumer<T, U, E> biConsumer) {
+        return (t, u) -> {
+            try {
+                biConsumer.accept(t, u);
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
+    }
+
+    /**
+     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param biConsumer lambda with exceptions
+     * @param <T>        the type of the object argument to the operation
+     * @param <E>        the type of exception thrown by {@code biConsumer}
+     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     */
+    public static <T, E extends Exception> @NonNull ObjDoubleConsumer<T> wrap(@NonNull ExceptionalObjDoubleConsumer<T, E> biConsumer) {
+        return (t, u) -> {
+            try {
+                biConsumer.accept(t, u);
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
+    }
+
+    /**
+     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param biConsumer lambda with exceptions
+     * @param <T>        the type of the object argument to the operation
+     * @param <E>        the type of exception thrown by {@code biConsumer}
+     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     */
+    public static <T, E extends Exception> @NonNull ObjIntConsumer<T> wrap(@NonNull ExceptionalObjIntConsumer<T, E> biConsumer) {
+        return (t, u) -> {
+            try {
+                biConsumer.accept(t, u);
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
+    }
+
+    /**
+     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param biConsumer lambda with exceptions
+     * @param <T>        the type of the object argument to the operation
+     * @param <E>        the type of exception thrown by {@code biConsumer}
+     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     */
+    public static <T, E extends Exception> @NonNull ObjLongConsumer<T> wrap(@NonNull ExceptionalObjLongConsumer<T, E> biConsumer) {
         return (t, u) -> {
             try {
                 biConsumer.accept(t, u);
@@ -52,7 +106,8 @@ public final class ExceptionalWrapper {
      * @param <E>        the type of exception thrown by {@code biFunction}
      * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
      */
-    public static <T, U, R, E extends Exception> @NonNull BiFunction<T, U, R> wrap(ExceptionalBiFunction<? super T, ? super U, ? extends R, E> biFunction) {
+    public static <T, U, R, E extends Exception> @NonNull BiFunction<T, U, R> wrap(
+            @NonNull ExceptionalBiFunction<T, U, R, E> biFunction) {
         return (t, u) -> {
             try {
                 return biFunction.apply(t, u);
@@ -62,17 +117,91 @@ public final class ExceptionalWrapper {
         };
     }
 
-    public static <T, U, E extends Exception> @NonNull BiPredicate<T, U> wrap(ExceptionalBiPredicate<? super T, ? super U, E> biFunction) {
+    /**
+     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param biFunction lambda with exceptions
+     * @param <T>        the type of the first argument to the function
+     * @param <U>        the type of the second argument to the function
+     * @param <E>        the type of exception thrown by {@code biFunction}
+     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     */
+    public static <T, U, E extends Exception> @NonNull ToDoubleBiFunction<T, U> wrap(@NonNull ExceptionalToDoubleBiFunction<T, U, E> biFunction) {
         return (t, u) -> {
             try {
-                return biFunction.test(t, u);
+                return biFunction.applyAsDouble(t, u);
             } catch (Exception e) {
                 throw toRuntimeException(e);
             }
         };
     }
 
-    public static <T, E extends Exception> @NonNull BinaryOperator<T> wrap(ExceptionalBinaryOperator<T, E> binaryOperator) {
+    /**
+     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param biFunction lambda with exceptions
+     * @param <T>        the type of the first argument to the function
+     * @param <U>        the type of the second argument to the function
+     * @param <E>        the type of exception thrown by {@code biFunction}
+     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     */
+    public static <T, U, E extends Exception> @NonNull ToIntBiFunction<T, U> wrap(@NonNull ExceptionalToIntBiFunction<T, U, E> biFunction) {
+        return (t, u) -> {
+            try {
+                return biFunction.applyAsInt(t, u);
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
+    }
+
+    /**
+     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param biFunction lambda with exceptions
+     * @param <T>        the type of the first argument to the function
+     * @param <U>        the type of the second argument to the function
+     * @param <E>        the type of exception thrown by {@code biFunction}
+     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     */
+    public static <T, U, E extends Exception> @NonNull ToLongBiFunction<T, U> wrap(@NonNull ExceptionalToLongBiFunction<T, U, E> biFunction) {
+        return (t, u) -> {
+            try {
+                return biFunction.applyAsLong(t, u);
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
+    }
+
+    /**
+     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param biPredicate lambda with exceptions
+     * @param <T>         the type of the first argument to the predicate
+     * @param <U>         the type of the second argument to the predicate
+     * @param <E>         the type of exception thrown by {@code biPredicate}
+     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     */
+    public static <T, U, E extends Exception> @NonNull BiPredicate<T, U> wrap(@NonNull ExceptionalBiPredicate<T, U, E> biPredicate) {
+        return (t, u) -> {
+            try {
+                return biPredicate.test(t, u);
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
+    }
+
+    /**
+     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param binaryOperator lambda with exceptions
+     * @param <T>            the type of the operands and result of the operator
+     * @param <E>            the type of exception thrown by {@code binaryOperator}
+     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     */
+    public static <T, E extends Exception> @NonNull BinaryOperator<T> wrap(@NonNull ExceptionalBinaryOperator<T, E> binaryOperator) {
         return (t, u) -> {
             try {
                 return binaryOperator.apply(t, u);
@@ -82,7 +211,66 @@ public final class ExceptionalWrapper {
         };
     }
 
-    public static <T, E extends Exception> @NonNull Consumer<T> wrap(ExceptionalConsumer<? super T, E> consumer) {
+    /**
+     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param binaryOperator lambda with exceptions
+     * @param <E>            the type of exception thrown by {@code binaryOperator}
+     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     */
+    public static <E extends Exception> @NonNull DoubleBinaryOperator wrap(@NonNull ExceptionalDoubleBinaryOperator<E> binaryOperator) {
+        return (t, u) -> {
+            try {
+                return binaryOperator.applyAsDouble(t, u);
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
+    }
+
+    /**
+     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param binaryOperator lambda with exceptions
+     * @param <E>            the type of exception thrown by {@code binaryOperator}
+     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     */
+    public static <E extends Exception> @NonNull IntBinaryOperator wrap(@NonNull ExceptionalIntBinaryOperator<E> binaryOperator) {
+        return (t, u) -> {
+            try {
+                return binaryOperator.applyAsInt(t, u);
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
+    }
+
+    /**
+     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param binaryOperator lambda with exceptions
+     * @param <E>            the type of exception thrown by {@code binaryOperator}
+     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     */
+    public static <E extends Exception> @NonNull LongBinaryOperator wrap(@NonNull ExceptionalLongBinaryOperator<E> binaryOperator) {
+        return (t, u) -> {
+            try {
+                return binaryOperator.applyAsLong(t, u);
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
+    }
+
+    /**
+     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param consumer lambda with exceptions
+     * @param <T>      the type of the input to the operation
+     * @param <E>      the type of exception thrown by {@code consumer}
+     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     */
+    public static <T, E extends Exception> @NonNull Consumer<T> wrap(@NonNull ExceptionalConsumer<T, E> consumer) {
         return t -> {
             try {
                 consumer.accept(t);
@@ -92,7 +280,14 @@ public final class ExceptionalWrapper {
         };
     }
 
-    public static <E extends Exception> @NonNull IntConsumer wrap(ExceptionalIntConsumer<E> consumer) {
+    /**
+     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param consumer lambda with exceptions
+     * @param <E>      the type of exception thrown by {@code consumer}
+     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     */
+    public static <E extends Exception> @NonNull DoubleConsumer wrap(@NonNull ExceptionalDoubleConsumer<E> consumer) {
         return t -> {
             try {
                 consumer.accept(t);
@@ -102,7 +297,14 @@ public final class ExceptionalWrapper {
         };
     }
 
-    public static <E extends Exception> @NonNull LongConsumer wrap(ExceptionalLongConsumer<E> consumer) {
+    /**
+     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param consumer lambda with exceptions
+     * @param <E>      the type of exception thrown by {@code consumer}
+     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     */
+    public static <E extends Exception> @NonNull IntConsumer wrap(@NonNull ExceptionalIntConsumer<E> consumer) {
         return t -> {
             try {
                 consumer.accept(t);
@@ -112,7 +314,14 @@ public final class ExceptionalWrapper {
         };
     }
 
-    public static <E extends Exception> @NonNull DoubleConsumer wrap(ExceptionalDoubleConsumer<E> consumer) {
+    /**
+     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param consumer lambda with exceptions
+     * @param <E>      the type of exception thrown by {@code consumer}
+     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     */
+    public static <E extends Exception> @NonNull LongConsumer wrap(@NonNull ExceptionalLongConsumer<E> consumer) {
         return t -> {
             try {
                 consumer.accept(t);
@@ -122,7 +331,16 @@ public final class ExceptionalWrapper {
         };
     }
 
-    public static <T, R, E extends Exception> @NonNull Function<T, R> wrap(ExceptionalFunction<? super T, ? extends R, E> function) {
+    /**
+     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param function lambda with exceptions
+     * @param <T>      the type of the input to the function
+     * @param <R>      the type of the result of the function
+     * @param <E>      the type of exception thrown by {@code function}
+     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     */
+    public static <T, R, E extends Exception> @NonNull Function<T, R> wrap(@NonNull ExceptionalFunction<T, R, E> function) {
         return t -> {
             try {
                 return function.apply(t);
@@ -132,37 +350,225 @@ public final class ExceptionalWrapper {
         };
     }
 
-    public static <T, E extends Exception> @NonNull ToIntFunction<T> wrap(ExceptionalToIntFunction<? super T, E> toIntFunction) {
+    /**
+     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param function lambda with exceptions
+     * @param <R>      the type of the result of the function
+     * @param <E>      the type of exception thrown by {@code function}
+     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     */
+    public static <R, E extends Exception> @NonNull DoubleFunction<R> wrap(@NonNull ExceptionalDoubleFunction<R, E> function) {
         return t -> {
             try {
-                return toIntFunction.applyAsInt(t);
+                return function.apply(t);
             } catch (Exception e) {
                 throw toRuntimeException(e);
             }
         };
     }
 
-    public static <T, E extends Exception> @NonNull ToLongFunction<T> wrap(ExceptionalToLongFunction<? super T, E> toLongFunction) {
+    /**
+     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param function lambda with exceptions
+     * @param <R>      the type of the result of the function
+     * @param <E>      the type of exception thrown by {@code function}
+     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     */
+    public static <R, E extends Exception> @NonNull IntFunction<R> wrap(@NonNull ExceptionalIntFunction<R, E> function) {
         return t -> {
             try {
-                return toLongFunction.applyAsLong(t);
+                return function.apply(t);
             } catch (Exception e) {
                 throw toRuntimeException(e);
             }
         };
     }
 
-    public static <T, E extends Exception> @NonNull ToDoubleFunction<T> wrap(ExceptionalToDoubleFunction<? super T, E> toDoubleFunction) {
+    /**
+     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param function lambda with exceptions
+     * @param <R>      the type of the result of the function
+     * @param <E>      the type of exception thrown by {@code function}
+     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     */
+    public static <R, E extends Exception> @NonNull LongFunction<R> wrap(@NonNull ExceptionalLongFunction<R, E> function) {
         return t -> {
             try {
-                return toDoubleFunction.applyAsDouble(t);
+                return function.apply(t);
             } catch (Exception e) {
                 throw toRuntimeException(e);
             }
         };
     }
 
-    public static <T, E extends Exception> @NonNull Predicate<T> wrap(ExceptionalPredicate<? super T, E> predicate) {
+    /**
+     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param function lambda with exceptions
+     * @param <T>      the type of the input to the function
+     * @param <E>      the type of exception thrown by {@code function}
+     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     */
+    public static <T, E extends Exception> @NonNull ToDoubleFunction<T> wrap(@NonNull ExceptionalToDoubleFunction<T, E> function) {
+        return t -> {
+            try {
+                return function.applyAsDouble(t);
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
+    }
+
+    /**
+     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param function lambda with exceptions
+     * @param <E>      the type of exception thrown by {@code function}
+     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     */
+    public static <E extends Exception> @NonNull IntToDoubleFunction wrap(@NonNull ExceptionalIntToDoubleFunction<E> function) {
+        return t -> {
+            try {
+                return function.applyAsDouble(t);
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
+    }
+
+    /**
+     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param function lambda with exceptions
+     * @param <E>      the type of exception thrown by {@code function}
+     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     */
+    public static <E extends Exception> @NonNull LongToDoubleFunction wrap(@NonNull ExceptionalLongToDoubleFunction<E> function) {
+        return t -> {
+            try {
+                return function.applyAsDouble(t);
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
+    }
+
+    /**
+     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param function lambda with exceptions
+     * @param <T>      the type of the input to the function
+     * @param <E>      the type of exception thrown by {@code function}
+     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     */
+    public static <T, E extends Exception> @NonNull ToIntFunction<T> wrap(@NonNull ExceptionalToIntFunction<T, E> function) {
+        return t -> {
+            try {
+                return function.applyAsInt(t);
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
+    }
+
+    /**
+     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param function lambda with exceptions
+     * @param <E>      the type of exception thrown by {@code function}
+     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     */
+    public static <E extends Exception> @NonNull DoubleToIntFunction wrap(@NonNull ExceptionalDoubleToIntFunction<E> function) {
+        return t -> {
+            try {
+                return function.applyAsInt(t);
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
+    }
+
+    /**
+     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param function lambda with exceptions
+     * @param <E>      the type of exception thrown by {@code function}
+     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     */
+    public static <E extends Exception> @NonNull LongToIntFunction wrap(@NonNull ExceptionalLongToIntFunction<E> function) {
+        return t -> {
+            try {
+                return function.applyAsInt(t);
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
+    }
+
+    /**
+     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param function lambda with exceptions
+     * @param <T>      the type of the input to the function
+     * @param <E>      the type of exception thrown by {@code function}
+     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     */
+    public static <T, E extends Exception> @NonNull ToLongFunction<T> wrap(@NonNull ExceptionalToLongFunction<T, E> function) {
+        return t -> {
+            try {
+                return function.applyAsLong(t);
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
+    }
+
+    /**
+     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param function lambda with exceptions
+     * @param <E>      the type of exception thrown by {@code function}
+     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     */
+    public static <E extends Exception> @NonNull DoubleToLongFunction wrap(@NonNull ExceptionalDoubleToLongFunction<E> function) {
+        return t -> {
+            try {
+                return function.applyAsLong(t);
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
+    }
+
+    /**
+     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param function lambda with exceptions
+     * @param <E>      the type of exception thrown by {@code function}
+     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     */
+    public static <E extends Exception> @NonNull IntToLongFunction wrap(@NonNull ExceptionalIntToLongFunction<E> function) {
+        return t -> {
+            try {
+                return function.applyAsLong(t);
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
+    }
+
+    /**
+     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param predicate lambda with exceptions
+     * @param <T>       the type of the input to the predicate
+     * @param <E>       the type of exception thrown by {@code predicate}
+     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     */
+    public static <T, E extends Exception> @NonNull Predicate<T> wrap(@NonNull ExceptionalPredicate<T, E> predicate) {
         return t -> {
             try {
                 return predicate.test(t);
@@ -172,7 +578,65 @@ public final class ExceptionalWrapper {
         };
     }
 
-    public static <E extends Exception> @NonNull Runnable wrap(ExceptionalRunnable<E> runnable) {
+    /**
+     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param predicate lambda with exceptions
+     * @param <E>       the type of exception thrown by {@code predicate}
+     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     */
+    public static <E extends Exception> @NonNull DoublePredicate wrap(@NonNull ExceptionalDoublePredicate<E> predicate) {
+        return t -> {
+            try {
+                return predicate.test(t);
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
+    }
+
+    /**
+     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param predicate lambda with exceptions
+     * @param <E>       the type of exception thrown by {@code predicate}
+     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     */
+    public static <E extends Exception> @NonNull IntPredicate wrap(@NonNull ExceptionalIntPredicate<E> predicate) {
+        return t -> {
+            try {
+                return predicate.test(t);
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
+    }
+
+    /**
+     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param predicate lambda with exceptions
+     * @param <E>       the type of exception thrown by {@code predicate}
+     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     */
+    public static <E extends Exception> @NonNull LongPredicate wrap(@NonNull ExceptionalLongPredicate<E> predicate) {
+        return t -> {
+            try {
+                return predicate.test(t);
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
+    }
+
+    /**
+     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param runnable lambda with exceptions
+     * @param <E>      the type of exception thrown by {@code runnable}
+     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     */
+    public static <E extends Exception> @NonNull Runnable wrap(@NonNull ExceptionalRunnable<E> runnable) {
         return () -> {
             try {
                 runnable.run();
@@ -182,7 +646,15 @@ public final class ExceptionalWrapper {
         };
     }
 
-    public static <T, E extends Exception> @NonNull Supplier<T> wrap(ExceptionalSupplier<T, E> supplier) {
+    /**
+     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param supplier lambda with exceptions
+     * @param <T>      the type of results supplied by this supplier
+     * @param <E>      the type of exception thrown by {@code supplier}
+     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     */
+    public static <T, E extends Exception> @NonNull Supplier<T> wrap(@NonNull ExceptionalSupplier<T, E> supplier) {
         return () -> {
             try {
                 return supplier.get();
@@ -192,22 +664,141 @@ public final class ExceptionalWrapper {
         };
     }
 
-    /* Specialized method names for easier use. */
-
-    public static <T, E extends Exception> @NonNull Consumer<T> wrapConsumer(ExceptionalConsumer<T, E> consumer) {
-        return wrap(consumer);
+    /**
+     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param supplier lambda with exceptions
+     * @param <E>      the type of exception thrown by {@code supplier}
+     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     */
+    public static <E extends Exception> @NonNull BooleanSupplier wrap(@NonNull ExceptionalBooleanSupplier<E> supplier) {
+        return () -> {
+            try {
+                return supplier.getAsBoolean();
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
     }
 
-    public static <T, R, E extends Exception> @NonNull Function<T, R> wrapFunction(ExceptionalFunction<T, R, E> function) {
-        return wrap(function);
+    /**
+     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param supplier lambda with exceptions
+     * @param <E>      the type of exception thrown by {@code supplier}
+     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     */
+    public static <E extends Exception> @NonNull DoubleSupplier wrap(@NonNull ExceptionalDoubleSupplier<E> supplier) {
+        return () -> {
+            try {
+                return supplier.getAsDouble();
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
     }
 
-    public static <E extends Exception> @NonNull Runnable wrapRunnable(ExceptionalRunnable<E> runnable) {
-        return wrap(runnable);
+    /**
+     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param supplier lambda with exceptions
+     * @param <E>      the type of exception thrown by {@code supplier}
+     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     */
+    public static <E extends Exception> @NonNull IntSupplier wrap(@NonNull ExceptionalIntSupplier<E> supplier) {
+        return () -> {
+            try {
+                return supplier.getAsInt();
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
     }
 
-    public static <T, E extends Exception> @NonNull Supplier<T> wrapSupplier(ExceptionalSupplier<T, E> supplier) {
-        return wrap(supplier);
+    /**
+     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param supplier lambda with exceptions
+     * @param <E>      the type of exception thrown by {@code supplier}
+     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     */
+    public static <E extends Exception> @NonNull LongSupplier wrap(@NonNull ExceptionalLongSupplier<E> supplier) {
+        return () -> {
+            try {
+                return supplier.getAsLong();
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
+    }
+
+    /**
+     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param unaryOperator lambda with exceptions
+     * @param <T>           the type of the operand and result of the operator
+     * @param <E>           the type of exception thrown by {@code unaryOperator}
+     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     */
+    public static <T, E extends Exception> @NonNull UnaryOperator<T> wrap(@NonNull ExceptionalUnaryOperator<T, E> unaryOperator) {
+        return t -> {
+            try {
+                return unaryOperator.apply(t);
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
+    }
+
+    /**
+     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param unaryOperator lambda with exceptions
+     * @param <E>           the type of exception thrown by {@code unaryOperator}
+     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     */
+    public static <E extends Exception> @NonNull DoubleUnaryOperator wrap(@NonNull ExceptionalDoubleUnaryOperator<E> unaryOperator) {
+        return t -> {
+            try {
+                return unaryOperator.applyAsDouble(t);
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
+    }
+
+    /**
+     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param unaryOperator lambda with exceptions
+     * @param <E>           the type of exception thrown by {@code unaryOperator}
+     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     */
+    public static <E extends Exception> @NonNull IntUnaryOperator wrap(@NonNull ExceptionalIntUnaryOperator<E> unaryOperator) {
+        return t -> {
+            try {
+                return unaryOperator.applyAsInt(t);
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
+    }
+
+    /**
+     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param unaryOperator lambda with exceptions
+     * @param <E>           the type of exception thrown by {@code unaryOperator}
+     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     */
+    public static <E extends Exception> @NonNull LongUnaryOperator wrap(@NonNull ExceptionalLongUnaryOperator<E> unaryOperator) {
+        return t -> {
+            try {
+                return unaryOperator.applyAsLong(t);
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
     }
 
 }

@@ -1,5 +1,9 @@
 package net.dapete.exceptional.function;
 
+import net.dapete.exceptional.ExceptionalWrapper;
+
+import java.util.function.BiConsumer;
+
 /**
  * Equivalent of a {@link java.util.function.BiConsumer} that can throw exceptions.
  *
@@ -8,15 +12,20 @@ package net.dapete.exceptional.function;
  * @param <E> the type of exception thrown
  */
 @FunctionalInterface
-public interface ExceptionalBiConsumer<T, U, E extends Exception> {
+public interface ExceptionalBiConsumer<T, U, E extends Exception> extends Wrappable<BiConsumer<T, U>> {
 
     /**
      * Performs this operation on the given arguments.
      *
      * @param t the first input argument
      * @param u the second input argument
-     * @throws E if necessary
+     * @throws E potentially
      */
     void accept(T t, U u) throws E;
+
+    @Override
+    default BiConsumer<T, U> wrap() {
+        return ExceptionalWrapper.wrap(this);
+    }
 
 }

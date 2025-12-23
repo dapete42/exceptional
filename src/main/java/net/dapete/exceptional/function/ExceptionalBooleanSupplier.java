@@ -1,17 +1,17 @@
 package net.dapete.exceptional.function;
 
+
 import net.dapete.exceptional.ExceptionalWrapper;
 
-import java.util.function.Supplier;
+import java.util.function.BooleanSupplier;
 
 /**
- * Equivalent of a {@link java.util.function.Supplier} that can throw exceptions.
+ * Equivalent of a {@link java.util.function.BooleanSupplier} that can throw exceptions.
  *
- * @param <T> the type of results supplied by this supplier
  * @param <E> the type of exception thrown
  */
 @FunctionalInterface
-public interface ExceptionalSupplier<T, E extends Exception> extends Wrappable<Supplier<T>> {
+public interface ExceptionalBooleanSupplier<E extends Exception> extends Wrappable<BooleanSupplier> {
 
     /**
      * Gets a result.
@@ -19,10 +19,10 @@ public interface ExceptionalSupplier<T, E extends Exception> extends Wrappable<S
      * @return a result
      * @throws E potentially
      */
-    T get() throws E;
+    boolean getAsBoolean() throws E;
 
     @Override
-    default Supplier<T> wrap() {
+    default BooleanSupplier wrap() {
         return ExceptionalWrapper.wrap(this);
     }
 

@@ -2,28 +2,27 @@ package net.dapete.exceptional.function;
 
 import net.dapete.exceptional.ExceptionalWrapper;
 
-import java.util.function.Predicate;
+import java.util.function.DoublePredicate;
 
 /**
- * Equivalent of a {@link java.util.function.Predicate} that can throw exceptions.
+ * Equivalent of a {@link java.util.function.DoublePredicate} that can throw exceptions.
  *
- * @param <T> the type of the first argument to the predicate
  * @param <E> the type of exception thrown
  */
 @FunctionalInterface
-public interface ExceptionalPredicate<T, E extends Exception> extends Wrappable<Predicate<T>> {
+public interface ExceptionalDoublePredicate<E extends Exception> extends Wrappable<DoublePredicate> {
 
     /**
      * Evaluates this predicate on the given argument.
      *
-     * @param t the input argument
+     * @param value the input argument
      * @return {@code true} if the input argument matches the predicate, otherwise {@code false}
      * @throws E potentially
      */
-    boolean test(T t) throws E;
+    boolean test(double value) throws E;
 
     @Override
-    default Predicate<T> wrap() {
+    default DoublePredicate wrap() {
         return ExceptionalWrapper.wrap(this);
     }
 

@@ -2,16 +2,15 @@ package net.dapete.exceptional.function;
 
 import net.dapete.exceptional.ExceptionalWrapper;
 
-import java.util.function.ToDoubleFunction;
+import java.util.function.DoubleToIntFunction;
 
 /**
- * Equivalent of a {@link java.util.function.ToDoubleFunction} that can throw exceptions.
+ * Equivalent of a {@link java.util.function.DoubleToIntFunction} that can throw exceptions.
  *
- * @param <T> the type of the input to the function
  * @param <E> the type of exception thrown
  */
 @FunctionalInterface
-public interface ExceptionalToDoubleFunction<T, E extends Exception> extends Wrappable<ToDoubleFunction<T>> {
+public interface ExceptionalDoubleToIntFunction<E extends Exception> extends Wrappable<DoubleToIntFunction> {
 
     /**
      * Applies this function to the given argument.
@@ -20,10 +19,10 @@ public interface ExceptionalToDoubleFunction<T, E extends Exception> extends Wra
      * @return the function result
      * @throws E potentially
      */
-    double applyAsDouble(T value) throws E;
+    int applyAsInt(double value) throws E;
 
     @Override
-    default ToDoubleFunction<T> wrap() {
+    default DoubleToIntFunction wrap() {
         return ExceptionalWrapper.wrap(this);
     }
 

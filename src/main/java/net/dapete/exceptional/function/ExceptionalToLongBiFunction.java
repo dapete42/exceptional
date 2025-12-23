@@ -2,18 +2,17 @@ package net.dapete.exceptional.function;
 
 import net.dapete.exceptional.ExceptionalWrapper;
 
-import java.util.function.BiFunction;
+import java.util.function.ToLongBiFunction;
 
 /**
- * Equivalent of a {@link java.util.function.BiFunction} that can throw exceptions.
+ * Equivalent of a {@link java.util.function.ToLongBiFunction} that can throw exceptions.
  *
- * @param <T> the type of the first argument to the operation
+ * @param <T> the type of the first argument to the function
  * @param <U> the type of the second argument to the function
- * @param <R> the type of the result of the function
  * @param <E> the type of exception thrown
  */
 @FunctionalInterface
-public interface ExceptionalBiFunction<T, U, R, E extends Exception> extends Wrappable<BiFunction<T, U, R>> {
+public interface ExceptionalToLongBiFunction<T, U, E extends Exception> extends Wrappable<ToLongBiFunction<T, U>> {
 
     /**
      * Applies this function to the given arguments.
@@ -23,10 +22,10 @@ public interface ExceptionalBiFunction<T, U, R, E extends Exception> extends Wra
      * @return the function result
      * @throws E potentially
      */
-    R apply(T t, U u) throws E;
+    long applyAsLong(T t, U u) throws E;
 
     @Override
-    default BiFunction<T, U, R> wrap() {
+    default ToLongBiFunction<T, U> wrap() {
         return ExceptionalWrapper.wrap(this);
     }
 

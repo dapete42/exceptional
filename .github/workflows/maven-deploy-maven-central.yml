@@ -1,6 +1,6 @@
 ---
 
-name: Maven deploy
+name: Maven deploy (Maven Central)
 
 on:
   release:
