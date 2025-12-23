@@ -1,5 +1,9 @@
 package net.dapete.exceptional.function;
 
+import net.dapete.exceptional.ExceptionalWrapper;
+
+import java.util.function.Supplier;
+
 /**
  * Equivalent of a {@link java.util.function.Supplier} that can throw exceptions.
  *
@@ -7,7 +11,7 @@ package net.dapete.exceptional.function;
  * @param <E> the type of exception thrown
  */
 @FunctionalInterface
-public interface ExceptionalSupplier<T, E extends Exception> {
+public interface ExceptionalSupplier<T, E extends Exception> extends Wrappable<Supplier<T>> {
 
     /**
      * Gets a result.
@@ -16,5 +20,10 @@ public interface ExceptionalSupplier<T, E extends Exception> {
      * @throws E potentially
      */
     T get() throws E;
+
+    @Override
+    default Supplier<T> wrap() {
+        return ExceptionalWrapper.wrap(this);
+    }
 
 }

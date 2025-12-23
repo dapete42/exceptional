@@ -1,7 +1,11 @@
 package net.dapete.exceptional.function;
 
+import net.dapete.exceptional.ExceptionalWrapper;
+
+import java.util.function.ToLongBiFunction;
+
 @FunctionalInterface
-public interface ExceptionalToLongBiFunction<T, U, E extends Exception> {
+public interface ExceptionalToLongBiFunction<T, U, E extends Exception> extends Wrappable<ToLongBiFunction<T, U>> {
 
     /**
      * Applies this function to the given arguments.
@@ -11,5 +15,10 @@ public interface ExceptionalToLongBiFunction<T, U, E extends Exception> {
      * @return the function result
      */
     long applyAsLong(T t, U u) throws E;
+
+    @Override
+    default ToLongBiFunction<T, U> wrap() {
+        return ExceptionalWrapper.wrap(this);
+    }
 
 }

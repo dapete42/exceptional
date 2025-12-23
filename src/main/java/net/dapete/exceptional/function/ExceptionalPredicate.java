@@ -1,5 +1,9 @@
 package net.dapete.exceptional.function;
 
+import net.dapete.exceptional.ExceptionalWrapper;
+
+import java.util.function.Predicate;
+
 /**
  * Equivalent of a {@link java.util.function.Predicate} that can throw exceptions.
  *
@@ -7,7 +11,7 @@ package net.dapete.exceptional.function;
  * @param <E> the type of exception thrown
  */
 @FunctionalInterface
-public interface ExceptionalPredicate<T, E extends Exception> {
+public interface ExceptionalPredicate<T, E extends Exception> extends Wrappable<Predicate<T>> {
 
     /**
      * Evaluates this predicate on the given argument.
@@ -17,5 +21,10 @@ public interface ExceptionalPredicate<T, E extends Exception> {
      * @throws E potentially
      */
     boolean test(T t) throws E;
+
+    @Override
+    default Predicate<T> wrap() {
+        return ExceptionalWrapper.wrap(this);
+    }
 
 }

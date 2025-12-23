@@ -19,13 +19,7 @@ class ExceptionalWrapperTest {
         final var method = ExceptionalWrapper.class.getMethod("wrap", clazz);
 
         // return type matches expected type
-        final var expectedReturnType = switch (clazz.getSimpleName()) {
-            case "ExceptionalRunnable" -> Runnable.class;
-            default -> {
-                final var expectedClassName = "java.util.function." + clazz.getSimpleName().replace("Exceptional", "");
-                yield Class.forName(expectedClassName);
-            }
-        };
+        final var expectedReturnType = AllExceptionalFunctionalInterfacesArgumentsProvider.getExpectedReturnType(clazz);
         assertEquals(expectedReturnType, method.getReturnType());
 
         // call works and returns a non-null object

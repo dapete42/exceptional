@@ -7,8 +7,6 @@ import java.util.Optional;
 import java.util.function.*;
 import java.util.stream.*;
 
-import static net.dapete.exceptional.ExceptionalWrapper.wrap;
-
 /**
  * Class similar to {@link Stream} which implements methods analogue to {@link Stream#map(Function)}, {@link Stream#filter(Predicate)} etc. to allow lambdas
  * that throw exceptions. These the functional interface for these are from the {@link net.dapete.exceptional.function} package.
@@ -45,7 +43,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
      * @return see {@link Stream#filter}
      */
     public @NonNull ExceptionalStream<T> filter(@NonNull ExceptionalPredicate<? super T, ? extends E> predicate) {
-        return exceptionalStream.filter(wrap(predicate));
+        return exceptionalStream.filter(predicate.wrap());
     }
 
     /**
@@ -61,7 +59,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
      * @return see {@link Stream#map}
      */
     public <R> @NonNull ExceptionalStream<R> map(@NonNull ExceptionalFunction<? super T, ? extends R, ? extends E> mapper) {
-        return exceptionalStream.map(wrap(mapper));
+        return exceptionalStream.map(mapper.wrap());
     }
 
     /**
@@ -77,7 +75,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
      * @return see {@link Stream#mapToInt}
      */
     public @NonNull IntStream mapToInt(@NonNull ExceptionalToIntFunction<? super T, ? extends E> mapper) {
-        return exceptionalStream.mapToInt(wrap(mapper));
+        return exceptionalStream.mapToInt(mapper.wrap());
     }
 
     /**
@@ -93,7 +91,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
      * @return see {@link Stream#mapToLong}
      */
     public @NonNull LongStream mapToLong(@NonNull ExceptionalToLongFunction<? super T, ? extends E> mapper) {
-        return exceptionalStream.mapToLong(wrap(mapper));
+        return exceptionalStream.mapToLong(mapper.wrap());
     }
 
     /**
@@ -109,7 +107,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
      * @return see {@link Stream#mapToDouble}
      */
     public @NonNull DoubleStream mapToDouble(@NonNull ExceptionalToDoubleFunction<? super T, ? extends E> mapper) {
-        return exceptionalStream.mapToDouble(wrap(mapper));
+        return exceptionalStream.mapToDouble(mapper.wrap());
     }
 
     /**
@@ -125,7 +123,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
      * @return see {@link Stream#flatMap}
      */
     public <R> @NonNull ExceptionalStream<R> flatMap(@NonNull ExceptionalFunction<? super T, ? extends Stream<? extends R>, ? extends E> mapper) {
-        return exceptionalStream.flatMap(wrap(mapper));
+        return exceptionalStream.flatMap(mapper.wrap());
     }
 
     /**
@@ -141,7 +139,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
      * @return see {@link Stream#flatMapToInt}
      */
     public @NonNull IntStream flatMapToInt(@NonNull ExceptionalFunction<? super T, ? extends IntStream, ? extends E> mapper) {
-        return exceptionalStream.flatMapToInt(wrap(mapper));
+        return exceptionalStream.flatMapToInt(mapper.wrap());
     }
 
     /**
@@ -157,7 +155,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
      * @return see {@link Stream#flatMapToLong}
      */
     public @NonNull LongStream flatMapToLong(@NonNull ExceptionalFunction<? super T, ? extends LongStream, ? extends E> mapper) {
-        return exceptionalStream.flatMapToLong(wrap(mapper));
+        return exceptionalStream.flatMapToLong(mapper.wrap());
     }
 
     /**
@@ -173,7 +171,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
      * @return see {@link Stream#flatMapToDouble}
      */
     public @NonNull DoubleStream flatMapToDouble(@NonNull ExceptionalFunction<? super T, ? extends DoubleStream, ? extends E> mapper) {
-        return exceptionalStream.flatMapToDouble(wrap(mapper));
+        return exceptionalStream.flatMapToDouble(mapper.wrap());
     }
 
     /**
@@ -189,7 +187,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
      * @return see {@link Stream#mapMulti}
      */
     public <R> @NonNull ExceptionalStream<R> mapMulti(@NonNull ExceptionalBiConsumer<? super T, ? super Consumer<R>, ? extends E> mapper) {
-        return exceptionalStream.mapMulti(wrap(mapper));
+        return exceptionalStream.mapMulti(mapper.wrap());
     }
 
     /**
@@ -205,7 +203,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
      * @return see {@link Stream#mapMultiToInt}
      */
     public @NonNull IntStream mapMultiToInt(@NonNull ExceptionalBiConsumer<? super T, ? super IntConsumer, ? extends E> mapper) {
-        return exceptionalStream.mapMultiToInt(wrap(mapper));
+        return exceptionalStream.mapMultiToInt(mapper.wrap());
     }
 
     /**
@@ -221,7 +219,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
      * @return see {@link Stream#mapMultiToLong}
      */
     public @NonNull LongStream mapMultiToLong(@NonNull ExceptionalBiConsumer<? super T, ? super LongConsumer, ? extends E> mapper) {
-        return exceptionalStream.mapMultiToLong(wrap(mapper));
+        return exceptionalStream.mapMultiToLong(mapper.wrap());
     }
 
     /**
@@ -237,7 +235,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
      * @return see {@link Stream#mapMultiToDouble}
      */
     public @NonNull DoubleStream mapMultiToDouble(@NonNull ExceptionalBiConsumer<? super T, ? super DoubleConsumer, ? extends E> mapper) {
-        return exceptionalStream.mapMultiToDouble(wrap(mapper));
+        return exceptionalStream.mapMultiToDouble(mapper.wrap());
     }
 
     /**
@@ -253,7 +251,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
      * @return see {@link Stream#peek}
      */
     public @NonNull ExceptionalStream<T> peek(@NonNull ExceptionalConsumer<? super T, ? extends E> action) {
-        return exceptionalStream.peek(wrap(action));
+        return exceptionalStream.peek(action.wrap());
     }
 
     /**
@@ -269,7 +267,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
      * @return see {@link Stream#takeWhile}
      */
     public @NonNull ExceptionalStream<T> takeWhile(@NonNull ExceptionalPredicate<? super T, ? extends E> predicate) {
-        return exceptionalStream.takeWhile(wrap(predicate));
+        return exceptionalStream.takeWhile(predicate.wrap());
     }
 
     /**
@@ -285,7 +283,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
      * @return see {@link Stream#takeWhile}
      */
     public @NonNull ExceptionalStream<T> dropWhile(@NonNull ExceptionalPredicate<? super T, ? extends E> predicate) {
-        return exceptionalStream.dropWhile(wrap(predicate));
+        return exceptionalStream.dropWhile(predicate.wrap());
     }
 
     /**
@@ -300,7 +298,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
      * @param action see {@link Stream#forEach}
      */
     public void forEach(@NonNull ExceptionalConsumer<? super T, ? extends E> action) {
-        exceptionalStream.forEach(wrap(action));
+        exceptionalStream.forEach(action.wrap());
     }
 
     /**
@@ -315,7 +313,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
      * @param action see {@link Stream#forEachOrdered}
      */
     public void forEachOrdered(@NonNull ExceptionalConsumer<? super T, ? extends E> action) {
-        exceptionalStream.forEachOrdered(wrap(action));
+        exceptionalStream.forEachOrdered(action.wrap());
     }
 
     /**
@@ -331,7 +329,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
      * @return see {@link Stream#reduce(BinaryOperator)}
      */
     public @NonNull Optional<T> reduce(@NonNull ExceptionalBinaryOperator<T, ? extends E> accumulator) {
-        return exceptionalStream.reduce(wrap(accumulator));
+        return exceptionalStream.reduce(accumulator.wrap());
     }
 
     /**
@@ -348,7 +346,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
      * @return see {@link Stream#reduce(Object, BinaryOperator)}
      */
     public T reduce(T identity, @NonNull ExceptionalBinaryOperator<T, ? extends E> accumulator) {
-        return exceptionalStream.reduce(identity, wrap(accumulator));
+        return exceptionalStream.reduce(identity, accumulator.wrap());
     }
 
     /**
@@ -367,7 +365,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
      */
     public <U> U reduce(U identity, @NonNull ExceptionalBiFunction<U, ? super T, U, ? extends E> accumulator,
                         @NonNull ExceptionalBinaryOperator<U, ? extends E> combiner) {
-        return exceptionalStream.reduce(identity, wrap(accumulator), wrap(combiner));
+        return exceptionalStream.reduce(identity, accumulator.wrap(), combiner.wrap());
     }
 
     /**
@@ -386,7 +384,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
      */
     public <R> R collect(@NonNull ExceptionalSupplier<R, ? extends E> supplier, @NonNull ExceptionalBiConsumer<R, ? super T, ? extends E> accumulator,
                          @NonNull ExceptionalBiConsumer<R, R, ? extends E> combiner) {
-        return exceptionalStream.collect(wrap(supplier), wrap(accumulator), wrap(combiner));
+        return exceptionalStream.collect(supplier.wrap(), accumulator.wrap(), combiner.wrap());
     }
 
 }

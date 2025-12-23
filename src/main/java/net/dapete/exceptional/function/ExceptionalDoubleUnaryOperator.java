@@ -1,7 +1,11 @@
 package net.dapete.exceptional.function;
 
+import net.dapete.exceptional.ExceptionalWrapper;
+
+import java.util.function.DoubleUnaryOperator;
+
 @FunctionalInterface
-public interface ExceptionalDoubleUnaryOperator<E extends Exception> {
+public interface ExceptionalDoubleUnaryOperator<E extends Exception> extends Wrappable<DoubleUnaryOperator> {
 
     /**
      * Applies this operator to the given operand.
@@ -10,6 +14,11 @@ public interface ExceptionalDoubleUnaryOperator<E extends Exception> {
      * @return the operator result
      */
     double applyAsDouble(double operand) throws E;
+
+    @Override
+    default DoubleUnaryOperator wrap() {
+        return ExceptionalWrapper.wrap(this);
+    }
 
     /**
      * Returns a unary operator that always returns its input argument.

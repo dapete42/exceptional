@@ -1,12 +1,16 @@
 package net.dapete.exceptional.function;
 
+import net.dapete.exceptional.ExceptionalWrapper;
+
+import java.util.function.IntSupplier;
+
 /**
  * Equivalent of an {@link java.util.function.IntSupplier} that can throw exceptions.
  *
  * @param <E> the type of exception thrown
  */
 @FunctionalInterface
-public interface ExceptionalIntSupplier<E extends Exception> {
+public interface ExceptionalIntSupplier<E extends Exception> extends Wrappable<IntSupplier> {
 
     /**
      * Gets a result.
@@ -15,5 +19,10 @@ public interface ExceptionalIntSupplier<E extends Exception> {
      * @throws E potentially
      */
     int getAsInt() throws E;
+
+    @Override
+    default IntSupplier wrap() {
+        return ExceptionalWrapper.wrap(this);
+    }
 
 }

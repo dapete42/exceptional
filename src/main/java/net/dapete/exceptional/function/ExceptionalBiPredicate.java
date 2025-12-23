@@ -1,5 +1,9 @@
 package net.dapete.exceptional.function;
 
+import net.dapete.exceptional.ExceptionalWrapper;
+
+import java.util.function.BiPredicate;
+
 /**
  * Equivalent of a {@link java.util.function.BiPredicate} that can throw exceptions.
  *
@@ -8,7 +12,7 @@ package net.dapete.exceptional.function;
  * @param <E> the type of exception thrown
  */
 @FunctionalInterface
-public interface ExceptionalBiPredicate<T, U, E extends Exception> {
+public interface ExceptionalBiPredicate<T, U, E extends Exception> extends Wrappable<BiPredicate<T, U>> {
 
     /**
      * Evaluates this predicate on the given arguments.
@@ -19,5 +23,10 @@ public interface ExceptionalBiPredicate<T, U, E extends Exception> {
      * @throws E potentially
      */
     boolean test(T t, U u) throws E;
+
+    @Override
+    default BiPredicate<T, U> wrap() {
+        return ExceptionalWrapper.wrap(this);
+    }
 
 }

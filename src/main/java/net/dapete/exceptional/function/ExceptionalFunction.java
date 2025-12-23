@@ -1,5 +1,9 @@
 package net.dapete.exceptional.function;
 
+import net.dapete.exceptional.ExceptionalWrapper;
+
+import java.util.function.Function;
+
 /**
  * Equivalent of a {@link java.util.function.Function} that can throw exceptions.
  *
@@ -8,7 +12,7 @@ package net.dapete.exceptional.function;
  * @param <E> the type of exception thrown
  */
 @FunctionalInterface
-public interface ExceptionalFunction<T, R, E extends Exception> {
+public interface ExceptionalFunction<T, R, E extends Exception> extends Wrappable<Function<T, R>> {
 
     /**
      * Applies this function to the given argument.
@@ -18,5 +22,10 @@ public interface ExceptionalFunction<T, R, E extends Exception> {
      * @throws E potentially
      */
     R apply(T t) throws E;
+
+    @Override
+    default Function<T, R> wrap() {
+        return ExceptionalWrapper.wrap(this);
+    }
 
 }

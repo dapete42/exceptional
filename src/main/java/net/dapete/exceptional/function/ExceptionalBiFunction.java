@@ -1,5 +1,9 @@
 package net.dapete.exceptional.function;
 
+import net.dapete.exceptional.ExceptionalWrapper;
+
+import java.util.function.BiFunction;
+
 /**
  * Equivalent of a {@link java.util.function.BiFunction} that can throw exceptions.
  *
@@ -9,7 +13,7 @@ package net.dapete.exceptional.function;
  * @param <E> the type of exception thrown
  */
 @FunctionalInterface
-public interface ExceptionalBiFunction<T, U, R, E extends Exception> {
+public interface ExceptionalBiFunction<T, U, R, E extends Exception> extends Wrappable<BiFunction<T, U, R>> {
 
     /**
      * Applies this function to the given arguments.
@@ -20,5 +24,10 @@ public interface ExceptionalBiFunction<T, U, R, E extends Exception> {
      * @throws E potentially
      */
     R apply(T t, U u) throws E;
+
+    @Override
+    default BiFunction<T, U, R> wrap() {
+        return ExceptionalWrapper.wrap(this);
+    }
 
 }

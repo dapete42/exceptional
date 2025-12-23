@@ -1,7 +1,11 @@
 package net.dapete.exceptional.function;
 
+import net.dapete.exceptional.ExceptionalWrapper;
+
+import java.util.function.DoubleToLongFunction;
+
 @FunctionalInterface
-public interface ExceptionalDoubleToLongFunction<E extends Exception> {
+public interface ExceptionalDoubleToLongFunction<E extends Exception> extends Wrappable<DoubleToLongFunction> {
 
     /**
      * Applies this function to the given argument.
@@ -10,5 +14,10 @@ public interface ExceptionalDoubleToLongFunction<E extends Exception> {
      * @return the function result
      */
     long applyAsLong(double value) throws E;
+
+    @Override
+    default DoubleToLongFunction wrap() {
+        return ExceptionalWrapper.wrap(this);
+    }
 
 }
