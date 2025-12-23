@@ -15,7 +15,7 @@ public final class ExceptionalWrapper {
     private ExceptionalWrapper() {
     }
 
-    public static RuntimeException toRuntimeException(Exception exception) {
+    private static RuntimeException toRuntimeException(Exception exception) {
         if (exception instanceof RuntimeException runtimeException) {
             return runtimeException;
         } else {
