@@ -4,6 +4,11 @@ import net.dapete.exceptional.ExceptionalWrapper;
 
 import java.util.function.DoubleConsumer;
 
+/**
+ * Equivalent of a {@link java.util.function.DoubleConsumer} that can throw exceptions.
+ *
+ * @param <E> the type of exception thrown
+ */
 @FunctionalInterface
 public interface ExceptionalDoubleConsumer<E extends Exception> extends Wrappable<DoubleConsumer> {
 

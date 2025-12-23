@@ -4,6 +4,11 @@ import net.dapete.exceptional.ExceptionalWrapper;
 
 import java.util.function.DoubleUnaryOperator;
 
+/**
+ * Equivalent of a {@link java.util.function.DoubleUnaryOperator} that can throw exceptions.
+ *
+ * @param <E> the type of exception thrown
+ */
 @FunctionalInterface
 public interface ExceptionalDoubleUnaryOperator<E extends Exception> extends Wrappable<DoubleUnaryOperator> {
 

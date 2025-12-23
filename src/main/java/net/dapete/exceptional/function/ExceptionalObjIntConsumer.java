@@ -4,6 +4,12 @@ import net.dapete.exceptional.ExceptionalWrapper;
 
 import java.util.function.ObjIntConsumer;
 
+/**
+ * Equivalent of an {@link java.util.function.ObjIntConsumer} that can throw exceptions.
+ *
+ * @param <T> the type of the object argument to the operation
+ * @param <E> the type of exception thrown
+ */
 @FunctionalInterface
 public interface ExceptionalObjIntConsumer<T, E extends Exception> extends Wrappable<ObjIntConsumer<T>> {
 

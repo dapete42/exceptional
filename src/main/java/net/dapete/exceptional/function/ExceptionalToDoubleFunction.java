@@ -4,6 +4,12 @@ import net.dapete.exceptional.ExceptionalWrapper;
 
 import java.util.function.ToDoubleFunction;
 
+/**
+ * Equivalent of a {@link java.util.function.ToDoubleFunction} that can throw exceptions.
+ *
+ * @param <T> the type of the input to the function
+ * @param <E> the type of exception thrown
+ */
 @FunctionalInterface
 public interface ExceptionalToDoubleFunction<T, E extends Exception> extends Wrappable<ToDoubleFunction<T>> {
 

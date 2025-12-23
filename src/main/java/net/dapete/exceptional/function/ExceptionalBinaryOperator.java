@@ -4,6 +4,12 @@ import net.dapete.exceptional.ExceptionalWrapper;
 
 import java.util.function.BinaryOperator;
 
+/**
+ * Equivalent of a {@link java.util.function.BinaryOperator} that can throw exceptions.
+ *
+ * @param <T> the type of the operands and result of the operator
+ * @param <E> the type of exception thrown
+ */
 @FunctionalInterface
 public interface ExceptionalBinaryOperator<T, E extends Exception> extends Wrappable<BinaryOperator<T>> {
 

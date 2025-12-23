@@ -4,6 +4,11 @@ import net.dapete.exceptional.ExceptionalWrapper;
 
 import java.util.function.LongConsumer;
 
+/**
+ * Equivalent of a {@link java.util.function.LongConsumer} that can throw exceptions.
+ *
+ * @param <E> the type of exception thrown
+ */
 @FunctionalInterface
 public interface ExceptionalLongConsumer<E extends Exception> extends Wrappable<LongConsumer> {
 

@@ -4,6 +4,13 @@ import net.dapete.exceptional.ExceptionalWrapper;
 
 import java.util.function.ToIntBiFunction;
 
+/**
+ * Equivalent of a {@link java.util.function.ToIntBiFunction} that can throw exceptions.
+ *
+ * @param <T> the type of the first argument to the function
+ * @param <U> the type of the second argument to the function
+ * @param <E> the type of exception thrown
+ */
 @FunctionalInterface
 public interface ExceptionalToIntBiFunction<T, U, E extends Exception> extends Wrappable<ToIntBiFunction<T, U>> {
 

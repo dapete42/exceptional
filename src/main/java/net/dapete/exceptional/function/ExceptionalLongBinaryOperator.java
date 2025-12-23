@@ -4,6 +4,11 @@ import net.dapete.exceptional.ExceptionalWrapper;
 
 import java.util.function.LongBinaryOperator;
 
+/**
+ * Equivalent of a {@link java.util.function.LongBinaryOperator} that can throw exceptions.
+ *
+ * @param <E> the type of exception thrown
+ */
 @FunctionalInterface
 public interface ExceptionalLongBinaryOperator<E extends Exception> extends Wrappable<LongBinaryOperator> {
 

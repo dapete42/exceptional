@@ -4,6 +4,11 @@ import net.dapete.exceptional.ExceptionalWrapper;
 
 import java.util.function.IntToLongFunction;
 
+/**
+ * Equivalent of an {@link java.util.function.IntToLongFunction} that can throw exceptions.
+ *
+ * @param <E> the type of exception thrown
+ */
 @FunctionalInterface
 public interface ExceptionalIntToLongFunction<E extends Exception> extends Wrappable<IntToLongFunction> {
 

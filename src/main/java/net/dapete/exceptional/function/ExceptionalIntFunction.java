@@ -4,6 +4,12 @@ import net.dapete.exceptional.ExceptionalWrapper;
 
 import java.util.function.IntFunction;
 
+/**
+ * Equivalent of an {@link java.util.function.IntFunction} that can throw exceptions.
+ *
+ * @param <R> the type of the result of the function
+ * @param <E> the type of exception thrown
+ */
 @FunctionalInterface
 public interface ExceptionalIntFunction<R, E extends Exception> extends Wrappable<IntFunction<R>> {
 
