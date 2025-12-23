@@ -29,6 +29,7 @@ public interface ExceptionalLongUnaryOperator<E extends Exception> extends Wrapp
     /**
      * Returns a unary operator that always returns its input argument.
      *
+     * @param <E> the type of exception thrown
      * @return a unary operator that always returns its input argument
      */
     static <E extends Exception> ExceptionalLongUnaryOperator<E> identity() {

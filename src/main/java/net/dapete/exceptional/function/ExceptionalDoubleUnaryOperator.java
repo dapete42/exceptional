@@ -29,6 +29,7 @@ public interface ExceptionalDoubleUnaryOperator<E extends Exception> extends Wra
     /**
      * Returns a unary operator that always returns its input argument.
      *
+     * @param <E> the type of exception thrown
      * @return a unary operator that always returns its input argument
      */
     static <E extends Exception> ExceptionalDoubleUnaryOperator<E> identity() {

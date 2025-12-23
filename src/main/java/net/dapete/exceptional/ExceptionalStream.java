@@ -36,7 +36,8 @@ public final class ExceptionalStream<T> implements Stream<T> {
     /**
      * Create an instance from an existing Stream.
      *
-     * @param <T> the type of the stream elements
+     * @param <T>    the type of the stream elements
+     * @param stream existing stream
      * @return instance from an existing Stream
      */
     public static <T> @NonNull ExceptionalStream<T> of(@NonNull Stream<T> stream) {
@@ -46,6 +47,7 @@ public final class ExceptionalStream<T> implements Stream<T> {
     /**
      * Create an instance from an existing IntStream.
      *
+     * @param stream existing stream
      * @return instance from an existing Stream
      */
     public static @NonNull ExceptionalStream<@NonNull Integer> of(@NonNull IntStream stream) {
@@ -55,6 +57,7 @@ public final class ExceptionalStream<T> implements Stream<T> {
     /**
      * Create an instance from an existing LongStream.
      *
+     * @param stream existing stream
      * @return instance from an existing Stream
      */
     public static @NonNull ExceptionalStream<@NonNull Long> of(@NonNull LongStream stream) {
@@ -64,6 +67,7 @@ public final class ExceptionalStream<T> implements Stream<T> {
     /**
      * Create an instance from an existing IntStream.
      *
+     * @param stream existing stream
      * @return instance from an existing Stream
      */
     public static @NonNull ExceptionalStream<@NonNull Double> of(@NonNull DoubleStream stream) {
@@ -73,7 +77,8 @@ public final class ExceptionalStream<T> implements Stream<T> {
     /**
      * Create an instance from a collection.
      *
-     * @param <T> the type of the stream elements
+     * @param <T>        the type of the stream elements
+     * @param collection collection
      * @return instance from a collection
      */
     public static <T> @NonNull ExceptionalStream<T> of(@NonNull Collection<T> collection) {
@@ -96,6 +101,7 @@ public final class ExceptionalStream<T> implements Stream<T> {
      * Returns an instance containing a single element.
      *
      * @param <T> the type of the stream elements
+     * @param t   the single element
      * @return an instance containing a single element
      */
     public static <T> @NonNull ExceptionalStream<T> of(T t) {
@@ -105,7 +111,8 @@ public final class ExceptionalStream<T> implements Stream<T> {
     /**
      * Returns an instance containing a single element, if non-null, otherwise returns an empty instance.
      *
-     * @param <T> the type of the stream elements
+     * @param <T> the type of stream elements
+     * @param t   the single element
      * @return a stream with a single element if the specified element is non-null, otherwise an empty stream
      */
     public static <T> @NonNull ExceptionalStream<T> ofNullable(@Nullable T t) {
@@ -115,7 +122,8 @@ public final class ExceptionalStream<T> implements Stream<T> {
     /**
      * Returns an instance whose elements are the specified values.
      *
-     * @param <T> the type of the stream elements
+     * @param <T>    the type of the stream elements
+     * @param values the elements of the new stream
      * @return the new instance
      */
     @SafeVarargs

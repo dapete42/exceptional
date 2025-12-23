@@ -55,6 +55,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
      * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like
      * {@link Stream#collect(Collector)} is used on the stream.
      *
+     * @param <R>    The element type of the new stream
      * @param mapper see {@link Stream#map}
      * @return see {@link Stream#map}
      */
@@ -119,6 +120,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
      * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like
      * {@link Stream#collect(Collector)} is used on the stream.
      *
+     * @param <R>    The element type of the new stream
      * @param mapper see {@link Stream#flatMap}
      * @return see {@link Stream#flatMap}
      */
@@ -183,6 +185,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
      * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like
      * {@link Stream#collect(Collector)} is used on the stream.
      *
+     * @param <R>    The element type of the new stream
      * @param mapper see {@link Stream#mapMulti}
      * @return see {@link Stream#mapMulti}
      */
@@ -358,6 +361,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
      * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like
      * {@link Stream#collect(Collector)} is used on the stream.
      *
+     * @param <U>         The type of the result
      * @param identity    see {@link Stream#reduce(Object, BiFunction, BinaryOperator)}
      * @param accumulator see {@link Stream#reduce(Object, BiFunction, BinaryOperator)}
      * @param combiner    see {@link Stream#reduce(Object, BiFunction, BinaryOperator)}
@@ -377,6 +381,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
      * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like
      * {@link Stream#collect(Collector)} is used on the stream.
      *
+     * @param <R>         the type of the mutable result container
      * @param supplier    see {@link Stream#collect(Supplier, BiConsumer, BiConsumer)}
      * @param accumulator see {@link Stream#collect(Supplier, BiConsumer, BiConsumer)}
      * @param combiner    see {@link Stream#collect(Supplier, BiConsumer, BiConsumer)}
