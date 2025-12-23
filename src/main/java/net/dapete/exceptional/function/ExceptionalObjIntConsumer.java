@@ -12,6 +12,7 @@ public interface ExceptionalObjIntConsumer<T, E extends Exception> extends Wrapp
      *
      * @param t     the first input argument
      * @param value the second input argument
+     * @throws E potentially
      */
     void accept(T t, int value) throws E;
 

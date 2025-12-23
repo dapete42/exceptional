@@ -12,6 +12,7 @@ public interface ExceptionalDoubleUnaryOperator<E extends Exception> extends Wra
      *
      * @param operand the operand
      * @return the operator result
+     * @throws E potentially
      */
     double applyAsDouble(double operand) throws E;
 

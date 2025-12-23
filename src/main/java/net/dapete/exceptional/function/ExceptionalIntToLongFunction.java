@@ -12,6 +12,7 @@ public interface ExceptionalIntToLongFunction<E extends Exception> extends Wrapp
      *
      * @param value the function argument
      * @return the function result
+     * @throws E potentially
      */
     long applyAsLong(int value) throws E;
 

@@ -12,6 +12,7 @@ public interface ExceptionalDoubleFunction<R, E extends Exception> extends Wrapp
      *
      * @param value the function argument
      * @return the function result
+     * @throws E potentially
      */
     R apply(double value) throws E;
 

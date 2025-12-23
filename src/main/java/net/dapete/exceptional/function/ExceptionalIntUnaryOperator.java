@@ -12,6 +12,7 @@ public interface ExceptionalIntUnaryOperator<E extends Exception> extends Wrappa
      *
      * @param operand the operand
      * @return the operator result
+     * @throws E potentially
      */
     int applyAsInt(int operand) throws E;
 

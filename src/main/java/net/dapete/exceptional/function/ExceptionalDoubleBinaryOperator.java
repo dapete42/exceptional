@@ -13,6 +13,7 @@ public interface ExceptionalDoubleBinaryOperator<E extends Exception> extends Wr
      * @param left  the first operand
      * @param right the second operand
      * @return the operator result
+     * @throws E potentially
      */
     double applyAsDouble(double left, double right) throws E;
 

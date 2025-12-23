@@ -7,6 +7,12 @@ import java.util.function.DoubleConsumer;
 @FunctionalInterface
 public interface ExceptionalDoubleConsumer<E extends Exception> extends Wrappable<DoubleConsumer> {
 
+    /**
+     * Performs this operation on the given argument.
+     *
+     * @param value the input argument
+     * @throws E potentially
+     */
     void accept(double value) throws E;
 
     @Override

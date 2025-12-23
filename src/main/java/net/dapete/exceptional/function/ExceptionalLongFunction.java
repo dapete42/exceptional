@@ -12,6 +12,7 @@ public interface ExceptionalLongFunction<R, E extends Exception> extends Wrappab
      *
      * @param value the function argument
      * @return the function result
+     * @throws E potentially
      */
     R apply(long value) throws E;
 

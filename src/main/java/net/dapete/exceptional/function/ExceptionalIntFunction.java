@@ -12,6 +12,7 @@ public interface ExceptionalIntFunction<R, E extends Exception> extends Wrappabl
      *
      * @param value the function argument
      * @return the function result
+     * @throws E potentially
      */
     R apply(int value) throws E;
 

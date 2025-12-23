@@ -13,6 +13,7 @@ public interface ExceptionalToIntBiFunction<T, U, E extends Exception> extends W
      * @param t the first function argument
      * @param u the second function argument
      * @return the function result
+     * @throws E potentially
      */
     int applyAsInt(T t, U u) throws E;
 

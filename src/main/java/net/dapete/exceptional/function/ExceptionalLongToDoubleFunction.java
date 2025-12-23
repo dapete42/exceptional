@@ -12,6 +12,7 @@ public interface ExceptionalLongToDoubleFunction<E extends Exception> extends Wr
      *
      * @param value the function argument
      * @return the function result
+     * @throws E potentially
      */
     double applyAsDouble(long value) throws E;
 

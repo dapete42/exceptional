@@ -13,6 +13,7 @@ public interface ExceptionalIntBinaryOperator<E extends Exception> extends Wrapp
      * @param left  the first operand
      * @param right the second operand
      * @return the operator result
+     * @throws E potentially
      */
     int applyAsInt(int left, int right) throws E;
 

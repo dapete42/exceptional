@@ -13,6 +13,7 @@ public interface ExceptionalLongBinaryOperator<E extends Exception> extends Wrap
      * @param left  the first operand
      * @param right the second operand
      * @return the operator result
+     * @throws E potentially
      */
     long applyAsLong(long left, long right) throws E;
 

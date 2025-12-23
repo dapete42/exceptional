@@ -12,6 +12,7 @@ public interface ExceptionalIntToDoubleFunction<E extends Exception> extends Wra
      *
      * @param value the function argument
      * @return the function result
+     * @throws E potentially
      */
     double applyAsDouble(int value) throws E;
 

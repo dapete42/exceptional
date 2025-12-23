@@ -13,6 +13,7 @@ public interface ExceptionalBinaryOperator<T, E extends Exception> extends Wrapp
      * @param t1 the first operator argument
      * @param t2 the second operator argument
      * @return the function result
+     * @throws E potentially
      */
     T apply(T t1, T t2) throws E;
 

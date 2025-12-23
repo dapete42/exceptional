@@ -13,6 +13,7 @@ public interface ExceptionalToDoubleBiFunction<T, U, E extends Exception> extend
      * @param t the first function argument
      * @param u the second function argument
      * @return the function result
+     * @throws E potentially
      */
     double applyAsDouble(T t, U u) throws E;
 

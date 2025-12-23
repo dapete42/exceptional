@@ -12,6 +12,7 @@ public interface ExceptionalLongUnaryOperator<E extends Exception> extends Wrapp
      *
      * @param operand the operand
      * @return the operator result
+     * @throws E potentially
      */
     long applyAsLong(long operand) throws E;
 

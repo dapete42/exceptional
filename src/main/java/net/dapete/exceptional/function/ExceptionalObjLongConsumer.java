@@ -12,6 +12,7 @@ public interface ExceptionalObjLongConsumer<T, E extends Exception> extends Wrap
      *
      * @param t     the first input argument
      * @param value the second input argument
+     * @throws E potentially
      */
     void accept(T t, long value) throws E;
 

@@ -12,6 +12,7 @@ public interface ExceptionalObjDoubleConsumer<T, E extends Exception> extends Wr
      *
      * @param t     the first input argument
      * @param value the second input argument
+     * @throws E potentially
      */
     void accept(T t, double value) throws E;
 
