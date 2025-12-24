@@ -206,7 +206,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
      * @param mapper see {@link Stream#mapMultiToDouble}
      * @return see {@link Stream#mapMultiToDouble}
      */
-    public @NonNull DoubleStream mapMultiToDouble(@NonNull ExceptionalBiConsumer<? super T, ? super DoubleConsumer, ? extends E> mapper) {
+    public @NonNull ExceptionalDoubleStream mapMultiToDouble(@NonNull ExceptionalBiConsumer<? super T, ? super DoubleConsumer, ? extends E> mapper) {
         return exceptionalStream.mapMultiToDouble(mapper.wrap());
     }
 
@@ -222,7 +222,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
      * @param mapper see {@link Stream#mapMultiToInt}
      * @return see {@link Stream#mapMultiToInt}
      */
-    public @NonNull IntStream mapMultiToInt(@NonNull ExceptionalBiConsumer<? super T, ? super IntConsumer, ? extends E> mapper) {
+    public @NonNull ExceptionalIntStream mapMultiToInt(@NonNull ExceptionalBiConsumer<? super T, ? super IntConsumer, ? extends E> mapper) {
         return exceptionalStream.mapMultiToInt(mapper.wrap());
     }
 
@@ -238,7 +238,7 @@ public final class ActiveExceptionalStream<T, E extends Exception> {
      * @param mapper see {@link Stream#mapMultiToLong}
      * @return see {@link Stream#mapMultiToLong}
      */
-    public @NonNull LongStream mapMultiToLong(@NonNull ExceptionalBiConsumer<? super T, ? super LongConsumer, ? extends E> mapper) {
+    public @NonNull ExceptionalLongStream mapMultiToLong(@NonNull ExceptionalBiConsumer<? super T, ? super LongConsumer, ? extends E> mapper) {
         return exceptionalStream.mapMultiToLong(mapper.wrap());
     }
 
