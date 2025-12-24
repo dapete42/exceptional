@@ -5,7 +5,6 @@ import net.dapete.exceptional.function.*;
 import org.jspecify.annotations.NonNull;
 
 import java.util.OptionalInt;
-import java.util.function.IntConsumer;
 import java.util.stream.IntStream;
 
 public final class ActiveExceptionalIntStream<E extends Exception> {
@@ -18,11 +17,10 @@ public final class ActiveExceptionalIntStream<E extends Exception> {
          * values to the {@code ic} consumer.
          *
          * @param value the int value coming from upstream
-         * @param ic    an {@code IntConsumer} accepting the mapped values
+         * @param ic    an {@code ExceptionalIntConsumer} accepting the mapped values
          * @throws E possibly
          */
-        // TODO ic should be an ExceptionalIntConsumer, but then wrapping does not work
-        void accept(int value, @NonNull IntConsumer ic) throws E;
+        void accept(int value, @NonNull ExceptionalIntConsumer<E> ic) throws E;
 
         @Override
         default IntStream.IntMapMultiConsumer wrap() {

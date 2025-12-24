@@ -5,7 +5,6 @@ import net.dapete.exceptional.function.*;
 import org.jspecify.annotations.NonNull;
 
 import java.util.OptionalLong;
-import java.util.function.LongConsumer;
 import java.util.stream.LongStream;
 
 public final class ActiveExceptionalLongStream<E extends Exception> {
@@ -18,11 +17,10 @@ public final class ActiveExceptionalLongStream<E extends Exception> {
          * values to the {@code ic} consumer.
          *
          * @param value the long value coming from upstream
-         * @param ic    an {@code LongConsumer} accepting the mapped values
+         * @param ic    an {@code ExceptionalLongConsumer} accepting the mapped values
          * @throws E possibly
          */
-        // TODO ic should be an ExceptionalLongConsumer, but then wrapping does not work
-        void accept(long value, @NonNull LongConsumer ic) throws E;
+        void accept(long value, @NonNull ExceptionalLongConsumer<E> ic) throws E;
 
         @Override
         default LongStream.LongMapMultiConsumer wrap() {

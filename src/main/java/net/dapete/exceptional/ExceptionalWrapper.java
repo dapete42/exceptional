@@ -824,7 +824,7 @@ public final class ExceptionalWrapper {
             ActiveExceptionalDoubleStream.@NonNull ExceptionalDoubleMapMultiConsumer<E> consumer) {
         return (value, ic) -> {
             try {
-                consumer.accept(value, ic);
+                consumer.accept(value, ic::accept);
             } catch (Exception e) {
                 throw toRuntimeException(e);
             }
@@ -842,7 +842,7 @@ public final class ExceptionalWrapper {
             ActiveExceptionalIntStream.@NonNull ExceptionalIntMapMultiConsumer<E> consumer) {
         return (value, ic) -> {
             try {
-                consumer.accept(value, ic);
+                consumer.accept(value, ic::accept);
             } catch (Exception e) {
                 throw toRuntimeException(e);
             }
@@ -860,7 +860,7 @@ public final class ExceptionalWrapper {
             ActiveExceptionalLongStream.@NonNull ExceptionalLongMapMultiConsumer<E> consumer) {
         return (value, ic) -> {
             try {
-                consumer.accept(value, ic);
+                consumer.accept(value, ic::accept);
             } catch (Exception e) {
                 throw toRuntimeException(e);
             }

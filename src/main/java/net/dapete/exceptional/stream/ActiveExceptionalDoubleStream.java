@@ -5,7 +5,6 @@ import net.dapete.exceptional.function.*;
 import org.jspecify.annotations.NonNull;
 
 import java.util.OptionalDouble;
-import java.util.function.DoubleConsumer;
 import java.util.stream.DoubleStream;
 
 public final class ActiveExceptionalDoubleStream<E extends Exception> {
@@ -18,11 +17,10 @@ public final class ActiveExceptionalDoubleStream<E extends Exception> {
          * values to the {@code ic} consumer.
          *
          * @param value the double value coming from upstream
-         * @param ic    an {@code DoubleConsumer} accepting the mapped values
+         * @param ic    an {@code ExceptionalDoubleConsumer} accepting the mapped values
          * @throws E possibly
          */
-        // TODO ic should be an ExceptionalDoubleConsumer, but then wrapping does not work
-        void accept(double value, @NonNull DoubleConsumer ic) throws E;
+        void accept(double value, @NonNull ExceptionalDoubleConsumer<E> ic) throws E;
 
         @Override
         default DoubleStream.DoubleMapMultiConsumer wrap() {
