@@ -49,7 +49,7 @@ public class ExceptionalException extends RuntimeException {
      * @param runnable a runnable that may throw an {@code ExceptionalException}.
      * @throws Exception the cause of the {@code ExceptionalException}, if {@code runnable} throws one.
      */
-    public static void unwrap(Runnable runnable) throws Exception {
+    public static void unwrap(@NonNull Runnable runnable) throws Exception {
         try {
             runnable.run();
         } catch (ExceptionalException e) {
@@ -66,7 +66,7 @@ public class ExceptionalException extends RuntimeException {
      * @param <E>            the type of the cause of the {@code ExceptionalException}
      * @throws E the cause of the {@code ExceptionalException}, if {@code runnable} throws one and its cause is an instance of {@code exceptionClass}.
      */
-    public static <E extends Exception> void unwrap(Class<E> exceptionClass, Runnable runnable) throws E {
+    public static <E extends Exception> void unwrap(@NonNull Class<E> exceptionClass, @NonNull Runnable runnable) throws E {
         try {
             runnable.run();
         } catch (ExceptionalException e) {
@@ -86,7 +86,7 @@ public class ExceptionalException extends RuntimeException {
      * @param <T>      the return type of {@code supplier}.
      * @throws Exception the cause of the {@code ExceptionalExceptionExceptionalException}, if {@code runnable} throws one.
      */
-    public static <T> T unwrap(Supplier<T> supplier) throws Exception {
+    public static <T> T unwrap(@NonNull Supplier<T> supplier) throws Exception {
         try {
             return supplier.get();
         } catch (ExceptionalException e) {
@@ -104,7 +104,7 @@ public class ExceptionalException extends RuntimeException {
      * @param <E>            the type of the cause of the {@code ExceptionalException}
      * @throws E the cause of the {@code ExceptionalException}, if {@code runnable} throws one and its cause is an instance of {@code exceptionClass}.
      */
-    public static <T, E extends Exception> T unwrap(Class<E> exceptionClass, Supplier<T> supplier) throws E {
+    public static <T, E extends Exception> T unwrap(@NonNull Class<E> exceptionClass, @NonNull Supplier<T> supplier) throws E {
         try {
             return supplier.get();
         } catch (ExceptionalException e) {
