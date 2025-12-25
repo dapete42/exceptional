@@ -40,9 +40,10 @@ public class ExceptionalLongStream implements LongStream {
     /**
      * Return an {@link ActiveExceptionalLongStream} for the same values that allows exception of type {@link Exception}.
      *
+     * @param <E> the type of exceptions thrown
      * @return an {@link ActiveExceptionalLongStream} for the same values that allows exception of type {@link Exception}
      */
-    public @NonNull ActiveExceptionalLongStream<Exception> wrapExceptions() {
+    public <E extends Exception> @NonNull ActiveExceptionalLongStream<E> wrapExceptions() {
         return new ActiveExceptionalLongStream<>(this);
     }
 

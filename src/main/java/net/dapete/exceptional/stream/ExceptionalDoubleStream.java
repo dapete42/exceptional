@@ -40,9 +40,10 @@ public class ExceptionalDoubleStream implements DoubleStream {
     /**
      * Return an {@link ActiveExceptionalDoubleStream} for the same values that allows exception of type {@link Exception}.
      *
+     * @param <E> the type of exceptions thrown
      * @return an {@link ActiveExceptionalDoubleStream} for the same values that allows exception of type {@link Exception}
      */
-    public @NonNull ActiveExceptionalDoubleStream<Exception> wrapExceptions() {
+    public <E extends Exception> @NonNull ActiveExceptionalDoubleStream<E> wrapExceptions() {
         return new ActiveExceptionalDoubleStream<>(this);
     }
 
