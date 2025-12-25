@@ -144,7 +144,7 @@ public final class ExceptionalStream<T> implements Stream<T> {
      * @param exceptionClass the class of the type of exceptions thrown
      * @return an {@link ActiveExceptionalStream} for the same values that allows exceptions of type {@link E}
      */
-    public <E extends Exception> @NonNull ActiveExceptionalStream<T, E> wrapExceptions(@SuppressWarnings("unused") Class<E> exceptionClass) {
+    public <E extends Exception> @NonNull ActiveExceptionalStream<T, E> wrapExceptions(@SuppressWarnings("unused") @NonNull Class<E> exceptionClass) {
         return new ActiveExceptionalStream<>(this);
     }
 

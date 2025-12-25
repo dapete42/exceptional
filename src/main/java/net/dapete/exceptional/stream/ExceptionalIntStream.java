@@ -53,7 +53,7 @@ public class ExceptionalIntStream implements IntStream {
      * @param exceptionClass the class of the type of exceptions thrown
      * @return an {@link ActiveExceptionalIntStream} for the same values that allows exceptions of type {@link E}
      */
-    public <E extends Exception> @NonNull ActiveExceptionalIntStream<E> wrapExceptions(@SuppressWarnings("unused") Class<E> exceptionClass) {
+    public <E extends Exception> @NonNull ActiveExceptionalIntStream<E> wrapExceptions(@SuppressWarnings("unused") @NonNull Class<E> exceptionClass) {
         return new ActiveExceptionalIntStream<>(this);
     }
 

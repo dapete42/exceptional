@@ -53,7 +53,7 @@ public class ExceptionalDoubleStream implements DoubleStream {
      * @param exceptionClass the class of the type of exceptions thrown
      * @return an {@link ActiveExceptionalDoubleStream} for the same values that allows exceptions of type {@link E}
      */
-    public <E extends Exception> @NonNull ActiveExceptionalDoubleStream<E> wrapExceptions(@SuppressWarnings("unused") Class<E> exceptionClass) {
+    public <E extends Exception> @NonNull ActiveExceptionalDoubleStream<E> wrapExceptions(@SuppressWarnings("unused") @NonNull Class<E> exceptionClass) {
         return new ActiveExceptionalDoubleStream<>(this);
     }
 
