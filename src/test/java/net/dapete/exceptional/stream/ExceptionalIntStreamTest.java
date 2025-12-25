@@ -13,8 +13,7 @@ class ExceptionalIntStreamTest {
     void map_exception() {
         final var thrown = assertThrows(ExceptionalException.class,
                 () -> ExceptionalIntStream.of(1, 2, 3)
-                        .wrapExceptions(IOException.class)
-                        .map(t -> {
+                        .exceptionalMap(t -> {
                             throw new IOException("Test");
                         })
                         .boxed()
@@ -26,9 +25,8 @@ class ExceptionalIntStreamTest {
 
     @Test
     void map_noExceptionBeforeEndOperation() {
-        ExceptionalIntStream.of(1, 2, 3)
-                .wrapExceptions(IOException.class)
-                .map(t -> {
+        @SuppressWarnings("unused") final var ignore = ExceptionalIntStream.of(1, 2, 3)
+                .exceptionalMap(t -> {
                     throw new IOException("Test");
                 });
     }

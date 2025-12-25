@@ -1,23 +1,28 @@
 package net.dapete.exceptional.stream;
 
 import lombok.experimental.Delegate;
+import net.dapete.exceptional.ExceptionalException;
+import net.dapete.exceptional.function.*;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.Optional;
 import java.util.function.*;
-import java.util.stream.DoubleStream;
-import java.util.stream.IntStream;
-import java.util.stream.LongStream;
-import java.util.stream.Stream;
+import java.util.stream.*;
 
 /**
- * A Stream with additional functionality.
+ * A Stream with additional functionality for functional interfaces that throw Exceptions.
  * <p>
- * Using {@link #wrapExceptions()} and {@link #wrapExceptions(Class)}, it is possible to switch to an instance of the stream-like class
- * {@link ActiveExceptionalStream} which implements methods analogue to {@link Stream#map}, {@link Stream#filter} etc. to allow functional interfaces that
- * throw exceptions (from the {@link net.dapete.exceptional.function} package).
+ * Implements versions of all methods from Stream that use functional interfaces, using their counterparts with Exceptions instead, e.g.
+ * {@link #exceptionalMap} in parallel to {@link #map}.
+ * <p>
+ * If these functional interfaces throw a checked exception, a {@link ExceptionalException} will be thrown instead.
+ * This will have the original exception as its {@link Throwable#getCause() cause}.
+ * <p>
+ * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like
+ * {@link #toList} is used on the stream.
  *
  * @param <T> the type of the stream elements
  */
@@ -126,27 +131,6 @@ public final class ExceptionalStream<T> implements Stream<T> {
     @SafeVarargs
     public static <T> @NonNull ExceptionalStream<T> of(T... values) {
         return of(Stream.of(values));
-    }
-
-    /**
-     * Return an {@link ActiveExceptionalStream} for the same values that allows exception of type {@link Exception}.
-     *
-     * @param <E> the type of exceptions thrown
-     * @return an {@link ActiveExceptionalStream} for the same values that allows exception of type {@link Exception}
-     */
-    public <E extends Exception> @NonNull ActiveExceptionalStream<T, E> wrapExceptions() {
-        return new ActiveExceptionalStream<>(this);
-    }
-
-    /**
-     * Return an {@link ActiveExceptionalStream} for the same values that allows exceptions of type {@link E}.
-     *
-     * @param <E>            the type of exceptions thrown
-     * @param exceptionClass the class of the type of exceptions thrown
-     * @return an {@link ActiveExceptionalStream} for the same values that allows exceptions of type {@link E}
-     */
-    public <E extends Exception> @NonNull ActiveExceptionalStream<T, E> wrapExceptions(@SuppressWarnings("unused") @NonNull Class<E> exceptionClass) {
-        return new ActiveExceptionalStream<>(this);
     }
 
     /* Override all methods that usually return Stream to return an ExceptionalStream. */
@@ -260,6 +244,370 @@ public final class ExceptionalStream<T> implements Stream<T> {
     @Override
     public ExceptionalLongStream mapMultiToLong(BiConsumer<? super T, ? super LongConsumer> mapper) {
         return ExceptionalLongStream.of(stream.mapMultiToLong(mapper));
+    }
+
+    /* Implement versions of all methods from Stream that use functional interfaces, using their counterparts with Exceptions instead. */
+
+    /**
+     * Equivalent of {@link Stream#filter}.
+     * <p>
+     * If {@code predicate} throws a checked exception, a {@link ExceptionalException} will be thrown instead.
+     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * <p>
+     * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like {@link Stream#toList()}
+     * is used on the stream.
+     *
+     * @param predicate see {@link Stream#filter}
+     * @return see {@link Stream#filter}
+     */
+    public @NonNull ExceptionalStream<T> exceptionalFilter(@NonNull ExceptionalPredicate<? super T, ?> predicate) {
+        return filter(predicate.wrap());
+    }
+
+    /**
+     * Equivalent of {@link Stream#map(Function)}.
+     * <p>
+     * If {@code mapper} throws a checked exception, a {@link ExceptionalException} will be thrown instead.
+     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * <p>
+     * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like {@link Stream#toList()}
+     * is used on the stream.
+     *
+     * @param <R>    The element type of the new stream
+     * @param mapper see {@link Stream#map}
+     * @return see {@link Stream#map}
+     */
+    public <R> @NonNull ExceptionalStream<R> exceptionalMap(@NonNull ExceptionalFunction<? super T, ? extends R, ?> mapper) {
+        return map(mapper.wrap());
+    }
+
+    /**
+     * Equivalent of {@link Stream#mapToDouble}.
+     * <p>
+     * If {@code mapper} throws a checked exception, a {@link ExceptionalException} will be thrown instead.
+     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * <p>
+     * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like {@link Stream#toList()}
+     * is used on the stream.
+     *
+     * @param mapper see {@link Stream#mapToDouble}
+     * @return see {@link Stream#mapToDouble}
+     */
+    public @NonNull ExceptionalDoubleStream exceptionalMapToDouble(@NonNull ExceptionalToDoubleFunction<? super T, ?> mapper) {
+        return ExceptionalDoubleStream.of(mapToDouble(mapper.wrap()));
+    }
+
+    /**
+     * Equivalent of {@link Stream#mapToInt}.
+     * <p>
+     * If {@code mapper} throws a checked exception, a {@link ExceptionalException} will be thrown instead.
+     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * <p>
+     * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like {@link Stream#toList()}
+     * is used on the stream.
+     *
+     * @param mapper see {@link Stream#mapToInt}
+     * @return see {@link Stream#mapToInt}
+     */
+    public @NonNull ExceptionalIntStream exceptionalMapToInt(@NonNull ExceptionalToIntFunction<? super T, ?> mapper) {
+        return mapToInt(mapper.wrap());
+    }
+
+    /**
+     * Equivalent of {@link Stream#mapToLong}.
+     * <p>
+     * If {@code mapper} throws a checked exception, a {@link ExceptionalException} will be thrown instead.
+     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * <p>
+     * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like {@link Stream#toList()}
+     * is used on the stream.
+     *
+     * @param mapper see {@link Stream#mapToLong}
+     * @return see {@link Stream#mapToLong}
+     */
+    public @NonNull ExceptionalLongStream exceptionalMapToLong(@NonNull ExceptionalToLongFunction<? super T, ?> mapper) {
+        return ExceptionalLongStream.of(mapToLong(mapper.wrap()));
+    }
+
+    /**
+     * Equivalent of {@link Stream#flatMap}.
+     * <p>
+     * If {@code mapper} throws a checked exception, a {@link ExceptionalException} will be thrown instead.
+     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * <p>
+     * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like {@link Stream#toList()}
+     * is used on the stream.
+     *
+     * @param <R>    The element type of the new stream
+     * @param mapper see {@link Stream#flatMap}
+     * @return see {@link Stream#flatMap}
+     */
+    public <R> @NonNull ExceptionalStream<R> exceptionalFlatMap(@NonNull ExceptionalFunction<? super T, ? extends Stream<? extends R>, ?> mapper) {
+        return flatMap(mapper.wrap());
+    }
+
+    /**
+     * Equivalent of {@link Stream#flatMapToDouble}.
+     * <p>
+     * If {@code mapper} throws a checked exception, a {@link ExceptionalException} will be thrown instead.
+     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * <p>
+     * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like {@link Stream#toList()}
+     * is used on the stream.
+     *
+     * @param mapper see {@link Stream#flatMapToDouble}
+     * @return see {@link Stream#flatMapToDouble}
+     */
+    public @NonNull ExceptionalDoubleStream exceptionalFlatMapToDouble(@NonNull ExceptionalFunction<? super T, ? extends DoubleStream, ?> mapper) {
+        return ExceptionalDoubleStream.of(flatMapToDouble(mapper.wrap()));
+    }
+
+    /**
+     * Equivalent of {@link Stream#flatMapToInt}.
+     * <p>
+     * If {@code mapper} throws a checked exception, a {@link ExceptionalException} will be thrown instead.
+     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * <p>
+     * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like {@link Stream#toList()}
+     * is used on the stream.
+     *
+     * @param mapper see {@link Stream#flatMapToInt}
+     * @return see {@link Stream#flatMapToInt}
+     */
+    public @NonNull ExceptionalIntStream exceptionalFlatMapToInt(@NonNull ExceptionalFunction<? super T, ? extends IntStream, ?> mapper) {
+        return ExceptionalIntStream.of(flatMapToInt(mapper.wrap()));
+    }
+
+    /**
+     * Equivalent of {@link Stream#flatMapToLong}.
+     * <p>
+     * If {@code mapper} throws a checked exception, a {@link ExceptionalException} will be thrown instead.
+     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * <p>
+     * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like {@link Stream#toList()}
+     * is used on the stream.
+     *
+     * @param mapper see {@link Stream#flatMapToLong}
+     * @return see {@link Stream#flatMapToLong}
+     */
+    public @NonNull ExceptionalLongStream exceptionalFlatMapToLong(@NonNull ExceptionalFunction<? super T, ? extends LongStream, ?> mapper) {
+        return ExceptionalLongStream.of(flatMapToLong(mapper.wrap()));
+    }
+
+    /**
+     * Equivalent of {@link Stream#mapMulti}.
+     * <p>
+     * If {@code mapper} throws a checked exception, a {@link ExceptionalException} will be thrown instead.
+     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * <p>
+     * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like {@link Stream#toList()}
+     * is used on the stream.
+     *
+     * @param <R>    The element type of the new stream
+     * @param mapper see {@link Stream#mapMulti}
+     * @return see {@link Stream#mapMulti}
+     */
+    public <R> @NonNull ExceptionalStream<R> exceptionalMapMulti(@NonNull ExceptionalBiConsumer<? super T, ? super Consumer<R>, ?> mapper) {
+        return mapMulti(mapper.wrap());
+    }
+
+    /**
+     * Equivalent of {@link Stream#mapMultiToDouble}.
+     * <p>
+     * If {@code mapper} throws a checked exception, a {@link ExceptionalException} will be thrown instead.
+     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * <p>
+     * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like {@link Stream#toList()}
+     * is used on the stream.
+     *
+     * @param mapper see {@link Stream#mapMultiToDouble}
+     * @return see {@link Stream#mapMultiToDouble}
+     */
+    public @NonNull ExceptionalDoubleStream exceptionalMapMultiToDouble(@NonNull ExceptionalBiConsumer<? super T, ? super DoubleConsumer, ?> mapper) {
+        return mapMultiToDouble(mapper.wrap());
+    }
+
+    /**
+     * Equivalent of {@link Stream#mapMultiToInt}.
+     * <p>
+     * If {@code mapper} throws a checked exception, a {@link ExceptionalException} will be thrown instead.
+     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * <p>
+     * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like {@link Stream#toList()}
+     * is used on the stream.
+     *
+     * @param mapper see {@link Stream#mapMultiToInt}
+     * @return see {@link Stream#mapMultiToInt}
+     */
+    public @NonNull ExceptionalIntStream exceptionalMapMultiToInt(@NonNull ExceptionalBiConsumer<? super T, ? super IntConsumer, ?> mapper) {
+        return mapMultiToInt(mapper.wrap());
+    }
+
+    /**
+     * Equivalent of {@link Stream#mapMultiToLong}.
+     * <p>
+     * If {@code mapper} throws a checked exception, a {@link ExceptionalException} will be thrown instead.
+     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * <p>
+     * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like {@link Stream#toList()}
+     * is used on the stream.
+     *
+     * @param mapper see {@link Stream#mapMultiToLong}
+     * @return see {@link Stream#mapMultiToLong}
+     */
+    public @NonNull ExceptionalLongStream exceptionalMapMultiToLong(@NonNull ExceptionalBiConsumer<? super T, ? super LongConsumer, ?> mapper) {
+        return mapMultiToLong(mapper.wrap());
+    }
+
+    /**
+     * Equivalent of {@link Stream#peek}.
+     * <p>
+     * If {@code action} throws a checked exception, a {@link ExceptionalException} will be thrown instead.
+     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * <p>
+     * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like {@link Stream#toList()}
+     * is used on the stream.
+     *
+     * @param action see {@link Stream#peek}
+     * @return see {@link Stream#peek}
+     */
+    public @NonNull ExceptionalStream<T> exceptionalPeek(@NonNull ExceptionalConsumer<? super T, ?> action) {
+        return peek(action.wrap());
+    }
+
+    /**
+     * Equivalent of {@link Stream#takeWhile}.
+     * <p>
+     * If {@code predicate} throws a checked exception, a {@link ExceptionalException} will be thrown instead.
+     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * <p>
+     * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like {@link Stream#toList()}
+     * is used on the stream.
+     *
+     * @param predicate see {@link Stream#takeWhile}
+     * @return see {@link Stream#takeWhile}
+     */
+    public @NonNull ExceptionalStream<T> exceptionalTakeWhile(@NonNull ExceptionalPredicate<? super T, ?> predicate) {
+        return takeWhile(predicate.wrap());
+    }
+
+    /**
+     * Equivalent of {@link Stream#takeWhile}.
+     * <p>
+     * If {@code predicate} throws a checked exception, a {@link ExceptionalException} will be thrown instead.
+     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * <p>
+     * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like {@link Stream#toList()}
+     * is used on the stream.
+     *
+     * @param predicate see {@link Stream#takeWhile}
+     * @return see {@link Stream#takeWhile}
+     */
+    public @NonNull ExceptionalStream<T> exceptionalDropWhile(@NonNull ExceptionalPredicate<? super T, ?> predicate) {
+        return dropWhile(predicate.wrap());
+    }
+
+    /**
+     * Equivalent of {@link Stream#forEach}.
+     * <p>
+     * If {@code action} throws a checked exception, a {@link ExceptionalException} will be thrown instead.
+     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * <p>
+     * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like {@link Stream#toList()}
+     * is used on the stream.
+     *
+     * @param action see {@link Stream#forEach}
+     */
+    public void exceptionalForEach(@NonNull ExceptionalConsumer<? super T, ?> action) {
+        forEach(action.wrap());
+    }
+
+    /**
+     * Equivalent of {@link Stream#forEachOrdered}.
+     * <p>
+     * If {@code action} throws a checked exception, a {@link ExceptionalException} will be thrown instead.
+     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * <p>
+     * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like {@link Stream#toList()}
+     * is used on the stream.
+     *
+     * @param action see {@link Stream#forEachOrdered}
+     */
+    public void exceptionalForEachOrdered(@NonNull ExceptionalConsumer<? super T, ?> action) {
+        forEachOrdered(action.wrap());
+    }
+
+    /**
+     * Equivalent of {@link Stream#reduce(BinaryOperator)}.
+     * <p>
+     * If {@code accumulator} throws a checked exception, a {@link ExceptionalException} will be thrown instead.
+     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * <p>
+     * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like {@link Stream#toList()}
+     * is used on the stream.
+     *
+     * @param accumulator see {@link Stream#reduce(BinaryOperator)}
+     * @return see {@link Stream#reduce(BinaryOperator)}
+     */
+    public @NonNull Optional<T> exceptionalReduce(@NonNull ExceptionalBinaryOperator<T, ?> accumulator) {
+        return reduce(accumulator.wrap());
+    }
+
+    /**
+     * Equivalent of {@link Stream#reduce(Object, BinaryOperator)}.
+     * <p>
+     * If {@code accumulator} throws a checked exception, a {@link ExceptionalException} will be thrown instead.
+     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * <p>
+     * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like {@link Stream#toList()}
+     * is used on the stream.
+     *
+     * @param identity    see {@link Stream#reduce(Object, BiFunction, BinaryOperator)}
+     * @param accumulator see {@link Stream#reduce(Object, BinaryOperator)}
+     * @return see {@link Stream#reduce(Object, BinaryOperator)}
+     */
+    public T exceptionalReduce(T identity, @NonNull ExceptionalBinaryOperator<T, ?> accumulator) {
+        return reduce(identity, accumulator.wrap());
+    }
+
+    /**
+     * Equivalent of {@link Stream#reduce(Object, BiFunction, BinaryOperator)}.
+     * <p>
+     * If {@code accumulator} or {@code combiner} throw a checked exception, a {@link ExceptionalException} will be thrown instead.
+     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * <p>
+     * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like {@link Stream#toList()}
+     * is used on the stream.
+     *
+     * @param <U>         The type of the result
+     * @param identity    see {@link Stream#reduce(Object, BiFunction, BinaryOperator)}
+     * @param accumulator see {@link Stream#reduce(Object, BiFunction, BinaryOperator)}
+     * @param combiner    see {@link Stream#reduce(Object, BiFunction, BinaryOperator)}
+     * @return see {@link Stream#reduce(Object, BiFunction, BinaryOperator)}
+     */
+    public <U> U exceptionalReduce(U identity, @NonNull ExceptionalBiFunction<U, ? super T, U, ?> accumulator,
+                                   @NonNull ExceptionalBinaryOperator<U, ?> combiner) {
+        return reduce(identity, accumulator.wrap(), combiner.wrap());
+    }
+
+    /**
+     * Equivalent of {@link Stream#collect(Supplier, BiConsumer, BiConsumer)}.
+     * <p>
+     * If {@code supplier}, {@code accumulator} or {@code combiner} throw a checked exception, a {@link ExceptionalException} will be thrown instead.
+     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * <p>
+     * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like {@link Stream#toList()}
+     * is used on the stream.
+     *
+     * @param <R>         the type of the mutable result container
+     * @param supplier    see {@link Stream#collect(Supplier, BiConsumer, BiConsumer)}
+     * @param accumulator see {@link Stream#collect(Supplier, BiConsumer, BiConsumer)}
+     * @param combiner    see {@link Stream#collect(Supplier, BiConsumer, BiConsumer)}
+     * @return see {@link Stream#collect(Supplier, BiConsumer, BiConsumer)}
+     */
+    public <R> R exceptionalCollect(@NonNull ExceptionalSupplier<R, ?> supplier, @NonNull ExceptionalBiConsumer<R, ? super T, ?> accumulator,
+                                    @NonNull ExceptionalBiConsumer<R, R, ?> combiner) {
+        return collect(supplier.wrap(), accumulator.wrap(), combiner.wrap());
     }
 
 }

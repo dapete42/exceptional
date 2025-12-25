@@ -10,11 +10,10 @@ import static org.junit.jupiter.api.Assertions.*;
 class ExceptionalDoubleStreamTest {
 
     @Test
-    void map_exception() {
+    void exceptionalMap_exception() {
         final var thrown = assertThrows(ExceptionalException.class,
                 () -> ExceptionalDoubleStream.of(1, 2, 3)
-                        .wrapExceptions(IOException.class)
-                        .map(t -> {
+                        .exceptionalMap(t -> {
                             throw new IOException("Test");
                         })
                         .boxed()
@@ -25,10 +24,9 @@ class ExceptionalDoubleStreamTest {
     }
 
     @Test
-    void map_noExceptionBeforeEndOperation() {
-        ExceptionalDoubleStream.of(1, 2, 3)
-                .wrapExceptions(IOException.class)
-                .map(t -> {
+    void exceptionalMap_noExceptionBeforeEndOperation() {
+        @SuppressWarnings("unused") final var ignore = ExceptionalDoubleStream.of(1, 2, 3)
+                .exceptionalMap(t -> {
                     throw new IOException("Test");
                 });
     }

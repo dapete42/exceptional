@@ -1,8 +1,8 @@
 package net.dapete.exceptional.function;
 
-import net.dapete.exceptional.stream.ActiveExceptionalDoubleStream;
-import net.dapete.exceptional.stream.ActiveExceptionalIntStream;
-import net.dapete.exceptional.stream.ActiveExceptionalLongStream;
+import net.dapete.exceptional.stream.ExceptionalDoubleMapMultiConsumer;
+import net.dapete.exceptional.stream.ExceptionalIntMapMultiConsumer;
+import net.dapete.exceptional.stream.ExceptionalLongMapMultiConsumer;
 import org.jspecify.annotations.NullMarked;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.params.provider.Arguments;
@@ -38,9 +38,9 @@ public class AllExceptionalFunctionalInterfacesArgumentsProvider implements Argu
                                         }
                                     })
                                     .filter(Objects::nonNull),
-                            Stream.of(ActiveExceptionalDoubleStream.ExceptionalDoubleMapMultiConsumer.class,
-                                    ActiveExceptionalIntStream.ExceptionalIntMapMultiConsumer.class,
-                                    ActiveExceptionalLongStream.ExceptionalLongMapMultiConsumer.class)
+                            Stream.of(ExceptionalDoubleMapMultiConsumer.class,
+                                    ExceptionalIntMapMultiConsumer.class,
+                                    ExceptionalLongMapMultiConsumer.class)
                     )
                     .map(Arguments::of)
                     .toList()

@@ -18,17 +18,16 @@ class ExceptionalExceptionTest {
 
         try {
             ExceptionalIntStream.of(1, 2, 3)
-                    .wrapExceptions(IOException.class)
-                    .forEach(i -> {
+                    .exceptionalForEach(i -> {
                         throw new IOException("Test");
                     });
         } catch (ExceptionalException e) {
             try {
                 e.throwCause();
             } catch (IOException ee) {
-                System.out.printf("IOException was thrown: %s%n", ee);
+                System.out.println("IOException was thrown");
             } catch (Exception ee) {
-                System.out.printf("Exception was thrown: %s%n", ee);
+                System.out.println("Exception was thrown");
             }
         }
 
@@ -46,15 +45,14 @@ class ExceptionalExceptionTest {
         try {
             ExceptionalException.unwrap(() ->
                     ExceptionalIntStream.of(1, 2, 3)
-                            .wrapExceptions(IOException.class)
-                            .forEach(i -> {
+                            .exceptionalForEach(i -> {
                                 throw new IOException("Test");
                             })
             );
         } catch (IOException e) {
-            System.out.printf("IOException was thrown: %s%n", e);
+            System.out.println("IOException was thrown");
         } catch (Exception e) {
-            System.out.printf("Exception was thrown: %s%n", e);
+            System.out.println("Exception was thrown");
         }
 
     }
@@ -71,13 +69,12 @@ class ExceptionalExceptionTest {
         try {
             ExceptionalException.unwrap(IOException.class, () ->
                     ExceptionalIntStream.of(1, 2, 3)
-                            .wrapExceptions(IOException.class)
-                            .forEach(i -> {
+                            .exceptionalForEach(i -> {
                                 throw new IOException("Test");
                             })
             );
         } catch (IOException e) {
-            System.out.printf("Exception was thrown: %s%n", e);
+            System.out.println("IOException was thrown");
         }
 
     }
@@ -89,18 +86,17 @@ class ExceptionalExceptionTest {
         // the same as in unwrap_runnable, just with a return value
 
         try {
-            var ignore = ExceptionalException.unwrap(() ->
+            @SuppressWarnings("unused") final var ignore = ExceptionalException.unwrap(() ->
                     ExceptionalIntStream.of(1, 2, 3)
-                            .wrapExceptions(IOException.class)
-                            .map(i -> {
+                            .exceptionalMap(i -> {
                                 throw new IOException("Test");
                             })
                             .toArray()
             );
         } catch (IOException e) {
-            System.out.printf("IOException was thrown: %s%n", e);
+            System.out.println("IOException was thrown");
         } catch (Exception e) {
-            System.out.printf("Exception was thrown: %s%n", e);
+            System.out.println("Exception was thrown");
         }
 
     }
@@ -112,16 +108,15 @@ class ExceptionalExceptionTest {
         // the same as in unwrap_class_runnable, just with a return value
 
         try {
-            var ignore = ExceptionalException.unwrap(IOException.class, () ->
+            @SuppressWarnings("unused") final var ignore = ExceptionalException.unwrap(IOException.class, () ->
                     ExceptionalIntStream.of(1, 2, 3)
-                            .wrapExceptions(IOException.class)
-                            .map(i -> {
+                            .exceptionalMap(i -> {
                                 throw new IOException("Test");
                             })
                             .toArray()
             );
         } catch (IOException e) {
-            System.out.printf("Exception was thrown: %s%n", e);
+            System.out.println("IOException was thrown");
         }
 
     }

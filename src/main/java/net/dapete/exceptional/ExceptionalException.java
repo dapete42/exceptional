@@ -26,7 +26,7 @@ public class ExceptionalException extends RuntimeException {
      * @return the cause of this exception.
      */
     @Override
-    public Exception getCause() {
+    public synchronized Exception getCause() {
         if (super.getCause() instanceof Exception exception) {
             return exception;
         } else {

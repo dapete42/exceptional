@@ -1,8 +1,10 @@
 package net.dapete.exceptional.stream;
 
 import lombok.experimental.Delegate;
+import net.dapete.exceptional.function.*;
 import org.jspecify.annotations.NonNull;
 
+import java.util.OptionalDouble;
 import java.util.function.*;
 import java.util.stream.DoubleStream;
 
@@ -37,28 +39,7 @@ public class ExceptionalDoubleStream implements DoubleStream {
         return of(DoubleStream.of(values));
     }
 
-    /**
-     * Return an {@link ActiveExceptionalDoubleStream} for the same values that allows exception of type {@link Exception}.
-     *
-     * @param <E> the type of exceptions thrown
-     * @return an {@link ActiveExceptionalDoubleStream} for the same values that allows exception of type {@link Exception}
-     */
-    public <E extends Exception> @NonNull ActiveExceptionalDoubleStream<E> wrapExceptions() {
-        return new ActiveExceptionalDoubleStream<>(this);
-    }
-
-    /**
-     * Return an {@link ActiveExceptionalDoubleStream} for the same values that allows exceptions of type {@link E}.
-     *
-     * @param <E>            the type of exceptions thrown
-     * @param exceptionClass the class of the type of exceptions thrown
-     * @return an {@link ActiveExceptionalDoubleStream} for the same values that allows exceptions of type {@link E}
-     */
-    public <E extends Exception> @NonNull ActiveExceptionalDoubleStream<E> wrapExceptions(@SuppressWarnings("unused") @NonNull Class<E> exceptionClass) {
-        return new ActiveExceptionalDoubleStream<>(this);
-    }
-
-    /* Override all methods that usually return Stream to return an ExceptionalStream. */
+    /* Override all methods that usually return Stream to return an ExceptionalStream */
 
     @Override
     public <U> @NonNull ExceptionalStream<U> mapToObj(@NonNull DoubleFunction<? extends U> mapper) {
@@ -144,6 +125,82 @@ public class ExceptionalDoubleStream implements DoubleStream {
     @Override
     public @NonNull ExceptionalLongStream mapToLong(@NonNull DoubleToLongFunction mapper) {
         return ExceptionalLongStream.of(stream.mapToLong(mapper));
+    }
+
+    /* Implement versions of all methods from DoubleStream that use functional interfaces, using their counterparts with Exceptions instead. */
+
+    public @NonNull ExceptionalDoubleStream exceptionalFilter(@NonNull ExceptionalDoublePredicate<?> predicate) {
+        return ExceptionalDoubleStream.of(filter(predicate.wrap()));
+    }
+
+    public @NonNull ExceptionalDoubleStream exceptionalMap(@NonNull ExceptionalDoubleUnaryOperator<?> mapper) {
+        return ExceptionalDoubleStream.of(map(mapper.wrap()));
+    }
+
+    public <U> @NonNull ExceptionalStream<U> exceptionalMapToObj(@NonNull ExceptionalDoubleFunction<? extends U, ?> mapper) {
+        return ExceptionalStream.of(mapToObj(mapper.wrap()));
+    }
+
+    public @NonNull ExceptionalIntStream exceptionalMapToInt(@NonNull ExceptionalDoubleToIntFunction<?> mapper) {
+        return ExceptionalIntStream.of(mapToInt(mapper.wrap()));
+    }
+
+    public @NonNull ExceptionalLongStream exceptionalMapToLong(@NonNull ExceptionalDoubleToLongFunction<?> mapper) {
+        return ExceptionalLongStream.of(mapToLong(mapper.wrap()));
+    }
+
+
+    public @NonNull ExceptionalDoubleStream exceptionalFlatMap(@NonNull ExceptionalDoubleFunction<? extends DoubleStream, ?> mapper) {
+        return ExceptionalDoubleStream.of(flatMap(mapper.wrap()));
+    }
+
+    public @NonNull ExceptionalDoubleStream exceptionalMapMulti(@NonNull ExceptionalDoubleMapMultiConsumer<?> mapper) {
+        return ExceptionalDoubleStream.of(mapMulti(mapper.wrap()));
+    }
+
+    public @NonNull ExceptionalDoubleStream exceptionalPeek(@NonNull ExceptionalDoubleConsumer<?> action) {
+        return ExceptionalDoubleStream.of(peek(action.wrap()));
+    }
+
+    public @NonNull ExceptionalDoubleStream exceptionalTakeWhile(@NonNull ExceptionalDoublePredicate<?> predicate) {
+        return ExceptionalDoubleStream.of(takeWhile(predicate.wrap()));
+    }
+
+    public @NonNull ExceptionalDoubleStream exceptionalDropWhile(@NonNull ExceptionalDoublePredicate<?> predicate) {
+        return ExceptionalDoubleStream.of(dropWhile(predicate.wrap()));
+    }
+
+    public void exceptionalForEach(@NonNull ExceptionalDoubleConsumer<?> action) {
+        forEach(action.wrap());
+    }
+
+    public void exceptionalForEachOrdered(@NonNull ExceptionalDoubleConsumer<?> action) {
+        forEachOrdered(action.wrap());
+    }
+
+    public Double exceptionalReduce(double identity, @NonNull ExceptionalDoubleBinaryOperator<?> op) {
+        return reduce(identity, op.wrap());
+    }
+
+    public OptionalDouble exceptionalReduce(@NonNull ExceptionalDoubleBinaryOperator<?> op) {
+        return reduce(op.wrap());
+    }
+
+    public <R> R exceptionalCollect(@NonNull ExceptionalSupplier<R, ?> supplier, @NonNull ExceptionalObjDoubleConsumer<R, ?> accumulator,
+                                    @NonNull ExceptionalBiConsumer<R, R, ?> combiner) {
+        return collect(supplier.wrap(), accumulator.wrap(), combiner.wrap());
+    }
+
+    public boolean exceptionalAnyMatch(@NonNull ExceptionalDoublePredicate<?> predicate) {
+        return anyMatch(predicate.wrap());
+    }
+
+    public boolean exceptionalAllMatch(@NonNull ExceptionalDoublePredicate<?> predicate) {
+        return allMatch(predicate.wrap());
+    }
+
+    public boolean exceptionalNneMatch(@NonNull ExceptionalDoublePredicate<?> predicate) {
+        return noneMatch(predicate.wrap());
     }
 
 }

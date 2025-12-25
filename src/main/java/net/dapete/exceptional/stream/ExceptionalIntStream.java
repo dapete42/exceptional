@@ -1,8 +1,10 @@
 package net.dapete.exceptional.stream;
 
 import lombok.experimental.Delegate;
+import net.dapete.exceptional.function.*;
 import org.jspecify.annotations.NonNull;
 
+import java.util.OptionalInt;
 import java.util.function.*;
 import java.util.stream.IntStream;
 
@@ -35,27 +37,6 @@ public class ExceptionalIntStream implements IntStream {
 
     public static ExceptionalIntStream of(int... values) {
         return of(IntStream.of(values));
-    }
-
-    /**
-     * Return an {@link ActiveExceptionalIntStream} for the same values that allows exception of type {@link Exception}.
-     *
-     * @param <E> the type of exceptions thrown
-     * @return an {@link ActiveExceptionalIntStream} for the same values that allows exception of type {@link Exception}
-     */
-    public <E extends Exception> @NonNull ActiveExceptionalIntStream<E> wrapExceptions() {
-        return new ActiveExceptionalIntStream<>(this);
-    }
-
-    /**
-     * Return an {@link ActiveExceptionalIntStream} for the same values that allows exceptions of type {@link E}.
-     *
-     * @param <E>            the type of exceptions thrown
-     * @param exceptionClass the class of the type of exceptions thrown
-     * @return an {@link ActiveExceptionalIntStream} for the same values that allows exceptions of type {@link E}
-     */
-    public <E extends Exception> @NonNull ActiveExceptionalIntStream<E> wrapExceptions(@SuppressWarnings("unused") @NonNull Class<E> exceptionClass) {
-        return new ActiveExceptionalIntStream<>(this);
     }
 
     /* Override all methods that usually return Stream to return an ExceptionalStream. */
@@ -154,6 +135,81 @@ public class ExceptionalIntStream implements IntStream {
     @Override
     public @NonNull ExceptionalLongStream asLongStream() {
         return ExceptionalLongStream.of(stream.asLongStream());
+    }
+
+    /* Implement versions of all methods from IntStream that use functional interfaces, using their counterparts with Exceptions instead. */
+
+    public @NonNull ExceptionalIntStream exceptionalFilter(@NonNull ExceptionalIntPredicate<?> predicate) {
+        return ExceptionalIntStream.of(filter(predicate.wrap()));
+    }
+
+    public @NonNull ExceptionalIntStream exceptionalMap(@NonNull ExceptionalIntUnaryOperator<?> mapper) {
+        return ExceptionalIntStream.of(map(mapper.wrap()));
+    }
+
+    public <U> @NonNull ExceptionalStream<U> exceptionalMapToObj(@NonNull ExceptionalIntFunction<? extends U, ?> mapper) {
+        return ExceptionalStream.of(mapToObj(mapper.wrap()));
+    }
+
+    public @NonNull ExceptionalDoubleStream exceptionalMapToDouble(@NonNull ExceptionalIntToDoubleFunction<?> mapper) {
+        return ExceptionalDoubleStream.of(mapToDouble(mapper.wrap()));
+    }
+
+    public @NonNull ExceptionalLongStream exceptionalMapToLong(@NonNull ExceptionalIntToLongFunction<?> mapper) {
+        return ExceptionalLongStream.of(mapToLong(mapper.wrap()));
+    }
+
+    public @NonNull ExceptionalIntStream exceptionalFlatMap(@NonNull ExceptionalIntFunction<? extends IntStream, ?> mapper) {
+        return ExceptionalIntStream.of(flatMap(mapper.wrap()));
+    }
+
+    public @NonNull ExceptionalIntStream exceptionalMapMulti(@NonNull ExceptionalIntMapMultiConsumer<?> mapper) {
+        return ExceptionalIntStream.of(mapMulti(mapper.wrap()));
+    }
+
+    public @NonNull ExceptionalIntStream exceptionalPeek(@NonNull ExceptionalIntConsumer<?> action) {
+        return ExceptionalIntStream.of(peek(action.wrap()));
+    }
+
+    public @NonNull ExceptionalIntStream exceptionalTakeWhile(@NonNull ExceptionalIntPredicate<?> predicate) {
+        return ExceptionalIntStream.of(takeWhile(predicate.wrap()));
+    }
+
+    public @NonNull ExceptionalIntStream exceptionalDropWhile(@NonNull ExceptionalIntPredicate<?> predicate) {
+        return ExceptionalIntStream.of(dropWhile(predicate.wrap()));
+    }
+
+    public void exceptionalForEach(@NonNull ExceptionalIntConsumer<?> action) {
+        forEach(action.wrap());
+    }
+
+    public void exceptionalForEachOrdered(@NonNull ExceptionalIntConsumer<?> action) {
+        forEachOrdered(action.wrap());
+    }
+
+    public int exceptionalReduce(int identity, @NonNull ExceptionalIntBinaryOperator<?> op) {
+        return reduce(identity, op.wrap());
+    }
+
+    public OptionalInt exceptionalReduce(@NonNull ExceptionalIntBinaryOperator<?> op) {
+        return reduce(op.wrap());
+    }
+
+    public <R> R exceptionalCollect(@NonNull ExceptionalSupplier<R, ?> supplier, @NonNull ExceptionalObjIntConsumer<R, ?> accumulator,
+                                    @NonNull ExceptionalBiConsumer<R, R, ?> combiner) {
+        return collect(supplier.wrap(), accumulator.wrap(), combiner.wrap());
+    }
+
+    public boolean exceptionalAnyMatch(@NonNull ExceptionalIntPredicate<?> predicate) {
+        return anyMatch(predicate.wrap());
+    }
+
+    public boolean exceptionalAllMatch(@NonNull ExceptionalIntPredicate<?> predicate) {
+        return allMatch(predicate.wrap());
+    }
+
+    public boolean exceptionalNoneMatch(@NonNull ExceptionalIntPredicate<?> predicate) {
+        return noneMatch(predicate.wrap());
     }
 
 }

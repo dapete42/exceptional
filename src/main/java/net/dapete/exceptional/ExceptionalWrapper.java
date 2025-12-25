@@ -1,9 +1,9 @@
 package net.dapete.exceptional;
 
 import net.dapete.exceptional.function.*;
-import net.dapete.exceptional.stream.ActiveExceptionalDoubleStream;
-import net.dapete.exceptional.stream.ActiveExceptionalIntStream;
-import net.dapete.exceptional.stream.ActiveExceptionalLongStream;
+import net.dapete.exceptional.stream.ExceptionalDoubleMapMultiConsumer;
+import net.dapete.exceptional.stream.ExceptionalIntMapMultiConsumer;
+import net.dapete.exceptional.stream.ExceptionalLongMapMultiConsumer;
 import org.jspecify.annotations.NonNull;
 
 import java.util.function.*;
@@ -820,8 +820,7 @@ public final class ExceptionalWrapper {
      * @param <E>      the type of exception thrown by {@code consumer}
      * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
      */
-    public static <E extends Exception> DoubleStream.@NonNull DoubleMapMultiConsumer wrap(
-            ActiveExceptionalDoubleStream.@NonNull ExceptionalDoubleMapMultiConsumer<E> consumer) {
+    public static <E extends Exception> DoubleStream.@NonNull DoubleMapMultiConsumer wrap(@NonNull ExceptionalDoubleMapMultiConsumer<E> consumer) {
         return (value, ic) -> {
             try {
                 consumer.accept(value, ic::accept);
@@ -838,8 +837,7 @@ public final class ExceptionalWrapper {
      * @param <E>      the type of exception thrown by {@code consumer}
      * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
      */
-    public static <E extends Exception> IntStream.@NonNull IntMapMultiConsumer wrap(
-            ActiveExceptionalIntStream.@NonNull ExceptionalIntMapMultiConsumer<E> consumer) {
+    public static <E extends Exception> IntStream.@NonNull IntMapMultiConsumer wrap(@NonNull ExceptionalIntMapMultiConsumer<E> consumer) {
         return (value, ic) -> {
             try {
                 consumer.accept(value, ic::accept);
@@ -856,8 +854,7 @@ public final class ExceptionalWrapper {
      * @param <E>      the type of exception thrown by {@code consumer}
      * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
      */
-    public static <E extends Exception> LongStream.@NonNull LongMapMultiConsumer wrap(
-            ActiveExceptionalLongStream.@NonNull ExceptionalLongMapMultiConsumer<E> consumer) {
+    public static <E extends Exception> LongStream.@NonNull LongMapMultiConsumer wrap(@NonNull ExceptionalLongMapMultiConsumer<E> consumer) {
         return (value, ic) -> {
             try {
                 consumer.accept(value, ic::accept);
