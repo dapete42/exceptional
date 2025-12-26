@@ -11,6 +11,8 @@ import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 
+import static net.dapete.exceptional.ExceptionalUtils.toRuntimeException;
+
 /**
  * Utility class to wrap exceptions thrown in functional interfaces from the {@link net.dapete.exceptional.function} package in runtime exceptions of type
  * {@link ExceptionalException}, or leave them as they are if they are already runtime exceptions.
@@ -19,20 +21,6 @@ public final class ExceptionalWrapper {
 
     // Utility class with private constructor
     private ExceptionalWrapper() {
-    }
-
-    /**
-     * If {@code exception} is not already a runtime exception, wrap it in an {@link ExceptionalException}.
-     *
-     * @param exception exception
-     * @return {@code exception} or {@code exception} wrapped in an {@link ExceptionalException}
-     */
-    public static RuntimeException toRuntimeException(Exception exception) {
-        if (exception instanceof RuntimeException runtimeException) {
-            return runtimeException;
-        } else {
-            return new ExceptionalException(exception);
-        }
     }
 
     /**

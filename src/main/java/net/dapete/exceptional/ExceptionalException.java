@@ -71,11 +71,8 @@ public class ExceptionalException extends RuntimeException {
             runnable.run();
         } catch (ExceptionalException e) {
             final Exception cause = e.getCause();
-            if (exceptionClass.isInstance(cause)) {
-                throw exceptionClass.cast(cause);
-            } else {
-                throw e;
-            }
+            ExceptionalUtils.throwIfInstance(exceptionClass, cause);
+            throw e;
         }
     }
 
