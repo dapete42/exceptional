@@ -77,6 +77,59 @@ public class ExceptionalException extends RuntimeException {
     }
 
     /**
+     * Unwraps any {@code ExceptionalException} thrown when executing {@link Runnable#run() runnable.run()} and throws its {@link #getCause() cause} instead,
+     * if it is an instance of {@code exceptionClass1} or {@code exceptionClass2}.
+     *
+     * @param exceptionClass1 the class of the first possible cause of the {@code ExceptionalException}
+     * @param exceptionClass2 the class of the second possible cause of the {@code ExceptionalException}
+     * @param runnable        a runnable that may throw an {@code ExceptionalException}.
+     * @param <E1>            the type of the first possible cause of the {@code ExceptionalException}
+     * @param <E2>            the type of the second possible cause of the {@code ExceptionalException}
+     * @throws E1 the cause of the {@code ExceptionalException}, if {@code runnable} throws one and its cause is an instance of {@code exceptionClass1}.
+     * @throws E2 the cause of the {@code ExceptionalException}, if {@code runnable} throws one and its cause is an instance of {@code exceptionClass2}.
+     */
+    public static <E1 extends Exception, E2 extends Exception> void unwrap(
+            @NonNull Class<E1> exceptionClass1, @NonNull Class<E2> exceptionClass2, @NonNull Runnable runnable) throws E1, E2 {
+        try {
+            runnable.run();
+        } catch (ExceptionalException e) {
+            final Exception cause = e.getCause();
+            ExceptionalUtils.throwIfInstance(exceptionClass1, cause);
+            ExceptionalUtils.throwIfInstance(exceptionClass2, cause);
+            throw e;
+        }
+    }
+
+    /**
+     * Unwraps any {@code ExceptionalException} thrown when executing {@link Runnable#run() runnable.run()} and throws its {@link #getCause() cause} instead,
+     * if it is an instance of {@code exceptionClass1}, {@code exceptionClass2} or {@code exceptionClass3}.
+     *
+     * @param exceptionClass1 the class of the first possible cause of the {@code ExceptionalException}
+     * @param exceptionClass2 the class of the second possible cause of the {@code ExceptionalException}
+     * @param exceptionClass3 the class of the third possible cause of the {@code ExceptionalException}
+     * @param runnable        a runnable that may throw an {@code ExceptionalException}.
+     * @param <E1>            the type of the first possible cause of the {@code ExceptionalException}
+     * @param <E2>            the type of the second possible cause of the {@code ExceptionalException}
+     * @param <E3>            the type of the third possible cause of the {@code ExceptionalException}
+     * @throws E1 the cause of the {@code ExceptionalException}, if {@code runnable} throws one and its cause is an instance of {@code exceptionClass1}.
+     * @throws E2 the cause of the {@code ExceptionalException}, if {@code runnable} throws one and its cause is an instance of {@code exceptionClass2}.
+     * @throws E3 the cause of the {@code ExceptionalException}, if {@code runnable} throws one and its cause is an instance of {@code exceptionClass3}.
+     */
+    public static <E1 extends Exception, E2 extends Exception, E3 extends Exception> void unwrap(
+            @NonNull Class<E1> exceptionClass1, @NonNull Class<E2> exceptionClass2, @NonNull Class<E3> exceptionClass3, @NonNull Runnable runnable)
+            throws E1, E2, E3 {
+        try {
+            runnable.run();
+        } catch (ExceptionalException e) {
+            final Exception cause = e.getCause();
+            ExceptionalUtils.throwIfInstance(exceptionClass1, cause);
+            ExceptionalUtils.throwIfInstance(exceptionClass2, cause);
+            ExceptionalUtils.throwIfInstance(exceptionClass3, cause);
+            throw e;
+        }
+    }
+
+    /**
      * Unwraps any {@code ExceptionalException} thrown when executing {@link Supplier#get() supplier.get()} and throws its {@link #getCause() cause} instead.
      *
      * @param supplier a supplier that may throw an {@code ExceptionalException}.
@@ -99,7 +152,7 @@ public class ExceptionalException extends RuntimeException {
      * @param supplier       a supplier that may throw an {@code ExceptionalException}.
      * @param <T>            the return type of {@code supplier}.
      * @param <E>            the type of the cause of the {@code ExceptionalException}
-     * @throws E the cause of the {@code ExceptionalException}, if {@code runnable} throws one and its cause is an instance of {@code exceptionClass}.
+     * @throws E the cause of the {@code ExceptionalException}, if {@code supplier} throws one and its cause is an instance of {@code exceptionClass}.
      */
     public static <T, E extends Exception> T unwrap(@NonNull Class<E> exceptionClass, @NonNull Supplier<T> supplier) throws E {
         try {
@@ -111,6 +164,59 @@ public class ExceptionalException extends RuntimeException {
             } else {
                 throw e;
             }
+        }
+    }
+
+    /**
+     * Unwraps any {@code ExceptionalException} thrown when executing {@link Supplier#get() supplier.get()} and throws its {@link #getCause() cause} instead,
+     * if it is an instance of {@code exceptionClass1} or {@code exceptionClass2}.
+     *
+     * @param exceptionClass1 the class of the first possible cause of the {@code ExceptionalException}
+     * @param exceptionClass2 the class of the second possible cause of the {@code ExceptionalException}
+     * @param supplier        a supplier that may throw an {@code ExceptionalException}.
+     * @param <E1>            the type of the first possible cause of the {@code ExceptionalException}
+     * @param <E2>            the type of the second possible cause of the {@code ExceptionalException}
+     * @throws E1 the cause of the {@code ExceptionalException}, if {@code supplier} throws one and its cause is an instance of {@code exceptionClass1}.
+     * @throws E2 the cause of the {@code ExceptionalException}, if {@code supplier} throws one and its cause is an instance of {@code exceptionClass2}.
+     */
+    public static <T, E1 extends Exception, E2 extends Exception> T unwrap(
+            @NonNull Class<E1> exceptionClass1, @NonNull Class<E2> exceptionClass2, @NonNull Supplier<T> supplier) throws E1, E2 {
+        try {
+            return supplier.get();
+        } catch (ExceptionalException e) {
+            final Exception cause = e.getCause();
+            ExceptionalUtils.throwIfInstance(exceptionClass1, cause);
+            ExceptionalUtils.throwIfInstance(exceptionClass2, cause);
+            throw e;
+        }
+    }
+
+    /**
+     * Unwraps any {@code ExceptionalException} thrown when executing {@link Supplier#get() supplier.get()} and throws its {@link #getCause() cause} instead,
+     * if it is an instance of {@code exceptionClass1}, {@code exceptionClass2} or {@code exceptionClass3}.
+     *
+     * @param exceptionClass1 the class of the first possible cause of the {@code ExceptionalException}
+     * @param exceptionClass2 the class of the second possible cause of the {@code ExceptionalException}
+     * @param exceptionClass3 the class of the third possible cause of the {@code ExceptionalException}
+     * @param supplier        a supplier that may throw an {@code ExceptionalException}.
+     * @param <E1>            the type of the first possible cause of the {@code ExceptionalException}
+     * @param <E2>            the type of the second possible cause of the {@code ExceptionalException}
+     * @param <E3>            the type of the third possible cause of the {@code ExceptionalException}
+     * @throws E1 the cause of the {@code ExceptionalException}, if {@code supplier} throws one and its cause is an instance of {@code exceptionClass1}.
+     * @throws E2 the cause of the {@code ExceptionalException}, if {@code supplier} throws one and its cause is an instance of {@code exceptionClass2}.
+     * @throws E3 the cause of the {@code ExceptionalException}, if {@code supplier} throws one and its cause is an instance of {@code exceptionClass3}.
+     */
+    public static <T, E1 extends Exception, E2 extends Exception, E3 extends Exception> T unwrap(
+            @NonNull Class<E1> exceptionClass1, @NonNull Class<E2> exceptionClass2, @NonNull Class<E3> exceptionClass3, @NonNull Supplier<T> supplier)
+            throws E1, E2, E3 {
+        try {
+            return supplier.get();
+        } catch (ExceptionalException e) {
+            final Exception cause = e.getCause();
+            ExceptionalUtils.throwIfInstance(exceptionClass1, cause);
+            ExceptionalUtils.throwIfInstance(exceptionClass2, cause);
+            ExceptionalUtils.throwIfInstance(exceptionClass3, cause);
+            throw e;
         }
     }
 
