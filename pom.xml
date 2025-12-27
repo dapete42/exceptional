@@ -6,7 +6,7 @@
 
     <groupId>net.dapete</groupId>
     <artifactId>exceptional</artifactId>
-    <version>0.2.0-SNAPSHOT</version>
+    <version>0.2.0</version>
 
     <name>Exceptional!</name>
     <description>Library for functional interfaces and streams that support exceptions</description>
