@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ExceptionalWrapper.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Exceptional!</a> &gt; <a href="index.source.html" class="el_package">net.dapete.exceptional</a> &gt; <span class="el_source">ExceptionalWrapper.java</span></div><h1>ExceptionalWrapper.java</h1><pre class="source lang-java linenums">package net.dapete.exceptional;
 
 import net.dapete.exceptional.function.*;
+import net.dapete.exceptional.stream.ExceptionalDoubleMapMultiConsumer;
+import net.dapete.exceptional.stream.ExceptionalIntMapMultiConsumer;
+import net.dapete.exceptional.stream.ExceptionalLongMapMultiConsumer;
 import org.jspecify.annotations.NonNull;
 
 import java.util.function.*;
+import java.util.stream.DoubleStream;
+import java.util.stream.IntStream;
+import java.util.stream.LongStream;
+
+import static net.dapete.exceptional.ExceptionalUtils.toRuntimeException;
 
 /**
- * Utility class to wrap exceptions thrown in lambas from the {@link net.dapete.exceptional.function} package in runtime exceptions of type
- * {@link WrappedExceptionalException}, or leave them as they are if they are already runtime exceptions.
+ * Utility class to wrap exceptions thrown in functional interfaces from the {@link net.dapete.exceptional.function} package in runtime exceptions of type
+ * {@link ExceptionalException}, or leave them as they are if they are already runtime exceptions.
  */
 public final class ExceptionalWrapper {
 
@@ -15,22 +23,14 @@ public final class ExceptionalWrapper {
     private ExceptionalWrapper() {
     }
 
-    private static RuntimeException toRuntimeException(Exception exception) {
-<span class="pc bpc" id="L19" title="1 of 2 branches missed.">        if (exception instanceof RuntimeException runtimeException) {</span>
-<span class="nc" id="L20">            return runtimeException;</span>
-        } else {
-<span class="fc" id="L22">            return new WrappedExceptionalException(exception);</span>
-        }
-    }
-
     /**
-     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
-     * @param biConsumer lambda with exceptions
+     * @param biConsumer functional interface with exceptions
      * @param &lt;T&gt;        the type of the first argument to the operation
      * @param &lt;U&gt;        the type of the second argument to the operation
      * @param &lt;E&gt;        the type of exception thrown by {@code biConsumer}
-     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
      */
     public static &lt;T, U, E extends Exception&gt; @NonNull BiConsumer&lt;T, U&gt; wrap(@NonNull ExceptionalBiConsumer&lt;T, U, E&gt; biConsumer) {
 <span class="fc" id="L36">        return (t, u) -&gt; {</span>
@@ -43,12 +43,12 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
-     * @param biConsumer lambda with exceptions
+     * @param biConsumer functional interface with exceptions
      * @param &lt;T&gt;        the type of the object argument to the operation
      * @param &lt;E&gt;        the type of exception thrown by {@code biConsumer}
-     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
      */
     public static &lt;T, E extends Exception&gt; @NonNull ObjDoubleConsumer&lt;T&gt; wrap(@NonNull ExceptionalObjDoubleConsumer&lt;T, E&gt; biConsumer) {
 <span class="fc" id="L54">        return (t, u) -&gt; {</span>
@@ -61,12 +61,12 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
-     * @param biConsumer lambda with exceptions
+     * @param biConsumer functional interface with exceptions
      * @param &lt;T&gt;        the type of the object argument to the operation
      * @param &lt;E&gt;        the type of exception thrown by {@code biConsumer}
-     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
      */
     public static &lt;T, E extends Exception&gt; @NonNull ObjIntConsumer&lt;T&gt; wrap(@NonNull ExceptionalObjIntConsumer&lt;T, E&gt; biConsumer) {
 <span class="fc" id="L72">        return (t, u) -&gt; {</span>
@@ -79,12 +79,12 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
-     * @param biConsumer lambda with exceptions
+     * @param biConsumer functional interface with exceptions
      * @param &lt;T&gt;        the type of the object argument to the operation
      * @param &lt;E&gt;        the type of exception thrown by {@code biConsumer}
-     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
      */
     public static &lt;T, E extends Exception&gt; @NonNull ObjLongConsumer&lt;T&gt; wrap(@NonNull ExceptionalObjLongConsumer&lt;T, E&gt; biConsumer) {
 <span class="fc" id="L90">        return (t, u) -&gt; {</span>
@@ -97,14 +97,14 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
-     * @param biFunction lambda with exceptions
+     * @param biFunction functional interface with exceptions
      * @param &lt;T&gt;        the type of the first argument to the function
      * @param &lt;U&gt;        the type of the second argument to the function
      * @param &lt;R&gt;        the type of the result of the function
      * @param &lt;E&gt;        the type of exception thrown by {@code biFunction}
-     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
      */
     public static &lt;T, U, R, E extends Exception&gt; @NonNull BiFunction&lt;T, U, R&gt; wrap(
             @NonNull ExceptionalBiFunction&lt;T, U, R, E&gt; biFunction) {
@@ -118,13 +118,13 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
-     * @param biFunction lambda with exceptions
+     * @param biFunction functional interface with exceptions
      * @param &lt;T&gt;        the type of the first argument to the function
      * @param &lt;U&gt;        the type of the second argument to the function
      * @param &lt;E&gt;        the type of exception thrown by {@code biFunction}
-     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
      */
     public static &lt;T, U, E extends Exception&gt; @NonNull ToDoubleBiFunction&lt;T, U&gt; wrap(@NonNull ExceptionalToDoubleBiFunction&lt;T, U, E&gt; biFunction) {
 <span class="fc" id="L130">        return (t, u) -&gt; {</span>
@@ -137,13 +137,13 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
-     * @param biFunction lambda with exceptions
+     * @param biFunction functional interface with exceptions
      * @param &lt;T&gt;        the type of the first argument to the function
      * @param &lt;U&gt;        the type of the second argument to the function
      * @param &lt;E&gt;        the type of exception thrown by {@code biFunction}
-     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
      */
     public static &lt;T, U, E extends Exception&gt; @NonNull ToIntBiFunction&lt;T, U&gt; wrap(@NonNull ExceptionalToIntBiFunction&lt;T, U, E&gt; biFunction) {
 <span class="fc" id="L149">        return (t, u) -&gt; {</span>
@@ -156,13 +156,13 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
-     * @param biFunction lambda with exceptions
+     * @param biFunction functional interface with exceptions
      * @param &lt;T&gt;        the type of the first argument to the function
      * @param &lt;U&gt;        the type of the second argument to the function
      * @param &lt;E&gt;        the type of exception thrown by {@code biFunction}
-     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
      */
     public static &lt;T, U, E extends Exception&gt; @NonNull ToLongBiFunction&lt;T, U&gt; wrap(@NonNull ExceptionalToLongBiFunction&lt;T, U, E&gt; biFunction) {
 <span class="fc" id="L168">        return (t, u) -&gt; {</span>
@@ -175,13 +175,13 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
-     * @param biPredicate lambda with exceptions
+     * @param biPredicate functional interface with exceptions
      * @param &lt;T&gt;         the type of the first argument to the predicate
      * @param &lt;U&gt;         the type of the second argument to the predicate
      * @param &lt;E&gt;         the type of exception thrown by {@code biPredicate}
-     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
      */
     public static &lt;T, U, E extends Exception&gt; @NonNull BiPredicate&lt;T, U&gt; wrap(@NonNull ExceptionalBiPredicate&lt;T, U, E&gt; biPredicate) {
 <span class="fc" id="L187">        return (t, u) -&gt; {</span>
@@ -194,12 +194,12 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
-     * @param binaryOperator lambda with exceptions
+     * @param binaryOperator functional interface with exceptions
      * @param &lt;T&gt;            the type of the operands and result of the operator
      * @param &lt;E&gt;            the type of exception thrown by {@code binaryOperator}
-     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
      */
     public static &lt;T, E extends Exception&gt; @NonNull BinaryOperator&lt;T&gt; wrap(@NonNull ExceptionalBinaryOperator&lt;T, E&gt; binaryOperator) {
 <span class="fc" id="L205">        return (t, u) -&gt; {</span>
@@ -212,11 +212,11 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
-     * @param binaryOperator lambda with exceptions
+     * @param binaryOperator functional interface with exceptions
      * @param &lt;E&gt;            the type of exception thrown by {@code binaryOperator}
-     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
      */
     public static &lt;E extends Exception&gt; @NonNull DoubleBinaryOperator wrap(@NonNull ExceptionalDoubleBinaryOperator&lt;E&gt; binaryOperator) {
 <span class="fc" id="L222">        return (t, u) -&gt; {</span>
@@ -229,11 +229,11 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
-     * @param binaryOperator lambda with exceptions
+     * @param binaryOperator functional interface with exceptions
      * @param &lt;E&gt;            the type of exception thrown by {@code binaryOperator}
-     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
      */
     public static &lt;E extends Exception&gt; @NonNull IntBinaryOperator wrap(@NonNull ExceptionalIntBinaryOperator&lt;E&gt; binaryOperator) {
 <span class="fc" id="L239">        return (t, u) -&gt; {</span>
@@ -246,11 +246,11 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
-     * @param binaryOperator lambda with exceptions
+     * @param binaryOperator functional interface with exceptions
      * @param &lt;E&gt;            the type of exception thrown by {@code binaryOperator}
-     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
      */
     public static &lt;E extends Exception&gt; @NonNull LongBinaryOperator wrap(@NonNull ExceptionalLongBinaryOperator&lt;E&gt; binaryOperator) {
 <span class="fc" id="L256">        return (t, u) -&gt; {</span>
@@ -263,12 +263,12 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
-     * @param consumer lambda with exceptions
+     * @param consumer functional interface with exceptions
      * @param &lt;T&gt;      the type of the input to the operation
      * @param &lt;E&gt;      the type of exception thrown by {@code consumer}
-     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
      */
     public static &lt;T, E extends Exception&gt; @NonNull Consumer&lt;T&gt; wrap(@NonNull ExceptionalConsumer&lt;T, E&gt; consumer) {
 <span class="fc" id="L274">        return t -&gt; {</span>
@@ -281,11 +281,11 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
-     * @param consumer lambda with exceptions
+     * @param consumer functional interface with exceptions
      * @param &lt;E&gt;      the type of exception thrown by {@code consumer}
-     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
      */
     public static &lt;E extends Exception&gt; @NonNull DoubleConsumer wrap(@NonNull ExceptionalDoubleConsumer&lt;E&gt; consumer) {
 <span class="fc" id="L291">        return t -&gt; {</span>
@@ -298,28 +298,28 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
-     * @param consumer lambda with exceptions
+     * @param consumer functional interface with exceptions
      * @param &lt;E&gt;      the type of exception thrown by {@code consumer}
-     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
      */
     public static &lt;E extends Exception&gt; @NonNull IntConsumer wrap(@NonNull ExceptionalIntConsumer&lt;E&gt; consumer) {
 <span class="fc" id="L308">        return t -&gt; {</span>
             try {
 <span class="nc" id="L310">                consumer.accept(t);</span>
-<span class="nc" id="L311">            } catch (Exception e) {</span>
-<span class="nc" id="L312">                throw toRuntimeException(e);</span>
+<span class="fc" id="L311">            } catch (Exception e) {</span>
+<span class="fc" id="L312">                throw toRuntimeException(e);</span>
 <span class="nc" id="L313">            }</span>
 <span class="nc" id="L314">        };</span>
     }
 
     /**
-     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
-     * @param consumer lambda with exceptions
+     * @param consumer functional interface with exceptions
      * @param &lt;E&gt;      the type of exception thrown by {@code consumer}
-     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
      */
     public static &lt;E extends Exception&gt; @NonNull LongConsumer wrap(@NonNull ExceptionalLongConsumer&lt;E&gt; consumer) {
 <span class="fc" id="L325">        return t -&gt; {</span>
@@ -332,13 +332,13 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
-     * @param function lambda with exceptions
+     * @param function functional interface with exceptions
      * @param &lt;T&gt;      the type of the input to the function
      * @param &lt;R&gt;      the type of the result of the function
      * @param &lt;E&gt;      the type of exception thrown by {@code function}
-     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
      */
     public static &lt;T, R, E extends Exception&gt; @NonNull Function&lt;T, R&gt; wrap(@NonNull ExceptionalFunction&lt;T, R, E&gt; function) {
 <span class="fc" id="L344">        return t -&gt; {</span>
@@ -351,12 +351,12 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
-     * @param function lambda with exceptions
+     * @param function functional interface with exceptions
      * @param &lt;R&gt;      the type of the result of the function
      * @param &lt;E&gt;      the type of exception thrown by {@code function}
-     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
      */
     public static &lt;R, E extends Exception&gt; @NonNull DoubleFunction&lt;R&gt; wrap(@NonNull ExceptionalDoubleFunction&lt;R, E&gt; function) {
 <span class="fc" id="L362">        return t -&gt; {</span>
@@ -369,12 +369,12 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
-     * @param function lambda with exceptions
+     * @param function functional interface with exceptions
      * @param &lt;R&gt;      the type of the result of the function
      * @param &lt;E&gt;      the type of exception thrown by {@code function}
-     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
      */
     public static &lt;R, E extends Exception&gt; @NonNull IntFunction&lt;R&gt; wrap(@NonNull ExceptionalIntFunction&lt;R, E&gt; function) {
 <span class="fc" id="L380">        return t -&gt; {</span>
@@ -387,12 +387,12 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
-     * @param function lambda with exceptions
+     * @param function functional interface with exceptions
      * @param &lt;R&gt;      the type of the result of the function
      * @param &lt;E&gt;      the type of exception thrown by {@code function}
-     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
      */
     public static &lt;R, E extends Exception&gt; @NonNull LongFunction&lt;R&gt; wrap(@NonNull ExceptionalLongFunction&lt;R, E&gt; function) {
 <span class="fc" id="L398">        return t -&gt; {</span>
@@ -405,12 +405,12 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
-     * @param function lambda with exceptions
+     * @param function functional interface with exceptions
      * @param &lt;T&gt;      the type of the input to the function
      * @param &lt;E&gt;      the type of exception thrown by {@code function}
-     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
      */
     public static &lt;T, E extends Exception&gt; @NonNull ToDoubleFunction&lt;T&gt; wrap(@NonNull ExceptionalToDoubleFunction&lt;T, E&gt; function) {
 <span class="fc" id="L416">        return t -&gt; {</span>
@@ -423,11 +423,11 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
-     * @param function lambda with exceptions
+     * @param function functional interface with exceptions
      * @param &lt;E&gt;      the type of exception thrown by {@code function}
-     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
      */
     public static &lt;E extends Exception&gt; @NonNull IntToDoubleFunction wrap(@NonNull ExceptionalIntToDoubleFunction&lt;E&gt; function) {
 <span class="fc" id="L433">        return t -&gt; {</span>
@@ -440,11 +440,11 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
-     * @param function lambda with exceptions
+     * @param function functional interface with exceptions
      * @param &lt;E&gt;      the type of exception thrown by {@code function}
-     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
      */
     public static &lt;E extends Exception&gt; @NonNull LongToDoubleFunction wrap(@NonNull ExceptionalLongToDoubleFunction&lt;E&gt; function) {
 <span class="fc" id="L450">        return t -&gt; {</span>
@@ -457,12 +457,12 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
-     * @param function lambda with exceptions
+     * @param function functional interface with exceptions
      * @param &lt;T&gt;      the type of the input to the function
      * @param &lt;E&gt;      the type of exception thrown by {@code function}
-     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
      */
     public static &lt;T, E extends Exception&gt; @NonNull ToIntFunction&lt;T&gt; wrap(@NonNull ExceptionalToIntFunction&lt;T, E&gt; function) {
 <span class="fc" id="L468">        return t -&gt; {</span>
@@ -475,11 +475,11 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
-     * @param function lambda with exceptions
+     * @param function functional interface with exceptions
      * @param &lt;E&gt;      the type of exception thrown by {@code function}
-     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
      */
     public static &lt;E extends Exception&gt; @NonNull DoubleToIntFunction wrap(@NonNull ExceptionalDoubleToIntFunction&lt;E&gt; function) {
 <span class="fc" id="L485">        return t -&gt; {</span>
@@ -492,11 +492,11 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
-     * @param function lambda with exceptions
+     * @param function functional interface with exceptions
      * @param &lt;E&gt;      the type of exception thrown by {@code function}
-     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
      */
     public static &lt;E extends Exception&gt; @NonNull LongToIntFunction wrap(@NonNull ExceptionalLongToIntFunction&lt;E&gt; function) {
 <span class="fc" id="L502">        return t -&gt; {</span>
@@ -509,12 +509,12 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
-     * @param function lambda with exceptions
+     * @param function functional interface with exceptions
      * @param &lt;T&gt;      the type of the input to the function
      * @param &lt;E&gt;      the type of exception thrown by {@code function}
-     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
      */
     public static &lt;T, E extends Exception&gt; @NonNull ToLongFunction&lt;T&gt; wrap(@NonNull ExceptionalToLongFunction&lt;T, E&gt; function) {
 <span class="fc" id="L520">        return t -&gt; {</span>
@@ -527,11 +527,11 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
-     * @param function lambda with exceptions
+     * @param function functional interface with exceptions
      * @param &lt;E&gt;      the type of exception thrown by {@code function}
-     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
      */
     public static &lt;E extends Exception&gt; @NonNull DoubleToLongFunction wrap(@NonNull ExceptionalDoubleToLongFunction&lt;E&gt; function) {
 <span class="fc" id="L537">        return t -&gt; {</span>
@@ -544,11 +544,11 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
-     * @param function lambda with exceptions
+     * @param function functional interface with exceptions
      * @param &lt;E&gt;      the type of exception thrown by {@code function}
-     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
      */
     public static &lt;E extends Exception&gt; @NonNull IntToLongFunction wrap(@NonNull ExceptionalIntToLongFunction&lt;E&gt; function) {
 <span class="fc" id="L554">        return t -&gt; {</span>
@@ -561,12 +561,12 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
-     * @param predicate lambda with exceptions
+     * @param predicate functional interface with exceptions
      * @param &lt;T&gt;       the type of the input to the predicate
      * @param &lt;E&gt;       the type of exception thrown by {@code predicate}
-     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
      */
     public static &lt;T, E extends Exception&gt; @NonNull Predicate&lt;T&gt; wrap(@NonNull ExceptionalPredicate&lt;T, E&gt; predicate) {
 <span class="fc" id="L572">        return t -&gt; {</span>
@@ -579,11 +579,11 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
-     * @param predicate lambda with exceptions
+     * @param predicate functional interface with exceptions
      * @param &lt;E&gt;       the type of exception thrown by {@code predicate}
-     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
      */
     public static &lt;E extends Exception&gt; @NonNull DoublePredicate wrap(@NonNull ExceptionalDoublePredicate&lt;E&gt; predicate) {
 <span class="fc" id="L589">        return t -&gt; {</span>
@@ -596,11 +596,11 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
-     * @param predicate lambda with exceptions
+     * @param predicate functional interface with exceptions
      * @param &lt;E&gt;       the type of exception thrown by {@code predicate}
-     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
      */
     public static &lt;E extends Exception&gt; @NonNull IntPredicate wrap(@NonNull ExceptionalIntPredicate&lt;E&gt; predicate) {
 <span class="fc" id="L606">        return t -&gt; {</span>
@@ -613,11 +613,11 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
-     * @param predicate lambda with exceptions
+     * @param predicate functional interface with exceptions
      * @param &lt;E&gt;       the type of exception thrown by {@code predicate}
-     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
      */
     public static &lt;E extends Exception&gt; @NonNull LongPredicate wrap(@NonNull ExceptionalLongPredicate&lt;E&gt; predicate) {
 <span class="fc" id="L623">        return t -&gt; {</span>
@@ -630,11 +630,11 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
-     * @param runnable lambda with exceptions
+     * @param runnable functional interface with exceptions
      * @param &lt;E&gt;      the type of exception thrown by {@code runnable}
-     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
      */
     public static &lt;E extends Exception&gt; @NonNull Runnable wrap(@NonNull ExceptionalRunnable&lt;E&gt; runnable) {
 <span class="fc" id="L640">        return () -&gt; {</span>
@@ -647,12 +647,12 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
-     * @param supplier lambda with exceptions
+     * @param supplier functional interface with exceptions
      * @param &lt;T&gt;      the type of results supplied by this supplier
      * @param &lt;E&gt;      the type of exception thrown by {@code supplier}
-     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
      */
     public static &lt;T, E extends Exception&gt; @NonNull Supplier&lt;T&gt; wrap(@NonNull ExceptionalSupplier&lt;T, E&gt; supplier) {
 <span class="fc" id="L658">        return () -&gt; {</span>
@@ -665,11 +665,11 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
-     * @param supplier lambda with exceptions
+     * @param supplier functional interface with exceptions
      * @param &lt;E&gt;      the type of exception thrown by {@code supplier}
-     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
      */
     public static &lt;E extends Exception&gt; @NonNull BooleanSupplier wrap(@NonNull ExceptionalBooleanSupplier&lt;E&gt; supplier) {
 <span class="fc" id="L675">        return () -&gt; {</span>
@@ -682,11 +682,11 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
-     * @param supplier lambda with exceptions
+     * @param supplier functional interface with exceptions
      * @param &lt;E&gt;      the type of exception thrown by {@code supplier}
-     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
      */
     public static &lt;E extends Exception&gt; @NonNull DoubleSupplier wrap(@NonNull ExceptionalDoubleSupplier&lt;E&gt; supplier) {
 <span class="fc" id="L692">        return () -&gt; {</span>
@@ -699,11 +699,11 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
-     * @param supplier lambda with exceptions
+     * @param supplier functional interface with exceptions
      * @param &lt;E&gt;      the type of exception thrown by {@code supplier}
-     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
      */
     public static &lt;E extends Exception&gt; @NonNull IntSupplier wrap(@NonNull ExceptionalIntSupplier&lt;E&gt; supplier) {
 <span class="fc" id="L709">        return () -&gt; {</span>
@@ -716,11 +716,11 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
-     * @param supplier lambda with exceptions
+     * @param supplier functional interface with exceptions
      * @param &lt;E&gt;      the type of exception thrown by {@code supplier}
-     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
      */
     public static &lt;E extends Exception&gt; @NonNull LongSupplier wrap(@NonNull ExceptionalLongSupplier&lt;E&gt; supplier) {
 <span class="fc" id="L726">        return () -&gt; {</span>
@@ -733,12 +733,12 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
-     * @param unaryOperator lambda with exceptions
+     * @param unaryOperator functional interface with exceptions
      * @param &lt;T&gt;           the type of the operand and result of the operator
      * @param &lt;E&gt;           the type of exception thrown by {@code unaryOperator}
-     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
      */
     public static &lt;T, E extends Exception&gt; @NonNull UnaryOperator&lt;T&gt; wrap(@NonNull ExceptionalUnaryOperator&lt;T, E&gt; unaryOperator) {
 <span class="fc" id="L744">        return t -&gt; {</span>
@@ -751,54 +751,105 @@ public final class ExceptionalWrapper {
     }
 
     /**
-     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
-     * @param unaryOperator lambda with exceptions
+     * @param unaryOperator functional interface with exceptions
      * @param &lt;E&gt;           the type of exception thrown by {@code unaryOperator}
-     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
      */
     public static &lt;E extends Exception&gt; @NonNull DoubleUnaryOperator wrap(@NonNull ExceptionalDoubleUnaryOperator&lt;E&gt; unaryOperator) {
 <span class="fc" id="L761">        return t -&gt; {</span>
             try {
 <span class="nc" id="L763">                return unaryOperator.applyAsDouble(t);</span>
-<span class="nc" id="L764">            } catch (Exception e) {</span>
-<span class="nc" id="L765">                throw toRuntimeException(e);</span>
+<span class="fc" id="L764">            } catch (Exception e) {</span>
+<span class="fc" id="L765">                throw toRuntimeException(e);</span>
             }
         };
     }
 
     /**
-     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
-     * @param unaryOperator lambda with exceptions
+     * @param unaryOperator functional interface with exceptions
      * @param &lt;E&gt;           the type of exception thrown by {@code unaryOperator}
-     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
      */
     public static &lt;E extends Exception&gt; @NonNull IntUnaryOperator wrap(@NonNull ExceptionalIntUnaryOperator&lt;E&gt; unaryOperator) {
 <span class="fc" id="L778">        return t -&gt; {</span>
             try {
 <span class="nc" id="L780">                return unaryOperator.applyAsInt(t);</span>
-<span class="nc" id="L781">            } catch (Exception e) {</span>
-<span class="nc" id="L782">                throw toRuntimeException(e);</span>
+<span class="fc" id="L781">            } catch (Exception e) {</span>
+<span class="fc" id="L782">                throw toRuntimeException(e);</span>
             }
         };
     }
 
     /**
-     * Turns a lambda with exceptions into one that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown.
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
      *
-     * @param unaryOperator lambda with exceptions
+     * @param unaryOperator functional interface with exceptions
      * @param &lt;E&gt;           the type of exception thrown by {@code unaryOperator}
-     * @return a lambda that throws a {@link WrappedExceptionalException} if an exception of type {@link E} was thrown
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
      */
     public static &lt;E extends Exception&gt; @NonNull LongUnaryOperator wrap(@NonNull ExceptionalLongUnaryOperator&lt;E&gt; unaryOperator) {
 <span class="fc" id="L795">        return t -&gt; {</span>
             try {
 <span class="nc" id="L797">                return unaryOperator.applyAsLong(t);</span>
-<span class="nc" id="L798">            } catch (Exception e) {</span>
-<span class="nc" id="L799">                throw toRuntimeException(e);</span>
+<span class="fc" id="L798">            } catch (Exception e) {</span>
+<span class="fc" id="L799">                throw toRuntimeException(e);</span>
             }
         };
+    }
+
+    /**
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param consumer functional interface with exceptions
+     * @param &lt;E&gt;      the type of exception thrown by {@code consumer}
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
+     */
+    public static &lt;E extends Exception&gt; DoubleStream.@NonNull DoubleMapMultiConsumer wrap(@NonNull ExceptionalDoubleMapMultiConsumer&lt;E&gt; consumer) {
+<span class="fc" id="L812">        return (value, ic) -&gt; {</span>
+            try {
+<span class="nc" id="L814">                consumer.accept(value, ic::accept);</span>
+<span class="nc" id="L815">            } catch (Exception e) {</span>
+<span class="nc" id="L816">                throw toRuntimeException(e);</span>
+<span class="nc" id="L817">            }</span>
+<span class="nc" id="L818">        };</span>
+    }
+
+    /**
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param consumer functional interface with exceptions
+     * @param &lt;E&gt;      the type of exception thrown by {@code consumer}
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
+     */
+    public static &lt;E extends Exception&gt; IntStream.@NonNull IntMapMultiConsumer wrap(@NonNull ExceptionalIntMapMultiConsumer&lt;E&gt; consumer) {
+<span class="fc" id="L829">        return (value, ic) -&gt; {</span>
+            try {
+<span class="nc" id="L831">                consumer.accept(value, ic::accept);</span>
+<span class="nc" id="L832">            } catch (Exception e) {</span>
+<span class="nc" id="L833">                throw toRuntimeException(e);</span>
+<span class="nc" id="L834">            }</span>
+<span class="nc" id="L835">        };</span>
+    }
+
+    /**
+     * Turns a functional interface with exceptions into one that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown.
+     *
+     * @param consumer functional interface with exceptions
+     * @param &lt;E&gt;      the type of exception thrown by {@code consumer}
+     * @return a functional interface that throws a {@link ExceptionalException} if an exception of type {@link E} was thrown
+     */
+    public static &lt;E extends Exception&gt; LongStream.@NonNull LongMapMultiConsumer wrap(@NonNull ExceptionalLongMapMultiConsumer&lt;E&gt; consumer) {
+<span class="fc" id="L846">        return (value, ic) -&gt; {</span>
+            try {
+<span class="nc" id="L848">                consumer.accept(value, ic::accept);</span>
+<span class="nc" id="L849">            } catch (Exception e) {</span>
+<span class="nc" id="L850">                throw toRuntimeException(e);</span>
+<span class="nc" id="L851">            }</span>
+<span class="nc" id="L852">        };</span>
     }
 
 }

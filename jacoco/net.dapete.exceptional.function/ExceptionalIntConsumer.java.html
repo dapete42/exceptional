@@ -22,7 +22,7 @@ public interface ExceptionalIntConsumer&lt;E extends Exception&gt; extends Wrapp
 
     @Override
     default IntConsumer wrap() {
-<span class="nc" id="L25">        return ExceptionalWrapper.wrap(this);</span>
+<span class="fc" id="L25">        return ExceptionalWrapper.wrap(this);</span>
     }
 
 }

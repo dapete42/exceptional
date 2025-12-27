@@ -1,3 +1,4 @@
 module:net.dapete.exceptional
 net.dapete.exceptional
 net.dapete.exceptional.function
+net.dapete.exceptional.stream

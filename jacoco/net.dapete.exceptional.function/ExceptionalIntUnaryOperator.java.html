@@ -23,7 +23,7 @@ public interface ExceptionalIntUnaryOperator&lt;E extends Exception&gt; extends 
 
     @Override
     default IntUnaryOperator wrap() {
-<span class="nc" id="L26">        return ExceptionalWrapper.wrap(this);</span>
+<span class="fc" id="L26">        return ExceptionalWrapper.wrap(this);</span>
     }
 
     /**

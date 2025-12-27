@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html","k":"18"},{"m":"net.dapete.exceptional","l":"net.dapete.exceptional"},{"m":"net.dapete.exceptional","l":"net.dapete.exceptional.function"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html","k":"18"},{"m":"net.dapete.exceptional","l":"net.dapete.exceptional"},{"m":"net.dapete.exceptional","l":"net.dapete.exceptional.function"},{"m":"net.dapete.exceptional","l":"net.dapete.exceptional.stream"}];updateSearchResults();

@@ -1,8 +1,7 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-Exceptional!,net.dapete.exceptional,WrappedExceptionalException,0,4,0,0,0,2,0,1,0,1
-Exceptional!,net.dapete.exceptional,ExceptionalStream,102,26,0,0,19,7,19,5,19,5
-Exceptional!,net.dapete.exceptional,ExceptionalWrapper,365,148,1,1,147,50,43,47,42,47
-Exceptional!,net.dapete.exceptional,ActiveExceptionalStream,134,12,0,0,23,4,21,2,21,2
+Exceptional!,net.dapete.exceptional,ExceptionalWrapper,386,165,0,0,153,59,41,53,41,53
+Exceptional!,net.dapete.exceptional,ExceptionalUtils,0,23,0,4,0,6,0,4,0,2
+Exceptional!,net.dapete.exceptional,ExceptionalException,94,43,2,2,42,15,6,7,4,7
 Exceptional!,net.dapete.exceptional.function,ExceptionalToDoubleBiFunction,3,0,0,0,1,0,1,0,1,0
 Exceptional!,net.dapete.exceptional.function,ExceptionalBinaryOperator,3,0,0,0,1,0,1,0,1,0
 Exceptional!,net.dapete.exceptional.function,ExceptionalToIntBiFunction,3,0,0,0,1,0,1,0,1,0
@@ -16,8 +15,8 @@ Exceptional!,net.dapete.exceptional.function,ExceptionalBiFunction,3,0,0,0,1,0,1
 Exceptional!,net.dapete.exceptional.function,ExceptionalIntBinaryOperator,3,0,0,0,1,0,1,0,1,0
 Exceptional!,net.dapete.exceptional.function,ExceptionalPredicate,3,0,0,0,1,0,1,0,1,0
 Exceptional!,net.dapete.exceptional.function,ExceptionalObjIntConsumer,3,0,0,0,1,0,1,0,1,0
-Exceptional!,net.dapete.exceptional.function,ExceptionalLongUnaryOperator,7,0,0,0,2,0,3,0,3,0
-Exceptional!,net.dapete.exceptional.function,ExceptionalIntUnaryOperator,7,0,0,0,2,0,3,0,3,0
+Exceptional!,net.dapete.exceptional.function,ExceptionalLongUnaryOperator,4,3,0,0,1,1,2,1,2,1
+Exceptional!,net.dapete.exceptional.function,ExceptionalIntUnaryOperator,4,3,0,0,1,1,2,1,2,1
 Exceptional!,net.dapete.exceptional.function,ExceptionalBiConsumer,3,0,0,0,1,0,1,0,1,0
 Exceptional!,net.dapete.exceptional.function,ExceptionalLongSupplier,3,0,0,0,1,0,1,0,1,0
 Exceptional!,net.dapete.exceptional.function,ExceptionalIntSupplier,3,0,0,0,1,0,1,0,1,0
@@ -34,7 +33,7 @@ Exceptional!,net.dapete.exceptional.function,ExceptionalObjDoubleConsumer,3,0,0,
 Exceptional!,net.dapete.exceptional.function,ExceptionalLongToDoubleFunction,3,0,0,0,1,0,1,0,1,0
 Exceptional!,net.dapete.exceptional.function,ExceptionalBiPredicate,3,0,0,0,1,0,1,0,1,0
 Exceptional!,net.dapete.exceptional.function,ExceptionalToLongBiFunction,3,0,0,0,1,0,1,0,1,0
-Exceptional!,net.dapete.exceptional.function,ExceptionalIntConsumer,3,0,0,0,1,0,1,0,1,0
+Exceptional!,net.dapete.exceptional.function,ExceptionalIntConsumer,0,3,0,0,0,1,0,1,0,1
 Exceptional!,net.dapete.exceptional.function,ExceptionalLongConsumer,3,0,0,0,1,0,1,0,1,0
 Exceptional!,net.dapete.exceptional.function,ExceptionalDoubleFunction,3,0,0,0,1,0,1,0,1,0
 Exceptional!,net.dapete.exceptional.function,ExceptionalFunction,0,3,0,0,0,1,0,1,0,1
@@ -44,6 +43,13 @@ Exceptional!,net.dapete.exceptional.function,ExceptionalToLongFunction,3,0,0,0,1
 Exceptional!,net.dapete.exceptional.function,ExceptionalLongFunction,3,0,0,0,1,0,1,0,1,0
 Exceptional!,net.dapete.exceptional.function,ExceptionalDoubleConsumer,3,0,0,0,1,0,1,0,1,0
 Exceptional!,net.dapete.exceptional.function,ExceptionalSupplier,3,0,0,0,1,0,1,0,1,0
-Exceptional!,net.dapete.exceptional.function,ExceptionalDoubleUnaryOperator,7,0,0,0,2,0,3,0,3,0
+Exceptional!,net.dapete.exceptional.function,ExceptionalDoubleUnaryOperator,4,3,0,0,1,1,2,1,2,1
 Exceptional!,net.dapete.exceptional.function,ExceptionalToIntFunction,3,0,0,0,1,0,1,0,1,0
 Exceptional!,net.dapete.exceptional.function,ExceptionalConsumer,3,0,0,0,1,0,1,0,1,0
+Exceptional!,net.dapete.exceptional.stream,ExceptionalLongStream,194,32,0,0,36,8,34,6,34,6
+Exceptional!,net.dapete.exceptional.stream,ExceptionalIntMapMultiConsumer,3,0,0,0,1,0,1,0,1,0
+Exceptional!,net.dapete.exceptional.stream,ExceptionalDoubleMapMultiConsumer,3,0,0,0,1,0,1,0,1,0
+Exceptional!,net.dapete.exceptional.stream,ExceptionalLongMapMultiConsumer,3,0,0,0,1,0,1,0,1,0
+Exceptional!,net.dapete.exceptional.stream,ExceptionalDoubleStream,188,32,0,0,35,8,33,6,33,6
+Exceptional!,net.dapete.exceptional.stream,ExceptionalIntStream,197,32,0,0,37,8,35,6,35,6
+Exceptional!,net.dapete.exceptional.stream,ExceptionalStream,269,26,0,0,50,7,48,5,48,5
