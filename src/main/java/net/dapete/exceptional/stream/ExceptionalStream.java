@@ -19,10 +19,10 @@ import java.util.stream.*;
  * {@link #exceptionalMap} in parallel to {@link #map}.
  * <p>
  * If these functional interfaces throw a checked exception, a {@link ExceptionalException} will be thrown instead.
- * This will have the original exception as its {@link Throwable#getCause() cause}.
+ * This will have the original exception as its {@link ExceptionalException#getCause() cause}.
  * <p>
- * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like
- * {@link #toList} is used on the stream.
+ * Note that this exception will likely not be thrown when a method is called, but only when a <em>terminal operation</em> or a
+ * <em>stateful intermediate operation</em> is used on the stream (except if it is itself such an operation).
  *
  * @param <T> the type of the stream elements
  */
@@ -252,10 +252,10 @@ public final class ExceptionalStream<T> implements Stream<T> {
      * Equivalent of {@link Stream#filter}.
      * <p>
      * If {@code predicate} throws a checked exception, a {@link ExceptionalException} will be thrown instead.
-     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * This will have the original exception as its {@link ExceptionalException#getCause() cause}.
      * <p>
-     * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like {@link Stream#toList()}
-     * is used on the stream.
+     * Note that this exception will likely not be thrown when a method is called, but only when a <em>terminal operation</em> or a
+     * <em>stateful intermediate operation</em> is used on the stream.
      *
      * @param predicate see {@link Stream#filter}
      * @return see {@link Stream#filter}
@@ -268,10 +268,10 @@ public final class ExceptionalStream<T> implements Stream<T> {
      * Equivalent of {@link Stream#map(Function)}.
      * <p>
      * If {@code mapper} throws a checked exception, a {@link ExceptionalException} will be thrown instead.
-     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * This will have the original exception as its {@link ExceptionalException#getCause() cause}.
      * <p>
-     * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like {@link Stream#toList()}
-     * is used on the stream.
+     * Note that this exception will likely not be thrown when a method is called, but only when a <em>terminal operation</em> or a
+     * <em>stateful intermediate operation</em> is used on the stream.
      *
      * @param <R>    The element type of the new stream
      * @param mapper see {@link Stream#map}
@@ -285,10 +285,10 @@ public final class ExceptionalStream<T> implements Stream<T> {
      * Equivalent of {@link Stream#mapToDouble}.
      * <p>
      * If {@code mapper} throws a checked exception, a {@link ExceptionalException} will be thrown instead.
-     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * This will have the original exception as its {@link ExceptionalException#getCause() cause}.
      * <p>
-     * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like {@link Stream#toList()}
-     * is used on the stream.
+     * Note that this exception will likely not be thrown when a method is called, but only when a <em>terminal operation</em> or a
+     * <em>stateful intermediate operation</em> is used on the stream.
      *
      * @param mapper see {@link Stream#mapToDouble}
      * @return see {@link Stream#mapToDouble}
@@ -301,10 +301,10 @@ public final class ExceptionalStream<T> implements Stream<T> {
      * Equivalent of {@link Stream#mapToInt}.
      * <p>
      * If {@code mapper} throws a checked exception, a {@link ExceptionalException} will be thrown instead.
-     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * This will have the original exception as its {@link ExceptionalException#getCause() cause}.
      * <p>
-     * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like {@link Stream#toList()}
-     * is used on the stream.
+     * Note that this exception will likely not be thrown when a method is called, but only when a <em>terminal operation</em> or a
+     * <em>stateful intermediate operation</em> is used on the stream.
      *
      * @param mapper see {@link Stream#mapToInt}
      * @return see {@link Stream#mapToInt}
@@ -317,10 +317,10 @@ public final class ExceptionalStream<T> implements Stream<T> {
      * Equivalent of {@link Stream#mapToLong}.
      * <p>
      * If {@code mapper} throws a checked exception, a {@link ExceptionalException} will be thrown instead.
-     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * This will have the original exception as its {@link ExceptionalException#getCause() cause}.
      * <p>
-     * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like {@link Stream#toList()}
-     * is used on the stream.
+     * Note that this exception will likely not be thrown when a method is called, but only when a <em>terminal operation</em> or a
+     * <em>stateful intermediate operation</em> is used on the stream.
      *
      * @param mapper see {@link Stream#mapToLong}
      * @return see {@link Stream#mapToLong}
@@ -333,10 +333,10 @@ public final class ExceptionalStream<T> implements Stream<T> {
      * Equivalent of {@link Stream#flatMap}.
      * <p>
      * If {@code mapper} throws a checked exception, a {@link ExceptionalException} will be thrown instead.
-     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * This will have the original exception as its {@link ExceptionalException#getCause() cause}.
      * <p>
-     * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like {@link Stream#toList()}
-     * is used on the stream.
+     * Note that this exception will likely not be thrown when a method is called, but only when a <em>terminal operation</em> or a
+     * <em>stateful intermediate operation</em> is used on the stream.
      *
      * @param <R>    The element type of the new stream
      * @param mapper see {@link Stream#flatMap}
@@ -350,10 +350,10 @@ public final class ExceptionalStream<T> implements Stream<T> {
      * Equivalent of {@link Stream#flatMapToDouble}.
      * <p>
      * If {@code mapper} throws a checked exception, a {@link ExceptionalException} will be thrown instead.
-     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * This will have the original exception as its {@link ExceptionalException#getCause() cause}.
      * <p>
-     * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like {@link Stream#toList()}
-     * is used on the stream.
+     * Note that this exception will likely not be thrown when a method is called, but only when a <em>terminal operation</em> or a
+     * <em>stateful intermediate operation</em> is used on the stream.
      *
      * @param mapper see {@link Stream#flatMapToDouble}
      * @return see {@link Stream#flatMapToDouble}
@@ -366,10 +366,10 @@ public final class ExceptionalStream<T> implements Stream<T> {
      * Equivalent of {@link Stream#flatMapToInt}.
      * <p>
      * If {@code mapper} throws a checked exception, a {@link ExceptionalException} will be thrown instead.
-     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * This will have the original exception as its {@link ExceptionalException#getCause() cause}.
      * <p>
-     * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like {@link Stream#toList()}
-     * is used on the stream.
+     * Note that this exception will likely not be thrown when a method is called, but only when a <em>terminal operation</em> or a
+     * <em>stateful intermediate operation</em> is used on the stream.
      *
      * @param mapper see {@link Stream#flatMapToInt}
      * @return see {@link Stream#flatMapToInt}
@@ -382,10 +382,10 @@ public final class ExceptionalStream<T> implements Stream<T> {
      * Equivalent of {@link Stream#flatMapToLong}.
      * <p>
      * If {@code mapper} throws a checked exception, a {@link ExceptionalException} will be thrown instead.
-     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * This will have the original exception as its {@link ExceptionalException#getCause() cause}.
      * <p>
-     * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like {@link Stream#toList()}
-     * is used on the stream.
+     * Note that this exception will likely not be thrown when a method is called, but only when a <em>terminal operation</em> or a
+     * <em>stateful intermediate operation</em> is used on the stream.
      *
      * @param mapper see {@link Stream#flatMapToLong}
      * @return see {@link Stream#flatMapToLong}
@@ -398,10 +398,10 @@ public final class ExceptionalStream<T> implements Stream<T> {
      * Equivalent of {@link Stream#mapMulti}.
      * <p>
      * If {@code mapper} throws a checked exception, a {@link ExceptionalException} will be thrown instead.
-     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * This will have the original exception as its {@link ExceptionalException#getCause() cause}.
      * <p>
-     * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like {@link Stream#toList()}
-     * is used on the stream.
+     * Note that this exception will likely not be thrown when a method is called, but only when a <em>terminal operation</em> or a
+     * <em>stateful intermediate operation</em> is used on the stream.
      *
      * @param <R>    The element type of the new stream
      * @param mapper see {@link Stream#mapMulti}
@@ -415,10 +415,10 @@ public final class ExceptionalStream<T> implements Stream<T> {
      * Equivalent of {@link Stream#mapMultiToDouble}.
      * <p>
      * If {@code mapper} throws a checked exception, a {@link ExceptionalException} will be thrown instead.
-     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * This will have the original exception as its {@link ExceptionalException#getCause() cause}.
      * <p>
-     * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like {@link Stream#toList()}
-     * is used on the stream.
+     * Note that this exception will likely not be thrown when a method is called, but only when a <em>terminal operation</em> or a
+     * <em>stateful intermediate operation</em> is used on the stream.
      *
      * @param mapper see {@link Stream#mapMultiToDouble}
      * @return see {@link Stream#mapMultiToDouble}
@@ -431,10 +431,10 @@ public final class ExceptionalStream<T> implements Stream<T> {
      * Equivalent of {@link Stream#mapMultiToInt}.
      * <p>
      * If {@code mapper} throws a checked exception, a {@link ExceptionalException} will be thrown instead.
-     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * This will have the original exception as its {@link ExceptionalException#getCause() cause}.
      * <p>
-     * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like {@link Stream#toList()}
-     * is used on the stream.
+     * Note that this exception will likely not be thrown when a method is called, but only when a <em>terminal operation</em> or a
+     * <em>stateful intermediate operation</em> is used on the stream.
      *
      * @param mapper see {@link Stream#mapMultiToInt}
      * @return see {@link Stream#mapMultiToInt}
@@ -447,10 +447,10 @@ public final class ExceptionalStream<T> implements Stream<T> {
      * Equivalent of {@link Stream#mapMultiToLong}.
      * <p>
      * If {@code mapper} throws a checked exception, a {@link ExceptionalException} will be thrown instead.
-     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * This will have the original exception as its {@link ExceptionalException#getCause() cause}.
      * <p>
-     * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like {@link Stream#toList()}
-     * is used on the stream.
+     * Note that this exception will likely not be thrown when a method is called, but only when a <em>terminal operation</em> or a
+     * <em>stateful intermediate operation</em> is used on the stream.
      *
      * @param mapper see {@link Stream#mapMultiToLong}
      * @return see {@link Stream#mapMultiToLong}
@@ -463,10 +463,7 @@ public final class ExceptionalStream<T> implements Stream<T> {
      * Equivalent of {@link Stream#peek}.
      * <p>
      * If {@code action} throws a checked exception, a {@link ExceptionalException} will be thrown instead.
-     * This will have the original exception as its {@link Throwable#getCause() cause}.
-     * <p>
-     * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like {@link Stream#toList()}
-     * is used on the stream.
+     * This will have the original exception as its {@link ExceptionalException#getCause() cause}.
      *
      * @param action see {@link Stream#peek}
      * @return see {@link Stream#peek}
@@ -479,10 +476,7 @@ public final class ExceptionalStream<T> implements Stream<T> {
      * Equivalent of {@link Stream#takeWhile}.
      * <p>
      * If {@code predicate} throws a checked exception, a {@link ExceptionalException} will be thrown instead.
-     * This will have the original exception as its {@link Throwable#getCause() cause}.
-     * <p>
-     * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like {@link Stream#toList()}
-     * is used on the stream.
+     * This will have the original exception as its {@link ExceptionalException#getCause() cause}.
      *
      * @param predicate see {@link Stream#takeWhile}
      * @return see {@link Stream#takeWhile}
@@ -492,16 +486,16 @@ public final class ExceptionalStream<T> implements Stream<T> {
     }
 
     /**
-     * Equivalent of {@link Stream#takeWhile}.
+     * Equivalent of {@link Stream#dropWhile}.
      * <p>
      * If {@code predicate} throws a checked exception, a {@link ExceptionalException} will be thrown instead.
-     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     * This will have the original exception as its {@link ExceptionalException#getCause() cause}.
      * <p>
      * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like {@link Stream#toList()}
      * is used on the stream.
      *
-     * @param predicate see {@link Stream#takeWhile}
-     * @return see {@link Stream#takeWhile}
+     * @param predicate see {@link Stream#dropWhile}
+     * @return see {@link Stream#dropWhile}
      */
     public @NonNull ExceptionalStream<T> exceptionalDropWhile(@NonNull ExceptionalPredicate<? super T, ?> predicate) {
         return dropWhile(predicate.wrap());
@@ -511,10 +505,7 @@ public final class ExceptionalStream<T> implements Stream<T> {
      * Equivalent of {@link Stream#forEach}.
      * <p>
      * If {@code action} throws a checked exception, a {@link ExceptionalException} will be thrown instead.
-     * This will have the original exception as its {@link Throwable#getCause() cause}.
-     * <p>
-     * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like {@link Stream#toList()}
-     * is used on the stream.
+     * This will have the original exception as its {@link ExceptionalException#getCause() cause}.
      *
      * @param action see {@link Stream#forEach}
      */
@@ -526,10 +517,7 @@ public final class ExceptionalStream<T> implements Stream<T> {
      * Equivalent of {@link Stream#forEachOrdered}.
      * <p>
      * If {@code action} throws a checked exception, a {@link ExceptionalException} will be thrown instead.
-     * This will have the original exception as its {@link Throwable#getCause() cause}.
-     * <p>
-     * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like {@link Stream#toList()}
-     * is used on the stream.
+     * This will have the original exception as its {@link ExceptionalException#getCause() cause}.
      *
      * @param action see {@link Stream#forEachOrdered}
      */
@@ -541,10 +529,7 @@ public final class ExceptionalStream<T> implements Stream<T> {
      * Equivalent of {@link Stream#reduce(BinaryOperator)}.
      * <p>
      * If {@code accumulator} throws a checked exception, a {@link ExceptionalException} will be thrown instead.
-     * This will have the original exception as its {@link Throwable#getCause() cause}.
-     * <p>
-     * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like {@link Stream#toList()}
-     * is used on the stream.
+     * This will have the original exception as its {@link ExceptionalException#getCause() cause}.
      *
      * @param accumulator see {@link Stream#reduce(BinaryOperator)}
      * @return see {@link Stream#reduce(BinaryOperator)}
@@ -557,10 +542,7 @@ public final class ExceptionalStream<T> implements Stream<T> {
      * Equivalent of {@link Stream#reduce(Object, BinaryOperator)}.
      * <p>
      * If {@code accumulator} throws a checked exception, a {@link ExceptionalException} will be thrown instead.
-     * This will have the original exception as its {@link Throwable#getCause() cause}.
-     * <p>
-     * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like {@link Stream#toList()}
-     * is used on the stream.
+     * This will have the original exception as its {@link ExceptionalException#getCause() cause}.
      *
      * @param identity    see {@link Stream#reduce(Object, BiFunction, BinaryOperator)}
      * @param accumulator see {@link Stream#reduce(Object, BinaryOperator)}
@@ -574,10 +556,7 @@ public final class ExceptionalStream<T> implements Stream<T> {
      * Equivalent of {@link Stream#reduce(Object, BiFunction, BinaryOperator)}.
      * <p>
      * If {@code accumulator} or {@code combiner} throw a checked exception, a {@link ExceptionalException} will be thrown instead.
-     * This will have the original exception as its {@link Throwable#getCause() cause}.
-     * <p>
-     * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like {@link Stream#toList()}
-     * is used on the stream.
+     * This will have the original exception as its {@link ExceptionalException#getCause() cause}.
      *
      * @param <U>         The type of the result
      * @param identity    see {@link Stream#reduce(Object, BiFunction, BinaryOperator)}
@@ -594,10 +573,7 @@ public final class ExceptionalStream<T> implements Stream<T> {
      * Equivalent of {@link Stream#collect(Supplier, BiConsumer, BiConsumer)}.
      * <p>
      * If {@code supplier}, {@code accumulator} or {@code combiner} throw a checked exception, a {@link ExceptionalException} will be thrown instead.
-     * This will have the original exception as its {@link Throwable#getCause() cause}.
-     * <p>
-     * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like {@link Stream#toList()}
-     * is used on the stream.
+     * This will have the original exception as its {@link ExceptionalException#getCause() cause}.
      *
      * @param <R>         the type of the mutable result container
      * @param supplier    see {@link Stream#collect(Supplier, BiConsumer, BiConsumer)}
