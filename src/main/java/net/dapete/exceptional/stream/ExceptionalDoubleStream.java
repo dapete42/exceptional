@@ -172,7 +172,7 @@ public class ExceptionalDoubleStream implements DoubleStream {
      * @return see {@link DoubleStream#filter}
      */
     public @NonNull ExceptionalDoubleStream exceptionalFilter(@NonNull ExceptionalDoublePredicate<?> predicate) {
-        return ExceptionalDoubleStream.of(filter(predicate.wrap()));
+        return of(filter(predicate.wrap()));
     }
 
     /**
@@ -188,7 +188,7 @@ public class ExceptionalDoubleStream implements DoubleStream {
      * @return see {@link DoubleStream#map}
      */
     public @NonNull ExceptionalDoubleStream exceptionalMap(@NonNull ExceptionalDoubleUnaryOperator<?> mapper) {
-        return ExceptionalDoubleStream.of(map(mapper.wrap()));
+        return of(map(mapper.wrap()));
     }
 
     /**
@@ -252,7 +252,7 @@ public class ExceptionalDoubleStream implements DoubleStream {
      * @return see {@link DoubleStream#flatMap}
      */
     public @NonNull ExceptionalDoubleStream exceptionalFlatMap(@NonNull ExceptionalDoubleFunction<? extends DoubleStream, ?> mapper) {
-        return ExceptionalDoubleStream.of(flatMap(mapper.wrap()));
+        return of(flatMap(mapper.wrap()));
     }
 
     /**
@@ -268,7 +268,7 @@ public class ExceptionalDoubleStream implements DoubleStream {
      * @return see {@link DoubleStream#mapMulti}
      */
     public @NonNull ExceptionalDoubleStream exceptionalMapMulti(@NonNull ExceptionalDoubleMapMultiConsumer<?> mapper) {
-        return ExceptionalDoubleStream.of(mapMulti(mapper.wrap()));
+        return of(mapMulti(mapper.wrap()));
     }
 
     /**
@@ -281,7 +281,7 @@ public class ExceptionalDoubleStream implements DoubleStream {
      * @return see {@link DoubleStream#peek}
      */
     public @NonNull ExceptionalDoubleStream exceptionalPeek(@NonNull ExceptionalDoubleConsumer<?> action) {
-        return ExceptionalDoubleStream.of(peek(action.wrap()));
+        return of(peek(action.wrap()));
     }
 
     /**
@@ -294,7 +294,7 @@ public class ExceptionalDoubleStream implements DoubleStream {
      * @return see {@link DoubleStream#takeWhile}
      */
     public @NonNull ExceptionalDoubleStream exceptionalTakeWhile(@NonNull ExceptionalDoublePredicate<?> predicate) {
-        return ExceptionalDoubleStream.of(takeWhile(predicate.wrap()));
+        return of(takeWhile(predicate.wrap()));
     }
 
     /**
@@ -307,7 +307,7 @@ public class ExceptionalDoubleStream implements DoubleStream {
      * @return see {@link DoubleStream#dropWhile}
      */
     public @NonNull ExceptionalDoubleStream exceptionalDropWhile(@NonNull ExceptionalDoublePredicate<?> predicate) {
-        return ExceptionalDoubleStream.of(dropWhile(predicate.wrap()));
+        return of(dropWhile(predicate.wrap()));
     }
 
     /**

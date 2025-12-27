@@ -177,7 +177,7 @@ public class ExceptionalLongStream implements LongStream {
      * @return see {@link LongStream#filter}
      */
     public @NonNull ExceptionalLongStream exceptionalFilter(@NonNull ExceptionalLongPredicate<?> predicate) {
-        return ExceptionalLongStream.of(filter(predicate.wrap()));
+        return of(filter(predicate.wrap()));
     }
 
     /**
@@ -193,7 +193,7 @@ public class ExceptionalLongStream implements LongStream {
      * @return see {@link LongStream#map}
      */
     public @NonNull ExceptionalLongStream exceptionalMap(@NonNull ExceptionalLongUnaryOperator<?> mapper) {
-        return ExceptionalLongStream.of(map(mapper.wrap()));
+        return of(map(mapper.wrap()));
     }
 
     /**
@@ -257,7 +257,7 @@ public class ExceptionalLongStream implements LongStream {
      * @return see {@link LongStream#flatMap}
      */
     public @NonNull ExceptionalLongStream exceptionalFlatMap(@NonNull ExceptionalLongFunction<? extends LongStream, ?> mapper) {
-        return ExceptionalLongStream.of(flatMap(mapper.wrap()));
+        return of(flatMap(mapper.wrap()));
     }
 
     /**
@@ -273,7 +273,7 @@ public class ExceptionalLongStream implements LongStream {
      * @return see {@link LongStream#mapMulti}
      */
     public @NonNull ExceptionalLongStream exceptionalMapMulti(@NonNull ExceptionalLongMapMultiConsumer<?> mapper) {
-        return ExceptionalLongStream.of(mapMulti(mapper.wrap()));
+        return of(mapMulti(mapper.wrap()));
     }
 
     /**
@@ -286,7 +286,7 @@ public class ExceptionalLongStream implements LongStream {
      * @return see {@link LongStream#peek}
      */
     public @NonNull ExceptionalLongStream exceptionalPeek(@NonNull ExceptionalLongConsumer<?> action) {
-        return ExceptionalLongStream.of(peek(action.wrap()));
+        return of(peek(action.wrap()));
     }
 
     /**
@@ -299,7 +299,7 @@ public class ExceptionalLongStream implements LongStream {
      * @return see {@link LongStream#takeWhile}
      */
     public @NonNull ExceptionalLongStream exceptionalTakeWhile(@NonNull ExceptionalLongPredicate<?> predicate) {
-        return ExceptionalLongStream.of(takeWhile(predicate.wrap()));
+        return of(takeWhile(predicate.wrap()));
     }
 
     /**
@@ -312,7 +312,7 @@ public class ExceptionalLongStream implements LongStream {
      * @return see {@link LongStream#dropWhile}
      */
     public @NonNull ExceptionalLongStream exceptionalDropWhile(@NonNull ExceptionalLongPredicate<?> predicate) {
-        return ExceptionalLongStream.of(dropWhile(predicate.wrap()));
+        return of(dropWhile(predicate.wrap()));
     }
 
     /**

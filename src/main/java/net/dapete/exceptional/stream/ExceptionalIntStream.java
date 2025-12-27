@@ -182,7 +182,7 @@ public class ExceptionalIntStream implements IntStream {
      * @return see {@link IntStream#filter}
      */
     public @NonNull ExceptionalIntStream exceptionalFilter(@NonNull ExceptionalIntPredicate<?> predicate) {
-        return ExceptionalIntStream.of(filter(predicate.wrap()));
+        return of(filter(predicate.wrap()));
     }
 
     /**
@@ -198,7 +198,7 @@ public class ExceptionalIntStream implements IntStream {
      * @return see {@link IntStream#map}
      */
     public @NonNull ExceptionalIntStream exceptionalMap(@NonNull ExceptionalIntUnaryOperator<?> mapper) {
-        return ExceptionalIntStream.of(map(mapper.wrap()));
+        return of(map(mapper.wrap()));
     }
 
     /**
@@ -262,7 +262,7 @@ public class ExceptionalIntStream implements IntStream {
      * @return see {@link IntStream#flatMap}
      */
     public @NonNull ExceptionalIntStream exceptionalFlatMap(@NonNull ExceptionalIntFunction<? extends IntStream, ?> mapper) {
-        return ExceptionalIntStream.of(flatMap(mapper.wrap()));
+        return of(flatMap(mapper.wrap()));
     }
 
     /**
@@ -278,7 +278,7 @@ public class ExceptionalIntStream implements IntStream {
      * @return see {@link IntStream#mapMulti}
      */
     public @NonNull ExceptionalIntStream exceptionalMapMulti(@NonNull ExceptionalIntMapMultiConsumer<?> mapper) {
-        return ExceptionalIntStream.of(mapMulti(mapper.wrap()));
+        return of(mapMulti(mapper.wrap()));
     }
 
     /**
@@ -291,7 +291,7 @@ public class ExceptionalIntStream implements IntStream {
      * @return see {@link IntStream#peek}
      */
     public @NonNull ExceptionalIntStream exceptionalPeek(@NonNull ExceptionalIntConsumer<?> action) {
-        return ExceptionalIntStream.of(peek(action.wrap()));
+        return of(peek(action.wrap()));
     }
 
     /**
@@ -304,7 +304,7 @@ public class ExceptionalIntStream implements IntStream {
      * @return see {@link IntStream#takeWhile}
      */
     public @NonNull ExceptionalIntStream exceptionalTakeWhile(@NonNull ExceptionalIntPredicate<?> predicate) {
-        return ExceptionalIntStream.of(takeWhile(predicate.wrap()));
+        return of(takeWhile(predicate.wrap()));
     }
 
     /**
@@ -317,7 +317,7 @@ public class ExceptionalIntStream implements IntStream {
      * @return see {@link IntStream#dropWhile}
      */
     public @NonNull ExceptionalIntStream exceptionalDropWhile(@NonNull ExceptionalIntPredicate<?> predicate) {
-        return ExceptionalIntStream.of(dropWhile(predicate.wrap()));
+        return of(dropWhile(predicate.wrap()));
     }
 
     /**
