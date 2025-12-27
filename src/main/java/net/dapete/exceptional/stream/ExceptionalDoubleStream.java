@@ -362,15 +362,15 @@ public class ExceptionalDoubleStream implements DoubleStream {
     }
 
     /**
-     * Equivalent of {@link DoubleStream#collect)}.
+     * Equivalent of {@link DoubleStream#collect}.
      * <p>
      * If {@code supplier}, {@code accumulator} or {@code combiner} throw a checked exception, a {@link ExceptionalException} will be thrown instead.
      * This will have the original exception as its {@link ExceptionalException#getCause() cause}.
      *
-     * @param supplier    see {@link DoubleStream#collect)}
-     * @param accumulator see {@link DoubleStream#collect)}
-     * @param combiner    see {@link DoubleStream#collect)}
-     * @return see {@link DoubleStream#collect)}
+     * @param supplier    see {@link DoubleStream#collect}
+     * @param accumulator see {@link DoubleStream#collect}
+     * @param combiner    see {@link DoubleStream#collect}
+     * @return see {@link DoubleStream#collect}
      */
     public <R> R exceptionalCollect(@NonNull ExceptionalSupplier<R, ?> supplier, @NonNull ExceptionalObjDoubleConsumer<R, ?> accumulator,
                                     @NonNull ExceptionalBiConsumer<R, R, ?> combiner) {
@@ -378,26 +378,26 @@ public class ExceptionalDoubleStream implements DoubleStream {
     }
 
     /**
-     * Equivalent of {@link DoubleStream#anyMatch)}.
+     * Equivalent of {@link DoubleStream#anyMatch}.
      * <p>
      * If {@code predicate} throws a checked exception, a {@link ExceptionalException} will be thrown instead.
      * This will have the original exception as its {@link ExceptionalException#getCause() cause}.
      *
-     * @param predicate see {@link DoubleStream#anyMatch)}
-     * @return see {@link DoubleStream#anyMatch)}
+     * @param predicate see {@link DoubleStream#anyMatch}
+     * @return see {@link DoubleStream#anyMatch}
      */
     public boolean exceptionalAnyMatch(@NonNull ExceptionalDoublePredicate<?> predicate) {
         return anyMatch(predicate.wrap());
     }
 
     /**
-     * Equivalent of {@link DoubleStream#allMatch} )}.
+     * Equivalent of {@link DoubleStream#allMatch}.
      * <p>
      * If {@code predicate} throws a checked exception, a {@link ExceptionalException} will be thrown instead.
      * This will have the original exception as its {@link ExceptionalException#getCause() cause}.
      *
-     * @param predicate see {@link DoubleStream#allMatch)}
-     * @return see {@link DoubleStream#allMatch)}
+     * @param predicate see {@link DoubleStream#allMatch}
+     * @return see {@link DoubleStream#allMatch}
      */
     public boolean exceptionalAllMatch(@NonNull ExceptionalDoublePredicate<?> predicate) {
         return allMatch(predicate.wrap());

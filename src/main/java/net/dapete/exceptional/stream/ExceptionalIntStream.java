@@ -372,15 +372,15 @@ public class ExceptionalIntStream implements IntStream {
     }
 
     /**
-     * Equivalent of {@link IntStream#collect)}.
+     * Equivalent of {@link IntStream#collect}.
      * <p>
      * If {@code supplier}, {@code accumulator} or {@code combiner} throw a checked exception, a {@link ExceptionalException} will be thrown instead.
      * This will have the original exception as its {@link ExceptionalException#getCause() cause}.
      *
-     * @param supplier    see {@link IntStream#collect)}
-     * @param accumulator see {@link IntStream#collect)}
-     * @param combiner    see {@link IntStream#collect)}
-     * @return see {@link IntStream#collect)}
+     * @param supplier    see {@link IntStream#collect}
+     * @param accumulator see {@link IntStream#collect}
+     * @param combiner    see {@link IntStream#collect}
+     * @return see {@link IntStream#collect}
      */
     public <R> R exceptionalCollect(@NonNull ExceptionalSupplier<R, ?> supplier, @NonNull ExceptionalObjIntConsumer<R, ?> accumulator,
                                     @NonNull ExceptionalBiConsumer<R, R, ?> combiner) {
@@ -388,39 +388,39 @@ public class ExceptionalIntStream implements IntStream {
     }
 
     /**
-     * Equivalent of {@link IntStream#anyMatch)}.
+     * Equivalent of {@link IntStream#anyMatch}.
      * <p>
      * If {@code predicate} throws a checked exception, a {@link ExceptionalException} will be thrown instead.
      * This will have the original exception as its {@link ExceptionalException#getCause() cause}.
      *
-     * @param predicate see {@link IntStream#anyMatch)}
-     * @return see {@link IntStream#anyMatch)}
+     * @param predicate see {@link IntStream#anyMatch}
+     * @return see {@link IntStream#anyMatch}
      */
     public boolean exceptionalAnyMatch(@NonNull ExceptionalIntPredicate<?> predicate) {
         return anyMatch(predicate.wrap());
     }
 
     /**
-     * Equivalent of {@link IntStream#allMatch} )}.
+     * Equivalent of {@link IntStream#allMatch}.
      * <p>
      * If {@code predicate} throws a checked exception, a {@link ExceptionalException} will be thrown instead.
      * This will have the original exception as its {@link ExceptionalException#getCause() cause}.
      *
-     * @param predicate see {@link IntStream#allMatch)}
-     * @return see {@link IntStream#allMatch)}
+     * @param predicate see {@link IntStream#allMatch}
+     * @return see {@link IntStream#allMatch}
      */
     public boolean exceptionalAllMatch(@NonNull ExceptionalIntPredicate<?> predicate) {
         return allMatch(predicate.wrap());
     }
 
     /**
-     * Equivalent of {@link IntStream#noneMatch} )}.
+     * Equivalent of {@link IntStream#noneMatch} }.
      * <p>
      * If {@code predicate} throws a checked exception, a {@link ExceptionalException} will be thrown instead.
      * This will have the original exception as its {@link ExceptionalException#getCause() cause}.
      *
-     * @param predicate see {@link IntStream#noneMatch)}
-     * @return see {@link IntStream#noneMatch)}
+     * @param predicate see {@link IntStream#noneMatch}
+     * @return see {@link IntStream#noneMatch}
      */
     public boolean exceptionalNoneMatch(@NonNull ExceptionalIntPredicate<?> predicate) {
         return noneMatch(predicate.wrap());

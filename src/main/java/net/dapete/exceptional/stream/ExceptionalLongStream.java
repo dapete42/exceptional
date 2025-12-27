@@ -367,15 +367,15 @@ public class ExceptionalLongStream implements LongStream {
     }
 
     /**
-     * Equivalent of {@link LongStream#collect)}.
+     * Equivalent of {@link LongStream#collect}.
      * <p>
      * If {@code supplier}, {@code accumulator} or {@code combiner} throw a checked exception, a {@link ExceptionalException} will be thrown instead.
      * This will have the original exception as its {@link ExceptionalException#getCause() cause}.
      *
-     * @param supplier    see {@link LongStream#collect)}
-     * @param accumulator see {@link LongStream#collect)}
-     * @param combiner    see {@link LongStream#collect)}
-     * @return see {@link LongStream#collect)}
+     * @param supplier    see {@link LongStream#collect}
+     * @param accumulator see {@link LongStream#collect}
+     * @param combiner    see {@link LongStream#collect}
+     * @return see {@link LongStream#collect}
      */
     public <R> R exceptionalCollect(@NonNull ExceptionalSupplier<R, ?> supplier, @NonNull ExceptionalObjLongConsumer<R, ?> accumulator,
                                     @NonNull ExceptionalBiConsumer<R, R, ?> combiner) {
@@ -383,39 +383,39 @@ public class ExceptionalLongStream implements LongStream {
     }
 
     /**
-     * Equivalent of {@link LongStream#anyMatch)}.
+     * Equivalent of {@link LongStream#anyMatch}.
      * <p>
      * If {@code predicate} throws a checked exception, a {@link ExceptionalException} will be thrown instead.
      * This will have the original exception as its {@link ExceptionalException#getCause() cause}.
      *
-     * @param predicate see {@link LongStream#anyMatch)}
-     * @return see {@link LongStream#anyMatch)}
+     * @param predicate see {@link LongStream#anyMatch}
+     * @return see {@link LongStream#anyMatch}
      */
     public boolean exceptionalAnyMatch(@NonNull ExceptionalLongPredicate<?> predicate) {
         return anyMatch(predicate.wrap());
     }
 
     /**
-     * Equivalent of {@link LongStream#allMatch} )}.
+     * Equivalent of {@link LongStream#allMatch}.
      * <p>
      * If {@code predicate} throws a checked exception, a {@link ExceptionalException} will be thrown instead.
      * This will have the original exception as its {@link ExceptionalException#getCause() cause}.
      *
-     * @param predicate see {@link LongStream#allMatch)}
-     * @return see {@link LongStream#allMatch)}
+     * @param predicate see {@link LongStream#allMatch}
+     * @return see {@link LongStream#allMatch}
      */
     public boolean exceptionalAllMatch(@NonNull ExceptionalLongPredicate<?> predicate) {
         return allMatch(predicate.wrap());
     }
 
     /**
-     * Equivalent of {@link LongStream#noneMatch} )}.
+     * Equivalent of {@link LongStream#noneMatch}.
      * <p>
      * If {@code predicate} throws a checked exception, a {@link ExceptionalException} will be thrown instead.
      * This will have the original exception as its {@link ExceptionalException#getCause() cause}.
      *
-     * @param predicate see {@link LongStream#noneMatch)}
-     * @return see {@link LongStream#noneMatch)}
+     * @param predicate see {@link LongStream#noneMatch}
+     * @return see {@link LongStream#noneMatch}
      */
     public boolean exceptionalNoneMatch(@NonNull ExceptionalLongPredicate<?> predicate) {
         return noneMatch(predicate.wrap());
