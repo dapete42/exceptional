@@ -199,7 +199,7 @@ public class ExceptionalDoubleStream implements DoubleStream {
         return allMatch(predicate.wrap());
     }
 
-    public boolean exceptionalNneMatch(@NonNull ExceptionalDoublePredicate<?> predicate) {
+    public boolean exceptionalNoneMatch(@NonNull ExceptionalDoublePredicate<?> predicate) {
         return noneMatch(predicate.wrap());
     }
 
