@@ -200,6 +200,7 @@ public class ExceptionalDoubleStream implements DoubleStream {
      * Note that this exception will likely not be thrown when a method is called, but only when a <em>terminal operation</em> or a
      * <em>stateful intermediate operation</em> is used on the stream.
      *
+     * @param <U>    the element type of the new stream
      * @param mapper see {@link DoubleStream#mapToObj}
      * @return see {@link DoubleStream#mapToObj}
      */
@@ -367,6 +368,7 @@ public class ExceptionalDoubleStream implements DoubleStream {
      * If {@code supplier}, {@code accumulator} or {@code combiner} throw a checked exception, a {@link ExceptionalException} will be thrown instead.
      * This will have the original exception as its {@link ExceptionalException#getCause() cause}.
      *
+     * @param <R>         the type of the mutable result container
      * @param supplier    see {@link DoubleStream#collect}
      * @param accumulator see {@link DoubleStream#collect}
      * @param combiner    see {@link DoubleStream#collect}
@@ -403,6 +405,15 @@ public class ExceptionalDoubleStream implements DoubleStream {
         return allMatch(predicate.wrap());
     }
 
+    /**
+     * Equivalent of {@link DoubleStream#noneMatch}.
+     * <p>
+     * If {@code predicate} throws a checked exception, a {@link ExceptionalException} will be thrown instead.
+     * This will have the original exception as its {@link ExceptionalException#getCause() cause}.
+     *
+     * @param predicate see {@link DoubleStream#noneMatch}
+     * @return see {@link DoubleStream#noneMatch}
+     */
     public boolean exceptionalNoneMatch(@NonNull ExceptionalDoublePredicate<?> predicate) {
         return noneMatch(predicate.wrap());
     }

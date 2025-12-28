@@ -133,7 +133,8 @@ public class ExceptionalException extends RuntimeException {
      * Unwraps any {@code ExceptionalException} thrown when executing {@link Supplier#get() supplier.get()} and throws its {@link #getCause() cause} instead.
      *
      * @param supplier a supplier that may throw an {@code ExceptionalException}.
-     * @param <T>      the return type of {@code supplier}.
+     * @param <T>      the return type of {@code supplier.get()}.
+     * @return the result of {@code supplier.get()}.
      * @throws Exception the cause of the {@code ExceptionalExceptionExceptionalException}, if {@code runnable} throws one.
      */
     public static <T> T unwrap(@NonNull Supplier<T> supplier) throws Exception {
@@ -150,8 +151,9 @@ public class ExceptionalException extends RuntimeException {
      *
      * @param exceptionClass the class of the cause of the {@code ExceptionalException}
      * @param supplier       a supplier that may throw an {@code ExceptionalException}.
-     * @param <T>            the return type of {@code supplier}.
+     * @param <T>            the return type of {@code supplier.get()}.
      * @param <E>            the type of the cause of the {@code ExceptionalException}
+     * @return the result of {@code supplier.get()}.
      * @throws E the cause of the {@code ExceptionalException}, if {@code supplier} throws one and its cause is an instance of {@code exceptionClass}.
      */
     public static <T, E extends Exception> T unwrap(@NonNull Class<E> exceptionClass, @NonNull Supplier<T> supplier) throws E {
@@ -174,8 +176,10 @@ public class ExceptionalException extends RuntimeException {
      * @param exceptionClass1 the class of the first possible cause of the {@code ExceptionalException}
      * @param exceptionClass2 the class of the second possible cause of the {@code ExceptionalException}
      * @param supplier        a supplier that may throw an {@code ExceptionalException}.
+     * @param <T>             the return type of {@code supplier.get()}.
      * @param <E1>            the type of the first possible cause of the {@code ExceptionalException}
      * @param <E2>            the type of the second possible cause of the {@code ExceptionalException}
+     * @return the result of {@code supplier.get()}.
      * @throws E1 the cause of the {@code ExceptionalException}, if {@code supplier} throws one and its cause is an instance of {@code exceptionClass1}.
      * @throws E2 the cause of the {@code ExceptionalException}, if {@code supplier} throws one and its cause is an instance of {@code exceptionClass2}.
      */
@@ -199,9 +203,11 @@ public class ExceptionalException extends RuntimeException {
      * @param exceptionClass2 the class of the second possible cause of the {@code ExceptionalException}
      * @param exceptionClass3 the class of the third possible cause of the {@code ExceptionalException}
      * @param supplier        a supplier that may throw an {@code ExceptionalException}.
+     * @param <T>             the return type of {@code supplier.get()}.
      * @param <E1>            the type of the first possible cause of the {@code ExceptionalException}
      * @param <E2>            the type of the second possible cause of the {@code ExceptionalException}
      * @param <E3>            the type of the third possible cause of the {@code ExceptionalException}
+     * @return the result of {@code supplier.get()}.
      * @throws E1 the cause of the {@code ExceptionalException}, if {@code supplier} throws one and its cause is an instance of {@code exceptionClass1}.
      * @throws E2 the cause of the {@code ExceptionalException}, if {@code supplier} throws one and its cause is an instance of {@code exceptionClass2}.
      * @throws E3 the cause of the {@code ExceptionalException}, if {@code supplier} throws one and its cause is an instance of {@code exceptionClass3}.

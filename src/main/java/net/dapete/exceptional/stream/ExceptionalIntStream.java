@@ -210,6 +210,7 @@ public class ExceptionalIntStream implements IntStream {
      * Note that this exception will likely not be thrown when a method is called, but only when a <em>terminal operation</em> or a
      * <em>stateful intermediate operation</em> is used on the stream.
      *
+     * @param <U>    the element type of the new stream
      * @param mapper see {@link IntStream#mapToObj}
      * @return see {@link IntStream#mapToObj}
      */
@@ -377,6 +378,7 @@ public class ExceptionalIntStream implements IntStream {
      * If {@code supplier}, {@code accumulator} or {@code combiner} throw a checked exception, a {@link ExceptionalException} will be thrown instead.
      * This will have the original exception as its {@link ExceptionalException#getCause() cause}.
      *
+     * @param <R>         the type of the mutable result container
      * @param supplier    see {@link IntStream#collect}
      * @param accumulator see {@link IntStream#collect}
      * @param combiner    see {@link IntStream#collect}

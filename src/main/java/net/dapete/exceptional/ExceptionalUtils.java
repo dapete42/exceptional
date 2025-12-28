@@ -1,5 +1,8 @@
 package net.dapete.exceptional;
 
+/**
+ * General utility class for Exceptional!
+ */
 public final class ExceptionalUtils {
 
     // Utility class with private constructor

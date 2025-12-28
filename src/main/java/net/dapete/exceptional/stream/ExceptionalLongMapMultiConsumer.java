@@ -7,6 +7,11 @@ import org.jspecify.annotations.NonNull;
 
 import java.util.stream.LongStream;
 
+/**
+ * Equivalent of a {@link java.util.stream.LongStream.LongMapMultiConsumer} that can throw exceptions.
+ *
+ * @param <E> the type of exception thrown
+ */
 @FunctionalInterface
 public interface ExceptionalLongMapMultiConsumer<E extends Exception> extends Wrappable<LongStream.LongMapMultiConsumer> {
 

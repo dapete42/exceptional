@@ -7,6 +7,11 @@ import org.jspecify.annotations.NonNull;
 
 import java.util.stream.DoubleStream;
 
+/**
+ * Equivalent of a {@link java.util.stream.DoubleStream.DoubleMapMultiConsumer} that can throw exceptions.
+ *
+ * @param <E> the type of exception thrown
+ */
 @FunctionalInterface
 public interface ExceptionalDoubleMapMultiConsumer<E extends Exception> extends Wrappable<DoubleStream.DoubleMapMultiConsumer> {
 

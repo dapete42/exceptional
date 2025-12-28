@@ -10,7 +10,10 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.Optional;
 import java.util.function.*;
-import java.util.stream.*;
+import java.util.stream.DoubleStream;
+import java.util.stream.IntStream;
+import java.util.stream.LongStream;
+import java.util.stream.Stream;
 
 /**
  * A Stream with additional functionality for functional interfaces that throw Exceptions.
@@ -558,7 +561,7 @@ public final class ExceptionalStream<T> implements Stream<T> {
      * If {@code accumulator} or {@code combiner} throw a checked exception, a {@link ExceptionalException} will be thrown instead.
      * This will have the original exception as its {@link ExceptionalException#getCause() cause}.
      *
-     * @param <U>         The type of the result
+     * @param <U>         the element type of the new stream
      * @param identity    see {@link Stream#reduce(Object, BiFunction, BinaryOperator)}
      * @param accumulator see {@link Stream#reduce(Object, BiFunction, BinaryOperator)}
      * @param combiner    see {@link Stream#reduce(Object, BiFunction, BinaryOperator)}

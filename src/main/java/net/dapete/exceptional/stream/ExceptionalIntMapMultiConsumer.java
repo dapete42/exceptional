@@ -7,6 +7,11 @@ import org.jspecify.annotations.NonNull;
 
 import java.util.stream.IntStream;
 
+/**
+ * Equivalent of a {@link java.util.stream.IntStream.IntMapMultiConsumer} that can throw exceptions.
+ *
+ * @param <E> the type of exception thrown
+ */
 @FunctionalInterface
 public interface ExceptionalIntMapMultiConsumer<E extends Exception> extends Wrappable<IntStream.IntMapMultiConsumer> {
 
