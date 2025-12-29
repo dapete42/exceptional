@@ -1,8 +1,8 @@
 package net.dapete.exceptional.function;
 
-import net.dapete.exceptional.ExceptionalWrapper;
-
 import java.util.function.DoubleConsumer;
+
+import static net.dapete.exceptional.ExceptionalUtils.toRuntimeException;
 
 /**
  * Equivalent of a {@link java.util.function.DoubleConsumer} that can throw exceptions.
@@ -22,7 +22,13 @@ public interface ExceptionalDoubleConsumer<E extends Exception> extends Wrappabl
 
     @Override
     default DoubleConsumer wrap() {
-        return ExceptionalWrapper.wrap(this);
+        return t -> {
+            try {
+                accept(t);
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
     }
 
 }

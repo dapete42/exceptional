@@ -1,8 +1,8 @@
 package net.dapete.exceptional.function;
 
-import net.dapete.exceptional.ExceptionalWrapper;
-
 import java.util.function.IntToLongFunction;
+
+import static net.dapete.exceptional.ExceptionalUtils.toRuntimeException;
 
 /**
  * Equivalent of an {@link java.util.function.IntToLongFunction} that can throw exceptions.
@@ -23,7 +23,13 @@ public interface ExceptionalIntToLongFunction<E extends Exception> extends Wrapp
 
     @Override
     default IntToLongFunction wrap() {
-        return ExceptionalWrapper.wrap(this);
+        return t -> {
+            try {
+                return applyAsLong(t);
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
     }
 
 }

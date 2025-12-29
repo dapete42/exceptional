@@ -1,8 +1,8 @@
 package net.dapete.exceptional.function;
 
-import net.dapete.exceptional.ExceptionalWrapper;
-
 import java.util.function.Function;
+
+import static net.dapete.exceptional.ExceptionalUtils.toRuntimeException;
 
 /**
  * Equivalent of a {@link java.util.function.Function} that can throw exceptions.
@@ -25,7 +25,13 @@ public interface ExceptionalFunction<T, R, E extends Exception> extends Wrappabl
 
     @Override
     default Function<T, R> wrap() {
-        return ExceptionalWrapper.wrap(this);
+        return t -> {
+            try {
+                return apply(t);
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
     }
 
 }

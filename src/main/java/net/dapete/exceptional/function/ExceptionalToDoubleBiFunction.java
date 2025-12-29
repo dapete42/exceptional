@@ -1,8 +1,8 @@
 package net.dapete.exceptional.function;
 
-import net.dapete.exceptional.ExceptionalWrapper;
-
 import java.util.function.ToDoubleBiFunction;
+
+import static net.dapete.exceptional.ExceptionalUtils.toRuntimeException;
 
 /**
  * Equivalent of a {@link java.util.function.ToDoubleBiFunction} that can throw exceptions.
@@ -26,7 +26,13 @@ public interface ExceptionalToDoubleBiFunction<T, U, E extends Exception> extend
 
     @Override
     default ToDoubleBiFunction<T, U> wrap() {
-        return ExceptionalWrapper.wrap(this);
+        return (t, u) -> {
+            try {
+                return applyAsDouble(t, u);
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
     }
 
 }

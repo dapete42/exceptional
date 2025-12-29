@@ -1,8 +1,8 @@
 package net.dapete.exceptional.function;
 
-import net.dapete.exceptional.ExceptionalWrapper;
-
 import java.util.function.DoubleToLongFunction;
+
+import static net.dapete.exceptional.ExceptionalUtils.toRuntimeException;
 
 /**
  * Equivalent of a {@link java.util.function.DoubleToLongFunction} that can throw exceptions.
@@ -23,7 +23,13 @@ public interface ExceptionalDoubleToLongFunction<E extends Exception> extends Wr
 
     @Override
     default DoubleToLongFunction wrap() {
-        return ExceptionalWrapper.wrap(this);
+        return t -> {
+            try {
+                return applyAsLong(t);
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
     }
 
 }

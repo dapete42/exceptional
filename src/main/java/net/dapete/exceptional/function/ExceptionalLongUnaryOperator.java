@@ -1,8 +1,8 @@
 package net.dapete.exceptional.function;
 
-import net.dapete.exceptional.ExceptionalWrapper;
-
 import java.util.function.LongUnaryOperator;
+
+import static net.dapete.exceptional.ExceptionalUtils.toRuntimeException;
 
 /**
  * Equivalent of a {@link java.util.function.LongUnaryOperator} that can throw exceptions.
@@ -23,7 +23,13 @@ public interface ExceptionalLongUnaryOperator<E extends Exception> extends Wrapp
 
     @Override
     default LongUnaryOperator wrap() {
-        return ExceptionalWrapper.wrap(this);
+        return t -> {
+            try {
+                return applyAsLong(t);
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
     }
 
     /**

@@ -1,8 +1,8 @@
 package net.dapete.exceptional.function;
 
-import net.dapete.exceptional.ExceptionalWrapper;
-
 import java.util.function.Consumer;
+
+import static net.dapete.exceptional.ExceptionalUtils.toRuntimeException;
 
 /**
  * Equivalent of a {@link java.util.function.Consumer} that can throw exceptions.
@@ -23,7 +23,13 @@ public interface ExceptionalConsumer<T, E extends Exception> extends Wrappable<C
 
     @Override
     default Consumer<T> wrap() {
-        return ExceptionalWrapper.wrap(this);
+        return t -> {
+            try {
+                accept(t);
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
     }
 
 }

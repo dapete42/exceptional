@@ -1,8 +1,8 @@
 package net.dapete.exceptional.function;
 
-import net.dapete.exceptional.ExceptionalWrapper;
-
 import java.util.function.ObjLongConsumer;
+
+import static net.dapete.exceptional.ExceptionalUtils.toRuntimeException;
 
 /**
  * Equivalent of an {@link java.util.function.ObjLongConsumer} that can throw exceptions.
@@ -24,7 +24,13 @@ public interface ExceptionalObjLongConsumer<T, E extends Exception> extends Wrap
 
     @Override
     default ObjLongConsumer<T> wrap() {
-        return ExceptionalWrapper.wrap(this);
+        return (t, u) -> {
+            try {
+                accept(t, u);
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
     }
 
 }

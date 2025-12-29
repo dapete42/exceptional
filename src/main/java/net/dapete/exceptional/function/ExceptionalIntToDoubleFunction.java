@@ -1,8 +1,8 @@
 package net.dapete.exceptional.function;
 
-import net.dapete.exceptional.ExceptionalWrapper;
-
 import java.util.function.IntToDoubleFunction;
+
+import static net.dapete.exceptional.ExceptionalUtils.toRuntimeException;
 
 /**
  * Equivalent of an {@link java.util.function.IntToDoubleFunction} that can throw exceptions.
@@ -23,7 +23,13 @@ public interface ExceptionalIntToDoubleFunction<E extends Exception> extends Wra
 
     @Override
     default IntToDoubleFunction wrap() {
-        return ExceptionalWrapper.wrap(this);
+        return t -> {
+            try {
+                return applyAsDouble(t);
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
     }
 
 }

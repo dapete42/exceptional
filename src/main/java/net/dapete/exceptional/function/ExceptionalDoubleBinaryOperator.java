@@ -1,8 +1,8 @@
 package net.dapete.exceptional.function;
 
-import net.dapete.exceptional.ExceptionalWrapper;
-
 import java.util.function.DoubleBinaryOperator;
+
+import static net.dapete.exceptional.ExceptionalUtils.toRuntimeException;
 
 /**
  * Equivalent of a {@link java.util.function.DoubleBinaryOperator} that can throw exceptions.
@@ -24,7 +24,13 @@ public interface ExceptionalDoubleBinaryOperator<E extends Exception> extends Wr
 
     @Override
     default DoubleBinaryOperator wrap() {
-        return ExceptionalWrapper.wrap(this);
+        return (t, u) -> {
+            try {
+                return applyAsDouble(t, u);
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
     }
 
 }

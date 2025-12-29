@@ -1,8 +1,8 @@
 package net.dapete.exceptional.function;
 
-import net.dapete.exceptional.ExceptionalWrapper;
-
 import java.util.function.IntPredicate;
+
+import static net.dapete.exceptional.ExceptionalUtils.toRuntimeException;
 
 /**
  * Equivalent of a {@link java.util.function.IntPredicate} that can throw exceptions.
@@ -23,7 +23,13 @@ public interface ExceptionalIntPredicate<E extends Exception> extends Wrappable<
 
     @Override
     default IntPredicate wrap() {
-        return ExceptionalWrapper.wrap(this);
+        return t -> {
+            try {
+                return test(t);
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
     }
 
 }

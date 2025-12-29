@@ -1,11 +1,12 @@
 package net.dapete.exceptional.stream;
 
-import net.dapete.exceptional.ExceptionalWrapper;
 import net.dapete.exceptional.function.ExceptionalIntConsumer;
 import net.dapete.exceptional.function.Wrappable;
 import org.jspecify.annotations.NonNull;
 
 import java.util.stream.IntStream;
+
+import static net.dapete.exceptional.ExceptionalUtils.toRuntimeException;
 
 /**
  * Equivalent of a {@link java.util.stream.IntStream.IntMapMultiConsumer} that can throw exceptions.
@@ -27,7 +28,13 @@ public interface ExceptionalIntMapMultiConsumer<E extends Exception> extends Wra
 
     @Override
     default IntStream.IntMapMultiConsumer wrap() {
-        return ExceptionalWrapper.wrap(this);
+        return (value, ic) -> {
+            try {
+                accept(value, ic::accept);
+            } catch (Exception e) {
+                throw toRuntimeException(e);
+            }
+        };
     }
 
 }
