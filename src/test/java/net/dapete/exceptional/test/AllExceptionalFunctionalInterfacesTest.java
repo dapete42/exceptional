@@ -1,5 +1,7 @@
-package net.dapete.exceptional.function;
+package net.dapete.exceptional.test;
 
+import net.dapete.exceptional.function.Wrappable;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ArgumentsSource;
 
@@ -9,7 +11,12 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.RETURNS_DEEP_STUBS;
 import static org.mockito.Mockito.mock;
 
-public class PackageTest {
+public class AllExceptionalFunctionalInterfacesTest {
+
+    @Test
+    void numberOfExceptionalFunctionalInterfaces() {
+        assertEquals(47, AllExceptionalFunctionalInterfacesArgumentsProvider.getFunctionalInterfacesClasses().size());
+    }
 
     @ParameterizedTest
     @ArgumentsSource(AllExceptionalFunctionalInterfacesArgumentsProvider.class)
