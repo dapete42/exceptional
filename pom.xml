@@ -65,6 +65,13 @@
                 <scope>import</scope>
             </dependency>
             <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-bom</artifactId>
+                <version>2.0.17</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>1.18.42</version>
@@ -78,6 +85,11 @@
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-junit-jupiter</artifactId>
                 <version>5.21.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.reflections</groupId>
+                <artifactId>reflections</artifactId>
+                <version>0.10.2</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -100,6 +112,17 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- reflections logs with SLF4J -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-nop</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -283,12 +306,18 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
-                    <!-- @{argLine}: hack for Jacoco; it sets Surefire's argLine, but <argLine> entries overwrite this.
-                         This is also the reason this is a single <argLine>. -->
-                    <!-- EnableDynamicAgentLoading: Mockito loads byte-buddy dynamically -->
-                    <!-- add-opens: allow reflection needed in ExceptionalExceptionTest -->
                     <argLine>
-                        @{argLine} -XX:+EnableDynamicAgentLoading --add-opens=java.base/java.lang=net.dapete.exceptional
+                        <!-- Hack for Jacoco; it sets Surefire's argLine, but <argLine> entries overwrite this.
+                             This is also the reason this is a single <argLine>. -->
+                        @{argLine}
+                        <!-- Mockito loads byte-buddy dynamically -->
+                        -XX:+EnableDynamicAgentLoading
+                        <!-- configure logging (used by the reflections library) -->
+                        -Djava.util.logging.config.file=src/test/resources/logging.properties
+                        <!-- needed by AllExceptionalFunctionalInterfaces  -->
+                        --add-opens=net.dapete.exceptional/net.dapete.exceptional.test=ALL-UNNAMED
+                        <!-- needed by ExceptionalExceptionTest -->
+                        --add-opens=java.base/java.lang=net.dapete.exceptional
                     </argLine>
                 </configuration>
             </plugin>
