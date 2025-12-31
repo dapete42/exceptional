@@ -286,7 +286,10 @@
                     <!-- @{argLine}: hack for Jacoco; it sets Surefire's argLine, but <argLine> entries overwrite this.
                          This is also the reason this is a single <argLine>. -->
                     <!-- EnableDynamicAgentLoading: Mockito loads byte-buddy dynamically -->
-                    <argLine>@{argLine} -XX:+EnableDynamicAgentLoading</argLine>
+                    <!-- add-opens: allow reflection needed in ExceptionalExceptionTest -->
+                    <argLine>
+                        @{argLine} -XX:+EnableDynamicAgentLoading --add-opens=java.base/java.lang=net.dapete.exceptional
+                    </argLine>
                 </configuration>
             </plugin>
             <plugin>

@@ -4,9 +4,28 @@ import net.dapete.exceptional.stream.ExceptionalIntStream;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.io.Serial;
 import java.security.NoSuchAlgorithmException;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 class ExceptionalExceptionTest {
+
+    @Test
+    void getCause_exceptionForInvalidType() throws IllegalAccessException, NoSuchFieldException {
+
+        final var exception = new ExceptionalException(new Exception());
+        // setting the cause to the wrong type is only possible with reflection
+        final var causeField = Throwable.class.getDeclaredField("cause");
+        causeField.setAccessible(true);
+        causeField.set(exception, new Throwable() {
+            @Serial
+            private static final long serialVersionUID = 1L;
+        });
+
+        assertThrows(IllegalStateException.class, exception::getCause);
+
+    }
 
     // TODO this is example code, not a test
     @Test
