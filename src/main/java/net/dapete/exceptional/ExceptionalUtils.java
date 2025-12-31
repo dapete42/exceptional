@@ -1,8 +1,11 @@
 package net.dapete.exceptional;
 
+import org.jspecify.annotations.NullMarked;
+
 /**
  * General utility class for Exceptional!
  */
+@NullMarked
 public final class ExceptionalUtils {
 
     // Utility class with private constructor
