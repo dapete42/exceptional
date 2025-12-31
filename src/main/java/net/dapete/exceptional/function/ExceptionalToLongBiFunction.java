@@ -1,8 +1,8 @@
 package net.dapete.exceptional.function;
 
-import java.util.function.ToLongBiFunction;
+import net.dapete.exceptional.ExceptionalUtils;
 
-import static net.dapete.exceptional.ExceptionalUtils.toRuntimeException;
+import java.util.function.ToLongBiFunction;
 
 /**
  * Equivalent of a {@link java.util.function.ToLongBiFunction} that can throw exceptions.
@@ -26,13 +26,7 @@ public interface ExceptionalToLongBiFunction<T, U, E extends Exception> extends 
 
     @Override
     default ToLongBiFunction<T, U> wrap() {
-        return (t, u) -> {
-            try {
-                return applyAsLong(t, u);
-            } catch (Exception e) {
-                throw toRuntimeException(e);
-            }
-        };
+        return (t, u) -> ExceptionalUtils.wrapAndGet(() -> applyAsLong(t, u));
     }
 
 }

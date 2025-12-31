@@ -1,8 +1,8 @@
 package net.dapete.exceptional.function;
 
-import java.util.function.BiFunction;
+import net.dapete.exceptional.ExceptionalUtils;
 
-import static net.dapete.exceptional.ExceptionalUtils.toRuntimeException;
+import java.util.function.BiFunction;
 
 /**
  * Equivalent of a {@link java.util.function.BiFunction} that can throw exceptions.
@@ -27,13 +27,7 @@ public interface ExceptionalBiFunction<T, U, R, E extends Exception> extends Wra
 
     @Override
     default BiFunction<T, U, R> wrap() {
-        return (t, u) -> {
-            try {
-                return apply(t, u);
-            } catch (Exception e) {
-                throw toRuntimeException(e);
-            }
-        };
+        return (t, u) -> ExceptionalUtils.wrapAndGet(() -> apply(t, u));
     }
 
 }

@@ -1,8 +1,8 @@
 package net.dapete.exceptional.function;
 
-import java.util.function.BinaryOperator;
+import net.dapete.exceptional.ExceptionalUtils;
 
-import static net.dapete.exceptional.ExceptionalUtils.toRuntimeException;
+import java.util.function.BinaryOperator;
 
 /**
  * Equivalent of a {@link java.util.function.BinaryOperator} that can throw exceptions.
@@ -25,13 +25,7 @@ public interface ExceptionalBinaryOperator<T, E extends Exception> extends Wrapp
 
     @Override
     default BinaryOperator<T> wrap() {
-        return (t, u) -> {
-            try {
-                return apply(t, u);
-            } catch (Exception e) {
-                throw toRuntimeException(e);
-            }
-        };
+        return (t1, t2) -> ExceptionalUtils.wrapAndGet(() -> apply(t1, t2));
     }
 
 }

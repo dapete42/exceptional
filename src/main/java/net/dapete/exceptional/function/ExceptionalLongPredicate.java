@@ -1,8 +1,8 @@
 package net.dapete.exceptional.function;
 
-import java.util.function.LongPredicate;
+import net.dapete.exceptional.ExceptionalUtils;
 
-import static net.dapete.exceptional.ExceptionalUtils.toRuntimeException;
+import java.util.function.LongPredicate;
 
 /**
  * Equivalent of a {@link java.util.function.LongPredicate} that can throw exceptions.
@@ -23,13 +23,7 @@ public interface ExceptionalLongPredicate<E extends Exception> extends Wrappable
 
     @Override
     default LongPredicate wrap() {
-        return t -> {
-            try {
-                return test(t);
-            } catch (Exception e) {
-                throw toRuntimeException(e);
-            }
-        };
+        return value -> ExceptionalUtils.wrapAndGet(() -> test(value));
     }
 
 }

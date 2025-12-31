@@ -1,8 +1,8 @@
 package net.dapete.exceptional.function;
 
-import java.util.function.BiConsumer;
+import net.dapete.exceptional.ExceptionalUtils;
 
-import static net.dapete.exceptional.ExceptionalUtils.toRuntimeException;
+import java.util.function.BiConsumer;
 
 /**
  * Equivalent of a {@link java.util.function.BiConsumer} that can throw exceptions.
@@ -25,13 +25,7 @@ public interface ExceptionalBiConsumer<T, U, E extends Exception> extends Wrappa
 
     @Override
     default BiConsumer<T, U> wrap() {
-        return (t, u) -> {
-            try {
-                accept(t, u);
-            } catch (Exception e) {
-                throw toRuntimeException(e);
-            }
-        };
+        return (t, u) -> ExceptionalUtils.wrapAndRun(() -> accept(t, u));
     }
 
 }

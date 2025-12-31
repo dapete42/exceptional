@@ -1,8 +1,8 @@
 package net.dapete.exceptional.function;
 
-import java.util.function.BiPredicate;
+import net.dapete.exceptional.ExceptionalUtils;
 
-import static net.dapete.exceptional.ExceptionalUtils.toRuntimeException;
+import java.util.function.BiPredicate;
 
 /**
  * Equivalent of a {@link java.util.function.BiPredicate} that can throw exceptions.
@@ -26,13 +26,7 @@ public interface ExceptionalBiPredicate<T, U, E extends Exception> extends Wrapp
 
     @Override
     default BiPredicate<T, U> wrap() {
-        return (t, u) -> {
-            try {
-                return test(t, u);
-            } catch (Exception e) {
-                throw toRuntimeException(e);
-            }
-        };
+        return (t, u) -> ExceptionalUtils.wrapAndGet(() -> test(t, u));
     }
 
 }

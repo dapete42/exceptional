@@ -1,8 +1,8 @@
 package net.dapete.exceptional.function;
 
-import java.util.function.LongBinaryOperator;
+import net.dapete.exceptional.ExceptionalUtils;
 
-import static net.dapete.exceptional.ExceptionalUtils.toRuntimeException;
+import java.util.function.LongBinaryOperator;
 
 /**
  * Equivalent of a {@link java.util.function.LongBinaryOperator} that can throw exceptions.
@@ -24,13 +24,7 @@ public interface ExceptionalLongBinaryOperator<E extends Exception> extends Wrap
 
     @Override
     default LongBinaryOperator wrap() {
-        return (t, u) -> {
-            try {
-                return applyAsLong(t, u);
-            } catch (Exception e) {
-                throw toRuntimeException(e);
-            }
-        };
+        return (left, right) -> ExceptionalUtils.wrapAndGet(() -> applyAsLong(left, right));
     }
 
 }

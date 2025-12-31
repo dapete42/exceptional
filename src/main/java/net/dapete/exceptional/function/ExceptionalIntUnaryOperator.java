@@ -1,8 +1,8 @@
 package net.dapete.exceptional.function;
 
-import java.util.function.IntUnaryOperator;
+import net.dapete.exceptional.ExceptionalUtils;
 
-import static net.dapete.exceptional.ExceptionalUtils.toRuntimeException;
+import java.util.function.IntUnaryOperator;
 
 /**
  * Equivalent of an {@link java.util.function.IntUnaryOperator} that can throw exceptions.
@@ -23,13 +23,7 @@ public interface ExceptionalIntUnaryOperator<E extends Exception> extends Wrappa
 
     @Override
     default IntUnaryOperator wrap() {
-        return t -> {
-            try {
-                return applyAsInt(t);
-            } catch (Exception e) {
-                throw toRuntimeException(e);
-            }
-        };
+        return operand -> ExceptionalUtils.wrapAndGet(() -> applyAsInt(operand));
     }
 
     /**

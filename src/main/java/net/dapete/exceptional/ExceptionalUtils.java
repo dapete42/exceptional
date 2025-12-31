@@ -1,5 +1,7 @@
 package net.dapete.exceptional;
 
+import net.dapete.exceptional.function.ExceptionalRunnable;
+import net.dapete.exceptional.function.ExceptionalSupplier;
 import org.jspecify.annotations.NullMarked;
 
 /**
@@ -37,6 +39,39 @@ public final class ExceptionalUtils {
             return runtimeException;
         } else {
             return new ExceptionalException(exception);
+        }
+    }
+
+    /**
+     * Executes am {@link ExceptionalSupplier}, calling its {@code get()} method and returning the result.
+     * <p>
+     * If a checked exception is thrown, a {@link ExceptionalException}, which is a runtime exception, will be thrown instead.
+     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     *
+     * @param supplier an {@code ExceptionalSupplier} to execute.
+     * @return the result of {@code supplier.get()}.
+     */
+    public static <T, E extends Exception> T wrapAndGet(ExceptionalSupplier<T, E> supplier) {
+        try {
+            return supplier.get();
+        } catch (Exception e) {
+            throw toRuntimeException(e);
+        }
+    }
+
+    /**
+     * Executes an {@link ExceptionalRunnable}, calling its {@code run()} method.
+     * <p>
+     * If a checked exception is thrown, a {@link ExceptionalException}, which is a runtime exception, will be thrown instead.
+     * This will have the original exception as its {@link Throwable#getCause() cause}.
+     *
+     * @param runnable an {@code ExceptionalRunnable} to execute.
+     */
+    public static <E extends Exception> void wrapAndRun(ExceptionalRunnable<E> runnable) {
+        try {
+            runnable.run();
+        } catch (Exception e) {
+            throw toRuntimeException(e);
         }
     }
 

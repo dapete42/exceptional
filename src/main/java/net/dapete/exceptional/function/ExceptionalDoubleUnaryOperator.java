@@ -1,8 +1,8 @@
 package net.dapete.exceptional.function;
 
-import java.util.function.DoubleUnaryOperator;
+import net.dapete.exceptional.ExceptionalUtils;
 
-import static net.dapete.exceptional.ExceptionalUtils.toRuntimeException;
+import java.util.function.DoubleUnaryOperator;
 
 /**
  * Equivalent of a {@link java.util.function.DoubleUnaryOperator} that can throw exceptions.
@@ -23,13 +23,7 @@ public interface ExceptionalDoubleUnaryOperator<E extends Exception> extends Wra
 
     @Override
     default DoubleUnaryOperator wrap() {
-        return t -> {
-            try {
-                return applyAsDouble(t);
-            } catch (Exception e) {
-                throw toRuntimeException(e);
-            }
-        };
+        return operand -> ExceptionalUtils.wrapAndGet(() -> applyAsDouble(operand));
     }
 
     /**

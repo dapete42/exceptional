@@ -1,9 +1,9 @@
 package net.dapete.exceptional.function;
 
 
-import java.util.function.BooleanSupplier;
+import net.dapete.exceptional.ExceptionalUtils;
 
-import static net.dapete.exceptional.ExceptionalUtils.toRuntimeException;
+import java.util.function.BooleanSupplier;
 
 /**
  * Equivalent of a {@link java.util.function.BooleanSupplier} that can throw exceptions.
@@ -23,13 +23,7 @@ public interface ExceptionalBooleanSupplier<E extends Exception> extends Wrappab
 
     @Override
     default BooleanSupplier wrap() {
-        return () -> {
-            try {
-                return getAsBoolean();
-            } catch (Exception e) {
-                throw toRuntimeException(e);
-            }
-        };
+        return () -> ExceptionalUtils.wrapAndGet(this::getAsBoolean);
     }
 
 }

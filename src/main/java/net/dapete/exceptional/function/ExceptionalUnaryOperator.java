@@ -1,8 +1,8 @@
 package net.dapete.exceptional.function;
 
-import java.util.function.UnaryOperator;
+import net.dapete.exceptional.ExceptionalUtils;
 
-import static net.dapete.exceptional.ExceptionalUtils.toRuntimeException;
+import java.util.function.UnaryOperator;
 
 /**
  * Equivalent of a {@link java.util.function.UnaryOperator} that can throw exceptions.
@@ -24,13 +24,7 @@ public interface ExceptionalUnaryOperator<T, E extends Exception> extends Wrappa
 
     @Override
     default UnaryOperator<T> wrap() {
-        return t -> {
-            try {
-                return apply(t);
-            } catch (Exception e) {
-                throw toRuntimeException(e);
-            }
-        };
+        return t -> ExceptionalUtils.wrapAndGet(() -> apply(t));
     }
 
     /**

@@ -1,8 +1,8 @@
 package net.dapete.exceptional.function;
 
-import java.util.function.DoubleSupplier;
+import net.dapete.exceptional.ExceptionalUtils;
 
-import static net.dapete.exceptional.ExceptionalUtils.toRuntimeException;
+import java.util.function.DoubleSupplier;
 
 /**
  * Equivalent of a {@link java.util.function.DoubleSupplier} that can throw exceptions.
@@ -22,13 +22,7 @@ public interface ExceptionalDoubleSupplier<E extends Exception> extends Wrappabl
 
     @Override
     default DoubleSupplier wrap() {
-        return () -> {
-            try {
-                return getAsDouble();
-            } catch (Exception e) {
-                throw toRuntimeException(e);
-            }
-        };
+        return () -> ExceptionalUtils.wrapAndGet(this::getAsDouble);
     }
 
 }

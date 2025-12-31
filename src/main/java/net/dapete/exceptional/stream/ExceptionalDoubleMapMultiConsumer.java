@@ -1,12 +1,11 @@
 package net.dapete.exceptional.stream;
 
+import net.dapete.exceptional.ExceptionalUtils;
 import net.dapete.exceptional.function.ExceptionalDoubleConsumer;
 import net.dapete.exceptional.function.Wrappable;
 import org.jspecify.annotations.NonNull;
 
 import java.util.stream.DoubleStream;
-
-import static net.dapete.exceptional.ExceptionalUtils.toRuntimeException;
 
 /**
  * Equivalent of a {@link java.util.stream.DoubleStream.DoubleMapMultiConsumer} that can throw exceptions.
@@ -28,13 +27,7 @@ public interface ExceptionalDoubleMapMultiConsumer<E extends Exception> extends 
 
     @Override
     default DoubleStream.DoubleMapMultiConsumer wrap() {
-        return (value, ic) -> {
-            try {
-                accept(value, ic::accept);
-            } catch (Exception e) {
-                throw toRuntimeException(e);
-            }
-        };
+        return (value, ic) -> ExceptionalUtils.wrapAndRun(() -> accept(value, ic::accept));
     }
 
 }

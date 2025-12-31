@@ -1,8 +1,8 @@
 package net.dapete.exceptional.function;
 
-import java.util.function.ToIntBiFunction;
+import net.dapete.exceptional.ExceptionalUtils;
 
-import static net.dapete.exceptional.ExceptionalUtils.toRuntimeException;
+import java.util.function.ToIntBiFunction;
 
 /**
  * Equivalent of a {@link java.util.function.ToIntBiFunction} that can throw exceptions.
@@ -26,13 +26,7 @@ public interface ExceptionalToIntBiFunction<T, U, E extends Exception> extends W
 
     @Override
     default ToIntBiFunction<T, U> wrap() {
-        return (t, u) -> {
-            try {
-                return applyAsInt(t, u);
-            } catch (Exception e) {
-                throw toRuntimeException(e);
-            }
-        };
+        return (t, u) -> ExceptionalUtils.wrapAndGet(() -> applyAsInt(t, u));
     }
 
 }

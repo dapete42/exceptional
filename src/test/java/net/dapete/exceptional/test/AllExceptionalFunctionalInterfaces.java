@@ -16,16 +16,12 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
 public class AllExceptionalFunctionalInterfaces implements ArgumentsProvider {
-
-    public static final Set<String> FUNCTIONAL_INTERFACE_METHOD_NAMES = Set.of(
-            "accept", "apply", "applyAsDouble", "applyAsInt", "applyAsLong", "get", "getAsBoolean", "getAsDouble", "getAsInt", "getAsLong", "run", "test");
 
     @Override
     @NullMarked

@@ -1,8 +1,8 @@
 package net.dapete.exceptional.function;
 
-import java.util.function.ToIntFunction;
+import net.dapete.exceptional.ExceptionalUtils;
 
-import static net.dapete.exceptional.ExceptionalUtils.toRuntimeException;
+import java.util.function.ToIntFunction;
 
 /**
  * Equivalent of a {@link java.util.function.ToIntFunction} that can throw exceptions.
@@ -24,13 +24,7 @@ public interface ExceptionalToIntFunction<T, E extends Exception> extends Wrappa
 
     @Override
     default ToIntFunction<T> wrap() {
-        return t -> {
-            try {
-                return applyAsInt(t);
-            } catch (Exception e) {
-                throw toRuntimeException(e);
-            }
-        };
+        return value -> ExceptionalUtils.wrapAndGet(() -> applyAsInt(value));
     }
 
 }

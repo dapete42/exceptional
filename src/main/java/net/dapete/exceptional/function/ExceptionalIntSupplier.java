@@ -1,8 +1,8 @@
 package net.dapete.exceptional.function;
 
-import java.util.function.IntSupplier;
+import net.dapete.exceptional.ExceptionalUtils;
 
-import static net.dapete.exceptional.ExceptionalUtils.toRuntimeException;
+import java.util.function.IntSupplier;
 
 /**
  * Equivalent of an {@link java.util.function.IntSupplier} that can throw exceptions.
@@ -22,13 +22,7 @@ public interface ExceptionalIntSupplier<E extends Exception> extends Wrappable<I
 
     @Override
     default IntSupplier wrap() {
-        return () -> {
-            try {
-                return getAsInt();
-            } catch (Exception e) {
-                throw toRuntimeException(e);
-            }
-        };
+        return () -> ExceptionalUtils.wrapAndGet(this::getAsInt);
     }
 
 }
