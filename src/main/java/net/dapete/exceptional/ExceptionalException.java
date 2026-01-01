@@ -13,8 +13,17 @@ public class ExceptionalException extends RuntimeException {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Create a new instance. The {@code cause} must not be a {@link RuntimeException}.
+     *
+     * @param cause the cause of this exception. Must not be a {@code RuntimeException}.
+     * @throws IllegalArgumentException if {@code cause} is a {@code RuntimeException}.
+     */
     ExceptionalException(@NonNull Exception cause) {
         super(cause);
+        if (cause instanceof RuntimeException) {
+            throw new IllegalArgumentException("The cause of an ExceptionalException must not be a RuntimeException");
+        }
     }
 
     /**

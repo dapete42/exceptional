@@ -13,6 +13,26 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class ExceptionalExceptionTest {
 
     @Test
+    void constructor() {
+
+        final var cause = new Exception();
+
+        final var result = new ExceptionalException(cause);
+
+        assertEquals(cause, result.getCause());
+
+    }
+
+    @Test
+    void constructor_invalidType() {
+
+        final var cause = new RuntimeException();
+
+        assertThrows(IllegalArgumentException.class, () -> new ExceptionalException(cause));
+
+    }
+
+    @Test
     void getCause_invalidType() throws IllegalAccessException, NoSuchFieldException {
 
         final var exception = new ExceptionalException(new Exception());
