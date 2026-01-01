@@ -28,7 +28,8 @@ public class ExceptionalException extends RuntimeException {
         if (super.getCause() instanceof Exception exception) {
             return exception;
         } else {
-            throw new IllegalStateException("The cause of ExceptionalException can only be an Exception, but is just a Throwable");
+            // this should never happen, this is a last resort
+            return new Exception(super.getCause());
         }
     }
 

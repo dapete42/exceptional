@@ -7,23 +7,28 @@ import java.io.IOException;
 import java.io.Serial;
 import java.security.NoSuchAlgorithmException;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ExceptionalExceptionTest {
 
     @Test
-    void getCause_exceptionForInvalidType() throws IllegalAccessException, NoSuchFieldException {
+    void getCause_invalidType() throws IllegalAccessException, NoSuchFieldException {
 
         final var exception = new ExceptionalException(new Exception());
+        final var cause = new Throwable() {
+            @Serial
+            private static final long serialVersionUID = 1L;
+        };
         // setting the cause to the wrong type is only possible with reflection
         final var causeField = Throwable.class.getDeclaredField("cause");
         causeField.setAccessible(true);
-        causeField.set(exception, new Throwable() {
-            @Serial
-            private static final long serialVersionUID = 1L;
-        });
+        causeField.set(exception, cause);
 
-        assertThrows(IllegalStateException.class, exception::getCause);
+        final var result = exception.getCause();
+
+        // Throwable has been wrapped in an Exception
+        assertEquals(cause, result.getCause());
 
     }
 
