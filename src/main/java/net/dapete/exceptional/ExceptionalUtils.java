@@ -17,9 +17,9 @@ public final class ExceptionalUtils {
     /**
      * If the {@code exception} is an instance of {@code exceptionClass}, throw it.
      *
-     * @param exceptionClass the possible class of the exception
-     * @param exception      the exception
-     * @param <E>            the possible type of the exception
+     * @param exceptionClass the class of the exception.
+     * @param exception      the exception.
+     * @param <E>            the type of the exception.
      * @throws E if the {@code exception} is an instance of {@code exceptionClass}.
      */
     public static <E extends Exception> void throwIfInstance(Class<E> exceptionClass, Exception exception) throws E {
@@ -49,7 +49,10 @@ public final class ExceptionalUtils {
      * This will have the original exception as its {@link ExceptionalException#getCause()}  cause}.
      *
      * @param supplier an {@code ExceptionalSupplier} to execute.
+     * @param <T>      the type of results supplied by {@code supplier}.
+     * @param <E>      the type of exception thrown by the {@code ExceptionalSupplier}.
      * @return the result of {@code supplier.get()}.
+     * @throws ExceptionalException if {@code runnable.run()} threw a checked exception.
      */
     public static <T, E extends Exception> T wrapAndGet(ExceptionalSupplier<T, E> supplier) {
         try {
@@ -66,6 +69,8 @@ public final class ExceptionalUtils {
      * This will have the original exception as its {@link ExceptionalException#getCause() cause}.
      *
      * @param runnable an {@code ExceptionalRunnable} to execute.
+     * @param <E>      the type of exception thrown by the {@code ExceptionalRunnable}.
+     * @throws ExceptionalException if {@code runnable.run()} threw a checked exception.
      */
     public static <E extends Exception> void wrapAndRun(ExceptionalRunnable<E> runnable) {
         try {
