@@ -8,7 +8,7 @@ import java.util.function.Supplier;
 /**
  * Exception that wraps exceptions returned by the functional interfaces in the {@link net.dapete.exceptional.function} package.
  */
-public class ExceptionalException extends RuntimeException {
+public final class ExceptionalException extends RuntimeException {
 
     @Serial
     private static final long serialVersionUID = 1L;
