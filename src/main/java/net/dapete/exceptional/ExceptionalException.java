@@ -47,6 +47,7 @@ public final class ExceptionalException extends RuntimeException {
      *
      * @throws Exception the cause of this exception.
      */
+    @SuppressWarnings("DoNotCallSuggester")
     public void unwrap() throws Exception {
         throw getCause();
     }
