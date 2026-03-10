@@ -3,7 +3,7 @@
  * <p>
  * The main components are:
  * <ul>
- *   <li>{@link net.dapete.exceptional.ExceptionalUtils}: Utility class.</li>
+ *   <li>{@link net.dapete.exceptional.ExUtils}: Utility class.</li>
  * </ul>
  */
 package net.dapete.exceptional;
