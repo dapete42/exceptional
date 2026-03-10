@@ -13,7 +13,7 @@ class ExDoubleStreamTest {
     void exceptionalMap_exception() {
         final var thrown = assertThrows(ExException.class,
                 () -> ExDoubleStream.of(1, 2, 3)
-                        .exceptionalMap(t -> {
+                        .exMap(t -> {
                             throw new IOException("Test");
                         })
                         .boxed()
@@ -26,7 +26,7 @@ class ExDoubleStreamTest {
     @Test
     void exceptionalMap_noExceptionBeforeEndOperation() {
         @SuppressWarnings("unused") final var ignore = ExDoubleStream.of(1, 2, 3)
-                .exceptionalMap(t -> {
+                .exMap(t -> {
                     throw new IOException("Test");
                 });
     }

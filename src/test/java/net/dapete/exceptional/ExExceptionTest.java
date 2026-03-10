@@ -63,7 +63,7 @@ class ExExceptionTest {
 
         try {
             ExIntStream.of(1, 2, 3)
-                    .exceptionalForEach(i -> {
+                    .exForEach(i -> {
                         throw new IOException("Test");
                     });
         } catch (ExException e) {
@@ -89,7 +89,7 @@ class ExExceptionTest {
 
         try {
             ExIntStream.of(1, 2, 3)
-                    .exceptionalForEach(i -> {
+                    .exForEach(i -> {
                         throw new IOException("Test");
                     });
         } catch (ExException e) {
@@ -113,7 +113,7 @@ class ExExceptionTest {
 
         try {
             ExIntStream.of(1, 2, 3)
-                    .exceptionalForEach(i -> {
+                    .exForEach(i -> {
                         throw new IOException("Test");
                     });
         } catch (ExException e) {
@@ -137,7 +137,7 @@ class ExExceptionTest {
 
         try {
             ExIntStream.of(1, 2, 3)
-                    .exceptionalForEach(i -> {
+                    .exForEach(i -> {
                         throw new IOException("Test");
                     });
         } catch (ExException e) {
@@ -162,7 +162,7 @@ class ExExceptionTest {
         try {
             ExException.unwrap(() ->
                     ExIntStream.of(1, 2, 3)
-                            .exceptionalForEach(i -> {
+                            .exForEach(i -> {
                                 throw new IOException("Test");
                             })
             );
@@ -186,7 +186,7 @@ class ExExceptionTest {
         try {
             ExException.unwrap(IOException.class, () ->
                     ExIntStream.of(1, 2, 3)
-                            .exceptionalForEach(i -> {
+                            .exForEach(i -> {
                                 throw new IOException("Test");
                             })
             );
@@ -205,7 +205,7 @@ class ExExceptionTest {
         try {
             @SuppressWarnings("unused") final var ignore = ExException.unwrap(() ->
                     ExIntStream.of(1, 2, 3)
-                            .exceptionalMap(i -> {
+                            .exMap(i -> {
                                 throw new IOException("Test");
                             })
                             .toArray()
@@ -227,7 +227,7 @@ class ExExceptionTest {
         try {
             @SuppressWarnings("unused") final var ignore = ExException.unwrap(IOException.class, () ->
                     ExIntStream.of(1, 2, 3)
-                            .exceptionalMap(i -> {
+                            .exMap(i -> {
                                 throw new IOException("Test");
                             })
                             .toArray()

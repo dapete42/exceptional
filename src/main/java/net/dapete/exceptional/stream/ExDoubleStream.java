@@ -13,7 +13,7 @@ import java.util.stream.DoubleStream;
  * A DoubleStream with additional functionality for functional interfaces that throw Exceptions.
  * <p>
  * Implements versions of all methods from DoubleStream that use functional interfaces, using their counterparts with Exceptions instead, e.g.
- * {@link #exceptionalMap} in parallel to {@link #map}.
+ * {@link #exMap} in parallel to {@link #map}.
  * <p>
  * If these functional interfaces throw a checked exception, a {@link ExException} will be thrown instead.
  * This will have the original exception as its {@link ExException#getCause() cause}.
@@ -171,7 +171,7 @@ public class ExDoubleStream implements DoubleStream {
      * @param predicate see {@link DoubleStream#filter}
      * @return see {@link DoubleStream#filter}
      */
-    public @NonNull ExDoubleStream exceptionalFilter(@NonNull ExDoublePredicate<?> predicate) {
+    public @NonNull ExDoubleStream exFilter(@NonNull ExDoublePredicate<?> predicate) {
         return of(filter(predicate.wrap()));
     }
 
@@ -187,7 +187,7 @@ public class ExDoubleStream implements DoubleStream {
      * @param mapper see {@link DoubleStream#map}
      * @return see {@link DoubleStream#map}
      */
-    public @NonNull ExDoubleStream exceptionalMap(@NonNull ExDoubleUnaryOperator<?> mapper) {
+    public @NonNull ExDoubleStream exMap(@NonNull ExDoubleUnaryOperator<?> mapper) {
         return of(map(mapper.wrap()));
     }
 
@@ -204,7 +204,7 @@ public class ExDoubleStream implements DoubleStream {
      * @param mapper see {@link DoubleStream#mapToObj}
      * @return see {@link DoubleStream#mapToObj}
      */
-    public <U> @NonNull ExStream<U> exceptionalMapToObj(@NonNull ExDoubleFunction<? extends U, ?> mapper) {
+    public <U> @NonNull ExStream<U> exMapToObj(@NonNull ExDoubleFunction<? extends U, ?> mapper) {
         return ExStream.of(mapToObj(mapper.wrap()));
     }
 
@@ -220,7 +220,7 @@ public class ExDoubleStream implements DoubleStream {
      * @param mapper see {@link DoubleStream#mapToInt}
      * @return see {@link DoubleStream#mapToInt}
      */
-    public @NonNull ExIntStream exceptionalMapToInt(@NonNull ExDoubleToIntFunction<?> mapper) {
+    public @NonNull ExIntStream exMapToInt(@NonNull ExDoubleToIntFunction<?> mapper) {
         return ExIntStream.of(mapToInt(mapper.wrap()));
     }
 
@@ -236,7 +236,7 @@ public class ExDoubleStream implements DoubleStream {
      * @param mapper see {@link DoubleStream#mapToLong}
      * @return see {@link DoubleStream#mapToLong}
      */
-    public @NonNull ExLongStream exceptionalMapToLong(@NonNull ExDoubleToLongFunction<?> mapper) {
+    public @NonNull ExLongStream exMapToLong(@NonNull ExDoubleToLongFunction<?> mapper) {
         return ExLongStream.of(mapToLong(mapper.wrap()));
     }
 
@@ -252,7 +252,7 @@ public class ExDoubleStream implements DoubleStream {
      * @param mapper see {@link DoubleStream#flatMap}
      * @return see {@link DoubleStream#flatMap}
      */
-    public @NonNull ExDoubleStream exceptionalFlatMap(@NonNull ExDoubleFunction<? extends DoubleStream, ?> mapper) {
+    public @NonNull ExDoubleStream exFlatMap(@NonNull ExDoubleFunction<? extends DoubleStream, ?> mapper) {
         return of(flatMap(mapper.wrap()));
     }
 
@@ -268,7 +268,7 @@ public class ExDoubleStream implements DoubleStream {
      * @param mapper see {@link DoubleStream#mapMulti}
      * @return see {@link DoubleStream#mapMulti}
      */
-    public @NonNull ExDoubleStream exceptionalMapMulti(@NonNull ExDoubleMapMultiConsumer<?> mapper) {
+    public @NonNull ExDoubleStream exMapMulti(@NonNull ExDoubleMapMultiConsumer<?> mapper) {
         return of(mapMulti(mapper.wrap()));
     }
 
@@ -281,7 +281,7 @@ public class ExDoubleStream implements DoubleStream {
      * @param action see {@link DoubleStream#peek}
      * @return see {@link DoubleStream#peek}
      */
-    public @NonNull ExDoubleStream exceptionalPeek(@NonNull ExDoubleConsumer<?> action) {
+    public @NonNull ExDoubleStream exPeek(@NonNull ExDoubleConsumer<?> action) {
         return of(peek(action.wrap()));
     }
 
@@ -294,7 +294,7 @@ public class ExDoubleStream implements DoubleStream {
      * @param predicate see {@link DoubleStream#takeWhile}
      * @return see {@link DoubleStream#takeWhile}
      */
-    public @NonNull ExDoubleStream exceptionalTakeWhile(@NonNull ExDoublePredicate<?> predicate) {
+    public @NonNull ExDoubleStream exTakeWhile(@NonNull ExDoublePredicate<?> predicate) {
         return of(takeWhile(predicate.wrap()));
     }
 
@@ -307,7 +307,7 @@ public class ExDoubleStream implements DoubleStream {
      * @param predicate see {@link DoubleStream#dropWhile}
      * @return see {@link DoubleStream#dropWhile}
      */
-    public @NonNull ExDoubleStream exceptionalDropWhile(@NonNull ExDoublePredicate<?> predicate) {
+    public @NonNull ExDoubleStream exDropWhile(@NonNull ExDoublePredicate<?> predicate) {
         return of(dropWhile(predicate.wrap()));
     }
 
@@ -319,7 +319,7 @@ public class ExDoubleStream implements DoubleStream {
      *
      * @param action see {@link DoubleStream#forEach}
      */
-    public void exceptionalForEach(@NonNull ExDoubleConsumer<?> action) {
+    public void exForEach(@NonNull ExDoubleConsumer<?> action) {
         forEach(action.wrap());
     }
 
@@ -331,7 +331,7 @@ public class ExDoubleStream implements DoubleStream {
      *
      * @param action see {@link DoubleStream#forEachOrdered}
      */
-    public void exceptionalForEachOrdered(@NonNull ExDoubleConsumer<?> action) {
+    public void exForEachOrdered(@NonNull ExDoubleConsumer<?> action) {
         forEachOrdered(action.wrap());
     }
 
@@ -345,7 +345,7 @@ public class ExDoubleStream implements DoubleStream {
      * @param op       see {@link DoubleStream#reduce(double, DoubleBinaryOperator)}
      * @return see {@link DoubleStream#reduce(double, DoubleBinaryOperator)}
      */
-    public Double exceptionalReduce(double identity, @NonNull ExDoubleBinaryOperator<?> op) {
+    public Double exReduce(double identity, @NonNull ExDoubleBinaryOperator<?> op) {
         return reduce(identity, op.wrap());
     }
 
@@ -358,7 +358,7 @@ public class ExDoubleStream implements DoubleStream {
      * @param op see {@link DoubleStream#reduce(DoubleBinaryOperator)}
      * @return see {@link DoubleStream#reduce(DoubleBinaryOperator)}
      */
-    public OptionalDouble exceptionalReduce(@NonNull ExDoubleBinaryOperator<?> op) {
+    public OptionalDouble exReduce(@NonNull ExDoubleBinaryOperator<?> op) {
         return reduce(op.wrap());
     }
 
@@ -374,8 +374,8 @@ public class ExDoubleStream implements DoubleStream {
      * @param combiner    see {@link DoubleStream#collect}
      * @return see {@link DoubleStream#collect}
      */
-    public <R> R exceptionalCollect(@NonNull ExSupplier<R, ?> supplier, @NonNull ExObjDoubleConsumer<R, ?> accumulator,
-                                    @NonNull ExBiConsumer<R, R, ?> combiner) {
+    public <R> R exCollect(@NonNull ExSupplier<R, ?> supplier, @NonNull ExObjDoubleConsumer<R, ?> accumulator,
+                           @NonNull ExBiConsumer<R, R, ?> combiner) {
         return collect(supplier.wrap(), accumulator.wrap(), combiner.wrap());
     }
 
@@ -388,7 +388,7 @@ public class ExDoubleStream implements DoubleStream {
      * @param predicate see {@link DoubleStream#anyMatch}
      * @return see {@link DoubleStream#anyMatch}
      */
-    public boolean exceptionalAnyMatch(@NonNull ExDoublePredicate<?> predicate) {
+    public boolean exAnyMatch(@NonNull ExDoublePredicate<?> predicate) {
         return anyMatch(predicate.wrap());
     }
 
@@ -401,7 +401,7 @@ public class ExDoubleStream implements DoubleStream {
      * @param predicate see {@link DoubleStream#allMatch}
      * @return see {@link DoubleStream#allMatch}
      */
-    public boolean exceptionalAllMatch(@NonNull ExDoublePredicate<?> predicate) {
+    public boolean exAllMatch(@NonNull ExDoublePredicate<?> predicate) {
         return allMatch(predicate.wrap());
     }
 
@@ -414,7 +414,7 @@ public class ExDoubleStream implements DoubleStream {
      * @param predicate see {@link DoubleStream#noneMatch}
      * @return see {@link DoubleStream#noneMatch}
      */
-    public boolean exceptionalNoneMatch(@NonNull ExDoublePredicate<?> predicate) {
+    public boolean exNoneMatch(@NonNull ExDoublePredicate<?> predicate) {
         return noneMatch(predicate.wrap());
     }
 

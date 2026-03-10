@@ -13,7 +13,7 @@ import java.util.stream.LongStream;
  * A LongStream with additional functionality for functional interfaces that throw Exceptions.
  * <p>
  * Implements versions of all methods from LongStream that use functional interfaces, using their counterparts with Exceptions instead, e.g.
- * {@link #exceptionalMap} in parallel to {@link #map}.
+ * {@link #exMap} in parallel to {@link #map}.
  * <p>
  * If these functional interfaces throw a checked exception, a {@link ExException} will be thrown instead.
  * This will have the original exception as its {@link ExException#getCause() cause}.
@@ -176,7 +176,7 @@ public class ExLongStream implements LongStream {
      * @param predicate see {@link LongStream#filter}
      * @return see {@link LongStream#filter}
      */
-    public @NonNull ExLongStream exceptionalFilter(@NonNull ExLongPredicate<?> predicate) {
+    public @NonNull ExLongStream exFilter(@NonNull ExLongPredicate<?> predicate) {
         return of(filter(predicate.wrap()));
     }
 
@@ -192,7 +192,7 @@ public class ExLongStream implements LongStream {
      * @param mapper see {@link LongStream#map}
      * @return see {@link LongStream#map}
      */
-    public @NonNull ExLongStream exceptionalMap(@NonNull ExLongUnaryOperator<?> mapper) {
+    public @NonNull ExLongStream exMap(@NonNull ExLongUnaryOperator<?> mapper) {
         return of(map(mapper.wrap()));
     }
 
@@ -209,7 +209,7 @@ public class ExLongStream implements LongStream {
      * @param mapper see {@link LongStream#mapToObj}
      * @return see {@link LongStream#mapToObj}
      */
-    public <U> @NonNull ExStream<U> exceptionalMapToObj(@NonNull ExLongFunction<? extends U, ?> mapper) {
+    public <U> @NonNull ExStream<U> exMapToObj(@NonNull ExLongFunction<? extends U, ?> mapper) {
         return ExStream.of(mapToObj(mapper.wrap()));
     }
 
@@ -225,7 +225,7 @@ public class ExLongStream implements LongStream {
      * @param mapper see {@link LongStream#mapToDouble}
      * @return see {@link LongStream#mapToDouble}
      */
-    public @NonNull ExDoubleStream exceptionalMapToDouble(@NonNull ExLongToDoubleFunction<?> mapper) {
+    public @NonNull ExDoubleStream exMapToDouble(@NonNull ExLongToDoubleFunction<?> mapper) {
         return ExDoubleStream.of(mapToDouble(mapper.wrap()));
     }
 
@@ -241,7 +241,7 @@ public class ExLongStream implements LongStream {
      * @param mapper see {@link LongStream#mapToInt}
      * @return see {@link LongStream#mapToInt}
      */
-    public @NonNull ExIntStream exceptionalMapToInt(@NonNull ExLongToIntFunction<?> mapper) {
+    public @NonNull ExIntStream exMapToInt(@NonNull ExLongToIntFunction<?> mapper) {
         return ExIntStream.of(mapToInt(mapper.wrap()));
     }
 
@@ -257,7 +257,7 @@ public class ExLongStream implements LongStream {
      * @param mapper see {@link LongStream#flatMap}
      * @return see {@link LongStream#flatMap}
      */
-    public @NonNull ExLongStream exceptionalFlatMap(@NonNull ExLongFunction<? extends LongStream, ?> mapper) {
+    public @NonNull ExLongStream exFlatMap(@NonNull ExLongFunction<? extends LongStream, ?> mapper) {
         return of(flatMap(mapper.wrap()));
     }
 
@@ -273,7 +273,7 @@ public class ExLongStream implements LongStream {
      * @param mapper see {@link LongStream#mapMulti}
      * @return see {@link LongStream#mapMulti}
      */
-    public @NonNull ExLongStream exceptionalMapMulti(@NonNull ExLongMapMultiConsumer<?> mapper) {
+    public @NonNull ExLongStream exMapMulti(@NonNull ExLongMapMultiConsumer<?> mapper) {
         return of(mapMulti(mapper.wrap()));
     }
 
@@ -286,7 +286,7 @@ public class ExLongStream implements LongStream {
      * @param action see {@link LongStream#peek}
      * @return see {@link LongStream#peek}
      */
-    public @NonNull ExLongStream exceptionalPeek(@NonNull ExLongConsumer<?> action) {
+    public @NonNull ExLongStream exPeek(@NonNull ExLongConsumer<?> action) {
         return of(peek(action.wrap()));
     }
 
@@ -299,7 +299,7 @@ public class ExLongStream implements LongStream {
      * @param predicate see {@link LongStream#takeWhile}
      * @return see {@link LongStream#takeWhile}
      */
-    public @NonNull ExLongStream exceptionalTakeWhile(@NonNull ExLongPredicate<?> predicate) {
+    public @NonNull ExLongStream exTakeWhile(@NonNull ExLongPredicate<?> predicate) {
         return of(takeWhile(predicate.wrap()));
     }
 
@@ -312,7 +312,7 @@ public class ExLongStream implements LongStream {
      * @param predicate see {@link LongStream#dropWhile}
      * @return see {@link LongStream#dropWhile}
      */
-    public @NonNull ExLongStream exceptionalDropWhile(@NonNull ExLongPredicate<?> predicate) {
+    public @NonNull ExLongStream exDropWhile(@NonNull ExLongPredicate<?> predicate) {
         return of(dropWhile(predicate.wrap()));
     }
 
@@ -324,7 +324,7 @@ public class ExLongStream implements LongStream {
      *
      * @param action see {@link LongStream#forEach}
      */
-    public void exceptionalForEach(@NonNull ExLongConsumer<?> action) {
+    public void exForEach(@NonNull ExLongConsumer<?> action) {
         forEach(action.wrap());
     }
 
@@ -336,7 +336,7 @@ public class ExLongStream implements LongStream {
      *
      * @param action see {@link LongStream#forEachOrdered}
      */
-    public void exceptionalForEachOrdered(@NonNull ExLongConsumer<?> action) {
+    public void exForEachOrdered(@NonNull ExLongConsumer<?> action) {
         forEachOrdered(action.wrap());
     }
 
@@ -350,7 +350,7 @@ public class ExLongStream implements LongStream {
      * @param op       see {@link LongStream#reduce(long, LongBinaryOperator)}
      * @return see {@link LongStream#reduce(long, LongBinaryOperator)}
      */
-    public Long exceptionalReduce(Long identity, @NonNull ExLongBinaryOperator<?> op) {
+    public Long exReduce(Long identity, @NonNull ExLongBinaryOperator<?> op) {
         return reduce(identity, op.wrap());
     }
 
@@ -363,7 +363,7 @@ public class ExLongStream implements LongStream {
      * @param op see {@link LongStream#reduce(LongBinaryOperator)}
      * @return see {@link LongStream#reduce(LongBinaryOperator)}
      */
-    public OptionalLong exceptionalReduce(@NonNull ExLongBinaryOperator<?> op) {
+    public OptionalLong exReduce(@NonNull ExLongBinaryOperator<?> op) {
         return reduce(op.wrap());
     }
 
@@ -379,8 +379,8 @@ public class ExLongStream implements LongStream {
      * @param combiner    see {@link LongStream#collect}
      * @return see {@link LongStream#collect}
      */
-    public <R> R exceptionalCollect(@NonNull ExSupplier<R, ?> supplier, @NonNull ExObjLongConsumer<R, ?> accumulator,
-                                    @NonNull ExBiConsumer<R, R, ?> combiner) {
+    public <R> R exCollect(@NonNull ExSupplier<R, ?> supplier, @NonNull ExObjLongConsumer<R, ?> accumulator,
+                           @NonNull ExBiConsumer<R, R, ?> combiner) {
         return collect(supplier.wrap(), accumulator.wrap(), combiner.wrap());
     }
 
@@ -393,7 +393,7 @@ public class ExLongStream implements LongStream {
      * @param predicate see {@link LongStream#anyMatch}
      * @return see {@link LongStream#anyMatch}
      */
-    public boolean exceptionalAnyMatch(@NonNull ExLongPredicate<?> predicate) {
+    public boolean exAnyMatch(@NonNull ExLongPredicate<?> predicate) {
         return anyMatch(predicate.wrap());
     }
 
@@ -406,7 +406,7 @@ public class ExLongStream implements LongStream {
      * @param predicate see {@link LongStream#allMatch}
      * @return see {@link LongStream#allMatch}
      */
-    public boolean exceptionalAllMatch(@NonNull ExLongPredicate<?> predicate) {
+    public boolean exAllMatch(@NonNull ExLongPredicate<?> predicate) {
         return allMatch(predicate.wrap());
     }
 
@@ -419,7 +419,7 @@ public class ExLongStream implements LongStream {
      * @param predicate see {@link LongStream#noneMatch}
      * @return see {@link LongStream#noneMatch}
      */
-    public boolean exceptionalNoneMatch(@NonNull ExLongPredicate<?> predicate) {
+    public boolean exNoneMatch(@NonNull ExLongPredicate<?> predicate) {
         return noneMatch(predicate.wrap());
     }
 
