@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ExException.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Exceptional!</a> &gt; <a href="index.source.html" class="el_package">net.dapete.exceptional</a> &gt; <span class="el_source">ExException.java</span></div><h1>ExException.java</h1><pre class="source lang-java linenums">package net.dapete.exceptional;
+
+import java.io.Serial;
+
+/**
+ * Exception that wraps exceptions returned by the functional interfaces in the {@link net.dapete.exceptional.function} package.
+ */
+public final class ExException extends RuntimeException {
+
+    @Serial
+    private static final long serialVersionUID = 2311138051728963821L;
+
+    /**
+     * Create a new instance. The {@code cause} must not be a {@link RuntimeException}.
+     *
+     * @param cause the cause of this exception. Must not be a {@code RuntimeException}.
+     * @throws IllegalArgumentException if {@code cause} is a {@code RuntimeException}.
+     */
+    ExException(Exception cause) {
+<span class="fc" id="L20">        super(cause);</span>
+<span class="fc bfc" id="L21" title="All 2 branches covered.">        if (cause instanceof RuntimeException) {</span>
+<span class="fc" id="L22">            throw new IllegalArgumentException(&quot;The cause of an ExException must not be a RuntimeException&quot;);</span>
+        }
+<span class="fc" id="L24">    }</span>
+
+    /**
+     * Override the default {@link Throwable#getCause()} to return an {@code Exception}, not just a {@code Throwable}.
+     * The cause of an {@code ExException} is guaranteed to be an {@code Exception}.
+     *
+     * @return the cause of this exception.
+     */
+    @Override
+    public synchronized Exception getCause() {
+<span class="fc bfc" id="L34" title="All 2 branches covered.">        if (super.getCause() instanceof Exception exception) {</span>
+<span class="fc" id="L35">            return exception;</span>
+        } else {
+            // this should never happen, this is a last resort
+<span class="fc" id="L38">            return new Exception(super.getCause());</span>
+        }
+    }
+
+    /**
+     * Unwraps this exception, throwing its {@link #getCause() cause}.
+     *
+     * @throws Exception the cause of this exception.
+     */
+    @SuppressWarnings(&quot;DoNotCallSuggester&quot;)
+    public void unwrap() throws Exception {
+<span class="fc" id="L49">        throw getCause();</span>
+    }
+
+    /**
+     * Unwraps this exception, throwing its {@link #getCause() cause} if it is an instance of {@code exceptionClass}.
+     * Otherwise, throws this exception.
+     *
+     * @param exceptionClass the class of the possible cause of this exception
+     * @param &lt;E&gt;            the type of the first possible cause of this exception
+     * @throws E           the cause of this exception, if it is an instance of {@code exceptionClass}.
+     * @throws ExException if the cause of this exception is not an instance of {@code exceptionClass}.
+     */
+    public &lt;E extends Exception&gt; void unwrap(Class&lt;E&gt; exceptionClass) throws E {
+<span class="fc" id="L62">        final Exception cause = getCause();</span>
+<span class="nc" id="L63">        ExUtils.throwIfInstance(exceptionClass, cause);</span>
+<span class="nc" id="L64">        throw this;</span>
+    }
+
+    /**
+     * Unwraps this exception, throwing its {@link #getCause() cause} if it is an instance of {@code exceptionClass1} or {@code exceptionClass2}.
+     * Otherwise, throws this exception.
+     *
+     * @param exceptionClass1 the class of the first possible cause of this exception
+     * @param exceptionClass2 the class of the second possible cause of this exception
+     * @param &lt;E1&gt;            the type of the first possible cause of this exception
+     * @param &lt;E2&gt;            the type of the second possible cause of this exception
+     * @throws E1          the cause of this exception, if it is an instance of {@code exceptionClass1}.
+     * @throws E2          the cause of this exception, if it is an instance of {@code exceptionClass2}.
+     * @throws ExException if the cause of this exception is not an instance of {@code exceptionClass1} or {@code exceptionClass2}.
+     */
+    public &lt;E1 extends Exception, E2 extends Exception&gt; void unwrap(Class&lt;E1&gt; exceptionClass1, Class&lt;E2&gt; exceptionClass2) throws E1, E2 {
+<span class="fc" id="L80">        final Exception cause = getCause();</span>
+<span class="fc" id="L81">        ExUtils.throwIfInstance(exceptionClass1, cause);</span>
+<span class="nc" id="L82">        ExUtils.throwIfInstance(exceptionClass2, cause);</span>
+<span class="nc" id="L83">        throw this;</span>
+    }
+
+    /**
+     * Unwraps this exception, throwing its {@link #getCause() cause} if it is an instance of {@code exceptionClass1}, {@code exceptionClass2} or
+     * {@code exceptionClass3}.
+     * Otherwise, throws this exception.
+     *
+     * @param exceptionClass1 the class of the first possible cause of this exception
+     * @param exceptionClass2 the class of the second possible cause of this exception
+     * @param exceptionClass3 the class of the third possible cause of this exception
+     * @param &lt;E1&gt;            the type of the first possible cause of this exception
+     * @param &lt;E2&gt;            the type of the second possible cause of this exception
+     * @param &lt;E3&gt;            the type of the third possible cause of this exception
+     * @throws E1          the cause of this exception, if it is an instance of {@code exceptionClass1}.
+     * @throws E2          the cause of this exception, if it is an instance of {@code exceptionClass2}.
+     * @throws E3          the cause of this exception, if it is an instance of {@code exceptionClass3}.
+     * @throws ExException if the cause of this exception is not an instance of {@code exceptionClass1}, {@code exceptionClass2} or
+     *                     {@code exceptionClass3}.
+     */
+    public &lt;E1 extends Exception, E2 extends Exception, E3 extends Exception&gt; void unwrap(
+            Class&lt;E1&gt; exceptionClass1, Class&lt;E2&gt; exceptionClass2, Class&lt;E3&gt; exceptionClass3) throws E1, E2, E3 {
+<span class="fc" id="L105">        final Exception cause = getCause();</span>
+<span class="fc" id="L106">        ExUtils.throwIfInstance(exceptionClass1, cause);</span>
+<span class="fc" id="L107">        ExUtils.throwIfInstance(exceptionClass2, cause);</span>
+<span class="nc" id="L108">        ExUtils.throwIfInstance(exceptionClass3, cause);</span>
+<span class="nc" id="L109">        throw this;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

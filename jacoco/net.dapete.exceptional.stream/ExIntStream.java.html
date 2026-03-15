@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ExIntStream.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Exceptional!</a> &gt; <a href="index.source.html" class="el_package">net.dapete.exceptional.stream</a> &gt; <span class="el_source">ExIntStream.java</span></div><h1>ExIntStream.java</h1><pre class="source lang-java linenums">package net.dapete.exceptional.stream;
+
+import lombok.experimental.Delegate;
+import net.dapete.exceptional.ExException;
+import net.dapete.exceptional.function.*;
+
+import java.util.OptionalInt;
+import java.util.function.*;
+import java.util.stream.IntStream;
+
+/**
+ * A IntStream with additional functionality for functional interfaces that throw Exceptions.
+ * &lt;p&gt;
+ * Implements versions of all methods from IntStream that use functional interfaces, using their counterparts with Exceptions instead, e.g.
+ * {@link #exMap} in parallel to {@link #map}.
+ * &lt;p&gt;
+ * If these functional interfaces throw a checked exception, a {@link ExException} will be thrown instead.
+ * This will have the original exception as its {@link ExException#getCause() cause}.
+ * &lt;p&gt;
+ * Note that this exception will likely not be thrown when a method is called, but only when a &lt;em&gt;terminal operation&lt;/em&gt; or a
+ * &lt;em&gt;stateful intermediate operation&lt;/em&gt; is used on the stream (except if it is itself such an operation).
+ */
+public class ExIntStream implements IntStream {
+
+    @Delegate
+    private final IntStream stream;
+
+<span class="fc" id="L28">    private ExIntStream(IntStream stream) {</span>
+<span class="fc" id="L29">        this.stream = stream;</span>
+<span class="fc" id="L30">    }</span>
+
+    /**
+     * Create an instance from an existing {@code IntStream}.
+     *
+     * @param stream existing stream
+     * @return instance from an existing {@code IntStream}
+     */
+    public static ExIntStream of(IntStream stream) {
+<span class="fc" id="L39">        return new ExIntStream(stream);</span>
+    }
+
+    /**
+     * Returns an empty instance.
+     *
+     * @return an empty instance
+     */
+    public static ExIntStream empty() {
+<span class="nc" id="L48">        return of(IntStream.empty());</span>
+    }
+
+    /**
+     * Returns an instance containing a single element.
+     *
+     * @param t the single element
+     * @return an instance containing a single element
+     */
+    public static ExIntStream of(int t) {
+<span class="nc" id="L58">        return of(IntStream.of(t));</span>
+    }
+
+    /**
+     * Returns an instance whose elements are the specified values.
+     *
+     * @param values the elements of the new stream
+     * @return the new stream
+     */
+    public static ExIntStream of(int... values) {
+<span class="fc" id="L68">        return of(IntStream.of(values));</span>
+    }
+
+    /* Override all methods that usually return Stream to return an ExStream. */
+
+    @Override
+    public &lt;U&gt; ExStream&lt;U&gt; mapToObj(IntFunction&lt;? extends U&gt; mapper) {
+<span class="nc" id="L75">        return ExStream.of(stream.mapToObj(mapper));</span>
+    }
+
+    @Override
+    public ExStream&lt;Integer&gt; boxed() {
+<span class="fc" id="L80">        return ExStream.of(stream.boxed());</span>
+    }
+
+    /* Override all methods that usually return DoubleStream to return an ExDoubleStream. */
+
+    @Override
+    public ExDoubleStream mapToDouble(IntToDoubleFunction mapper) {
+<span class="nc" id="L87">        return ExDoubleStream.of(stream.mapToDouble(mapper));</span>
+    }
+
+    @Override
+    public ExDoubleStream asDoubleStream() {
+<span class="nc" id="L92">        return ExDoubleStream.of(stream.asDoubleStream());</span>
+    }
+
+    /* Override all methods that usually return IntStream to return an ExIntStream. */
+
+    @Override
+    public ExIntStream filter(IntPredicate predicate) {
+<span class="nc" id="L99">        return of(stream.filter(predicate));</span>
+    }
+
+    @Override
+    public ExIntStream map(IntUnaryOperator mapper) {
+<span class="fc" id="L104">        return of(stream.map(mapper));</span>
+    }
+
+    @Override
+    public ExIntStream flatMap(IntFunction&lt;? extends IntStream&gt; mapper) {
+<span class="nc" id="L109">        return of(stream.flatMap(mapper));</span>
+    }
+
+    @Override
+    public ExIntStream distinct() {
+<span class="nc" id="L114">        return of(stream.distinct());</span>
+    }
+
+    @Override
+    public ExIntStream sorted() {
+<span class="nc" id="L119">        return of(stream.sorted());</span>
+    }
+
+    @Override
+    public ExIntStream peek(IntConsumer action) {
+<span class="nc" id="L124">        return of(stream.peek(action));</span>
+    }
+
+    @Override
+    public ExIntStream limit(long maxSize) {
+<span class="nc" id="L129">        return of(stream.limit(maxSize));</span>
+    }
+
+    @Override
+    public ExIntStream skip(long n) {
+<span class="nc" id="L134">        return of(stream.skip(n));</span>
+    }
+
+    @Override
+    public ExIntStream sequential() {
+<span class="nc" id="L139">        return of(stream.sequential());</span>
+    }
+
+    @Override
+    public ExIntStream parallel() {
+<span class="nc" id="L144">        return of(stream.parallel());</span>
+    }
+
+    @Override
+    public ExIntStream unordered() {
+<span class="nc" id="L149">        return of(stream.unordered());</span>
+    }
+
+    @Override
+    public ExIntStream onClose(Runnable closeHandler) {
+<span class="nc" id="L154">        return of(stream.onClose(closeHandler));</span>
+    }
+
+    /* Override all methods that usually return LongStream to return an ExLongStream. */
+
+    @Override
+    public ExLongStream mapToLong(IntToLongFunction mapper) {
+<span class="nc" id="L161">        return ExLongStream.of(stream.mapToLong(mapper));</span>
+    }
+
+    @Override
+    public ExLongStream asLongStream() {
+<span class="nc" id="L166">        return ExLongStream.of(stream.asLongStream());</span>
+    }
+
+    /* Implement versions of all methods from IntStream that use functional interfaces, using their counterparts with Exceptions instead. */
+
+    /**
+     * Equivalent of {@link IntStream#filter}.
+     * &lt;p&gt;
+     * If {@code predicate} throws a checked exception, a {@link ExException} will be thrown instead.
+     * This will have the original exception as its {@link ExException#getCause() cause}.
+     * &lt;p&gt;
+     * Note that this exception will likely not be thrown when a method is called, but only when a &lt;em&gt;terminal operation&lt;/em&gt; or a
+     * &lt;em&gt;stateful intermediate operation&lt;/em&gt; is used on the stream.
+     *
+     * @param predicate see {@link IntStream#filter}
+     * @return see {@link IntStream#filter}
+     */
+    public ExIntStream exFilter(ExIntPredicate&lt;?&gt; predicate) {
+<span class="nc" id="L184">        return of(filter(predicate.wrap()));</span>
+    }
+
+    /**
+     * Equivalent of {@link IntStream#map}.
+     * &lt;p&gt;
+     * If {@code mapper} throws a checked exception, a {@link ExException} will be thrown instead.
+     * This will have the original exception as its {@link ExException#getCause() cause}.
+     * &lt;p&gt;
+     * Note that this exception will likely not be thrown when a method is called, but only when a &lt;em&gt;terminal operation&lt;/em&gt; or a
+     * &lt;em&gt;stateful intermediate operation&lt;/em&gt; is used on the stream.
+     *
+     * @param mapper see {@link IntStream#map}
+     * @return see {@link IntStream#map}
+     */
+    public ExIntStream exMap(ExIntUnaryOperator&lt;?&gt; mapper) {
+<span class="fc" id="L200">        return of(map(mapper.wrap()));</span>
+    }
+
+    /**
+     * Equivalent of {@link IntStream#mapToObj}.
+     * &lt;p&gt;
+     * If {@code mapper} throws a checked exception, a {@link ExException} will be thrown instead.
+     * This will have the original exception as its {@link ExException#getCause() cause}.
+     * &lt;p&gt;
+     * Note that this exception will likely not be thrown when a method is called, but only when a &lt;em&gt;terminal operation&lt;/em&gt; or a
+     * &lt;em&gt;stateful intermediate operation&lt;/em&gt; is used on the stream.
+     *
+     * @param &lt;U&gt;    the element type of the new stream
+     * @param mapper see {@link IntStream#mapToObj}
+     * @return see {@link IntStream#mapToObj}
+     */
+    public &lt;U&gt; ExStream&lt;U&gt; exMapToObj(ExIntFunction&lt;? extends U, ?&gt; mapper) {
+<span class="nc" id="L217">        return ExStream.of(mapToObj(mapper.wrap()));</span>
+    }
+
+    /**
+     * Equivalent of {@link IntStream#mapToDouble}.
+     * &lt;p&gt;
+     * If {@code mapper} throws a checked exception, a {@link ExException} will be thrown instead.
+     * This will have the original exception as its {@link ExException#getCause() cause}.
+     * &lt;p&gt;
+     * Note that this exception will likely not be thrown when a method is called, but only when a &lt;em&gt;terminal operation&lt;/em&gt; or a
+     * &lt;em&gt;stateful intermediate operation&lt;/em&gt; is used on the stream.
+     *
+     * @param mapper see {@link IntStream#mapToDouble}
+     * @return see {@link IntStream#mapToDouble}
+     */
+    public ExDoubleStream exMapToDouble(ExIntToDoubleFunction&lt;?&gt; mapper) {
+<span class="nc" id="L233">        return ExDoubleStream.of(mapToDouble(mapper.wrap()));</span>
+    }
+
+    /**
+     * Equivalent of {@link IntStream#mapToLong}.
+     * &lt;p&gt;
+     * If {@code mapper} throws a checked exception, a {@link ExException} will be thrown instead.
+     * This will have the original exception as its {@link ExException#getCause() cause}.
+     * &lt;p&gt;
+     * Note that this exception will likely not be thrown when a method is called, but only when a &lt;em&gt;terminal operation&lt;/em&gt; or a
+     * &lt;em&gt;stateful intermediate operation&lt;/em&gt; is used on the stream.
+     *
+     * @param mapper see {@link IntStream#mapToLong}
+     * @return see {@link IntStream#mapToLong}
+     */
+    public ExLongStream exMapToLong(ExIntToLongFunction&lt;?&gt; mapper) {
+<span class="nc" id="L249">        return ExLongStream.of(mapToLong(mapper.wrap()));</span>
+    }
+
+    /**
+     * Equivalent of {@link IntStream#flatMap}.
+     * &lt;p&gt;
+     * If {@code mapper} throws a checked exception, a {@link ExException} will be thrown instead.
+     * This will have the original exception as its {@link ExException#getCause() cause}.
+     * &lt;p&gt;
+     * Note that this exception will likely not be thrown when a method is called, but only when a &lt;em&gt;terminal operation&lt;/em&gt; or a
+     * &lt;em&gt;stateful intermediate operation&lt;/em&gt; is used on the stream.
+     *
+     * @param mapper see {@link IntStream#flatMap}
+     * @return see {@link IntStream#flatMap}
+     */
+    public ExIntStream exFlatMap(ExIntFunction&lt;? extends IntStream, ?&gt; mapper) {
+<span class="nc" id="L265">        return of(flatMap(mapper.wrap()));</span>
+    }
+
+    /**
+     * Equivalent of {@link IntStream#mapMulti}.
+     * &lt;p&gt;
+     * If {@code mapper} throws a checked exception, a {@link ExException} will be thrown instead.
+     * This will have the original exception as its {@link ExException#getCause() cause}.
+     * &lt;p&gt;
+     * Note that this exception will likely not be thrown when a method is called, but only when a &lt;em&gt;terminal operation&lt;/em&gt; or a
+     * &lt;em&gt;stateful intermediate operation&lt;/em&gt; is used on the stream.
+     *
+     * @param mapper see {@link IntStream#mapMulti}
+     * @return see {@link IntStream#mapMulti}
+     */
+    public ExIntStream exMapMulti(ExIntMapMultiConsumer&lt;?&gt; mapper) {
+<span class="nc" id="L281">        return of(mapMulti(mapper.wrap()));</span>
+    }
+
+    /**
+     * Equivalent of {@link IntStream#peek}.
+     * &lt;p&gt;
+     * If {@code action} throws a checked exception, a {@link ExException} will be thrown instead.
+     * This will have the original exception as its {@link ExException#getCause() cause}.
+     *
+     * @param action see {@link IntStream#peek}
+     * @return see {@link IntStream#peek}
+     */
+    public ExIntStream exPeek(ExIntConsumer&lt;?&gt; action) {
+<span class="nc" id="L294">        return of(peek(action.wrap()));</span>
+    }
+
+    /**
+     * Equivalent of {@link IntStream#takeWhile}.
+     * &lt;p&gt;
+     * If {@code predicate} throws a checked exception, a {@link ExException} will be thrown instead.
+     * This will have the original exception as its {@link ExException#getCause() cause}.
+     *
+     * @param predicate see {@link IntStream#takeWhile}
+     * @return see {@link IntStream#takeWhile}
+     */
+    public ExIntStream exTakeWhile(ExIntPredicate&lt;?&gt; predicate) {
+<span class="nc" id="L307">        return of(takeWhile(predicate.wrap()));</span>
+    }
+
+    /**
+     * Equivalent of {@link IntStream#dropWhile}.
+     * &lt;p&gt;
+     * If {@code predicate} throws a checked exception, a {@link ExException} will be thrown instead.
+     * This will have the original exception as its {@link ExException#getCause() cause}.
+     *
+     * @param predicate see {@link IntStream#dropWhile}
+     * @return see {@link IntStream#dropWhile}
+     */
+    public ExIntStream exDropWhile(ExIntPredicate&lt;?&gt; predicate) {
+<span class="nc" id="L320">        return of(dropWhile(predicate.wrap()));</span>
+    }
+
+    /**
+     * Equivalent of {@link IntStream#forEach}.
+     * &lt;p&gt;
+     * If {@code action} throws a checked exception, a {@link ExException} will be thrown instead.
+     * This will have the original exception as its {@link ExException#getCause() cause}.
+     *
+     * @param action see {@link IntStream#forEach}
+     */
+    public void exForEach(ExIntConsumer&lt;?&gt; action) {
+<span class="nc" id="L332">        forEach(action.wrap());</span>
+<span class="nc" id="L333">    }</span>
+
+    /**
+     * Equivalent of {@link IntStream#forEachOrdered}.
+     * &lt;p&gt;
+     * If {@code action} throws a checked exception, a {@link ExException} will be thrown instead.
+     * This will have the original exception as its {@link ExException#getCause() cause}.
+     *
+     * @param action see {@link IntStream#forEachOrdered}
+     */
+    public void exForEachOrdered(ExIntConsumer&lt;?&gt; action) {
+<span class="nc" id="L344">        forEachOrdered(action.wrap());</span>
+<span class="nc" id="L345">    }</span>
+
+    /**
+     * Equivalent of {@link IntStream#reduce(int, IntBinaryOperator)}.
+     * &lt;p&gt;
+     * If {@code action} throws a checked exception, a {@link ExException} will be thrown instead.
+     * This will have the original exception as its {@link ExException#getCause() cause}.
+     *
+     * @param identity see {@link IntStream#reduce(int, IntBinaryOperator)}
+     * @param op       see {@link IntStream#reduce(int, IntBinaryOperator)}
+     * @return see {@link IntStream#reduce(int, IntBinaryOperator)}
+     */
+    public int exReduce(int identity, ExIntBinaryOperator&lt;?&gt; op) {
+<span class="nc" id="L358">        return reduce(identity, op.wrap());</span>
+    }
+
+    /**
+     * Equivalent of {@link IntStream#reduce(IntBinaryOperator)}.
+     * &lt;p&gt;
+     * If {@code action} throws a checked exception, a {@link ExException} will be thrown instead.
+     * This will have the original exception as its {@link ExException#getCause() cause}.
+     *
+     * @param op see {@link IntStream#reduce(IntBinaryOperator)}
+     * @return see {@link IntStream#reduce(IntBinaryOperator)}
+     */
+    public OptionalInt exReduce(ExIntBinaryOperator&lt;?&gt; op) {
+<span class="nc" id="L371">        return reduce(op.wrap());</span>
+    }
+
+    /**
+     * Equivalent of {@link IntStream#collect}.
+     * &lt;p&gt;
+     * If {@code supplier}, {@code accumulator} or {@code combiner} throw a checked exception, a {@link ExException} will be thrown instead.
+     * This will have the original exception as its {@link ExException#getCause() cause}.
+     *
+     * @param &lt;R&gt;         the type of the mutable result container
+     * @param supplier    see {@link IntStream#collect}
+     * @param accumulator see {@link IntStream#collect}
+     * @param combiner    see {@link IntStream#collect}
+     * @return see {@link IntStream#collect}
+     */
+    public &lt;R&gt; R exCollect(ExSupplier&lt;R, ?&gt; supplier, ExObjIntConsumer&lt;R, ?&gt; accumulator,
+                           ExBiConsumer&lt;R, R, ?&gt; combiner) {
+<span class="nc" id="L388">        return collect(supplier.wrap(), accumulator.wrap(), combiner.wrap());</span>
+    }
+
+    /**
+     * Equivalent of {@link IntStream#anyMatch}.
+     * &lt;p&gt;
+     * If {@code predicate} throws a checked exception, a {@link ExException} will be thrown instead.
+     * This will have the original exception as its {@link ExException#getCause() cause}.
+     *
+     * @param predicate see {@link IntStream#anyMatch}
+     * @return see {@link IntStream#anyMatch}
+     */
+    public boolean exAnyMatch(ExIntPredicate&lt;?&gt; predicate) {
+<span class="nc" id="L401">        return anyMatch(predicate.wrap());</span>
+    }
+
+    /**
+     * Equivalent of {@link IntStream#allMatch}.
+     * &lt;p&gt;
+     * If {@code predicate} throws a checked exception, a {@link ExException} will be thrown instead.
+     * This will have the original exception as its {@link ExException#getCause() cause}.
+     *
+     * @param predicate see {@link IntStream#allMatch}
+     * @return see {@link IntStream#allMatch}
+     */
+    public boolean exAllMatch(ExIntPredicate&lt;?&gt; predicate) {
+<span class="nc" id="L414">        return allMatch(predicate.wrap());</span>
+    }
+
+    /**
+     * Equivalent of {@link IntStream#noneMatch} }.
+     * &lt;p&gt;
+     * If {@code predicate} throws a checked exception, a {@link ExException} will be thrown instead.
+     * This will have the original exception as its {@link ExException#getCause() cause}.
+     *
+     * @param predicate see {@link IntStream#noneMatch}
+     * @return see {@link IntStream#noneMatch}
+     */
+    public boolean exNoneMatch(ExIntPredicate&lt;?&gt; predicate) {
+<span class="nc" id="L427">        return noneMatch(predicate.wrap());</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>
