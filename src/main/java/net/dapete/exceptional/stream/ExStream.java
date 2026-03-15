@@ -296,7 +296,7 @@ public final class ExStream<T> implements Stream<T> {
      * @return see {@link Stream#mapToDouble}
      */
     public ExDoubleStream exMapToDouble(ExToDoubleFunction<? super T, ?> mapper) {
-        return ExDoubleStream.of(mapToDouble(mapper.wrap()));
+        return mapToDouble(mapper.wrap());
     }
 
     /**
@@ -328,7 +328,7 @@ public final class ExStream<T> implements Stream<T> {
      * @return see {@link Stream#mapToLong}
      */
     public ExLongStream exMapToLong(ExToLongFunction<? super T, ?> mapper) {
-        return ExLongStream.of(mapToLong(mapper.wrap()));
+        return mapToLong(mapper.wrap());
     }
 
     /**
@@ -361,7 +361,7 @@ public final class ExStream<T> implements Stream<T> {
      * @return see {@link Stream#flatMapToDouble}
      */
     public ExDoubleStream exFlatMapToDouble(ExFunction<? super T, ? extends DoubleStream, ?> mapper) {
-        return ExDoubleStream.of(flatMapToDouble(mapper.wrap()));
+        return flatMapToDouble(mapper.wrap());
     }
 
     /**
@@ -377,7 +377,7 @@ public final class ExStream<T> implements Stream<T> {
      * @return see {@link Stream#flatMapToInt}
      */
     public ExIntStream exFlatMapToInt(ExFunction<? super T, ? extends IntStream, ?> mapper) {
-        return ExIntStream.of(flatMapToInt(mapper.wrap()));
+        return flatMapToInt(mapper.wrap());
     }
 
     /**
@@ -393,7 +393,7 @@ public final class ExStream<T> implements Stream<T> {
      * @return see {@link Stream#flatMapToLong}
      */
     public ExLongStream exFlatMapToLong(ExFunction<? super T, ? extends LongStream, ?> mapper) {
-        return ExLongStream.of(flatMapToLong(mapper.wrap()));
+        return flatMapToLong(mapper.wrap());
     }
 
     /**
