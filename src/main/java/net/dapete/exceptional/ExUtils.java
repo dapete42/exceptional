@@ -2,14 +2,12 @@ package net.dapete.exceptional;
 
 import net.dapete.exceptional.function.ExRunnable;
 import net.dapete.exceptional.function.ExSupplier;
-import org.jspecify.annotations.NullMarked;
 
 import java.util.function.Supplier;
 
 /**
  * General utility class for Exceptional!
  */
-@NullMarked
 public final class ExUtils {
 
     // Utility class with private constructor

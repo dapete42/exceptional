@@ -1,13 +1,10 @@
 package net.dapete.exceptional;
 
-import org.jspecify.annotations.NullMarked;
-
 import java.io.Serial;
 
 /**
  * Exception that wraps exceptions returned by the functional interfaces in the {@link net.dapete.exceptional.function} package.
  */
-@NullMarked
 public final class ExException extends RuntimeException {
 
     @Serial

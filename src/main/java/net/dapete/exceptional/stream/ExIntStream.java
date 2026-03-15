@@ -3,7 +3,6 @@ package net.dapete.exceptional.stream;
 import lombok.experimental.Delegate;
 import net.dapete.exceptional.ExException;
 import net.dapete.exceptional.function.*;
-import org.jspecify.annotations.NonNull;
 
 import java.util.OptionalInt;
 import java.util.function.*;
@@ -24,9 +23,9 @@ import java.util.stream.IntStream;
 public class ExIntStream implements IntStream {
 
     @Delegate
-    private final @NonNull IntStream stream;
+    private final IntStream stream;
 
-    private ExIntStream(@NonNull IntStream stream) {
+    private ExIntStream(IntStream stream) {
         this.stream = stream;
     }
 
@@ -36,7 +35,7 @@ public class ExIntStream implements IntStream {
      * @param stream existing stream
      * @return instance from an existing {@code IntStream}
      */
-    public static @NonNull ExIntStream of(@NonNull IntStream stream) {
+    public static ExIntStream of(IntStream stream) {
         return new ExIntStream(stream);
     }
 
@@ -72,98 +71,98 @@ public class ExIntStream implements IntStream {
     /* Override all methods that usually return Stream to return an ExStream. */
 
     @Override
-    public <U> @NonNull ExStream<U> mapToObj(@NonNull IntFunction<? extends U> mapper) {
+    public <U> ExStream<U> mapToObj(IntFunction<? extends U> mapper) {
         return ExStream.of(stream.mapToObj(mapper));
     }
 
     @Override
-    public @NonNull ExStream<Integer> boxed() {
+    public ExStream<Integer> boxed() {
         return ExStream.of(stream.boxed());
     }
 
     /* Override all methods that usually return DoubleStream to return an ExDoubleStream. */
 
     @Override
-    public @NonNull ExDoubleStream mapToDouble(@NonNull IntToDoubleFunction mapper) {
+    public ExDoubleStream mapToDouble(IntToDoubleFunction mapper) {
         return ExDoubleStream.of(stream.mapToDouble(mapper));
     }
 
     @Override
-    public @NonNull ExDoubleStream asDoubleStream() {
+    public ExDoubleStream asDoubleStream() {
         return ExDoubleStream.of(stream.asDoubleStream());
     }
 
     /* Override all methods that usually return IntStream to return an ExIntStream. */
 
     @Override
-    public @NonNull ExIntStream filter(@NonNull IntPredicate predicate) {
+    public ExIntStream filter(IntPredicate predicate) {
         return of(stream.filter(predicate));
     }
 
     @Override
-    public @NonNull ExIntStream map(@NonNull IntUnaryOperator mapper) {
+    public ExIntStream map(IntUnaryOperator mapper) {
         return of(stream.map(mapper));
     }
 
     @Override
-    public @NonNull ExIntStream flatMap(@NonNull IntFunction<? extends IntStream> mapper) {
+    public ExIntStream flatMap(IntFunction<? extends IntStream> mapper) {
         return of(stream.flatMap(mapper));
     }
 
     @Override
-    public @NonNull ExIntStream distinct() {
+    public ExIntStream distinct() {
         return of(stream.distinct());
     }
 
     @Override
-    public @NonNull ExIntStream sorted() {
+    public ExIntStream sorted() {
         return of(stream.sorted());
     }
 
     @Override
-    public @NonNull ExIntStream peek(@NonNull IntConsumer action) {
+    public ExIntStream peek(IntConsumer action) {
         return of(stream.peek(action));
     }
 
     @Override
-    public @NonNull ExIntStream limit(long maxSize) {
+    public ExIntStream limit(long maxSize) {
         return of(stream.limit(maxSize));
     }
 
     @Override
-    public @NonNull ExIntStream skip(long n) {
+    public ExIntStream skip(long n) {
         return of(stream.skip(n));
     }
 
     @Override
-    public @NonNull ExIntStream sequential() {
+    public ExIntStream sequential() {
         return of(stream.sequential());
     }
 
     @Override
-    public @NonNull ExIntStream parallel() {
+    public ExIntStream parallel() {
         return of(stream.parallel());
     }
 
     @Override
-    public @NonNull ExIntStream unordered() {
+    public ExIntStream unordered() {
         return of(stream.unordered());
     }
 
     @Override
-    public @NonNull ExIntStream onClose(@NonNull Runnable closeHandler) {
+    public ExIntStream onClose(Runnable closeHandler) {
         return of(stream.onClose(closeHandler));
     }
 
     /* Override all methods that usually return LongStream to return an ExLongStream. */
 
     @Override
-    public @NonNull ExLongStream mapToLong(@NonNull IntToLongFunction mapper) {
+    public ExLongStream mapToLong(IntToLongFunction mapper) {
         return ExLongStream.of(stream.mapToLong(mapper));
     }
 
     @Override
-    public @NonNull ExLongStream asLongStream() {
+    public ExLongStream asLongStream() {
         return ExLongStream.of(stream.asLongStream());
     }
 
@@ -181,7 +180,7 @@ public class ExIntStream implements IntStream {
      * @param predicate see {@link IntStream#filter}
      * @return see {@link IntStream#filter}
      */
-    public @NonNull ExIntStream exFilter(@NonNull ExIntPredicate<?> predicate) {
+    public ExIntStream exFilter(ExIntPredicate<?> predicate) {
         return of(filter(predicate.wrap()));
     }
 
@@ -197,7 +196,7 @@ public class ExIntStream implements IntStream {
      * @param mapper see {@link IntStream#map}
      * @return see {@link IntStream#map}
      */
-    public @NonNull ExIntStream exMap(@NonNull ExIntUnaryOperator<?> mapper) {
+    public ExIntStream exMap(ExIntUnaryOperator<?> mapper) {
         return of(map(mapper.wrap()));
     }
 
@@ -214,7 +213,7 @@ public class ExIntStream implements IntStream {
      * @param mapper see {@link IntStream#mapToObj}
      * @return see {@link IntStream#mapToObj}
      */
-    public <U> @NonNull ExStream<U> exMapToObj(@NonNull ExIntFunction<? extends U, ?> mapper) {
+    public <U> ExStream<U> exMapToObj(ExIntFunction<? extends U, ?> mapper) {
         return ExStream.of(mapToObj(mapper.wrap()));
     }
 
@@ -230,7 +229,7 @@ public class ExIntStream implements IntStream {
      * @param mapper see {@link IntStream#mapToDouble}
      * @return see {@link IntStream#mapToDouble}
      */
-    public @NonNull ExDoubleStream exMapToDouble(@NonNull ExIntToDoubleFunction<?> mapper) {
+    public ExDoubleStream exMapToDouble(ExIntToDoubleFunction<?> mapper) {
         return ExDoubleStream.of(mapToDouble(mapper.wrap()));
     }
 
@@ -246,7 +245,7 @@ public class ExIntStream implements IntStream {
      * @param mapper see {@link IntStream#mapToLong}
      * @return see {@link IntStream#mapToLong}
      */
-    public @NonNull ExLongStream exMapToLong(@NonNull ExIntToLongFunction<?> mapper) {
+    public ExLongStream exMapToLong(ExIntToLongFunction<?> mapper) {
         return ExLongStream.of(mapToLong(mapper.wrap()));
     }
 
@@ -262,7 +261,7 @@ public class ExIntStream implements IntStream {
      * @param mapper see {@link IntStream#flatMap}
      * @return see {@link IntStream#flatMap}
      */
-    public @NonNull ExIntStream exFlatMap(@NonNull ExIntFunction<? extends IntStream, ?> mapper) {
+    public ExIntStream exFlatMap(ExIntFunction<? extends IntStream, ?> mapper) {
         return of(flatMap(mapper.wrap()));
     }
 
@@ -278,7 +277,7 @@ public class ExIntStream implements IntStream {
      * @param mapper see {@link IntStream#mapMulti}
      * @return see {@link IntStream#mapMulti}
      */
-    public @NonNull ExIntStream exMapMulti(@NonNull ExIntMapMultiConsumer<?> mapper) {
+    public ExIntStream exMapMulti(ExIntMapMultiConsumer<?> mapper) {
         return of(mapMulti(mapper.wrap()));
     }
 
@@ -291,7 +290,7 @@ public class ExIntStream implements IntStream {
      * @param action see {@link IntStream#peek}
      * @return see {@link IntStream#peek}
      */
-    public @NonNull ExIntStream exPeek(@NonNull ExIntConsumer<?> action) {
+    public ExIntStream exPeek(ExIntConsumer<?> action) {
         return of(peek(action.wrap()));
     }
 
@@ -304,7 +303,7 @@ public class ExIntStream implements IntStream {
      * @param predicate see {@link IntStream#takeWhile}
      * @return see {@link IntStream#takeWhile}
      */
-    public @NonNull ExIntStream exTakeWhile(@NonNull ExIntPredicate<?> predicate) {
+    public ExIntStream exTakeWhile(ExIntPredicate<?> predicate) {
         return of(takeWhile(predicate.wrap()));
     }
 
@@ -317,7 +316,7 @@ public class ExIntStream implements IntStream {
      * @param predicate see {@link IntStream#dropWhile}
      * @return see {@link IntStream#dropWhile}
      */
-    public @NonNull ExIntStream exDropWhile(@NonNull ExIntPredicate<?> predicate) {
+    public ExIntStream exDropWhile(ExIntPredicate<?> predicate) {
         return of(dropWhile(predicate.wrap()));
     }
 
@@ -329,7 +328,7 @@ public class ExIntStream implements IntStream {
      *
      * @param action see {@link IntStream#forEach}
      */
-    public void exForEach(@NonNull ExIntConsumer<?> action) {
+    public void exForEach(ExIntConsumer<?> action) {
         forEach(action.wrap());
     }
 
@@ -341,7 +340,7 @@ public class ExIntStream implements IntStream {
      *
      * @param action see {@link IntStream#forEachOrdered}
      */
-    public void exForEachOrdered(@NonNull ExIntConsumer<?> action) {
+    public void exForEachOrdered(ExIntConsumer<?> action) {
         forEachOrdered(action.wrap());
     }
 
@@ -355,7 +354,7 @@ public class ExIntStream implements IntStream {
      * @param op       see {@link IntStream#reduce(int, IntBinaryOperator)}
      * @return see {@link IntStream#reduce(int, IntBinaryOperator)}
      */
-    public int exReduce(int identity, @NonNull ExIntBinaryOperator<?> op) {
+    public int exReduce(int identity, ExIntBinaryOperator<?> op) {
         return reduce(identity, op.wrap());
     }
 
@@ -368,7 +367,7 @@ public class ExIntStream implements IntStream {
      * @param op see {@link IntStream#reduce(IntBinaryOperator)}
      * @return see {@link IntStream#reduce(IntBinaryOperator)}
      */
-    public OptionalInt exReduce(@NonNull ExIntBinaryOperator<?> op) {
+    public OptionalInt exReduce(ExIntBinaryOperator<?> op) {
         return reduce(op.wrap());
     }
 
@@ -384,8 +383,8 @@ public class ExIntStream implements IntStream {
      * @param combiner    see {@link IntStream#collect}
      * @return see {@link IntStream#collect}
      */
-    public <R> R exCollect(@NonNull ExSupplier<R, ?> supplier, @NonNull ExObjIntConsumer<R, ?> accumulator,
-                           @NonNull ExBiConsumer<R, R, ?> combiner) {
+    public <R> R exCollect(ExSupplier<R, ?> supplier, ExObjIntConsumer<R, ?> accumulator,
+                           ExBiConsumer<R, R, ?> combiner) {
         return collect(supplier.wrap(), accumulator.wrap(), combiner.wrap());
     }
 
@@ -398,7 +397,7 @@ public class ExIntStream implements IntStream {
      * @param predicate see {@link IntStream#anyMatch}
      * @return see {@link IntStream#anyMatch}
      */
-    public boolean exAnyMatch(@NonNull ExIntPredicate<?> predicate) {
+    public boolean exAnyMatch(ExIntPredicate<?> predicate) {
         return anyMatch(predicate.wrap());
     }
 
@@ -411,7 +410,7 @@ public class ExIntStream implements IntStream {
      * @param predicate see {@link IntStream#allMatch}
      * @return see {@link IntStream#allMatch}
      */
-    public boolean exAllMatch(@NonNull ExIntPredicate<?> predicate) {
+    public boolean exAllMatch(ExIntPredicate<?> predicate) {
         return allMatch(predicate.wrap());
     }
 
@@ -424,7 +423,7 @@ public class ExIntStream implements IntStream {
      * @param predicate see {@link IntStream#noneMatch}
      * @return see {@link IntStream#noneMatch}
      */
-    public boolean exNoneMatch(@NonNull ExIntPredicate<?> predicate) {
+    public boolean exNoneMatch(ExIntPredicate<?> predicate) {
         return noneMatch(predicate.wrap());
     }
 

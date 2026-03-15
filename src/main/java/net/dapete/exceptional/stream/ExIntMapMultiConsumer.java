@@ -3,7 +3,6 @@ package net.dapete.exceptional.stream;
 import net.dapete.exceptional.ExUtils;
 import net.dapete.exceptional.function.ExIntConsumer;
 import net.dapete.exceptional.function.Wrappable;
-import org.jspecify.annotations.NonNull;
 
 import java.util.stream.IntStream;
 
@@ -23,7 +22,7 @@ public interface ExIntMapMultiConsumer<E extends Exception> extends Wrappable<In
      * @param ic    an {@code ExIntConsumer} accepting the mapped values
      * @throws E possibly
      */
-    void accept(int value, @NonNull ExIntConsumer<?> ic) throws E;
+    void accept(int value, ExIntConsumer<?> ic) throws E;
 
     @Override
     default IntStream.IntMapMultiConsumer wrap() {

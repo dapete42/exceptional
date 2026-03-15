@@ -3,7 +3,6 @@ package net.dapete.exceptional.stream;
 import net.dapete.exceptional.ExUtils;
 import net.dapete.exceptional.function.ExLongConsumer;
 import net.dapete.exceptional.function.Wrappable;
-import org.jspecify.annotations.NonNull;
 
 import java.util.stream.LongStream;
 
@@ -23,7 +22,7 @@ public interface ExLongMapMultiConsumer<E extends Exception> extends Wrappable<L
      * @param ic    an {@code ExLongConsumer} accepting the mapped values
      * @throws E possibly
      */
-    void accept(long value, @NonNull ExLongConsumer<?> ic) throws E;
+    void accept(long value, ExLongConsumer<?> ic) throws E;
 
     @Override
     default LongStream.LongMapMultiConsumer wrap() {

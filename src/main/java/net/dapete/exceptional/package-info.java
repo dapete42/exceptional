@@ -6,4 +6,7 @@
  *   <li>{@link net.dapete.exceptional.ExUtils}: Utility class.</li>
  * </ul>
  */
+@NullMarked
 package net.dapete.exceptional;
+
+import org.jspecify.annotations.NullMarked;

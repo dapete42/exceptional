@@ -3,7 +3,6 @@ package net.dapete.exceptional.stream;
 import lombok.experimental.Delegate;
 import net.dapete.exceptional.ExException;
 import net.dapete.exceptional.function.*;
-import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import java.util.Collection;
@@ -32,9 +31,9 @@ import java.util.stream.Stream;
 public final class ExStream<T> implements Stream<T> {
 
     @Delegate
-    private final @NonNull Stream<T> stream;
+    private final Stream<T> stream;
 
-    private ExStream(@NonNull Stream<T> stream) {
+    private ExStream(Stream<T> stream) {
         this.stream = stream;
     }
 
@@ -45,7 +44,7 @@ public final class ExStream<T> implements Stream<T> {
      * @param stream existing stream
      * @return instance from an existing Stream
      */
-    public static <T> @NonNull ExStream<T> of(@NonNull Stream<T> stream) {
+    public static <T> ExStream<T> of(Stream<T> stream) {
         return new ExStream<>(stream);
     }
 
@@ -55,7 +54,7 @@ public final class ExStream<T> implements Stream<T> {
      * @param stream existing stream
      * @return instance from an existing Stream
      */
-    public static @NonNull ExStream<@NonNull Double> of(@NonNull DoubleStream stream) {
+    public static ExStream<Double> of(DoubleStream stream) {
         return new ExStream<>(stream.boxed());
     }
 
@@ -65,7 +64,7 @@ public final class ExStream<T> implements Stream<T> {
      * @param stream existing stream
      * @return instance from an existing Stream
      */
-    public static @NonNull ExStream<@NonNull Integer> of(@NonNull IntStream stream) {
+    public static ExStream<Integer> of(IntStream stream) {
         return new ExStream<>(stream.boxed());
     }
 
@@ -75,7 +74,7 @@ public final class ExStream<T> implements Stream<T> {
      * @param stream existing stream
      * @return instance from an existing Stream
      */
-    public static @NonNull ExStream<@NonNull Long> of(@NonNull LongStream stream) {
+    public static ExStream<Long> of(LongStream stream) {
         return new ExStream<>(stream.boxed());
     }
 
@@ -86,7 +85,7 @@ public final class ExStream<T> implements Stream<T> {
      * @param collection collection
      * @return instance from a collection
      */
-    public static <T> @NonNull ExStream<T> of(@NonNull Collection<T> collection) {
+    public static <T> ExStream<T> of(Collection<T> collection) {
         return of(collection.stream());
     }
 
@@ -98,7 +97,7 @@ public final class ExStream<T> implements Stream<T> {
      * @param <T> the type of the stream elements
      * @return an empty instance
      */
-    public static <T> @NonNull ExStream<@NonNull T> empty() {
+    public static <T> ExStream<T> empty() {
         return of(Stream.empty());
     }
 
@@ -109,7 +108,7 @@ public final class ExStream<T> implements Stream<T> {
      * @param t   the single element
      * @return an instance containing a single element
      */
-    public static <T> @NonNull ExStream<T> of(T t) {
+    public static <T> ExStream<T> of(T t) {
         return of(Stream.of(t));
     }
 
@@ -120,7 +119,7 @@ public final class ExStream<T> implements Stream<T> {
      * @param t   the single element
      * @return a stream with a single element if the specified element is non-null, otherwise an empty stream
      */
-    public static <T> @NonNull ExStream<T> ofNullable(@Nullable T t) {
+    public static <T> ExStream<T> ofNullable(@Nullable T t) {
         return of(Stream.ofNullable(t));
     }
 
@@ -132,69 +131,69 @@ public final class ExStream<T> implements Stream<T> {
      * @return the new instance
      */
     @SafeVarargs
-    public static <T> @NonNull ExStream<T> of(T... values) {
+    public static <T> ExStream<T> of(T... values) {
         return of(Stream.of(values));
     }
 
     /* Override all methods that usually return Stream to return an ExStream. */
 
     @Override
-    public @NonNull ExStream<T> filter(Predicate<? super T> predicate) {
+    public ExStream<T> filter(Predicate<? super T> predicate) {
         return of(stream.filter(predicate));
     }
 
     @Override
-    public <R> @NonNull ExStream<R> map(Function<? super T, ? extends R> mapper) {
+    public <R> ExStream<R> map(Function<? super T, ? extends R> mapper) {
         return of(stream.map(mapper));
     }
 
     @Override
-    public <R> @NonNull ExStream<R> flatMap(Function<? super T, ? extends Stream<? extends R>> mapper) {
+    public <R> ExStream<R> flatMap(Function<? super T, ? extends Stream<? extends R>> mapper) {
         return of(stream.flatMap(mapper));
     }
 
     @Override
-    public <R> @NonNull ExStream<R> mapMulti(BiConsumer<? super T, ? super Consumer<R>> mapper) {
+    public <R> ExStream<R> mapMulti(BiConsumer<? super T, ? super Consumer<R>> mapper) {
         return of(stream.mapMulti(mapper));
     }
 
     @Override
-    public @NonNull ExStream<T> distinct() {
+    public ExStream<T> distinct() {
         return of(stream.distinct());
     }
 
     @Override
-    public @NonNull ExStream<T> sorted() {
+    public ExStream<T> sorted() {
         return of(stream.sorted());
     }
 
     @Override
-    public @NonNull ExStream<T> sorted(Comparator<? super T> comparator) {
+    public ExStream<T> sorted(Comparator<? super T> comparator) {
         return of(stream.sorted(comparator));
     }
 
     @Override
-    public @NonNull ExStream<T> peek(Consumer<? super T> action) {
+    public ExStream<T> peek(Consumer<? super T> action) {
         return of(stream.peek(action));
     }
 
     @Override
-    public @NonNull ExStream<T> limit(long maxSize) {
+    public ExStream<T> limit(long maxSize) {
         return of(stream.limit(maxSize));
     }
 
     @Override
-    public @NonNull ExStream<T> skip(long n) {
+    public ExStream<T> skip(long n) {
         return of(stream.skip(n));
     }
 
     @Override
-    public @NonNull ExStream<T> takeWhile(Predicate<? super T> predicate) {
+    public ExStream<T> takeWhile(Predicate<? super T> predicate) {
         return of(stream.takeWhile(predicate));
     }
 
     @Override
-    public @NonNull ExStream<T> dropWhile(Predicate<? super T> predicate) {
+    public ExStream<T> dropWhile(Predicate<? super T> predicate) {
         return of(stream.dropWhile(predicate));
     }
 
@@ -263,7 +262,7 @@ public final class ExStream<T> implements Stream<T> {
      * @param predicate see {@link Stream#filter}
      * @return see {@link Stream#filter}
      */
-    public @NonNull ExStream<T> exFilter(@NonNull ExPredicate<? super T, ?> predicate) {
+    public ExStream<T> exFilter(ExPredicate<? super T, ?> predicate) {
         return filter(predicate.wrap());
     }
 
@@ -280,7 +279,7 @@ public final class ExStream<T> implements Stream<T> {
      * @param mapper see {@link Stream#map}
      * @return see {@link Stream#map}
      */
-    public <R> @NonNull ExStream<R> exMap(@NonNull ExFunction<? super T, ? extends R, ?> mapper) {
+    public <R> ExStream<R> exMap(ExFunction<? super T, ? extends R, ?> mapper) {
         return map(mapper.wrap());
     }
 
@@ -296,7 +295,7 @@ public final class ExStream<T> implements Stream<T> {
      * @param mapper see {@link Stream#mapToDouble}
      * @return see {@link Stream#mapToDouble}
      */
-    public @NonNull ExDoubleStream exMapToDouble(@NonNull ExToDoubleFunction<? super T, ?> mapper) {
+    public ExDoubleStream exMapToDouble(ExToDoubleFunction<? super T, ?> mapper) {
         return ExDoubleStream.of(mapToDouble(mapper.wrap()));
     }
 
@@ -312,7 +311,7 @@ public final class ExStream<T> implements Stream<T> {
      * @param mapper see {@link Stream#mapToInt}
      * @return see {@link Stream#mapToInt}
      */
-    public @NonNull ExIntStream exMapToInt(@NonNull ExToIntFunction<? super T, ?> mapper) {
+    public ExIntStream exMapToInt(ExToIntFunction<? super T, ?> mapper) {
         return mapToInt(mapper.wrap());
     }
 
@@ -328,7 +327,7 @@ public final class ExStream<T> implements Stream<T> {
      * @param mapper see {@link Stream#mapToLong}
      * @return see {@link Stream#mapToLong}
      */
-    public @NonNull ExLongStream exMapToLong(@NonNull ExToLongFunction<? super T, ?> mapper) {
+    public ExLongStream exMapToLong(ExToLongFunction<? super T, ?> mapper) {
         return ExLongStream.of(mapToLong(mapper.wrap()));
     }
 
@@ -345,7 +344,7 @@ public final class ExStream<T> implements Stream<T> {
      * @param mapper see {@link Stream#flatMap}
      * @return see {@link Stream#flatMap}
      */
-    public <R> @NonNull ExStream<R> exFlatMap(@NonNull ExFunction<? super T, ? extends Stream<? extends R>, ?> mapper) {
+    public <R> ExStream<R> exFlatMap(ExFunction<? super T, ? extends Stream<? extends R>, ?> mapper) {
         return flatMap(mapper.wrap());
     }
 
@@ -361,7 +360,7 @@ public final class ExStream<T> implements Stream<T> {
      * @param mapper see {@link Stream#flatMapToDouble}
      * @return see {@link Stream#flatMapToDouble}
      */
-    public @NonNull ExDoubleStream exFlatMapToDouble(@NonNull ExFunction<? super T, ? extends DoubleStream, ?> mapper) {
+    public ExDoubleStream exFlatMapToDouble(ExFunction<? super T, ? extends DoubleStream, ?> mapper) {
         return ExDoubleStream.of(flatMapToDouble(mapper.wrap()));
     }
 
@@ -377,7 +376,7 @@ public final class ExStream<T> implements Stream<T> {
      * @param mapper see {@link Stream#flatMapToInt}
      * @return see {@link Stream#flatMapToInt}
      */
-    public @NonNull ExIntStream exFlatMapToInt(@NonNull ExFunction<? super T, ? extends IntStream, ?> mapper) {
+    public ExIntStream exFlatMapToInt(ExFunction<? super T, ? extends IntStream, ?> mapper) {
         return ExIntStream.of(flatMapToInt(mapper.wrap()));
     }
 
@@ -393,7 +392,7 @@ public final class ExStream<T> implements Stream<T> {
      * @param mapper see {@link Stream#flatMapToLong}
      * @return see {@link Stream#flatMapToLong}
      */
-    public @NonNull ExLongStream exFlatMapToLong(@NonNull ExFunction<? super T, ? extends LongStream, ?> mapper) {
+    public ExLongStream exFlatMapToLong(ExFunction<? super T, ? extends LongStream, ?> mapper) {
         return ExLongStream.of(flatMapToLong(mapper.wrap()));
     }
 
@@ -410,7 +409,7 @@ public final class ExStream<T> implements Stream<T> {
      * @param mapper see {@link Stream#mapMulti}
      * @return see {@link Stream#mapMulti}
      */
-    public <R> @NonNull ExStream<R> exMapMulti(@NonNull ExBiConsumer<? super T, ? super Consumer<R>, ?> mapper) {
+    public <R> ExStream<R> exMapMulti(ExBiConsumer<? super T, ? super Consumer<R>, ?> mapper) {
         return mapMulti(mapper.wrap());
     }
 
@@ -426,7 +425,7 @@ public final class ExStream<T> implements Stream<T> {
      * @param mapper see {@link Stream#mapMultiToDouble}
      * @return see {@link Stream#mapMultiToDouble}
      */
-    public @NonNull ExDoubleStream exMapMultiToDouble(@NonNull ExBiConsumer<? super T, ? super DoubleConsumer, ?> mapper) {
+    public ExDoubleStream exMapMultiToDouble(ExBiConsumer<? super T, ? super DoubleConsumer, ?> mapper) {
         return mapMultiToDouble(mapper.wrap());
     }
 
@@ -442,7 +441,7 @@ public final class ExStream<T> implements Stream<T> {
      * @param mapper see {@link Stream#mapMultiToInt}
      * @return see {@link Stream#mapMultiToInt}
      */
-    public @NonNull ExIntStream exMapMultiToInt(@NonNull ExBiConsumer<? super T, ? super IntConsumer, ?> mapper) {
+    public ExIntStream exMapMultiToInt(ExBiConsumer<? super T, ? super IntConsumer, ?> mapper) {
         return mapMultiToInt(mapper.wrap());
     }
 
@@ -458,7 +457,7 @@ public final class ExStream<T> implements Stream<T> {
      * @param mapper see {@link Stream#mapMultiToLong}
      * @return see {@link Stream#mapMultiToLong}
      */
-    public @NonNull ExLongStream exMapMultiToLong(@NonNull ExBiConsumer<? super T, ? super LongConsumer, ?> mapper) {
+    public ExLongStream exMapMultiToLong(ExBiConsumer<? super T, ? super LongConsumer, ?> mapper) {
         return mapMultiToLong(mapper.wrap());
     }
 
@@ -471,7 +470,7 @@ public final class ExStream<T> implements Stream<T> {
      * @param action see {@link Stream#peek}
      * @return see {@link Stream#peek}
      */
-    public @NonNull ExStream<T> exPeek(@NonNull ExConsumer<? super T, ?> action) {
+    public ExStream<T> exPeek(ExConsumer<? super T, ?> action) {
         return peek(action.wrap());
     }
 
@@ -484,7 +483,7 @@ public final class ExStream<T> implements Stream<T> {
      * @param predicate see {@link Stream#takeWhile}
      * @return see {@link Stream#takeWhile}
      */
-    public @NonNull ExStream<T> exTakeWhile(@NonNull ExPredicate<? super T, ?> predicate) {
+    public ExStream<T> exTakeWhile(ExPredicate<? super T, ?> predicate) {
         return takeWhile(predicate.wrap());
     }
 
@@ -500,7 +499,7 @@ public final class ExStream<T> implements Stream<T> {
      * @param predicate see {@link Stream#dropWhile}
      * @return see {@link Stream#dropWhile}
      */
-    public @NonNull ExStream<T> exDropWhile(@NonNull ExPredicate<? super T, ?> predicate) {
+    public ExStream<T> exDropWhile(ExPredicate<? super T, ?> predicate) {
         return dropWhile(predicate.wrap());
     }
 
@@ -512,7 +511,7 @@ public final class ExStream<T> implements Stream<T> {
      *
      * @param action see {@link Stream#forEach}
      */
-    public void exForEach(@NonNull ExConsumer<? super T, ?> action) {
+    public void exForEach(ExConsumer<? super T, ?> action) {
         forEach(action.wrap());
     }
 
@@ -524,7 +523,7 @@ public final class ExStream<T> implements Stream<T> {
      *
      * @param action see {@link Stream#forEachOrdered}
      */
-    public void exForEachOrdered(@NonNull ExConsumer<? super T, ?> action) {
+    public void exForEachOrdered(ExConsumer<? super T, ?> action) {
         forEachOrdered(action.wrap());
     }
 
@@ -537,7 +536,7 @@ public final class ExStream<T> implements Stream<T> {
      * @param accumulator see {@link Stream#reduce(BinaryOperator)}
      * @return see {@link Stream#reduce(BinaryOperator)}
      */
-    public @NonNull Optional<T> exReduce(@NonNull ExBinaryOperator<T, ?> accumulator) {
+    public Optional<T> exReduce(ExBinaryOperator<T, ?> accumulator) {
         return reduce(accumulator.wrap());
     }
 
@@ -551,7 +550,7 @@ public final class ExStream<T> implements Stream<T> {
      * @param accumulator see {@link Stream#reduce(Object, BinaryOperator)}
      * @return see {@link Stream#reduce(Object, BinaryOperator)}
      */
-    public T exReduce(T identity, @NonNull ExBinaryOperator<T, ?> accumulator) {
+    public T exReduce(T identity, ExBinaryOperator<T, ?> accumulator) {
         return reduce(identity, accumulator.wrap());
     }
 
@@ -567,8 +566,8 @@ public final class ExStream<T> implements Stream<T> {
      * @param combiner    see {@link Stream#reduce(Object, BiFunction, BinaryOperator)}
      * @return see {@link Stream#reduce(Object, BiFunction, BinaryOperator)}
      */
-    public <U> U exReduce(U identity, @NonNull ExBiFunction<U, ? super T, U, ?> accumulator,
-                          @NonNull ExBinaryOperator<U, ?> combiner) {
+    public <U> U exReduce(U identity, ExBiFunction<U, ? super T, U, ?> accumulator,
+                          ExBinaryOperator<U, ?> combiner) {
         return reduce(identity, accumulator.wrap(), combiner.wrap());
     }
 
@@ -584,8 +583,8 @@ public final class ExStream<T> implements Stream<T> {
      * @param combiner    see {@link Stream#collect(Supplier, BiConsumer, BiConsumer)}
      * @return see {@link Stream#collect(Supplier, BiConsumer, BiConsumer)}
      */
-    public <R> R exCollect(@NonNull ExSupplier<R, ?> supplier, @NonNull ExBiConsumer<R, ? super T, ?> accumulator,
-                           @NonNull ExBiConsumer<R, R, ?> combiner) {
+    public <R> R exCollect(ExSupplier<R, ?> supplier, ExBiConsumer<R, ? super T, ?> accumulator,
+                           ExBiConsumer<R, R, ?> combiner) {
         return collect(supplier.wrap(), accumulator.wrap(), combiner.wrap());
     }
 

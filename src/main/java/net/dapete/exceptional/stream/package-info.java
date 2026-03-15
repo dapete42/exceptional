@@ -7,4 +7,7 @@
  * Similarly, there are also {@link net.dapete.exceptional.stream.ExDoubleStream}, {@link net.dapete.exceptional.stream.ExIntStream} and
  * {@link net.dapete.exceptional.stream.ExLongStream}.
  */
+@NullMarked
 package net.dapete.exceptional.stream;
+
+import org.jspecify.annotations.NullMarked;
