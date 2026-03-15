@@ -1,6 +1,6 @@
 package net.dapete.exceptional.function;
 
-import net.dapete.exceptional.ExUtils;
+import net.dapete.exceptional.ExWrap;
 import org.jspecify.annotations.NonNull;
 
 import java.util.function.LongPredicate;
@@ -24,7 +24,7 @@ public interface ExLongPredicate<E extends Exception> extends Wrappable<LongPred
 
     @Override
     default @NonNull LongPredicate wrap() {
-        return value -> ExUtils.wrap(() -> test(value));
+        return value -> ExWrap.wrap(() -> test(value));
     }
 
 }

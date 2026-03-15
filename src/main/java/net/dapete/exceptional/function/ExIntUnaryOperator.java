@@ -1,6 +1,6 @@
 package net.dapete.exceptional.function;
 
-import net.dapete.exceptional.ExUtils;
+import net.dapete.exceptional.ExWrap;
 import org.jspecify.annotations.NonNull;
 
 import java.util.function.IntUnaryOperator;
@@ -24,7 +24,7 @@ public interface ExIntUnaryOperator<E extends Exception> extends Wrappable<IntUn
 
     @Override
     default @NonNull IntUnaryOperator wrap() {
-        return operand -> ExUtils.wrap(() -> applyAsInt(operand));
+        return operand -> ExWrap.wrap(() -> applyAsInt(operand));
     }
 
     /**

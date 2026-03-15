@@ -1,6 +1,6 @@
 package net.dapete.exceptional.function;
 
-import net.dapete.exceptional.ExUtils;
+import net.dapete.exceptional.ExWrap;
 import org.jspecify.annotations.NonNull;
 
 import java.util.function.DoubleSupplier;
@@ -23,7 +23,7 @@ public interface ExDoubleSupplier<E extends Exception> extends Wrappable<DoubleS
 
     @Override
     default @NonNull DoubleSupplier wrap() {
-        return () -> ExUtils.wrap(this);
+        return () -> ExWrap.wrap(this);
     }
 
 }

@@ -1,6 +1,6 @@
 package net.dapete.exceptional.function;
 
-import net.dapete.exceptional.ExUtils;
+import net.dapete.exceptional.ExWrap;
 import org.jspecify.annotations.NonNull;
 
 import java.util.function.DoubleFunction;
@@ -25,7 +25,7 @@ public interface ExDoubleFunction<R, E extends Exception> extends Wrappable<Doub
 
     @Override
     default @NonNull DoubleFunction<R> wrap() {
-        return value -> ExUtils.wrap(() -> apply(value));
+        return value -> ExWrap.wrap(() -> apply(value));
     }
 
 }

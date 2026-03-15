@@ -3,6 +3,7 @@ package net.dapete.exceptional;
 import net.dapete.exceptional.stream.ExIntStream;
 import org.junit.jupiter.api.Test;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serial;
 import java.security.NoSuchAlgorithmException;
@@ -147,6 +148,24 @@ class ExExceptionTest {
                 System.out.println("An exception was thrown");
             }
         }
+
+    }
+
+    @Test
+    void throwIfInstance_dontThrow() throws FileNotFoundException {
+
+        final IOException exception = new IOException();
+
+        ExUtils.throwIfInstance(FileNotFoundException.class, exception);
+
+    }
+
+    @Test
+    void throwIfInstance_throw() {
+
+        final IOException exception = new IOException();
+
+        assertThrows(IOException.class, () -> ExUtils.throwIfInstance(IOException.class, exception));
 
     }
 

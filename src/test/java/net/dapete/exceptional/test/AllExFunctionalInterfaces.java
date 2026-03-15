@@ -1,6 +1,6 @@
 package net.dapete.exceptional.test;
 
-import net.dapete.exceptional.ExUtils;
+import net.dapete.exceptional.ExWrap;
 import net.dapete.exceptional.function.Wrappable;
 import net.dapete.exceptional.stream.ExStream;
 import org.jspecify.annotations.NonNull;
@@ -37,7 +37,7 @@ public class AllExFunctionalInterfaces implements ArgumentsProvider {
         final var packagePath = packageName.replace('.', '/');
         try {
             final var filesNames = filesNamesInDirectory("src/main/java/" + packagePath);
-            return ExUtils.unwrap(ClassNotFoundException.class, () ->
+            return ExWrap.unwrap(ClassNotFoundException.class, () ->
                     ExStream.of(filesNames)
                             .filter(fileName -> fileName.startsWith("Ex"))
                             .filter(fileName -> fileName.endsWith(".java"))

@@ -1,6 +1,6 @@
 package net.dapete.exceptional.stream;
 
-import net.dapete.exceptional.ExUtils;
+import net.dapete.exceptional.ExWrap;
 import net.dapete.exceptional.function.ExLongConsumer;
 import net.dapete.exceptional.function.Wrappable;
 
@@ -26,7 +26,7 @@ public interface ExLongMapMultiConsumer<E extends Exception> extends Wrappable<L
 
     @Override
     default LongStream.LongMapMultiConsumer wrap() {
-        return (value, ic) -> ExUtils.wrap(() -> accept(value, ic::accept));
+        return (value, ic) -> ExWrap.wrap(() -> accept(value, ic::accept));
     }
 
 }

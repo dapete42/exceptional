@@ -1,6 +1,6 @@
 package net.dapete.exceptional.function;
 
-import net.dapete.exceptional.ExUtils;
+import net.dapete.exceptional.ExWrap;
 import org.jspecify.annotations.NonNull;
 
 import java.util.function.DoubleConsumer;
@@ -23,7 +23,7 @@ public interface ExDoubleConsumer<E extends Exception> extends Wrappable<DoubleC
 
     @Override
     default @NonNull DoubleConsumer wrap() {
-        return value -> ExUtils.wrap(() -> accept(value));
+        return value -> ExWrap.wrap(() -> accept(value));
     }
 
 }

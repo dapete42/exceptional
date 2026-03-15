@@ -1,6 +1,6 @@
 package net.dapete.exceptional.function;
 
-import net.dapete.exceptional.ExUtils;
+import net.dapete.exceptional.ExWrap;
 import org.jspecify.annotations.NonNull;
 
 import java.util.function.BiConsumer;
@@ -26,7 +26,7 @@ public interface ExBiConsumer<T, U, E extends Exception> extends Wrappable<BiCon
 
     @Override
     default @NonNull BiConsumer<T, U> wrap() {
-        return (t, u) -> ExUtils.wrap(() -> accept(t, u));
+        return (t, u) -> ExWrap.wrap(() -> accept(t, u));
     }
 
 }

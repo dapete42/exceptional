@@ -1,6 +1,6 @@
 package net.dapete.exceptional.function;
 
-import net.dapete.exceptional.ExUtils;
+import net.dapete.exceptional.ExWrap;
 import org.jspecify.annotations.NonNull;
 
 import java.util.function.IntBinaryOperator;
@@ -25,7 +25,7 @@ public interface ExIntBinaryOperator<E extends Exception> extends Wrappable<IntB
 
     @Override
     default @NonNull IntBinaryOperator wrap() {
-        return (left, right) -> ExUtils.wrap(() -> applyAsInt(left, right));
+        return (left, right) -> ExWrap.wrap(() -> applyAsInt(left, right));
     }
 
 }

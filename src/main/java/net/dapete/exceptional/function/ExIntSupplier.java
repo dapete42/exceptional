@@ -1,6 +1,6 @@
 package net.dapete.exceptional.function;
 
-import net.dapete.exceptional.ExUtils;
+import net.dapete.exceptional.ExWrap;
 import org.jspecify.annotations.NonNull;
 
 import java.util.function.IntSupplier;
@@ -23,7 +23,7 @@ public interface ExIntSupplier<E extends Exception> extends Wrappable<IntSupplie
 
     @Override
     default @NonNull IntSupplier wrap() {
-        return () -> ExUtils.wrap(this);
+        return () -> ExWrap.wrap(this);
     }
 
 }

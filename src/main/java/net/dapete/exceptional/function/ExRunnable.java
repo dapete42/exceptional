@@ -1,6 +1,6 @@
 package net.dapete.exceptional.function;
 
-import net.dapete.exceptional.ExUtils;
+import net.dapete.exceptional.ExWrap;
 import org.jspecify.annotations.NonNull;
 
 /**
@@ -20,7 +20,7 @@ public interface ExRunnable<E extends Exception> extends Wrappable<Runnable> {
 
     @Override
     default @NonNull Runnable wrap() {
-        return () -> ExUtils.wrap(this);
+        return () -> ExWrap.wrap(this);
     }
 
 }

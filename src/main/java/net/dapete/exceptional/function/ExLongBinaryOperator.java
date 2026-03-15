@@ -1,6 +1,6 @@
 package net.dapete.exceptional.function;
 
-import net.dapete.exceptional.ExUtils;
+import net.dapete.exceptional.ExWrap;
 import org.jspecify.annotations.NonNull;
 
 import java.util.function.LongBinaryOperator;
@@ -25,7 +25,7 @@ public interface ExLongBinaryOperator<E extends Exception> extends Wrappable<Lon
 
     @Override
     default @NonNull LongBinaryOperator wrap() {
-        return (left, right) -> ExUtils.wrap(() -> applyAsLong(left, right));
+        return (left, right) -> ExWrap.wrap(() -> applyAsLong(left, right));
     }
 
 }

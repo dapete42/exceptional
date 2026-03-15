@@ -1,6 +1,6 @@
 package net.dapete.exceptional.function;
 
-import net.dapete.exceptional.ExUtils;
+import net.dapete.exceptional.ExWrap;
 import org.jspecify.annotations.NonNull;
 
 import java.util.function.IntPredicate;
@@ -24,7 +24,7 @@ public interface ExIntPredicate<E extends Exception> extends Wrappable<IntPredic
 
     @Override
     default @NonNull IntPredicate wrap() {
-        return value -> ExUtils.wrap(() -> test(value));
+        return value -> ExWrap.wrap(() -> test(value));
     }
 
 }

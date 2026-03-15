@@ -1,6 +1,6 @@
 package net.dapete.exceptional.function;
 
-import net.dapete.exceptional.ExUtils;
+import net.dapete.exceptional.ExWrap;
 import org.jspecify.annotations.NonNull;
 
 import java.util.function.LongUnaryOperator;
@@ -24,7 +24,7 @@ public interface ExLongUnaryOperator<E extends Exception> extends Wrappable<Long
 
     @Override
     default @NonNull LongUnaryOperator wrap() {
-        return operand -> ExUtils.wrap(() -> applyAsLong(operand));
+        return operand -> ExWrap.wrap(() -> applyAsLong(operand));
     }
 
     /**

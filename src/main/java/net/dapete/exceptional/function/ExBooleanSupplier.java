@@ -1,7 +1,7 @@
 package net.dapete.exceptional.function;
 
 
-import net.dapete.exceptional.ExUtils;
+import net.dapete.exceptional.ExWrap;
 import org.jspecify.annotations.NonNull;
 
 import java.util.function.BooleanSupplier;
@@ -24,7 +24,7 @@ public interface ExBooleanSupplier<E extends Exception> extends Wrappable<Boolea
 
     @Override
     default @NonNull BooleanSupplier wrap() {
-        return () -> ExUtils.wrap(this);
+        return () -> ExWrap.wrap(this);
     }
 
 }

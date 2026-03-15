@@ -1,6 +1,6 @@
 package net.dapete.exceptional.function;
 
-import net.dapete.exceptional.ExUtils;
+import net.dapete.exceptional.ExWrap;
 import org.jspecify.annotations.NonNull;
 
 import java.util.function.Function;
@@ -26,7 +26,7 @@ public interface ExFunction<T, R, E extends Exception> extends Wrappable<Functio
 
     @Override
     default @NonNull Function<T, R> wrap() {
-        return t -> ExUtils.wrap(() -> apply(t));
+        return t -> ExWrap.wrap(() -> apply(t));
     }
 
 }

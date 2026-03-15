@@ -1,6 +1,6 @@
 package net.dapete.exceptional.function;
 
-import net.dapete.exceptional.ExUtils;
+import net.dapete.exceptional.ExWrap;
 import org.jspecify.annotations.NonNull;
 
 import java.util.function.ToDoubleFunction;
@@ -25,7 +25,7 @@ public interface ExToDoubleFunction<T, E extends Exception> extends Wrappable<To
 
     @Override
     default @NonNull ToDoubleFunction<T> wrap() {
-        return value -> ExUtils.wrap(() -> applyAsDouble(value));
+        return value -> ExWrap.wrap(() -> applyAsDouble(value));
     }
 
 }

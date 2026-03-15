@@ -1,6 +1,6 @@
 package net.dapete.exceptional.stream;
 
-import net.dapete.exceptional.ExUtils;
+import net.dapete.exceptional.ExWrap;
 import net.dapete.exceptional.function.ExDoubleConsumer;
 import net.dapete.exceptional.function.Wrappable;
 
@@ -26,7 +26,7 @@ public interface ExDoubleMapMultiConsumer<E extends Exception> extends Wrappable
 
     @Override
     default DoubleStream.DoubleMapMultiConsumer wrap() {
-        return (value, ic) -> ExUtils.wrap(() -> accept(value, ic::accept));
+        return (value, ic) -> ExWrap.wrap(() -> accept(value, ic::accept));
     }
 
 }

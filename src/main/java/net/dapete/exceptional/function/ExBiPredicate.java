@@ -1,6 +1,6 @@
 package net.dapete.exceptional.function;
 
-import net.dapete.exceptional.ExUtils;
+import net.dapete.exceptional.ExWrap;
 import org.jspecify.annotations.NonNull;
 
 import java.util.function.BiPredicate;
@@ -27,7 +27,7 @@ public interface ExBiPredicate<T, U, E extends Exception> extends Wrappable<BiPr
 
     @Override
     default @NonNull BiPredicate<T, U> wrap() {
-        return (t, u) -> ExUtils.wrap(() -> test(t, u));
+        return (t, u) -> ExWrap.wrap(() -> test(t, u));
     }
 
 }

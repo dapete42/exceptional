@@ -1,6 +1,6 @@
 package net.dapete.exceptional.function;
 
-import net.dapete.exceptional.ExUtils;
+import net.dapete.exceptional.ExWrap;
 import org.jspecify.annotations.NonNull;
 
 import java.util.function.Consumer;
@@ -24,7 +24,7 @@ public interface ExConsumer<T, E extends Exception> extends Wrappable<Consumer<T
 
     @Override
     default @NonNull Consumer<T> wrap() {
-        return t -> ExUtils.wrap(() -> accept(t));
+        return t -> ExWrap.wrap(() -> accept(t));
     }
 
 }
