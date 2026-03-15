@@ -3,8 +3,10 @@
  * <p>
  * The main components are:
  * <ul>
- *   <li>{@link net.dapete.exceptional.ExceptionalWrapper}: Utility class to wrap functional interfaces that throw checked exceptions into standard
- *   {@link java.util.function} interfaces by wrapping exceptions in a runtime exception.</li>
+ *   <li>{@link net.dapete.exceptional.ExUtils}: Utility class.</li>
  * </ul>
  */
+@NullMarked
 package net.dapete.exceptional;
+
+import org.jspecify.annotations.NullMarked;

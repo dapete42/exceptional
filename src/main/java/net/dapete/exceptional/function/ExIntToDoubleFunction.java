@@ -1,0 +1,30 @@
+package net.dapete.exceptional.function;
+
+import net.dapete.exceptional.ExWrap;
+import org.jspecify.annotations.NonNull;
+
+import java.util.function.IntToDoubleFunction;
+
+/**
+ * Equivalent of an {@link java.util.function.IntToDoubleFunction} that can throw exceptions.
+ *
+ * @param <E> the type of exception thrown
+ */
+@FunctionalInterface
+public interface ExIntToDoubleFunction<E extends Exception> extends Wrappable<IntToDoubleFunction> {
+
+    /**
+     * Applies this function to the given argument.
+     *
+     * @param value the function argument
+     * @return the function result
+     * @throws E potentially
+     */
+    double applyAsDouble(int value) throws E;
+
+    @Override
+    default @NonNull IntToDoubleFunction wrap() {
+        return value -> ExWrap.wrap(() -> applyAsDouble(value));
+    }
+
+}
