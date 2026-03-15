@@ -3,7 +3,6 @@ package net.dapete.exceptional.stream;
 import net.dapete.exceptional.ExUtils;
 import net.dapete.exceptional.function.ExDoubleConsumer;
 import net.dapete.exceptional.function.Wrappable;
-import org.jspecify.annotations.NonNull;
 
 import java.util.stream.DoubleStream;
 
@@ -23,7 +22,7 @@ public interface ExDoubleMapMultiConsumer<E extends Exception> extends Wrappable
      * @param ic    an {@code ExDoubleConsumer} accepting the mapped values
      * @throws E possibly
      */
-    void accept(double value, @NonNull ExDoubleConsumer<?> ic) throws E;
+    void accept(double value, ExDoubleConsumer<?> ic) throws E;
 
     @Override
     default DoubleStream.DoubleMapMultiConsumer wrap() {
