@@ -22,7 +22,7 @@ public interface ExIntSupplier<E extends Exception> extends Wrappable<IntSupplie
 
     @Override
     default IntSupplier wrap() {
-        return () -> ExUtils.wrap(this::getAsInt);
+        return () -> ExUtils.wrap(this);
     }
 
 }

@@ -1,7 +1,6 @@
 package net.dapete.exceptional;
 
-import net.dapete.exceptional.function.ExRunnable;
-import net.dapete.exceptional.function.ExSupplier;
+import net.dapete.exceptional.function.*;
 
 import java.util.function.Supplier;
 
@@ -57,6 +56,82 @@ public final class ExUtils {
     public static <T, E extends Exception> T wrap(ExSupplier<T, E> supplier) {
         try {
             return supplier.get();
+        } catch (Exception e) {
+            throw toRuntimeException(e);
+        }
+    }
+
+    /**
+     * Executes an {@link ExBooleanSupplier}, calling its {@code getAsBoolean()} method and returning the result.
+     * <p>
+     * If a checked exception is thrown, an {@link ExException}, which is a runtime exception, will be thrown instead.
+     * This will have the original exception as its {@link ExException#getCause()}  cause}.
+     *
+     * @param supplier an {@code ExBooleanSupplier} to execute.
+     * @param <E>      the type of exception thrown by the {@code ExBooleanSupplier}.
+     * @return the result of {@code supplier.get()}.
+     * @throws ExException if {@code runnable.run()} threw a checked exception.
+     */
+    public static <E extends Exception> boolean wrap(ExBooleanSupplier<E> supplier) {
+        try {
+            return supplier.getAsBoolean();
+        } catch (Exception e) {
+            throw toRuntimeException(e);
+        }
+    }
+
+    /**
+     * Executes an {@link ExDoubleSupplier}, calling its {@code getAsDouble()} method and returning the result.
+     * <p>
+     * If a checked exception is thrown, an {@link ExException}, which is a runtime exception, will be thrown instead.
+     * This will have the original exception as its {@link ExException#getCause()}  cause}.
+     *
+     * @param supplier an {@code ExDoubleSupplier} to execute.
+     * @param <E>      the type of exception thrown by the {@code ExDoubleSupplier}.
+     * @return the result of {@code supplier.get()}.
+     * @throws ExException if {@code runnable.run()} threw a checked exception.
+     */
+    public static <E extends Exception> double wrap(ExDoubleSupplier<E> supplier) {
+        try {
+            return supplier.getAsDouble();
+        } catch (Exception e) {
+            throw toRuntimeException(e);
+        }
+    }
+
+    /**
+     * Executes an {@link ExIntSupplier}, calling its {@code getAsInt()} method and returning the result.
+     * <p>
+     * If a checked exception is thrown, an {@link ExException}, which is a runtime exception, will be thrown instead.
+     * This will have the original exception as its {@link ExException#getCause()}  cause}.
+     *
+     * @param supplier an {@code ExIntSupplier} to execute.
+     * @param <E>      the type of exception thrown by the {@code ExIntSupplier}.
+     * @return the result of {@code supplier.get()}.
+     * @throws ExException if {@code runnable.run()} threw a checked exception.
+     */
+    public static <E extends Exception> int wrap(ExIntSupplier<E> supplier) {
+        try {
+            return supplier.getAsInt();
+        } catch (Exception e) {
+            throw toRuntimeException(e);
+        }
+    }
+
+    /**
+     * Executes an {@link ExLongSupplier}, calling its {@code getAsLong()} method and returning the result.
+     * <p>
+     * If a checked exception is thrown, an {@link ExException}, which is a runtime exception, will be thrown instead.
+     * This will have the original exception as its {@link ExException#getCause()}  cause}.
+     *
+     * @param supplier an {@code ExLongSupplier} to execute.
+     * @param <E>      the type of exception thrown by the {@code ExLongSupplier}.
+     * @return the result of {@code supplier.get()}.
+     * @throws ExException if {@code runnable.run()} threw a checked exception.
+     */
+    public static <E extends Exception> long wrap(ExLongSupplier<E> supplier) {
+        try {
+            return supplier.getAsLong();
         } catch (Exception e) {
             throw toRuntimeException(e);
         }

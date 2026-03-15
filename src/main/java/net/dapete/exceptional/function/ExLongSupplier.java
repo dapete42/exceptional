@@ -22,7 +22,7 @@ public interface ExLongSupplier<E extends Exception> extends Wrappable<LongSuppl
 
     @Override
     default LongSupplier wrap() {
-        return () -> ExUtils.wrap(this::getAsLong);
+        return () -> ExUtils.wrap(this);
     }
 
 }
