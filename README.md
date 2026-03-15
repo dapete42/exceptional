@@ -15,8 +15,6 @@ Requires Java 17 or later to use and build.
 
 ## Links
 
-**TODO** not working yet
-
 * [Maven Central](https://central.sonatype.com/artifact/net.dapete/exceptional)/[Maven Repository](https://mvnrepository.com/artifact/net.dapete/exceptional)
 * [Javadoc](https://dapete42.github.io/exceptional/apidocs/)
 * [Maven Site](https://dapete42.github.io/exceptional/)
