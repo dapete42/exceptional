@@ -42,7 +42,7 @@ public class AllExFunctionalInterfaces implements ArgumentsProvider {
                             .filter(fileName -> fileName.startsWith("Ex"))
                             .filter(fileName -> fileName.endsWith(".java"))
                             .map(fileName -> fileName.replaceFirst("\\.java$", ""))
-                            .exMap(className -> Class.forName(packageName + '.' + className))
+                            .map(ClassNotFoundException.class, className -> Class.forName(packageName + '.' + className))
                             .filter(Class::isInterface)
                             .filter(Wrappable.class::isAssignableFrom)
                             .toList()

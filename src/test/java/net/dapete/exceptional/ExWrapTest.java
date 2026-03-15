@@ -74,7 +74,7 @@ class ExWrapTest {
         try {
             ExWrap.unwrap(() ->
                     ExIntStream.of(1, 2, 3)
-                            .exForEach(i -> {
+                            .forEach(IOException.class, i -> {
                                 throw new IOException("Test");
                             })
             );
@@ -98,7 +98,7 @@ class ExWrapTest {
         try {
             ExWrap.unwrap(IOException.class, () ->
                     ExIntStream.of(1, 2, 3)
-                            .exForEach(i -> {
+                            .forEach(IOException.class, i -> {
                                 throw new IOException("Test");
                             })
             );
@@ -117,7 +117,7 @@ class ExWrapTest {
         try {
             @SuppressWarnings("unused") final var ignore = ExWrap.unwrap(() ->
                     ExIntStream.of(1, 2, 3)
-                            .exMap(i -> {
+                            .map(IOException.class, i -> {
                                 throw new IOException("Test");
                             })
                             .toArray()
@@ -139,7 +139,7 @@ class ExWrapTest {
         try {
             @SuppressWarnings("unused") final var ignore = ExWrap.unwrap(IOException.class, () ->
                     ExIntStream.of(1, 2, 3)
-                            .exMap(i -> {
+                            .map(IOException.class, i -> {
                                 throw new IOException("Test");
                             })
                             .toArray()

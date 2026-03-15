@@ -12,7 +12,7 @@ import java.util.stream.DoubleStream;
  * A DoubleStream with additional functionality for functional interfaces that throw Exceptions.
  * <p>
  * Implements versions of all methods from DoubleStream that use functional interfaces, using their counterparts with Exceptions instead, e.g.
- * {@link #exMap} in parallel to {@link #map}.
+ * {@link #map(Class, ExDoubleUnaryOperator)} in parallel to {@link #map(DoubleUnaryOperator)}.
  * <p>
  * If these functional interfaces throw a checked exception, a {@link ExException} will be thrown instead.
  * This will have the original exception as its {@link ExException#getCause() cause}.
@@ -142,7 +142,7 @@ public class ExDoubleStream implements DoubleStream {
         return of(stream.onClose(closeHandler));
     }
 
-    /* Override all methods that usually return IntStream to return an ExIntStream. */
+    /* Override all methods that usually return DoubleStream to return an ExDoubleStream. */
 
     @Override
     public ExIntStream mapToInt(DoubleToIntFunction mapper) {
@@ -156,7 +156,7 @@ public class ExDoubleStream implements DoubleStream {
         return ExLongStream.of(stream.mapToLong(mapper));
     }
 
-    /* Implement versions of all methods from DoubleStream that use functional interfaces, using their counterparts with Exceptions instead. */
+    /* Implement versions of all methods from DoubleStream that use functional Doubleerfaces, using their counterparts with Exceptions instead. */
 
     /**
      * Equivalent of {@link DoubleStream#filter}.
@@ -167,10 +167,12 @@ public class ExDoubleStream implements DoubleStream {
      * Note that this exception will likely not be thrown when a method is called, but only when a <em>terminal operation</em> or a
      * <em>stateful intermediate operation</em> is used on the stream.
      *
-     * @param predicate see {@link DoubleStream#filter}
+     * @param <E>            The exception type thrown by {@code mapper}
+     * @param exceptionClass The exception class for {@link E}
+     * @param predicate      see {@link DoubleStream#filter}
      * @return see {@link DoubleStream#filter}
      */
-    public ExDoubleStream exFilter(ExDoublePredicate<?> predicate) {
+    public <E extends Exception> ExDoubleStream filter(@SuppressWarnings("unused") Class<E> exceptionClass, ExDoublePredicate<? extends E> predicate) {
         return of(filter(predicate.wrap()));
     }
 
@@ -183,10 +185,12 @@ public class ExDoubleStream implements DoubleStream {
      * Note that this exception will likely not be thrown when a method is called, but only when a <em>terminal operation</em> or a
      * <em>stateful intermediate operation</em> is used on the stream.
      *
-     * @param mapper see {@link DoubleStream#map}
+     * @param <E>            The exception type thrown by {@code mapper}
+     * @param exceptionClass The exception class for {@link E}
+     * @param mapper         see {@link DoubleStream#map}
      * @return see {@link DoubleStream#map}
      */
-    public ExDoubleStream exMap(ExDoubleUnaryOperator<?> mapper) {
+    public <E extends Exception> ExDoubleStream map(@SuppressWarnings("unused") Class<E> exceptionClass, ExDoubleUnaryOperator<? extends E> mapper) {
         return of(map(mapper.wrap()));
     }
 
@@ -199,11 +203,13 @@ public class ExDoubleStream implements DoubleStream {
      * Note that this exception will likely not be thrown when a method is called, but only when a <em>terminal operation</em> or a
      * <em>stateful intermediate operation</em> is used on the stream.
      *
-     * @param <U>    the element type of the new stream
-     * @param mapper see {@link DoubleStream#mapToObj}
+     * @param <U>            the element type of the new stream
+     * @param <E>            The exception type thrown by {@code mapper}
+     * @param exceptionClass The exception class for {@link E}
+     * @param mapper         see {@link DoubleStream#mapToObj}
      * @return see {@link DoubleStream#mapToObj}
      */
-    public <U> ExStream<U> exMapToObj(ExDoubleFunction<? extends U, ?> mapper) {
+    public <U, E extends Exception> ExStream<U> mapToObj(@SuppressWarnings("unused") Class<E> exceptionClass, ExDoubleFunction<? extends U, ? extends E> mapper) {
         return ExStream.of(mapToObj(mapper.wrap()));
     }
 
@@ -216,10 +222,12 @@ public class ExDoubleStream implements DoubleStream {
      * Note that this exception will likely not be thrown when a method is called, but only when a <em>terminal operation</em> or a
      * <em>stateful intermediate operation</em> is used on the stream.
      *
-     * @param mapper see {@link DoubleStream#mapToInt}
+     * @param <E>            The exception type thrown by {@code mapper}
+     * @param exceptionClass The exception class for {@link E}
+     * @param mapper         see {@link DoubleStream#mapToInt}
      * @return see {@link DoubleStream#mapToInt}
      */
-    public ExIntStream exMapToInt(ExDoubleToIntFunction<?> mapper) {
+    public <E extends Exception> ExIntStream mapToInt(@SuppressWarnings("unused") Class<E> exceptionClass, ExDoubleToIntFunction<? extends E> mapper) {
         return ExIntStream.of(mapToInt(mapper.wrap()));
     }
 
@@ -232,10 +240,12 @@ public class ExDoubleStream implements DoubleStream {
      * Note that this exception will likely not be thrown when a method is called, but only when a <em>terminal operation</em> or a
      * <em>stateful intermediate operation</em> is used on the stream.
      *
-     * @param mapper see {@link DoubleStream#mapToLong}
+     * @param <E>            The exception type thrown by {@code mapper}
+     * @param exceptionClass The exception class for {@link E}
+     * @param mapper         see {@link DoubleStream#mapToLong}
      * @return see {@link DoubleStream#mapToLong}
      */
-    public ExLongStream exMapToLong(ExDoubleToLongFunction<?> mapper) {
+    public <E extends Exception> ExLongStream mapToLong(@SuppressWarnings("unused") Class<E> exceptionClass, ExDoubleToLongFunction<? extends E> mapper) {
         return ExLongStream.of(mapToLong(mapper.wrap()));
     }
 
@@ -248,10 +258,13 @@ public class ExDoubleStream implements DoubleStream {
      * Note that this exception will likely not be thrown when a method is called, but only when a <em>terminal operation</em> or a
      * <em>stateful intermediate operation</em> is used on the stream.
      *
-     * @param mapper see {@link DoubleStream#flatMap}
+     * @param <E>            The exception type thrown by {@code mapper}
+     * @param exceptionClass The exception class for {@link E}
+     * @param mapper         see {@link DoubleStream#flatMap}
      * @return see {@link DoubleStream#flatMap}
      */
-    public ExDoubleStream exFlatMap(ExDoubleFunction<? extends DoubleStream, ?> mapper) {
+    public <E extends Exception> ExDoubleStream flatMap(@SuppressWarnings("unused") Class<E> exceptionClass,
+                                                        ExDoubleFunction<? extends DoubleStream, ? extends E> mapper) {
         return of(flatMap(mapper.wrap()));
     }
 
@@ -264,10 +277,12 @@ public class ExDoubleStream implements DoubleStream {
      * Note that this exception will likely not be thrown when a method is called, but only when a <em>terminal operation</em> or a
      * <em>stateful intermediate operation</em> is used on the stream.
      *
-     * @param mapper see {@link DoubleStream#mapMulti}
+     * @param <E>            The exception type thrown by {@code mapper}
+     * @param exceptionClass The exception class for {@link E}
+     * @param mapper         see {@link DoubleStream#mapMulti}
      * @return see {@link DoubleStream#mapMulti}
      */
-    public ExDoubleStream exMapMulti(ExDoubleMapMultiConsumer<?> mapper) {
+    public <E extends Exception> ExDoubleStream mapMulti(@SuppressWarnings("unused") Class<E> exceptionClass, ExDoubleMapMultiConsumer<? extends E> mapper) {
         return of(mapMulti(mapper.wrap()));
     }
 
@@ -277,10 +292,12 @@ public class ExDoubleStream implements DoubleStream {
      * If {@code action} throws a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param action see {@link DoubleStream#peek}
+     * @param <E>            The exception type thrown by {@code action}
+     * @param exceptionClass The exception class for {@link E}
+     * @param action         see {@link DoubleStream#peek}
      * @return see {@link DoubleStream#peek}
      */
-    public ExDoubleStream exPeek(ExDoubleConsumer<?> action) {
+    public <E extends Exception> ExDoubleStream peek(@SuppressWarnings("unused") Class<E> exceptionClass, ExDoubleConsumer<? extends E> action) {
         return of(peek(action.wrap()));
     }
 
@@ -290,10 +307,12 @@ public class ExDoubleStream implements DoubleStream {
      * If {@code predicate} throws a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param predicate see {@link DoubleStream#takeWhile}
+     * @param <E>            The exception type thrown by {@code predicate}
+     * @param exceptionClass The exception class for {@link E}
+     * @param predicate      see {@link DoubleStream#takeWhile}
      * @return see {@link DoubleStream#takeWhile}
      */
-    public ExDoubleStream exTakeWhile(ExDoublePredicate<?> predicate) {
+    public <E extends Exception> ExDoubleStream takeWhile(@SuppressWarnings("unused") Class<E> exceptionClass, ExDoublePredicate<? extends E> predicate) {
         return of(takeWhile(predicate.wrap()));
     }
 
@@ -306,7 +325,7 @@ public class ExDoubleStream implements DoubleStream {
      * @param predicate see {@link DoubleStream#dropWhile}
      * @return see {@link DoubleStream#dropWhile}
      */
-    public ExDoubleStream exDropWhile(ExDoublePredicate<?> predicate) {
+    public <E extends Exception> ExDoubleStream dropWhile(@SuppressWarnings("unused") Class<E> exceptionClass, ExDoublePredicate<? extends E> predicate) {
         return of(dropWhile(predicate.wrap()));
     }
 
@@ -316,9 +335,11 @@ public class ExDoubleStream implements DoubleStream {
      * If {@code action} throws a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param action see {@link DoubleStream#forEach}
+     * @param <E>            The exception type thrown by {@code action}
+     * @param exceptionClass The exception class for {@link E}
+     * @param action         see {@link DoubleStream#forEach}
      */
-    public void exForEach(ExDoubleConsumer<?> action) {
+    public <E extends Exception> void forEach(@SuppressWarnings("unused") Class<E> exceptionClass, ExDoubleConsumer<? extends E> action) {
         forEach(action.wrap());
     }
 
@@ -328,9 +349,11 @@ public class ExDoubleStream implements DoubleStream {
      * If {@code action} throws a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param action see {@link DoubleStream#forEachOrdered}
+     * @param <E>            The exception type thrown by {@code action}
+     * @param exceptionClass The exception class for {@link E}
+     * @param action         see {@link DoubleStream#forEachOrdered}
      */
-    public void exForEachOrdered(ExDoubleConsumer<?> action) {
+    public <E extends Exception> void forEachOrdered(@SuppressWarnings("unused") Class<E> exceptionClass, ExDoubleConsumer<? extends E> action) {
         forEachOrdered(action.wrap());
     }
 
@@ -340,11 +363,13 @@ public class ExDoubleStream implements DoubleStream {
      * If {@code action} throws a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param identity see {@link DoubleStream#reduce(double, DoubleBinaryOperator)}
-     * @param op       see {@link DoubleStream#reduce(double, DoubleBinaryOperator)}
+     * @param <E>            The exception type thrown by {@code op}
+     * @param exceptionClass The exception class for {@link E}
+     * @param identity       see {@link DoubleStream#reduce(double, DoubleBinaryOperator)}
+     * @param op             see {@link DoubleStream#reduce(double, DoubleBinaryOperator)}
      * @return see {@link DoubleStream#reduce(double, DoubleBinaryOperator)}
      */
-    public Double exReduce(double identity, ExDoubleBinaryOperator<?> op) {
+    public <E extends Exception> double reduce(@SuppressWarnings("unused") Class<E> exceptionClass, double identity, ExDoubleBinaryOperator<? extends E> op) {
         return reduce(identity, op.wrap());
     }
 
@@ -354,10 +379,12 @@ public class ExDoubleStream implements DoubleStream {
      * If {@code action} throws a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param op see {@link DoubleStream#reduce(DoubleBinaryOperator)}
+     * @param <E>            The exception type thrown by {@code op}
+     * @param exceptionClass The exception class for {@link E}
+     * @param op             see {@link DoubleStream#reduce(DoubleBinaryOperator)}
      * @return see {@link DoubleStream#reduce(DoubleBinaryOperator)}
      */
-    public OptionalDouble exReduce(ExDoubleBinaryOperator<?> op) {
+    public <E extends Exception> OptionalDouble reduce(@SuppressWarnings("unused") Class<E> exceptionClass, ExDoubleBinaryOperator<? extends E> op) {
         return reduce(op.wrap());
     }
 
@@ -367,14 +394,16 @@ public class ExDoubleStream implements DoubleStream {
      * If {@code supplier}, {@code accumulator} or {@code combiner} throw a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param <R>         the type of the mutable result container
-     * @param supplier    see {@link DoubleStream#collect}
-     * @param accumulator see {@link DoubleStream#collect}
-     * @param combiner    see {@link DoubleStream#collect}
+     * @param <R>            the type of the mutable result container
+     * @param <E>            The exception type thrown by {@code supplier}, {@code accumulator} or {@code combiner}
+     * @param exceptionClass The exception class for {@link E}
+     * @param supplier       see {@link DoubleStream#collect}
+     * @param accumulator    see {@link DoubleStream#collect}
+     * @param combiner       see {@link DoubleStream#collect}
      * @return see {@link DoubleStream#collect}
      */
-    public <R> R exCollect(ExSupplier<R, ?> supplier, ExObjDoubleConsumer<R, ?> accumulator,
-                           ExBiConsumer<R, R, ?> combiner) {
+    public <R, E extends Exception> R collect(@SuppressWarnings("unused") Class<E> exceptionClass, ExSupplier<R, ? extends E> supplier,
+                                              ExObjDoubleConsumer<R, ? extends E> accumulator, ExBiConsumer<R, R, ? extends E> combiner) {
         return collect(supplier.wrap(), accumulator.wrap(), combiner.wrap());
     }
 
@@ -384,10 +413,12 @@ public class ExDoubleStream implements DoubleStream {
      * If {@code predicate} throws a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param predicate see {@link DoubleStream#anyMatch}
+     * @param <E>            The exception type thrown by {@code predicate}
+     * @param exceptionClass The exception class for {@link E}
+     * @param predicate      see {@link DoubleStream#anyMatch}
      * @return see {@link DoubleStream#anyMatch}
      */
-    public boolean exAnyMatch(ExDoublePredicate<?> predicate) {
+    public <E extends Exception> boolean anyMatch(@SuppressWarnings("unused") Class<E> exceptionClass, ExDoublePredicate<? extends E> predicate) {
         return anyMatch(predicate.wrap());
     }
 
@@ -397,10 +428,12 @@ public class ExDoubleStream implements DoubleStream {
      * If {@code predicate} throws a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param predicate see {@link DoubleStream#allMatch}
+     * @param <E>            The exception type thrown by {@code predicate}
+     * @param exceptionClass The exception class for {@link E}
+     * @param predicate      see {@link DoubleStream#allMatch}
      * @return see {@link DoubleStream#allMatch}
      */
-    public boolean exAllMatch(ExDoublePredicate<?> predicate) {
+    public <E extends Exception> boolean allMatch(@SuppressWarnings("unused") Class<E> exceptionClass, ExDoublePredicate<? extends E> predicate) {
         return allMatch(predicate.wrap());
     }
 
@@ -410,10 +443,12 @@ public class ExDoubleStream implements DoubleStream {
      * If {@code predicate} throws a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param predicate see {@link DoubleStream#noneMatch}
+     * @param <E>            The exception type thrown by {@code predicate}
+     * @param exceptionClass The exception class for {@link E}
+     * @param predicate      see {@link DoubleStream#noneMatch}
      * @return see {@link DoubleStream#noneMatch}
      */
-    public boolean exNoneMatch(ExDoublePredicate<?> predicate) {
+    public <E extends Exception> boolean noneMatch(@SuppressWarnings("unused") Class<E> exceptionClass, ExDoublePredicate<? extends E> predicate) {
         return noneMatch(predicate.wrap());
     }
 

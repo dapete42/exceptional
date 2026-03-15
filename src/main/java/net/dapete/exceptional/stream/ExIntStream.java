@@ -12,7 +12,7 @@ import java.util.stream.IntStream;
  * A IntStream with additional functionality for functional interfaces that throw Exceptions.
  * <p>
  * Implements versions of all methods from IntStream that use functional interfaces, using their counterparts with Exceptions instead, e.g.
- * {@link #exMap} in parallel to {@link #map}.
+ * {@link #map(Class, ExIntUnaryOperator)} in parallel to {@link #map(IntUnaryOperator)}.
  * <p>
  * If these functional interfaces throw a checked exception, a {@link ExException} will be thrown instead.
  * This will have the original exception as its {@link ExException#getCause() cause}.
@@ -177,10 +177,12 @@ public class ExIntStream implements IntStream {
      * Note that this exception will likely not be thrown when a method is called, but only when a <em>terminal operation</em> or a
      * <em>stateful intermediate operation</em> is used on the stream.
      *
-     * @param predicate see {@link IntStream#filter}
+     * @param <E>            The exception type thrown by {@code mapper}
+     * @param exceptionClass The exception class for {@link E}
+     * @param predicate      see {@link IntStream#filter}
      * @return see {@link IntStream#filter}
      */
-    public ExIntStream exFilter(ExIntPredicate<?> predicate) {
+    public <E extends Exception> ExIntStream filter(@SuppressWarnings("unused") Class<E> exceptionClass, ExIntPredicate<? extends E> predicate) {
         return of(filter(predicate.wrap()));
     }
 
@@ -193,10 +195,12 @@ public class ExIntStream implements IntStream {
      * Note that this exception will likely not be thrown when a method is called, but only when a <em>terminal operation</em> or a
      * <em>stateful intermediate operation</em> is used on the stream.
      *
-     * @param mapper see {@link IntStream#map}
+     * @param <E>            The exception type thrown by {@code mapper}
+     * @param exceptionClass The exception class for {@link E}
+     * @param mapper         see {@link IntStream#map}
      * @return see {@link IntStream#map}
      */
-    public ExIntStream exMap(ExIntUnaryOperator<?> mapper) {
+    public <E extends Exception> ExIntStream map(@SuppressWarnings("unused") Class<E> exceptionClass, ExIntUnaryOperator<? extends E> mapper) {
         return of(map(mapper.wrap()));
     }
 
@@ -209,11 +213,13 @@ public class ExIntStream implements IntStream {
      * Note that this exception will likely not be thrown when a method is called, but only when a <em>terminal operation</em> or a
      * <em>stateful intermediate operation</em> is used on the stream.
      *
-     * @param <U>    the element type of the new stream
-     * @param mapper see {@link IntStream#mapToObj}
+     * @param <U>            the element type of the new stream
+     * @param <E>            The exception type thrown by {@code mapper}
+     * @param exceptionClass The exception class for {@link E}
+     * @param mapper         see {@link IntStream#mapToObj}
      * @return see {@link IntStream#mapToObj}
      */
-    public <U> ExStream<U> exMapToObj(ExIntFunction<? extends U, ?> mapper) {
+    public <U, E extends Exception> ExStream<U> mapToObj(@SuppressWarnings("unused") Class<E> exceptionClass, ExIntFunction<? extends U, ? extends E> mapper) {
         return ExStream.of(mapToObj(mapper.wrap()));
     }
 
@@ -226,10 +232,12 @@ public class ExIntStream implements IntStream {
      * Note that this exception will likely not be thrown when a method is called, but only when a <em>terminal operation</em> or a
      * <em>stateful intermediate operation</em> is used on the stream.
      *
-     * @param mapper see {@link IntStream#mapToDouble}
+     * @param <E>            The exception type thrown by {@code mapper}
+     * @param exceptionClass The exception class for {@link E}
+     * @param mapper         see {@link IntStream#mapToDouble}
      * @return see {@link IntStream#mapToDouble}
      */
-    public ExDoubleStream exMapToDouble(ExIntToDoubleFunction<?> mapper) {
+    public <E extends Exception> ExDoubleStream mapToDouble(@SuppressWarnings("unused") Class<E> exceptionClass, ExIntToDoubleFunction<? extends E> mapper) {
         return ExDoubleStream.of(mapToDouble(mapper.wrap()));
     }
 
@@ -242,10 +250,12 @@ public class ExIntStream implements IntStream {
      * Note that this exception will likely not be thrown when a method is called, but only when a <em>terminal operation</em> or a
      * <em>stateful intermediate operation</em> is used on the stream.
      *
-     * @param mapper see {@link IntStream#mapToLong}
+     * @param <E>            The exception type thrown by {@code mapper}
+     * @param exceptionClass The exception class for {@link E}
+     * @param mapper         see {@link IntStream#mapToLong}
      * @return see {@link IntStream#mapToLong}
      */
-    public ExLongStream exMapToLong(ExIntToLongFunction<?> mapper) {
+    public <E extends Exception> ExLongStream mapToLong(@SuppressWarnings("unused") Class<E> exceptionClass, ExIntToLongFunction<? extends E> mapper) {
         return ExLongStream.of(mapToLong(mapper.wrap()));
     }
 
@@ -258,10 +268,13 @@ public class ExIntStream implements IntStream {
      * Note that this exception will likely not be thrown when a method is called, but only when a <em>terminal operation</em> or a
      * <em>stateful intermediate operation</em> is used on the stream.
      *
-     * @param mapper see {@link IntStream#flatMap}
+     * @param <E>            The exception type thrown by {@code mapper}
+     * @param exceptionClass The exception class for {@link E}
+     * @param mapper         see {@link IntStream#flatMap}
      * @return see {@link IntStream#flatMap}
      */
-    public ExIntStream exFlatMap(ExIntFunction<? extends IntStream, ?> mapper) {
+    public <E extends Exception> ExIntStream flatMap(@SuppressWarnings("unused") Class<E> exceptionClass,
+                                                     ExIntFunction<? extends IntStream, ? extends E> mapper) {
         return of(flatMap(mapper.wrap()));
     }
 
@@ -274,10 +287,12 @@ public class ExIntStream implements IntStream {
      * Note that this exception will likely not be thrown when a method is called, but only when a <em>terminal operation</em> or a
      * <em>stateful intermediate operation</em> is used on the stream.
      *
-     * @param mapper see {@link IntStream#mapMulti}
+     * @param <E>            The exception type thrown by {@code mapper}
+     * @param exceptionClass The exception class for {@link E}
+     * @param mapper         see {@link IntStream#mapMulti}
      * @return see {@link IntStream#mapMulti}
      */
-    public ExIntStream exMapMulti(ExIntMapMultiConsumer<?> mapper) {
+    public <E extends Exception> ExIntStream mapMulti(@SuppressWarnings("unused") Class<E> exceptionClass, ExIntMapMultiConsumer<? extends E> mapper) {
         return of(mapMulti(mapper.wrap()));
     }
 
@@ -287,10 +302,12 @@ public class ExIntStream implements IntStream {
      * If {@code action} throws a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param action see {@link IntStream#peek}
+     * @param <E>            The exception type thrown by {@code action}
+     * @param exceptionClass The exception class for {@link E}
+     * @param action         see {@link IntStream#peek}
      * @return see {@link IntStream#peek}
      */
-    public ExIntStream exPeek(ExIntConsumer<?> action) {
+    public <E extends Exception> ExIntStream peek(@SuppressWarnings("unused") Class<E> exceptionClass, ExIntConsumer<? extends E> action) {
         return of(peek(action.wrap()));
     }
 
@@ -300,10 +317,12 @@ public class ExIntStream implements IntStream {
      * If {@code predicate} throws a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param predicate see {@link IntStream#takeWhile}
+     * @param <E>            The exception type thrown by {@code predicate}
+     * @param exceptionClass The exception class for {@link E}
+     * @param predicate      see {@link IntStream#takeWhile}
      * @return see {@link IntStream#takeWhile}
      */
-    public ExIntStream exTakeWhile(ExIntPredicate<?> predicate) {
+    public <E extends Exception> ExIntStream takeWhile(@SuppressWarnings("unused") Class<E> exceptionClass, ExIntPredicate<? extends E> predicate) {
         return of(takeWhile(predicate.wrap()));
     }
 
@@ -316,7 +335,7 @@ public class ExIntStream implements IntStream {
      * @param predicate see {@link IntStream#dropWhile}
      * @return see {@link IntStream#dropWhile}
      */
-    public ExIntStream exDropWhile(ExIntPredicate<?> predicate) {
+    public <E extends Exception> ExIntStream dropWhile(@SuppressWarnings("unused") Class<E> exceptionClass, ExIntPredicate<? extends E> predicate) {
         return of(dropWhile(predicate.wrap()));
     }
 
@@ -326,9 +345,11 @@ public class ExIntStream implements IntStream {
      * If {@code action} throws a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param action see {@link IntStream#forEach}
+     * @param <E>            The exception type thrown by {@code action}
+     * @param exceptionClass The exception class for {@link E}
+     * @param action         see {@link IntStream#forEach}
      */
-    public void exForEach(ExIntConsumer<?> action) {
+    public <E extends Exception> void forEach(@SuppressWarnings("unused") Class<E> exceptionClass, ExIntConsumer<? extends E> action) {
         forEach(action.wrap());
     }
 
@@ -338,9 +359,11 @@ public class ExIntStream implements IntStream {
      * If {@code action} throws a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param action see {@link IntStream#forEachOrdered}
+     * @param <E>            The exception type thrown by {@code action}
+     * @param exceptionClass The exception class for {@link E}
+     * @param action         see {@link IntStream#forEachOrdered}
      */
-    public void exForEachOrdered(ExIntConsumer<?> action) {
+    public <E extends Exception> void forEachOrdered(@SuppressWarnings("unused") Class<E> exceptionClass, ExIntConsumer<? extends E> action) {
         forEachOrdered(action.wrap());
     }
 
@@ -350,11 +373,13 @@ public class ExIntStream implements IntStream {
      * If {@code action} throws a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param identity see {@link IntStream#reduce(int, IntBinaryOperator)}
-     * @param op       see {@link IntStream#reduce(int, IntBinaryOperator)}
+     * @param <E>            The exception type thrown by {@code op}
+     * @param exceptionClass The exception class for {@link E}
+     * @param identity       see {@link IntStream#reduce(int, IntBinaryOperator)}
+     * @param op             see {@link IntStream#reduce(int, IntBinaryOperator)}
      * @return see {@link IntStream#reduce(int, IntBinaryOperator)}
      */
-    public int exReduce(int identity, ExIntBinaryOperator<?> op) {
+    public <E extends Exception> Integer reduce(@SuppressWarnings("unused") Class<E> exceptionClass, Integer identity, ExIntBinaryOperator<? extends E> op) {
         return reduce(identity, op.wrap());
     }
 
@@ -364,10 +389,12 @@ public class ExIntStream implements IntStream {
      * If {@code action} throws a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param op see {@link IntStream#reduce(IntBinaryOperator)}
+     * @param <E>            The exception type thrown by {@code op}
+     * @param exceptionClass The exception class for {@link E}
+     * @param op             see {@link IntStream#reduce(IntBinaryOperator)}
      * @return see {@link IntStream#reduce(IntBinaryOperator)}
      */
-    public OptionalInt exReduce(ExIntBinaryOperator<?> op) {
+    public <E extends Exception> OptionalInt reduce(@SuppressWarnings("unused") Class<E> exceptionClass, ExIntBinaryOperator<? extends E> op) {
         return reduce(op.wrap());
     }
 
@@ -377,14 +404,16 @@ public class ExIntStream implements IntStream {
      * If {@code supplier}, {@code accumulator} or {@code combiner} throw a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param <R>         the type of the mutable result container
-     * @param supplier    see {@link IntStream#collect}
-     * @param accumulator see {@link IntStream#collect}
-     * @param combiner    see {@link IntStream#collect}
+     * @param <R>            the type of the mutable result container
+     * @param <E>            The exception type thrown by {@code supplier}, {@code accumulator} or {@code combiner}
+     * @param exceptionClass The exception class for {@link E}
+     * @param supplier       see {@link IntStream#collect}
+     * @param accumulator    see {@link IntStream#collect}
+     * @param combiner       see {@link IntStream#collect}
      * @return see {@link IntStream#collect}
      */
-    public <R> R exCollect(ExSupplier<R, ?> supplier, ExObjIntConsumer<R, ?> accumulator,
-                           ExBiConsumer<R, R, ?> combiner) {
+    public <R, E extends Exception> R collect(@SuppressWarnings("unused") Class<E> exceptionClass, ExSupplier<R, ? extends E> supplier,
+                                              ExObjIntConsumer<R, ? extends E> accumulator, ExBiConsumer<R, R, ? extends E> combiner) {
         return collect(supplier.wrap(), accumulator.wrap(), combiner.wrap());
     }
 
@@ -394,10 +423,12 @@ public class ExIntStream implements IntStream {
      * If {@code predicate} throws a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param predicate see {@link IntStream#anyMatch}
+     * @param <E>            The exception type thrown by {@code predicate}
+     * @param exceptionClass The exception class for {@link E}
+     * @param predicate      see {@link IntStream#anyMatch}
      * @return see {@link IntStream#anyMatch}
      */
-    public boolean exAnyMatch(ExIntPredicate<?> predicate) {
+    public <E extends Exception> boolean anyMatch(@SuppressWarnings("unused") Class<E> exceptionClass, ExIntPredicate<? extends E> predicate) {
         return anyMatch(predicate.wrap());
     }
 
@@ -407,23 +438,27 @@ public class ExIntStream implements IntStream {
      * If {@code predicate} throws a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param predicate see {@link IntStream#allMatch}
+     * @param <E>            The exception type thrown by {@code predicate}
+     * @param exceptionClass The exception class for {@link E}
+     * @param predicate      see {@link IntStream#allMatch}
      * @return see {@link IntStream#allMatch}
      */
-    public boolean exAllMatch(ExIntPredicate<?> predicate) {
+    public <E extends Exception> boolean allMatch(@SuppressWarnings("unused") Class<E> exceptionClass, ExIntPredicate<? extends E> predicate) {
         return allMatch(predicate.wrap());
     }
 
     /**
-     * Equivalent of {@link IntStream#noneMatch} }.
+     * Equivalent of {@link IntStream#noneMatch}.
      * <p>
      * If {@code predicate} throws a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param predicate see {@link IntStream#noneMatch}
+     * @param <E>            The exception type thrown by {@code predicate}
+     * @param exceptionClass The exception class for {@link E}
+     * @param predicate      see {@link IntStream#noneMatch}
      * @return see {@link IntStream#noneMatch}
      */
-    public boolean exNoneMatch(ExIntPredicate<?> predicate) {
+    public <E extends Exception> boolean noneMatch(@SuppressWarnings("unused") Class<E> exceptionClass, ExIntPredicate<? extends E> predicate) {
         return noneMatch(predicate.wrap());
     }
 

@@ -13,7 +13,7 @@ class ExLongStreamTest {
     void map_exception() {
         final var thrown = assertThrows(ExException.class,
                 () -> ExLongStream.of(1, 2, 3)
-                        .exMap(t -> {
+                        .map(IOException.class, t -> {
                             throw new IOException("Test");
                         })
                         .boxed()
@@ -26,7 +26,7 @@ class ExLongStreamTest {
     @Test
     void map_noExceptionBeforeEndOperation() {
         @SuppressWarnings("unused") final var ignore = ExLongStream.of(1, 2, 3)
-                .exMap(t -> {
+                .map(IOException.class, t -> {
                     throw new IOException("Test");
                 });
     }

@@ -64,7 +64,7 @@ class ExExceptionTest {
 
         try {
             ExIntStream.of(1, 2, 3)
-                    .exForEach(i -> {
+                    .forEach(IOException.class, i -> {
                         throw new IOException("Test");
                     });
         } catch (ExException e) {
@@ -90,7 +90,7 @@ class ExExceptionTest {
 
         try {
             ExIntStream.of(1, 2, 3)
-                    .exForEach(i -> {
+                    .forEach(IOException.class, i -> {
                         throw new IOException("Test");
                     });
         } catch (ExException e) {
@@ -114,7 +114,7 @@ class ExExceptionTest {
 
         try {
             ExIntStream.of(1, 2, 3)
-                    .exForEach(i -> {
+                    .forEach(IOException.class, i -> {
                         throw new IOException("Test");
                     });
         } catch (ExException e) {
@@ -138,7 +138,7 @@ class ExExceptionTest {
 
         try {
             ExIntStream.of(1, 2, 3)
-                    .exForEach(i -> {
+                    .forEach(IOException.class, i -> {
                         throw new IOException("Test");
                     });
         } catch (ExException e) {
