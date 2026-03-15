@@ -27,7 +27,7 @@ public interface ExLongMapMultiConsumer<E extends Exception> extends Wrappable<L
 
     @Override
     default LongStream.LongMapMultiConsumer wrap() {
-        return (value, ic) -> ExUtils.wrapAndRun(() -> accept(value, ic::accept));
+        return (value, ic) -> ExUtils.wrap(() -> accept(value, ic::accept));
     }
 
 }

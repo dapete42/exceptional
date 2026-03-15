@@ -27,7 +27,7 @@ public interface ExBiFunction<T, U, R, E extends Exception> extends Wrappable<Bi
 
     @Override
     default BiFunction<T, U, R> wrap() {
-        return (t, u) -> ExUtils.wrapAndGet(() -> apply(t, u));
+        return (t, u) -> ExUtils.wrap(() -> apply(t, u));
     }
 
 }

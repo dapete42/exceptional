@@ -23,7 +23,7 @@ public interface ExLongToDoubleFunction<E extends Exception> extends Wrappable<L
 
     @Override
     default LongToDoubleFunction wrap() {
-        return value -> ExUtils.wrapAndGet(() -> applyAsDouble(value));
+        return value -> ExUtils.wrap(() -> applyAsDouble(value));
     }
 
 }

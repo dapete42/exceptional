@@ -24,7 +24,7 @@ public interface ExDoubleBinaryOperator<E extends Exception> extends Wrappable<D
 
     @Override
     default DoubleBinaryOperator wrap() {
-        return (left, right) -> ExUtils.wrapAndGet(() -> applyAsDouble(left, right));
+        return (left, right) -> ExUtils.wrap(() -> applyAsDouble(left, right));
     }
 
 }

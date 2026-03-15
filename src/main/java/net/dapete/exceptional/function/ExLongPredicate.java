@@ -23,7 +23,7 @@ public interface ExLongPredicate<E extends Exception> extends Wrappable<LongPred
 
     @Override
     default LongPredicate wrap() {
-        return value -> ExUtils.wrapAndGet(() -> test(value));
+        return value -> ExUtils.wrap(() -> test(value));
     }
 
 }

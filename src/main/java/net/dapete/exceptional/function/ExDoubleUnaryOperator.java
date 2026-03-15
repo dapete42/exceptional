@@ -23,7 +23,7 @@ public interface ExDoubleUnaryOperator<E extends Exception> extends Wrappable<Do
 
     @Override
     default DoubleUnaryOperator wrap() {
-        return operand -> ExUtils.wrapAndGet(() -> applyAsDouble(operand));
+        return operand -> ExUtils.wrap(() -> applyAsDouble(operand));
     }
 
     /**

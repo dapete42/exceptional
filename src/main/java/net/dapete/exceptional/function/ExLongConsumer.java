@@ -22,7 +22,7 @@ public interface ExLongConsumer<E extends Exception> extends Wrappable<LongConsu
 
     @Override
     default LongConsumer wrap() {
-        return value -> ExUtils.wrapAndRun(() -> accept(value));
+        return value -> ExUtils.wrap(() -> accept(value));
     }
 
 }

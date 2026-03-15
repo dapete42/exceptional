@@ -26,7 +26,7 @@ public interface ExToLongBiFunction<T, U, E extends Exception> extends Wrappable
 
     @Override
     default ToLongBiFunction<T, U> wrap() {
-        return (t, u) -> ExUtils.wrapAndGet(() -> applyAsLong(t, u));
+        return (t, u) -> ExUtils.wrap(() -> applyAsLong(t, u));
     }
 
 }

@@ -25,7 +25,7 @@ public interface ExFunction<T, R, E extends Exception> extends Wrappable<Functio
 
     @Override
     default Function<T, R> wrap() {
-        return t -> ExUtils.wrapAndGet(() -> apply(t));
+        return t -> ExUtils.wrap(() -> apply(t));
     }
 
 }

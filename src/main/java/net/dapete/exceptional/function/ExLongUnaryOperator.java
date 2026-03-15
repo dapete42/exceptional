@@ -23,7 +23,7 @@ public interface ExLongUnaryOperator<E extends Exception> extends Wrappable<Long
 
     @Override
     default LongUnaryOperator wrap() {
-        return operand -> ExUtils.wrapAndGet(() -> applyAsLong(operand));
+        return operand -> ExUtils.wrap(() -> applyAsLong(operand));
     }
 
     /**

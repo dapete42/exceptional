@@ -27,7 +27,7 @@ public interface ExDoubleMapMultiConsumer<E extends Exception> extends Wrappable
 
     @Override
     default DoubleStream.DoubleMapMultiConsumer wrap() {
-        return (value, ic) -> ExUtils.wrapAndRun(() -> accept(value, ic::accept));
+        return (value, ic) -> ExUtils.wrap(() -> accept(value, ic::accept));
     }
 
 }

@@ -24,7 +24,7 @@ public interface ExObjLongConsumer<T, E extends Exception> extends Wrappable<Obj
 
     @Override
     default ObjLongConsumer<T> wrap() {
-        return (t, value) -> ExUtils.wrapAndRun(() -> accept(t, value));
+        return (t, value) -> ExUtils.wrap(() -> accept(t, value));
     }
 
 }

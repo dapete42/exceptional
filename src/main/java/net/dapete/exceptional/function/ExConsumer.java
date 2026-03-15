@@ -23,7 +23,7 @@ public interface ExConsumer<T, E extends Exception> extends Wrappable<Consumer<T
 
     @Override
     default Consumer<T> wrap() {
-        return t -> ExUtils.wrapAndRun(() -> accept(t));
+        return t -> ExUtils.wrap(() -> accept(t));
     }
 
 }

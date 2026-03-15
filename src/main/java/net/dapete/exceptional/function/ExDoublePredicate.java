@@ -23,7 +23,7 @@ public interface ExDoublePredicate<E extends Exception> extends Wrappable<Double
 
     @Override
     default DoublePredicate wrap() {
-        return value -> ExUtils.wrapAndGet(() -> test(value));
+        return value -> ExUtils.wrap(() -> test(value));
     }
 
 }

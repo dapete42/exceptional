@@ -24,7 +24,7 @@ public interface ExLongBinaryOperator<E extends Exception> extends Wrappable<Lon
 
     @Override
     default LongBinaryOperator wrap() {
-        return (left, right) -> ExUtils.wrapAndGet(() -> applyAsLong(left, right));
+        return (left, right) -> ExUtils.wrap(() -> applyAsLong(left, right));
     }
 
 }

@@ -23,7 +23,7 @@ public interface ExIntToLongFunction<E extends Exception> extends Wrappable<IntT
 
     @Override
     default IntToLongFunction wrap() {
-        return value -> ExUtils.wrapAndGet(() -> applyAsLong(value));
+        return value -> ExUtils.wrap(() -> applyAsLong(value));
     }
 
 }

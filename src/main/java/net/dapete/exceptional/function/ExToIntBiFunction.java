@@ -26,7 +26,7 @@ public interface ExToIntBiFunction<T, U, E extends Exception> extends Wrappable<
 
     @Override
     default ToIntBiFunction<T, U> wrap() {
-        return (t, u) -> ExUtils.wrapAndGet(() -> applyAsInt(t, u));
+        return (t, u) -> ExUtils.wrap(() -> applyAsInt(t, u));
     }
 
 }

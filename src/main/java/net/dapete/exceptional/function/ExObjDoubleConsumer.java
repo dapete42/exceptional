@@ -24,7 +24,7 @@ public interface ExObjDoubleConsumer<T, E extends Exception> extends Wrappable<O
 
     @Override
     default ObjDoubleConsumer<T> wrap() {
-        return (t, value) -> ExUtils.wrapAndRun(() -> accept(t, value));
+        return (t, value) -> ExUtils.wrap(() -> accept(t, value));
     }
 
 }

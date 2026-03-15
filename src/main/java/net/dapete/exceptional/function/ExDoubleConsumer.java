@@ -22,7 +22,7 @@ public interface ExDoubleConsumer<E extends Exception> extends Wrappable<DoubleC
 
     @Override
     default DoubleConsumer wrap() {
-        return value -> ExUtils.wrapAndRun(() -> accept(value));
+        return value -> ExUtils.wrap(() -> accept(value));
     }
 
 }

@@ -24,7 +24,7 @@ public interface ExIntFunction<R, E extends Exception> extends Wrappable<IntFunc
 
     @Override
     default IntFunction<R> wrap() {
-        return value -> ExUtils.wrapAndGet(() -> apply(value));
+        return value -> ExUtils.wrap(() -> apply(value));
     }
 
 }

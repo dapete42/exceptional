@@ -54,7 +54,7 @@ public final class ExUtils {
      * @return the result of {@code supplier.get()}.
      * @throws ExException if {@code runnable.run()} threw a checked exception.
      */
-    public static <T, E extends Exception> T wrapAndGet(ExSupplier<T, E> supplier) {
+    public static <T, E extends Exception> T wrap(ExSupplier<T, E> supplier) {
         try {
             return supplier.get();
         } catch (Exception e) {
@@ -72,7 +72,7 @@ public final class ExUtils {
      * @param <E>      the type of exception thrown by the {@code ExRunnable}.
      * @throws ExException if {@code runnable.run()} threw a checked exception.
      */
-    public static <E extends Exception> void wrapAndRun(ExRunnable<E> runnable) {
+    public static <E extends Exception> void wrap(ExRunnable<E> runnable) {
         try {
             runnable.run();
         } catch (Exception e) {

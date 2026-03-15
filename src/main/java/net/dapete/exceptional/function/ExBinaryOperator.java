@@ -25,7 +25,7 @@ public interface ExBinaryOperator<T, E extends Exception> extends Wrappable<Bina
 
     @Override
     default BinaryOperator<T> wrap() {
-        return (t1, t2) -> ExUtils.wrapAndGet(() -> apply(t1, t2));
+        return (t1, t2) -> ExUtils.wrap(() -> apply(t1, t2));
     }
 
 }

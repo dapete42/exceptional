@@ -24,7 +24,7 @@ public interface ExDoubleFunction<R, E extends Exception> extends Wrappable<Doub
 
     @Override
     default DoubleFunction<R> wrap() {
-        return value -> ExUtils.wrapAndGet(() -> apply(value));
+        return value -> ExUtils.wrap(() -> apply(value));
     }
 
 }

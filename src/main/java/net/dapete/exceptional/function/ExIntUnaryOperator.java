@@ -23,7 +23,7 @@ public interface ExIntUnaryOperator<E extends Exception> extends Wrappable<IntUn
 
     @Override
     default IntUnaryOperator wrap() {
-        return operand -> ExUtils.wrapAndGet(() -> applyAsInt(operand));
+        return operand -> ExUtils.wrap(() -> applyAsInt(operand));
     }
 
     /**

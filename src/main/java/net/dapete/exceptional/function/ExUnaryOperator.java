@@ -24,7 +24,7 @@ public interface ExUnaryOperator<T, E extends Exception> extends Wrappable<Unary
 
     @Override
     default UnaryOperator<T> wrap() {
-        return t -> ExUtils.wrapAndGet(() -> apply(t));
+        return t -> ExUtils.wrap(() -> apply(t));
     }
 
     /**

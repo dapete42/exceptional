@@ -26,7 +26,7 @@ public interface ExToDoubleBiFunction<T, U, E extends Exception> extends Wrappab
 
     @Override
     default ToDoubleBiFunction<T, U> wrap() {
-        return (t, u) -> ExUtils.wrapAndGet(() -> applyAsDouble(t, u));
+        return (t, u) -> ExUtils.wrap(() -> applyAsDouble(t, u));
     }
 
 }

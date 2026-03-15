@@ -24,7 +24,7 @@ public interface ExPredicate<T, E extends Exception> extends Wrappable<Predicate
 
     @Override
     default Predicate<T> wrap() {
-        return t -> ExUtils.wrapAndGet(() -> test(t));
+        return t -> ExUtils.wrap(() -> test(t));
     }
 
 }

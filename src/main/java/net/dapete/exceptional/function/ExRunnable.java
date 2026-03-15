@@ -19,7 +19,7 @@ public interface ExRunnable<E extends Exception> extends Wrappable<Runnable> {
 
     @Override
     default Runnable wrap() {
-        return () -> ExUtils.wrapAndRun(this);
+        return () -> ExUtils.wrap(this);
     }
 
 }

@@ -23,7 +23,7 @@ public interface ExSupplier<T, E extends Exception> extends Wrappable<Supplier<T
 
     @Override
     default Supplier<T> wrap() {
-        return () -> ExUtils.wrapAndGet(this);
+        return () -> ExUtils.wrap(this);
     }
 
 }

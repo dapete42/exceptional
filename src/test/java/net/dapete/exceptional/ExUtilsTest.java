@@ -54,49 +54,49 @@ class ExUtilsTest {
     }
 
     @Test
-    void wrapAndGet() {
+    void wrap_Supplier() {
 
         final ExSupplier<String, IOException> supplier = () -> "test";
 
-        final var result = ExUtils.wrapAndGet(supplier);
+        final var result = ExUtils.wrap(supplier);
 
         assertEquals("test", result);
 
     }
 
     @Test
-    void wrapAndGet_exception() {
+    void wrap_Supplier_exception() {
 
         final ExSupplier<String, IOException> supplier = () -> {
             throw new IOException("test");
         };
 
-        final var thrown = assertThrows(ExException.class, () -> ExUtils.wrapAndGet(supplier));
+        final var thrown = assertThrows(ExException.class, () -> ExUtils.wrap(supplier));
 
         assertEquals("test", thrown.getCause().getMessage());
 
     }
 
     @Test
-    void wrapAndRun() {
+    void wrap_Runnable() {
 
         final var testString = new AtomicReference<String>();
         final ExRunnable<IOException> runnable = () -> testString.set("test");
 
-        ExUtils.wrapAndRun(runnable);
+        ExUtils.wrap(runnable);
 
         assertEquals("test", testString.get());
 
     }
 
     @Test
-    void wrapAnRun_exception() {
+    void wrap_Runnable_exception() {
 
         final ExRunnable<IOException> runnable = () -> {
             throw new IOException("test");
         };
 
-        final var thrown = assertThrows(ExException.class, () -> ExUtils.wrapAndRun(runnable));
+        final var thrown = assertThrows(ExException.class, () -> ExUtils.wrap(runnable));
 
         assertEquals("test", thrown.getCause().getMessage());
 

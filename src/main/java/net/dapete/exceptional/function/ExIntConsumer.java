@@ -22,7 +22,7 @@ public interface ExIntConsumer<E extends Exception> extends Wrappable<IntConsume
 
     @Override
     default IntConsumer wrap() {
-        return value -> ExUtils.wrapAndRun(() -> accept(value));
+        return value -> ExUtils.wrap(() -> accept(value));
     }
 
 }

@@ -24,7 +24,7 @@ public interface ExLongFunction<R, E extends Exception> extends Wrappable<LongFu
 
     @Override
     default LongFunction<R> wrap() {
-        return value -> ExUtils.wrapAndGet(() -> apply(value));
+        return value -> ExUtils.wrap(() -> apply(value));
     }
 
 }

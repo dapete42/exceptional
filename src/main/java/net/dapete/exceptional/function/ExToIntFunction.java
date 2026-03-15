@@ -24,7 +24,7 @@ public interface ExToIntFunction<T, E extends Exception> extends Wrappable<ToInt
 
     @Override
     default ToIntFunction<T> wrap() {
-        return value -> ExUtils.wrapAndGet(() -> applyAsInt(value));
+        return value -> ExUtils.wrap(() -> applyAsInt(value));
     }
 
 }

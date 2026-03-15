@@ -23,7 +23,7 @@ public interface ExDoubleToIntFunction<E extends Exception> extends Wrappable<Do
 
     @Override
     default DoubleToIntFunction wrap() {
-        return value -> ExUtils.wrapAndGet(() -> applyAsInt(value));
+        return value -> ExUtils.wrap(() -> applyAsInt(value));
     }
 
 }

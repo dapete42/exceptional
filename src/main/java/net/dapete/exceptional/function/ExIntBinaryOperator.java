@@ -24,7 +24,7 @@ public interface ExIntBinaryOperator<E extends Exception> extends Wrappable<IntB
 
     @Override
     default IntBinaryOperator wrap() {
-        return (left, right) -> ExUtils.wrapAndGet(() -> applyAsInt(left, right));
+        return (left, right) -> ExUtils.wrap(() -> applyAsInt(left, right));
     }
 
 }

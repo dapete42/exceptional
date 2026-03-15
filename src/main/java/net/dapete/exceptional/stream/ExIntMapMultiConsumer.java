@@ -27,7 +27,7 @@ public interface ExIntMapMultiConsumer<E extends Exception> extends Wrappable<In
 
     @Override
     default IntStream.IntMapMultiConsumer wrap() {
-        return (value, ic) -> ExUtils.wrapAndRun(() -> accept(value, ic::accept));
+        return (value, ic) -> ExUtils.wrap(() -> accept(value, ic::accept));
     }
 
 }

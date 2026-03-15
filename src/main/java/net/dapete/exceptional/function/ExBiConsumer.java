@@ -25,7 +25,7 @@ public interface ExBiConsumer<T, U, E extends Exception> extends Wrappable<BiCon
 
     @Override
     default BiConsumer<T, U> wrap() {
-        return (t, u) -> ExUtils.wrapAndRun(() -> accept(t, u));
+        return (t, u) -> ExUtils.wrap(() -> accept(t, u));
     }
 
 }

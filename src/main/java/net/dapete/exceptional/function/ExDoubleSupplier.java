@@ -22,7 +22,7 @@ public interface ExDoubleSupplier<E extends Exception> extends Wrappable<DoubleS
 
     @Override
     default DoubleSupplier wrap() {
-        return () -> ExUtils.wrapAndGet(this::getAsDouble);
+        return () -> ExUtils.wrap(this::getAsDouble);
     }
 
 }

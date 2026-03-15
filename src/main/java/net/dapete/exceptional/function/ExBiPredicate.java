@@ -26,7 +26,7 @@ public interface ExBiPredicate<T, U, E extends Exception> extends Wrappable<BiPr
 
     @Override
     default BiPredicate<T, U> wrap() {
-        return (t, u) -> ExUtils.wrapAndGet(() -> test(t, u));
+        return (t, u) -> ExUtils.wrap(() -> test(t, u));
     }
 
 }

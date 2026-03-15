@@ -24,7 +24,7 @@ public interface ExToDoubleFunction<T, E extends Exception> extends Wrappable<To
 
     @Override
     default ToDoubleFunction<T> wrap() {
-        return value -> ExUtils.wrapAndGet(() -> applyAsDouble(value));
+        return value -> ExUtils.wrap(() -> applyAsDouble(value));
     }
 
 }

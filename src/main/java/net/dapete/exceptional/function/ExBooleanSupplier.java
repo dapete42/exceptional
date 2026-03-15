@@ -23,7 +23,7 @@ public interface ExBooleanSupplier<E extends Exception> extends Wrappable<Boolea
 
     @Override
     default BooleanSupplier wrap() {
-        return () -> ExUtils.wrapAndGet(this::getAsBoolean);
+        return () -> ExUtils.wrap(this::getAsBoolean);
     }
 
 }

@@ -24,7 +24,7 @@ public interface ExToLongFunction<T, E extends Exception> extends Wrappable<ToLo
 
     @Override
     default ToLongFunction<T> wrap() {
-        return value -> ExUtils.wrapAndGet(() -> applyAsLong(value));
+        return value -> ExUtils.wrap(() -> applyAsLong(value));
     }
 
 }

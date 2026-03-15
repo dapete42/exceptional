@@ -23,7 +23,7 @@ public interface ExIntPredicate<E extends Exception> extends Wrappable<IntPredic
 
     @Override
     default IntPredicate wrap() {
-        return value -> ExUtils.wrapAndGet(() -> test(value));
+        return value -> ExUtils.wrap(() -> test(value));
     }
 
 }

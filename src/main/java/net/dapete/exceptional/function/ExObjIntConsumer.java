@@ -24,7 +24,7 @@ public interface ExObjIntConsumer<T, E extends Exception> extends Wrappable<ObjI
 
     @Override
     default ObjIntConsumer<T> wrap() {
-        return (t, value) -> ExUtils.wrapAndRun(() -> accept(t, value));
+        return (t, value) -> ExUtils.wrap(() -> accept(t, value));
     }
 
 }
