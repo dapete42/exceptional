@@ -1,6 +1,7 @@
 package net.dapete.exceptional.function;
 
 import net.dapete.exceptional.ExUtils;
+import org.jspecify.annotations.NonNull;
 
 import java.util.function.ToLongBiFunction;
 
@@ -25,7 +26,7 @@ public interface ExToLongBiFunction<T, U, E extends Exception> extends Wrappable
     long applyAsLong(T t, U u) throws E;
 
     @Override
-    default ToLongBiFunction<T, U> wrap() {
+    default @NonNull ToLongBiFunction<T, U> wrap() {
         return (t, u) -> ExUtils.wrap(() -> applyAsLong(t, u));
     }
 

@@ -1,6 +1,7 @@
 package net.dapete.exceptional.function;
 
 import net.dapete.exceptional.ExException;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Interfaces which extend this can wrap functional interfaces throwing exceptions using the {@link #wrap()} method, allowing them to be used in contexts where
@@ -21,6 +22,6 @@ public interface Wrappable<W> {
      *
      * @return a wrapped instance of type {@code W}
      */
-    W wrap();
+    @NonNull W wrap();
 
 }

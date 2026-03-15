@@ -1,6 +1,7 @@
 package net.dapete.exceptional.function;
 
 import net.dapete.exceptional.ExUtils;
+import org.jspecify.annotations.NonNull;
 
 import java.util.function.UnaryOperator;
 
@@ -23,7 +24,7 @@ public interface ExUnaryOperator<T, E extends Exception> extends Wrappable<Unary
     T apply(T t) throws E;
 
     @Override
-    default UnaryOperator<T> wrap() {
+    default @NonNull UnaryOperator<T> wrap() {
         return t -> ExUtils.wrap(() -> apply(t));
     }
 
@@ -34,7 +35,7 @@ public interface ExUnaryOperator<T, E extends Exception> extends Wrappable<Unary
      * @param <E> the type of exception thrown
      * @return a unary operator that always returns its input argument
      */
-    static <T, E extends Exception> ExUnaryOperator<T, E> identity() {
+    static <T, E extends Exception> @NonNull ExUnaryOperator<T, E> identity() {
         return t -> t;
     }
 

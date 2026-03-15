@@ -1,6 +1,7 @@
 package net.dapete.exceptional.function;
 
 import net.dapete.exceptional.ExUtils;
+import org.jspecify.annotations.NonNull;
 
 import java.util.function.DoubleBinaryOperator;
 
@@ -23,7 +24,7 @@ public interface ExDoubleBinaryOperator<E extends Exception> extends Wrappable<D
     double applyAsDouble(double left, double right) throws E;
 
     @Override
-    default DoubleBinaryOperator wrap() {
+    default @NonNull DoubleBinaryOperator wrap() {
         return (left, right) -> ExUtils.wrap(() -> applyAsDouble(left, right));
     }
 

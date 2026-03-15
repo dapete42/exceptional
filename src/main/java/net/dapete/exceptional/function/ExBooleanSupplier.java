@@ -2,6 +2,7 @@ package net.dapete.exceptional.function;
 
 
 import net.dapete.exceptional.ExUtils;
+import org.jspecify.annotations.NonNull;
 
 import java.util.function.BooleanSupplier;
 
@@ -22,7 +23,7 @@ public interface ExBooleanSupplier<E extends Exception> extends Wrappable<Boolea
     boolean getAsBoolean() throws E;
 
     @Override
-    default BooleanSupplier wrap() {
+    default @NonNull BooleanSupplier wrap() {
         return () -> ExUtils.wrap(this);
     }
 

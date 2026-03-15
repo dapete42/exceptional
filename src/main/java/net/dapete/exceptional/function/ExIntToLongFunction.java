@@ -1,6 +1,7 @@
 package net.dapete.exceptional.function;
 
 import net.dapete.exceptional.ExUtils;
+import org.jspecify.annotations.NonNull;
 
 import java.util.function.IntToLongFunction;
 
@@ -22,7 +23,7 @@ public interface ExIntToLongFunction<E extends Exception> extends Wrappable<IntT
     long applyAsLong(int value) throws E;
 
     @Override
-    default IntToLongFunction wrap() {
+    default @NonNull IntToLongFunction wrap() {
         return value -> ExUtils.wrap(() -> applyAsLong(value));
     }
 

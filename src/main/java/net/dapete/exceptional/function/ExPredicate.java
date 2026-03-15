@@ -1,6 +1,7 @@
 package net.dapete.exceptional.function;
 
 import net.dapete.exceptional.ExUtils;
+import org.jspecify.annotations.NonNull;
 
 import java.util.function.Predicate;
 
@@ -23,7 +24,7 @@ public interface ExPredicate<T, E extends Exception> extends Wrappable<Predicate
     boolean test(T t) throws E;
 
     @Override
-    default Predicate<T> wrap() {
+    default @NonNull Predicate<T> wrap() {
         return t -> ExUtils.wrap(() -> test(t));
     }
 

@@ -1,6 +1,7 @@
 package net.dapete.exceptional.function;
 
 import net.dapete.exceptional.ExUtils;
+import org.jspecify.annotations.NonNull;
 
 import java.util.function.ToIntFunction;
 
@@ -23,7 +24,7 @@ public interface ExToIntFunction<T, E extends Exception> extends Wrappable<ToInt
     int applyAsInt(T value) throws E;
 
     @Override
-    default ToIntFunction<T> wrap() {
+    default @NonNull ToIntFunction<T> wrap() {
         return value -> ExUtils.wrap(() -> applyAsInt(value));
     }
 

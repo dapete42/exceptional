@@ -1,6 +1,7 @@
 package net.dapete.exceptional.function;
 
 import net.dapete.exceptional.ExUtils;
+import org.jspecify.annotations.NonNull;
 
 import java.util.function.BiFunction;
 
@@ -26,7 +27,7 @@ public interface ExBiFunction<T, U, R, E extends Exception> extends Wrappable<Bi
     R apply(T t, U u) throws E;
 
     @Override
-    default BiFunction<T, U, R> wrap() {
+    default @NonNull BiFunction<T, U, R> wrap() {
         return (t, u) -> ExUtils.wrap(() -> apply(t, u));
     }
 

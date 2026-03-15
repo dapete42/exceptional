@@ -1,6 +1,7 @@
 package net.dapete.exceptional.function;
 
 import net.dapete.exceptional.ExUtils;
+import org.jspecify.annotations.NonNull;
 
 import java.util.function.DoublePredicate;
 
@@ -22,7 +23,7 @@ public interface ExDoublePredicate<E extends Exception> extends Wrappable<Double
     boolean test(double value) throws E;
 
     @Override
-    default DoublePredicate wrap() {
+    default @NonNull DoublePredicate wrap() {
         return value -> ExUtils.wrap(() -> test(value));
     }
 

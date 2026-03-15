@@ -1,6 +1,7 @@
 package net.dapete.exceptional.function;
 
 import net.dapete.exceptional.ExUtils;
+import org.jspecify.annotations.NonNull;
 
 import java.util.function.LongSupplier;
 
@@ -21,7 +22,7 @@ public interface ExLongSupplier<E extends Exception> extends Wrappable<LongSuppl
     long getAsLong() throws E;
 
     @Override
-    default LongSupplier wrap() {
+    default @NonNull LongSupplier wrap() {
         return () -> ExUtils.wrap(this);
     }
 

@@ -1,6 +1,7 @@
 package net.dapete.exceptional.function;
 
 import net.dapete.exceptional.ExUtils;
+import org.jspecify.annotations.NonNull;
 
 import java.util.function.LongFunction;
 
@@ -23,7 +24,7 @@ public interface ExLongFunction<R, E extends Exception> extends Wrappable<LongFu
     R apply(long value) throws E;
 
     @Override
-    default LongFunction<R> wrap() {
+    default @NonNull LongFunction<R> wrap() {
         return value -> ExUtils.wrap(() -> apply(value));
     }
 

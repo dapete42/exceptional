@@ -1,6 +1,7 @@
 package net.dapete.exceptional.function;
 
 import net.dapete.exceptional.ExUtils;
+import org.jspecify.annotations.NonNull;
 
 import java.util.function.DoubleUnaryOperator;
 
@@ -22,7 +23,7 @@ public interface ExDoubleUnaryOperator<E extends Exception> extends Wrappable<Do
     double applyAsDouble(double operand) throws E;
 
     @Override
-    default DoubleUnaryOperator wrap() {
+    default @NonNull DoubleUnaryOperator wrap() {
         return operand -> ExUtils.wrap(() -> applyAsDouble(operand));
     }
 
@@ -32,7 +33,7 @@ public interface ExDoubleUnaryOperator<E extends Exception> extends Wrappable<Do
      * @param <E> the type of exception thrown
      * @return a unary operator that always returns its input argument
      */
-    static <E extends Exception> ExDoubleUnaryOperator<E> identity() {
+    static <E extends Exception> @NonNull ExDoubleUnaryOperator<E> identity() {
         return t -> t;
     }
 

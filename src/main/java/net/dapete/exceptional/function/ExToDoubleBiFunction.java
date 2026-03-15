@@ -1,6 +1,7 @@
 package net.dapete.exceptional.function;
 
 import net.dapete.exceptional.ExUtils;
+import org.jspecify.annotations.NonNull;
 
 import java.util.function.ToDoubleBiFunction;
 
@@ -25,7 +26,7 @@ public interface ExToDoubleBiFunction<T, U, E extends Exception> extends Wrappab
     double applyAsDouble(T t, U u) throws E;
 
     @Override
-    default ToDoubleBiFunction<T, U> wrap() {
+    default @NonNull ToDoubleBiFunction<T, U> wrap() {
         return (t, u) -> ExUtils.wrap(() -> applyAsDouble(t, u));
     }
 
