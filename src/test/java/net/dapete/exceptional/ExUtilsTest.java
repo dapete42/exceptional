@@ -2,6 +2,7 @@ package net.dapete.exceptional;
 
 import net.dapete.exceptional.function.ExRunnable;
 import net.dapete.exceptional.function.ExSupplier;
+import net.dapete.exceptional.stream.ExIntStream;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
@@ -99,6 +100,95 @@ class ExUtilsTest {
         final var thrown = assertThrows(ExException.class, () -> ExUtils.wrap(runnable));
 
         assertEquals("test", thrown.getCause().getMessage());
+
+    }
+
+
+    // TODO this is example code, not a test
+    @Test
+    void unwrap_runnable() {
+
+        /*
+         * How to catch the actual exceptions that were thrown, pattern 2a:
+         * Implement unwrap(...) and catch the cause of the ExException.
+         */
+
+        try {
+            ExUtils.unwrap(() ->
+                    ExIntStream.of(1, 2, 3)
+                            .exForEach(i -> {
+                                throw new IOException("Test");
+                            })
+            );
+        } catch (IOException e) {
+            System.out.println("IOException was thrown");
+        } catch (Exception e) {
+            System.out.println("Exception was thrown");
+        }
+
+    }
+
+    // TODO this is example code, not a test
+    @Test
+    void unwrap_class_runnable() {
+
+        /*
+         * How to catch the actual exceptions that were thrown, pattern 2b:
+         * Like pattern 2a, but unwrap(...) throws only a specific type of exception.
+         */
+
+        try {
+            ExUtils.unwrap(IOException.class, () ->
+                    ExIntStream.of(1, 2, 3)
+                            .exForEach(i -> {
+                                throw new IOException("Test");
+                            })
+            );
+        } catch (IOException e) {
+            System.out.println("IOException was thrown");
+        }
+
+    }
+
+    // TODO this is example code, not a test
+    @Test
+    void unwrap_supplier() {
+
+        // the same as in unwrap_runnable, just with a return value
+
+        try {
+            @SuppressWarnings("unused") final var ignore = ExUtils.unwrap(() ->
+                    ExIntStream.of(1, 2, 3)
+                            .exMap(i -> {
+                                throw new IOException("Test");
+                            })
+                            .toArray()
+            );
+        } catch (IOException e) {
+            System.out.println("IOException was thrown");
+        } catch (Exception e) {
+            System.out.println("Exception was thrown");
+        }
+
+    }
+
+    // TODO this is example code, not a test
+    @Test
+    void unwrap_class_supplier() {
+
+        // the same as in unwrap_class_runnable, just with a return value
+
+        try {
+            @SuppressWarnings("unused") final var ignore = ExUtils.unwrap(IOException.class, () ->
+                    ExIntStream.of(1, 2, 3)
+                            .exMap(i -> {
+                                throw new IOException("Test");
+                            })
+                            .toArray()
+            );
+        } catch (IOException e) {
+            System.out.println("IOException was thrown");
+        }
 
     }
 
