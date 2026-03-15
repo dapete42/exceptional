@@ -22,7 +22,7 @@ public interface ExLongMapMultiConsumer<E extends Exception> extends Wrappable<L
      * @param ic    an {@code ExLongConsumer} accepting the mapped values
      * @throws E possibly
      */
-    void accept(long value, ExLongConsumer<?> ic) throws E;
+    void accept(long value, ExLongConsumer<E> ic) throws E;
 
     @Override
     default LongStream.LongMapMultiConsumer wrap() {

@@ -22,7 +22,7 @@ public interface ExDoubleMapMultiConsumer<E extends Exception> extends Wrappable
      * @param ic    an {@code ExDoubleConsumer} accepting the mapped values
      * @throws E possibly
      */
-    void accept(double value, ExDoubleConsumer<?> ic) throws E;
+    void accept(double value, ExDoubleConsumer<E> ic) throws E;
 
     @Override
     default DoubleStream.DoubleMapMultiConsumer wrap() {

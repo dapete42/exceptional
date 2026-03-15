@@ -22,7 +22,7 @@ public interface ExIntMapMultiConsumer<E extends Exception> extends Wrappable<In
      * @param ic    an {@code ExIntConsumer} accepting the mapped values
      * @throws E possibly
      */
-    void accept(int value, ExIntConsumer<?> ic) throws E;
+    void accept(int value, ExIntConsumer<E> ic) throws E;
 
     @Override
     default IntStream.IntMapMultiConsumer wrap() {
