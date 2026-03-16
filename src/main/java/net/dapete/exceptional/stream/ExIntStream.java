@@ -182,7 +182,8 @@ public class ExIntStream implements IntStream {
      * @param predicate      see {@link IntStream#filter}
      * @return see {@link IntStream#filter}
      */
-    public <E extends Exception> ExIntStream filter(@SuppressWarnings("unused") Class<E> exceptionClass, ExIntPredicate<? extends E> predicate) {
+    public <E extends Exception> ExIntStream filter(Class<E> exceptionClass, ExIntPredicate<? extends E> predicate) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return of(filter(predicate.wrap()));
     }
 
@@ -200,7 +201,8 @@ public class ExIntStream implements IntStream {
      * @param mapper         see {@link IntStream#map}
      * @return see {@link IntStream#map}
      */
-    public <E extends Exception> ExIntStream map(@SuppressWarnings("unused") Class<E> exceptionClass, ExIntUnaryOperator<? extends E> mapper) {
+    public <E extends Exception> ExIntStream map(Class<E> exceptionClass, ExIntUnaryOperator<? extends E> mapper) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return of(map(mapper.wrap()));
     }
 
@@ -219,7 +221,8 @@ public class ExIntStream implements IntStream {
      * @param mapper         see {@link IntStream#mapToObj}
      * @return see {@link IntStream#mapToObj}
      */
-    public <U, E extends Exception> ExStream<U> mapToObj(@SuppressWarnings("unused") Class<E> exceptionClass, ExIntFunction<? extends U, ? extends E> mapper) {
+    public <U, E extends Exception> ExStream<U> mapToObj(Class<E> exceptionClass, ExIntFunction<? extends U, ? extends E> mapper) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return ExStream.of(mapToObj(mapper.wrap()));
     }
 
@@ -237,7 +240,8 @@ public class ExIntStream implements IntStream {
      * @param mapper         see {@link IntStream#mapToDouble}
      * @return see {@link IntStream#mapToDouble}
      */
-    public <E extends Exception> ExDoubleStream mapToDouble(@SuppressWarnings("unused") Class<E> exceptionClass, ExIntToDoubleFunction<? extends E> mapper) {
+    public <E extends Exception> ExDoubleStream mapToDouble(Class<E> exceptionClass, ExIntToDoubleFunction<? extends E> mapper) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return ExDoubleStream.of(mapToDouble(mapper.wrap()));
     }
 
@@ -255,7 +259,8 @@ public class ExIntStream implements IntStream {
      * @param mapper         see {@link IntStream#mapToLong}
      * @return see {@link IntStream#mapToLong}
      */
-    public <E extends Exception> ExLongStream mapToLong(@SuppressWarnings("unused") Class<E> exceptionClass, ExIntToLongFunction<? extends E> mapper) {
+    public <E extends Exception> ExLongStream mapToLong(Class<E> exceptionClass, ExIntToLongFunction<? extends E> mapper) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return ExLongStream.of(mapToLong(mapper.wrap()));
     }
 
@@ -273,8 +278,9 @@ public class ExIntStream implements IntStream {
      * @param mapper         see {@link IntStream#flatMap}
      * @return see {@link IntStream#flatMap}
      */
-    public <E extends Exception> ExIntStream flatMap(@SuppressWarnings("unused") Class<E> exceptionClass,
+    public <E extends Exception> ExIntStream flatMap(Class<E> exceptionClass,
                                                      ExIntFunction<? extends IntStream, ? extends E> mapper) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return of(flatMap(mapper.wrap()));
     }
 
@@ -292,7 +298,8 @@ public class ExIntStream implements IntStream {
      * @param mapper         see {@link IntStream#mapMulti}
      * @return see {@link IntStream#mapMulti}
      */
-    public <E extends Exception> ExIntStream mapMulti(@SuppressWarnings("unused") Class<E> exceptionClass, ExIntMapMultiConsumer<? extends E> mapper) {
+    public <E extends Exception> ExIntStream mapMulti(Class<E> exceptionClass, ExIntMapMultiConsumer<? extends E> mapper) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return of(mapMulti(mapper.wrap()));
     }
 
@@ -307,7 +314,8 @@ public class ExIntStream implements IntStream {
      * @param action         see {@link IntStream#peek}
      * @return see {@link IntStream#peek}
      */
-    public <E extends Exception> ExIntStream peek(@SuppressWarnings("unused") Class<E> exceptionClass, ExIntConsumer<? extends E> action) {
+    public <E extends Exception> ExIntStream peek(Class<E> exceptionClass, ExIntConsumer<? extends E> action) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return of(peek(action.wrap()));
     }
 
@@ -322,7 +330,8 @@ public class ExIntStream implements IntStream {
      * @param predicate      see {@link IntStream#takeWhile}
      * @return see {@link IntStream#takeWhile}
      */
-    public <E extends Exception> ExIntStream takeWhile(@SuppressWarnings("unused") Class<E> exceptionClass, ExIntPredicate<? extends E> predicate) {
+    public <E extends Exception> ExIntStream takeWhile(Class<E> exceptionClass, ExIntPredicate<? extends E> predicate) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return of(takeWhile(predicate.wrap()));
     }
 
@@ -335,7 +344,8 @@ public class ExIntStream implements IntStream {
      * @param predicate see {@link IntStream#dropWhile}
      * @return see {@link IntStream#dropWhile}
      */
-    public <E extends Exception> ExIntStream dropWhile(@SuppressWarnings("unused") Class<E> exceptionClass, ExIntPredicate<? extends E> predicate) {
+    public <E extends Exception> ExIntStream dropWhile(Class<E> exceptionClass, ExIntPredicate<? extends E> predicate) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return of(dropWhile(predicate.wrap()));
     }
 
@@ -349,7 +359,8 @@ public class ExIntStream implements IntStream {
      * @param exceptionClass The exception class for {@link E}
      * @param action         see {@link IntStream#forEach}
      */
-    public <E extends Exception> void forEach(@SuppressWarnings("unused") Class<E> exceptionClass, ExIntConsumer<? extends E> action) {
+    public <E extends Exception> void forEach(Class<E> exceptionClass, ExIntConsumer<? extends E> action) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         forEach(action.wrap());
     }
 
@@ -363,7 +374,8 @@ public class ExIntStream implements IntStream {
      * @param exceptionClass The exception class for {@link E}
      * @param action         see {@link IntStream#forEachOrdered}
      */
-    public <E extends Exception> void forEachOrdered(@SuppressWarnings("unused") Class<E> exceptionClass, ExIntConsumer<? extends E> action) {
+    public <E extends Exception> void forEachOrdered(Class<E> exceptionClass, ExIntConsumer<? extends E> action) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         forEachOrdered(action.wrap());
     }
 
@@ -379,7 +391,8 @@ public class ExIntStream implements IntStream {
      * @param op             see {@link IntStream#reduce(int, IntBinaryOperator)}
      * @return see {@link IntStream#reduce(int, IntBinaryOperator)}
      */
-    public <E extends Exception> Integer reduce(@SuppressWarnings("unused") Class<E> exceptionClass, Integer identity, ExIntBinaryOperator<? extends E> op) {
+    public <E extends Exception> Integer reduce(Class<E> exceptionClass, Integer identity, ExIntBinaryOperator<? extends E> op) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return reduce(identity, op.wrap());
     }
 
@@ -394,7 +407,8 @@ public class ExIntStream implements IntStream {
      * @param op             see {@link IntStream#reduce(IntBinaryOperator)}
      * @return see {@link IntStream#reduce(IntBinaryOperator)}
      */
-    public <E extends Exception> OptionalInt reduce(@SuppressWarnings("unused") Class<E> exceptionClass, ExIntBinaryOperator<? extends E> op) {
+    public <E extends Exception> OptionalInt reduce(Class<E> exceptionClass, ExIntBinaryOperator<? extends E> op) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return reduce(op.wrap());
     }
 
@@ -412,8 +426,9 @@ public class ExIntStream implements IntStream {
      * @param combiner       see {@link IntStream#collect}
      * @return see {@link IntStream#collect}
      */
-    public <R, E extends Exception> R collect(@SuppressWarnings("unused") Class<E> exceptionClass, ExSupplier<R, ? extends E> supplier,
+    public <R, E extends Exception> R collect(Class<E> exceptionClass, ExSupplier<R, ? extends E> supplier,
                                               ExObjIntConsumer<R, ? extends E> accumulator, ExBiConsumer<R, R, ? extends E> combiner) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return collect(supplier.wrap(), accumulator.wrap(), combiner.wrap());
     }
 
@@ -428,7 +443,8 @@ public class ExIntStream implements IntStream {
      * @param predicate      see {@link IntStream#anyMatch}
      * @return see {@link IntStream#anyMatch}
      */
-    public <E extends Exception> boolean anyMatch(@SuppressWarnings("unused") Class<E> exceptionClass, ExIntPredicate<? extends E> predicate) {
+    public <E extends Exception> boolean anyMatch(Class<E> exceptionClass, ExIntPredicate<? extends E> predicate) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return anyMatch(predicate.wrap());
     }
 
@@ -443,7 +459,8 @@ public class ExIntStream implements IntStream {
      * @param predicate      see {@link IntStream#allMatch}
      * @return see {@link IntStream#allMatch}
      */
-    public <E extends Exception> boolean allMatch(@SuppressWarnings("unused") Class<E> exceptionClass, ExIntPredicate<? extends E> predicate) {
+    public <E extends Exception> boolean allMatch(Class<E> exceptionClass, ExIntPredicate<? extends E> predicate) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return allMatch(predicate.wrap());
     }
 
@@ -458,7 +475,8 @@ public class ExIntStream implements IntStream {
      * @param predicate      see {@link IntStream#noneMatch}
      * @return see {@link IntStream#noneMatch}
      */
-    public <E extends Exception> boolean noneMatch(@SuppressWarnings("unused") Class<E> exceptionClass, ExIntPredicate<? extends E> predicate) {
+    public <E extends Exception> boolean noneMatch(Class<E> exceptionClass, ExIntPredicate<? extends E> predicate) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return noneMatch(predicate.wrap());
     }
 

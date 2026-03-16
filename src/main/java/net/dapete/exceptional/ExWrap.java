@@ -1,13 +1,18 @@
 package net.dapete.exceptional;
 
 import net.dapete.exceptional.function.*;
+import org.jspecify.annotations.Nullable;
 
+import java.util.Objects;
+import java.util.Set;
 import java.util.function.Supplier;
 
 /**
  * Wrapping utility class for Exceptional!
  */
 public final class ExWrap {
+
+    private static final ThreadLocal<@Nullable Set<Class<? extends Exception>>> activeUnwrappedExceptionsThreadLocal = new ThreadLocal<>();
 
     // Utility class with private constructor
     private ExWrap() {
@@ -127,6 +132,18 @@ public final class ExWrap {
         }
     }
 
+    public static boolean isUnwrapActive() {
+        return activeUnwrappedExceptionsThreadLocal.get() != null;
+    }
+
+    public static void verifyUnwrapActive(Class<? extends Exception> exceptionClass) {
+        final Set<Class<? extends Exception>> active = activeUnwrappedExceptionsThreadLocal.get();
+        if (active != null && active.stream().noneMatch(exceptionClass::isAssignableFrom)) {
+            throw new IllegalArgumentException("Exception %s is not allowed here, must be included in ExWrap.unwrap(...) invocation"
+                    .formatted(exceptionClass.getName()));
+        }
+    }
+
     /**
      * Unwraps any {@code ExException} thrown when executing {@link Runnable#run() runnable.run()} and throws its {@link ExException#getCause() cause} instead.
      *
@@ -154,7 +171,7 @@ public final class ExWrap {
      */
     public static <E extends Exception> void unwrap(Class<E> exceptionClass, Runnable runnable) throws E {
         try {
-            runnable.run();
+            unwrapScope(Set.of(exceptionClass), runnable);
         } catch (ExException e) {
             e.unwrap(exceptionClass);
             // the compiler doesn't know that unwrap always throws an exception
@@ -181,13 +198,14 @@ public final class ExWrap {
     public static <E1 extends Exception, E2 extends Exception> void unwrap(
             Class<E1> exceptionClass1, Class<E2> exceptionClass2, Runnable runnable) throws E1, E2 {
         try {
-            runnable.run();
+            unwrapScope(Set.of(exceptionClass1, exceptionClass2), runnable);
         } catch (ExException e) {
             e.unwrap(exceptionClass1, exceptionClass2);
             // the compiler doesn't know that unwrap always throws an exception
             throw e;
         }
     }
+
 
     /**
      * Unwraps any {@code ExException} thrown when executing {@link Runnable#run() runnable.run()} and throws its {@link ExException#getCause() cause} instead,
@@ -209,7 +227,7 @@ public final class ExWrap {
     public static <E1 extends Exception, E2 extends Exception, E3 extends Exception> void unwrap(
             Class<E1> exceptionClass1, Class<E2> exceptionClass2, Class<E3> exceptionClass3, Runnable runnable) throws E1, E2, E3 {
         try {
-            runnable.run();
+            unwrapScope(Set.of(exceptionClass1, exceptionClass2, exceptionClass3), runnable);
         } catch (ExException e) {
             e.unwrap(exceptionClass1, exceptionClass2, exceptionClass3);
             // the compiler doesn't know that unwrap always throws an exception
@@ -247,7 +265,7 @@ public final class ExWrap {
      */
     public static <T, E extends Exception> T unwrap(Class<E> exceptionClass, Supplier<T> supplier) throws E {
         try {
-            return supplier.get();
+            return unwrapScope(Set.of(exceptionClass), supplier);
         } catch (ExException e) {
             e.unwrap(exceptionClass);
             // the compiler doesn't know that unwrap always throws an exception
@@ -276,7 +294,7 @@ public final class ExWrap {
     public static <T, E1 extends Exception, E2 extends Exception> T unwrap(
             Class<E1> exceptionClass1, Class<E2> exceptionClass2, Supplier<T> supplier) throws E1, E2 {
         try {
-            return supplier.get();
+            return unwrapScope(Set.of(exceptionClass1, exceptionClass2), supplier);
         } catch (ExException e) {
             e.unwrap(exceptionClass1, exceptionClass2);
             // the compiler doesn't know that unwrap always throws an exception
@@ -309,11 +327,39 @@ public final class ExWrap {
     public static <T, E1 extends Exception, E2 extends Exception, E3 extends Exception> T unwrap(
             Class<E1> exceptionClass1, Class<E2> exceptionClass2, Class<E3> exceptionClass3, Supplier<T> supplier) throws E1, E2, E3 {
         try {
-            return supplier.get();
+            return unwrapScope(Set.of(exceptionClass1, exceptionClass2, exceptionClass3), supplier);
         } catch (ExException e) {
             e.unwrap(exceptionClass1, exceptionClass2, exceptionClass3);
             // the compiler doesn't know that unwrap always throws an exception
             throw e;
+        }
+    }
+
+    private static void unwrapScope(Set<Class<? extends Exception>> exceptionClasses, Runnable runnable) {
+        final Set<Class<? extends Exception>> previous = activeUnwrappedExceptionsThreadLocal.get();
+        try {
+            activeUnwrappedExceptionsThreadLocal.set(exceptionClasses);
+            runnable.run();
+        } finally {
+            if (Objects.isNull(previous)) {
+                activeUnwrappedExceptionsThreadLocal.remove();
+            } else {
+                activeUnwrappedExceptionsThreadLocal.set(previous);
+            }
+        }
+    }
+
+    private static <T> T unwrapScope(Set<Class<? extends Exception>> exceptionClasses, Supplier<T> supplier) {
+        final Set<Class<? extends Exception>> previous = activeUnwrappedExceptionsThreadLocal.get();
+        try {
+            activeUnwrappedExceptionsThreadLocal.set(exceptionClasses);
+            return supplier.get();
+        } finally {
+            if (Objects.isNull(previous)) {
+                activeUnwrappedExceptionsThreadLocal.remove();
+            } else {
+                activeUnwrappedExceptionsThreadLocal.set(previous);
+            }
         }
     }
 

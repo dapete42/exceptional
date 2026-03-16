@@ -264,7 +264,8 @@ public final class ExStream<T> implements Stream<T> {
      * @param predicate      see {@link Stream#filter}
      * @return see {@link Stream#filter}
      */
-    public <E extends Exception> ExStream<T> filter(@SuppressWarnings("unused") Class<E> exceptionClass, ExPredicate<? super T, ? extends E> predicate) {
+    public <E extends Exception> ExStream<T> filter(Class<E> exceptionClass, ExPredicate<? super T, ? extends E> predicate) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return filter(predicate.wrap());
     }
 
@@ -283,8 +284,9 @@ public final class ExStream<T> implements Stream<T> {
      * @param mapper         see {@link Stream#map}
      * @return see {@link Stream#map}
      */
-    public <R, E extends Exception> ExStream<R> map(@SuppressWarnings("unused") Class<E> exceptionClass,
-                                                    ExFunction<? super T, ? extends R, ? extends E> mapper) {
+    public <R, E extends Exception> ExStream<R> map(
+            Class<E> exceptionClass, ExFunction<? super T, ? extends R, ? extends E> mapper) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return map(mapper.wrap());
     }
 
@@ -302,8 +304,9 @@ public final class ExStream<T> implements Stream<T> {
      * @param mapper         see {@link Stream#mapToDouble}
      * @return see {@link Stream#mapToDouble}
      */
-    public <E extends Exception> ExDoubleStream mapToDouble(@SuppressWarnings("unused") Class<E> exceptionClass,
-                                                            ExToDoubleFunction<? super T, ? extends E> mapper) {
+    public <E extends Exception> ExDoubleStream mapToDouble(
+            Class<E> exceptionClass, ExToDoubleFunction<? super T, ? extends E> mapper) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return mapToDouble(mapper.wrap());
     }
 
@@ -321,7 +324,8 @@ public final class ExStream<T> implements Stream<T> {
      * @param mapper         see {@link Stream#mapToInt}
      * @return see {@link Stream#mapToInt}
      */
-    public <E extends Exception> ExIntStream mapToInt(@SuppressWarnings("unused") Class<E> exceptionClass, ExToIntFunction<? super T, ? extends E> mapper) {
+    public <E extends Exception> ExIntStream mapToInt(Class<E> exceptionClass, ExToIntFunction<? super T, ? extends E> mapper) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return mapToInt(mapper.wrap());
     }
 
@@ -339,7 +343,8 @@ public final class ExStream<T> implements Stream<T> {
      * @param mapper         see {@link Stream#mapToLong}
      * @return see {@link Stream#mapToLong}
      */
-    public <E extends Exception> ExLongStream mapToLong(@SuppressWarnings("unused") Class<E> exceptionClass, ExToLongFunction<? super T, ? extends E> mapper) {
+    public <E extends Exception> ExLongStream mapToLong(Class<E> exceptionClass, ExToLongFunction<? super T, ? extends E> mapper) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return mapToLong(mapper.wrap());
     }
 
@@ -358,8 +363,9 @@ public final class ExStream<T> implements Stream<T> {
      * @param mapper         see {@link Stream#flatMap}
      * @return see {@link Stream#flatMap}
      */
-    public <R, E extends Exception> ExStream<R> flatMap(@SuppressWarnings("unused") Class<E> exceptionClass,
-                                                        ExFunction<? super T, ? extends Stream<? extends R>, ? extends E> mapper) {
+    public <R, E extends Exception> ExStream<R> flatMap(
+            Class<E> exceptionClass, ExFunction<? super T, ? extends Stream<? extends R>, ? extends E> mapper) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return flatMap(mapper.wrap());
     }
 
@@ -377,8 +383,9 @@ public final class ExStream<T> implements Stream<T> {
      * @param mapper         see {@link Stream#flatMapToDouble}
      * @return see {@link Stream#flatMapToDouble}
      */
-    public <E extends Exception> ExDoubleStream flatMapToDouble(@SuppressWarnings("unused") Class<E> exceptionClass,
-                                                                ExFunction<? super T, ? extends DoubleStream, ? extends E> mapper) {
+    public <E extends Exception> ExDoubleStream flatMapToDouble(
+            Class<E> exceptionClass, ExFunction<? super T, ? extends DoubleStream, ? extends E> mapper) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return flatMapToDouble(mapper.wrap());
     }
 
@@ -396,8 +403,9 @@ public final class ExStream<T> implements Stream<T> {
      * @param mapper         see {@link Stream#flatMapToInt}
      * @return see {@link Stream#flatMapToInt}
      */
-    public <E extends Exception> ExIntStream flatMapToInt(@SuppressWarnings("unused") Class<E> exceptionClass,
-                                                          ExFunction<? super T, ? extends IntStream, ? extends E> mapper) {
+    public <E extends Exception> ExIntStream flatMapToInt(
+            Class<E> exceptionClass, ExFunction<? super T, ? extends IntStream, ? extends E> mapper) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return flatMapToInt(mapper.wrap());
     }
 
@@ -415,8 +423,9 @@ public final class ExStream<T> implements Stream<T> {
      * @param mapper         see {@link Stream#flatMapToLong}
      * @return see {@link Stream#flatMapToLong}
      */
-    public <E extends Exception> ExLongStream flatMapToLong(@SuppressWarnings("unused") Class<E> exceptionClass,
-                                                            ExFunction<? super T, ? extends LongStream, ? extends E> mapper) {
+    public <E extends Exception> ExLongStream flatMapToLong(
+            Class<E> exceptionClass, ExFunction<? super T, ? extends LongStream, ? extends E> mapper) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return flatMapToLong(mapper.wrap());
     }
 
@@ -435,8 +444,9 @@ public final class ExStream<T> implements Stream<T> {
      * @param mapper         see {@link Stream#mapMulti}
      * @return see {@link Stream#mapMulti}
      */
-    public <R, E extends Exception> ExStream<R> mapMulti(@SuppressWarnings("unused") Class<E> exceptionClass,
-                                                         ExBiConsumer<? super T, ? super Consumer<R>, ? extends E> mapper) {
+    public <R, E extends Exception> ExStream<R> mapMulti(
+            Class<E> exceptionClass, ExBiConsumer<? super T, ? super Consumer<R>, ? extends E> mapper) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return mapMulti(mapper.wrap());
     }
 
@@ -454,8 +464,9 @@ public final class ExStream<T> implements Stream<T> {
      * @param mapper         see {@link Stream#mapMultiToDouble}
      * @return see {@link Stream#mapMultiToDouble}
      */
-    public <E extends Exception> ExDoubleStream mapMultiToDouble(@SuppressWarnings("unused") Class<E> exceptionClass,
-                                                                 ExBiConsumer<? super T, ? super DoubleConsumer, ? extends E> mapper) {
+    public <E extends Exception> ExDoubleStream mapMultiToDouble(
+            Class<E> exceptionClass, ExBiConsumer<? super T, ? super DoubleConsumer, ? extends E> mapper) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return mapMultiToDouble(mapper.wrap());
     }
 
@@ -473,8 +484,9 @@ public final class ExStream<T> implements Stream<T> {
      * @param mapper         see {@link Stream#mapMultiToInt}
      * @return see {@link Stream#mapMultiToInt}
      */
-    public <E extends Exception> ExIntStream mapMultiToInt(@SuppressWarnings("unused") Class<E> exceptionClass,
-                                                           ExBiConsumer<? super T, ? super IntConsumer, ? extends E> mapper) {
+    public <E extends Exception> ExIntStream mapMultiToInt(
+            Class<E> exceptionClass, ExBiConsumer<? super T, ? super IntConsumer, ? extends E> mapper) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return mapMultiToInt(mapper.wrap());
     }
 
@@ -492,8 +504,9 @@ public final class ExStream<T> implements Stream<T> {
      * @param mapper         see {@link Stream#mapMultiToLong}
      * @return see {@link Stream#mapMultiToLong}
      */
-    public <E extends Exception> ExLongStream mapMultiToLong(@SuppressWarnings("unused") Class<E> exceptionClass,
-                                                             ExBiConsumer<? super T, ? super LongConsumer, ? extends E> mapper) {
+    public <E extends Exception> ExLongStream mapMultiToLong(
+            Class<E> exceptionClass, ExBiConsumer<? super T, ? super LongConsumer, ? extends E> mapper) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return mapMultiToLong(mapper.wrap());
     }
 
@@ -508,7 +521,8 @@ public final class ExStream<T> implements Stream<T> {
      * @param action         see {@link Stream#peek}
      * @return see {@link Stream#peek}
      */
-    public <E extends Exception> ExStream<T> peek(@SuppressWarnings("unused") Class<E> exceptionClass, ExConsumer<? super T, ? extends E> action) {
+    public <E extends Exception> ExStream<T> peek(Class<E> exceptionClass, ExConsumer<? super T, ? extends E> action) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return peek(action.wrap());
     }
 
@@ -523,7 +537,8 @@ public final class ExStream<T> implements Stream<T> {
      * @param predicate      see {@link Stream#takeWhile}
      * @return see {@link Stream#takeWhile}
      */
-    public <E extends Exception> ExStream<T> takeWhile(@SuppressWarnings("unused") Class<E> exceptionClass, ExPredicate<? super T, ? extends E> predicate) {
+    public <E extends Exception> ExStream<T> takeWhile(Class<E> exceptionClass, ExPredicate<? super T, ? extends E> predicate) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return takeWhile(predicate.wrap());
     }
 
@@ -541,7 +556,8 @@ public final class ExStream<T> implements Stream<T> {
      * @param predicate      see {@link Stream#dropWhile}
      * @return see {@link Stream#dropWhile}
      */
-    public <E extends Exception> ExStream<T> dropWhile(@SuppressWarnings("unused") Class<E> exceptionClass, ExPredicate<? super T, ? extends E> predicate) {
+    public <E extends Exception> ExStream<T> dropWhile(Class<E> exceptionClass, ExPredicate<? super T, ? extends E> predicate) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return dropWhile(predicate.wrap());
     }
 
@@ -555,7 +571,8 @@ public final class ExStream<T> implements Stream<T> {
      * @param exceptionClass The exception class for {@link E}
      * @param action         see {@link Stream#forEach}
      */
-    public <E extends Exception> void forEach(@SuppressWarnings("unused") Class<E> exceptionClass, ExConsumer<? super T, ? extends E> action) {
+    public <E extends Exception> void forEach(Class<E> exceptionClass, ExConsumer<? super T, ? extends E> action) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         forEach(action.wrap());
     }
 
@@ -569,7 +586,8 @@ public final class ExStream<T> implements Stream<T> {
      * @param exceptionClass The exception class for {@link E}
      * @param action         see {@link Stream#forEachOrdered}
      */
-    public <E extends Exception> void forEachOrdered(@SuppressWarnings("unused") Class<E> exceptionClass, ExConsumer<? super T, ? extends E> action) {
+    public <E extends Exception> void forEachOrdered(Class<E> exceptionClass, ExConsumer<? super T, ? extends E> action) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         forEachOrdered(action.wrap());
     }
 
@@ -584,7 +602,8 @@ public final class ExStream<T> implements Stream<T> {
      * @param accumulator    see {@link Stream#reduce(BinaryOperator)}
      * @return see {@link Stream#reduce(BinaryOperator)}
      */
-    public <E extends Exception> Optional<T> reduce(@SuppressWarnings("unused") Class<E> exceptionClass, ExBinaryOperator<T, ? extends E> accumulator) {
+    public <E extends Exception> Optional<T> reduce(Class<E> exceptionClass, ExBinaryOperator<T, ? extends E> accumulator) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return reduce(accumulator.wrap());
     }
 
@@ -600,7 +619,8 @@ public final class ExStream<T> implements Stream<T> {
      * @param accumulator    see {@link Stream#reduce(Object, BinaryOperator)}
      * @return see {@link Stream#reduce(Object, BinaryOperator)}
      */
-    public <E extends Exception> T reduce(@SuppressWarnings("unused") Class<E> exceptionClass, T identity, ExBinaryOperator<T, ? extends E> accumulator) {
+    public <E extends Exception> T reduce(Class<E> exceptionClass, T identity, ExBinaryOperator<T, ? extends E> accumulator) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return reduce(identity, accumulator.wrap());
     }
 
@@ -618,8 +638,9 @@ public final class ExStream<T> implements Stream<T> {
      * @param combiner       see {@link Stream#reduce(Object, BiFunction, BinaryOperator)}
      * @return see {@link Stream#reduce(Object, BiFunction, BinaryOperator)}
      */
-    public <U, E extends Exception> U reduce(@SuppressWarnings("unused") Class<E> exceptionClass, U identity,
-                                             ExBiFunction<U, ? super T, U, ? extends E> accumulator, ExBinaryOperator<U, ? extends E> combiner) {
+    public <U, E extends Exception> U reduce(
+            Class<E> exceptionClass, U identity, ExBiFunction<U, ? super T, U, ? extends E> accumulator, ExBinaryOperator<U, ? extends E> combiner) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return reduce(identity, accumulator.wrap(), combiner.wrap());
     }
 
@@ -637,8 +658,10 @@ public final class ExStream<T> implements Stream<T> {
      * @param combiner       see {@link Stream#collect(Supplier, BiConsumer, BiConsumer)}
      * @return see {@link Stream#collect(Supplier, BiConsumer, BiConsumer)}
      */
-    public <R, E extends Exception> R collect(@SuppressWarnings("unused") Class<E> exceptionClass, ExSupplier<R, ? extends E> supplier,
-                                              ExBiConsumer<R, ? super T, ? extends E> accumulator, ExBiConsumer<R, R, ? extends E> combiner) {
+    public <R, E extends Exception> R collect(
+            Class<E> exceptionClass, ExSupplier<R, ? extends E> supplier, ExBiConsumer<R, ? super T, ? extends E> accumulator,
+            ExBiConsumer<R, R, ? extends E> combiner) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return collect(supplier.wrap(), accumulator.wrap(), combiner.wrap());
     }
 

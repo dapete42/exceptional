@@ -177,7 +177,8 @@ public class ExLongStream implements LongStream {
      * @param predicate      see {@link LongStream#filter}
      * @return see {@link LongStream#filter}
      */
-    public <E extends Exception> ExLongStream filter(@SuppressWarnings("unused") Class<E> exceptionClass, ExLongPredicate<? extends E> predicate) {
+    public <E extends Exception> ExLongStream filter(Class<E> exceptionClass, ExLongPredicate<? extends E> predicate) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return of(filter(predicate.wrap()));
     }
 
@@ -195,7 +196,8 @@ public class ExLongStream implements LongStream {
      * @param mapper         see {@link LongStream#map}
      * @return see {@link LongStream#map}
      */
-    public <E extends Exception> ExLongStream map(@SuppressWarnings("unused") Class<E> exceptionClass, ExLongUnaryOperator<? extends E> mapper) {
+    public <E extends Exception> ExLongStream map(Class<E> exceptionClass, ExLongUnaryOperator<? extends E> mapper) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return of(map(mapper.wrap()));
     }
 
@@ -214,7 +216,8 @@ public class ExLongStream implements LongStream {
      * @param mapper         see {@link LongStream#mapToObj}
      * @return see {@link LongStream#mapToObj}
      */
-    public <U, E extends Exception> ExStream<U> mapToObj(@SuppressWarnings("unused") Class<E> exceptionClass, ExLongFunction<? extends U, ? extends E> mapper) {
+    public <U, E extends Exception> ExStream<U> mapToObj(Class<E> exceptionClass, ExLongFunction<? extends U, ? extends E> mapper) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return ExStream.of(mapToObj(mapper.wrap()));
     }
 
@@ -232,7 +235,8 @@ public class ExLongStream implements LongStream {
      * @param mapper         see {@link LongStream#mapToDouble}
      * @return see {@link LongStream#mapToDouble}
      */
-    public <E extends Exception> ExDoubleStream mapToDouble(@SuppressWarnings("unused") Class<E> exceptionClass, ExLongToDoubleFunction<? extends E> mapper) {
+    public <E extends Exception> ExDoubleStream mapToDouble(Class<E> exceptionClass, ExLongToDoubleFunction<? extends E> mapper) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return ExDoubleStream.of(mapToDouble(mapper.wrap()));
     }
 
@@ -250,7 +254,8 @@ public class ExLongStream implements LongStream {
      * @param mapper         see {@link LongStream#mapToInt}
      * @return see {@link LongStream#mapToInt}
      */
-    public <E extends Exception> ExIntStream mapToInt(@SuppressWarnings("unused") Class<E> exceptionClass, ExLongToIntFunction<? extends E> mapper) {
+    public <E extends Exception> ExIntStream mapToInt(Class<E> exceptionClass, ExLongToIntFunction<? extends E> mapper) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return ExIntStream.of(mapToInt(mapper.wrap()));
     }
 
@@ -268,7 +273,8 @@ public class ExLongStream implements LongStream {
      * @param mapper         see {@link LongStream#flatMap}
      * @return see {@link LongStream#flatMap}
      */
-    public <E extends Exception> ExLongStream flatMap(@SuppressWarnings("unused") Class<E> exceptionClass, ExLongFunction<? extends LongStream, ? extends E> mapper) {
+    public <E extends Exception> ExLongStream flatMap(Class<E> exceptionClass, ExLongFunction<? extends LongStream, ? extends E> mapper) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return of(flatMap(mapper.wrap()));
     }
 
@@ -286,7 +292,8 @@ public class ExLongStream implements LongStream {
      * @param mapper         see {@link LongStream#mapMulti}
      * @return see {@link LongStream#mapMulti}
      */
-    public <E extends Exception> ExLongStream mapMulti(@SuppressWarnings("unused") Class<E> exceptionClass, ExLongMapMultiConsumer<? extends E> mapper) {
+    public <E extends Exception> ExLongStream mapMulti(Class<E> exceptionClass, ExLongMapMultiConsumer<? extends E> mapper) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return of(mapMulti(mapper.wrap()));
     }
 
@@ -301,7 +308,8 @@ public class ExLongStream implements LongStream {
      * @param action         see {@link LongStream#peek}
      * @return see {@link LongStream#peek}
      */
-    public <E extends Exception> ExLongStream peek(@SuppressWarnings("unused") Class<E> exceptionClass, ExLongConsumer<? extends E> action) {
+    public <E extends Exception> ExLongStream peek(Class<E> exceptionClass, ExLongConsumer<? extends E> action) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return of(peek(action.wrap()));
     }
 
@@ -316,7 +324,8 @@ public class ExLongStream implements LongStream {
      * @param predicate      see {@link LongStream#takeWhile}
      * @return see {@link LongStream#takeWhile}
      */
-    public <E extends Exception> ExLongStream takeWhile(@SuppressWarnings("unused") Class<E> exceptionClass, ExLongPredicate<? extends E> predicate) {
+    public <E extends Exception> ExLongStream takeWhile(Class<E> exceptionClass, ExLongPredicate<? extends E> predicate) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return of(takeWhile(predicate.wrap()));
     }
 
@@ -329,7 +338,8 @@ public class ExLongStream implements LongStream {
      * @param predicate see {@link LongStream#dropWhile}
      * @return see {@link LongStream#dropWhile}
      */
-    public <E extends Exception> ExLongStream dropWhile(@SuppressWarnings("unused") Class<E> exceptionClass, ExLongPredicate<? extends E> predicate) {
+    public <E extends Exception> ExLongStream dropWhile(Class<E> exceptionClass, ExLongPredicate<? extends E> predicate) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return of(dropWhile(predicate.wrap()));
     }
 
@@ -343,7 +353,8 @@ public class ExLongStream implements LongStream {
      * @param exceptionClass The exception class for {@link E}
      * @param action         see {@link LongStream#forEach}
      */
-    public <E extends Exception> void forEach(@SuppressWarnings("unused") Class<E> exceptionClass, ExLongConsumer<? extends E> action) {
+    public <E extends Exception> void forEach(Class<E> exceptionClass, ExLongConsumer<? extends E> action) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         forEach(action.wrap());
     }
 
@@ -357,7 +368,8 @@ public class ExLongStream implements LongStream {
      * @param exceptionClass The exception class for {@link E}
      * @param action         see {@link LongStream#forEachOrdered}
      */
-    public <E extends Exception> void forEachOrdered(@SuppressWarnings("unused") Class<E> exceptionClass, ExLongConsumer<? extends E> action) {
+    public <E extends Exception> void forEachOrdered(Class<E> exceptionClass, ExLongConsumer<? extends E> action) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         forEachOrdered(action.wrap());
     }
 
@@ -373,7 +385,8 @@ public class ExLongStream implements LongStream {
      * @param op             see {@link LongStream#reduce(long, LongBinaryOperator)}
      * @return see {@link LongStream#reduce(long, LongBinaryOperator)}
      */
-    public <E extends Exception> Long reduce(@SuppressWarnings("unused") Class<E> exceptionClass, Long identity, ExLongBinaryOperator<? extends E> op) {
+    public <E extends Exception> Long reduce(Class<E> exceptionClass, Long identity, ExLongBinaryOperator<? extends E> op) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return reduce(identity, op.wrap());
     }
 
@@ -388,7 +401,8 @@ public class ExLongStream implements LongStream {
      * @param op             see {@link LongStream#reduce(LongBinaryOperator)}
      * @return see {@link LongStream#reduce(LongBinaryOperator)}
      */
-    public <E extends Exception> OptionalLong reduce(@SuppressWarnings("unused") Class<E> exceptionClass, ExLongBinaryOperator<? extends E> op) {
+    public <E extends Exception> OptionalLong reduce(Class<E> exceptionClass, ExLongBinaryOperator<? extends E> op) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return reduce(op.wrap());
     }
 
@@ -406,8 +420,9 @@ public class ExLongStream implements LongStream {
      * @param combiner       see {@link LongStream#collect}
      * @return see {@link LongStream#collect}
      */
-    public <R, E extends Exception> R collect(@SuppressWarnings("unused") Class<E> exceptionClass, ExSupplier<R, ? extends E> supplier,
+    public <R, E extends Exception> R collect(Class<E> exceptionClass, ExSupplier<R, ? extends E> supplier,
                                               ExObjLongConsumer<R, ? extends E> accumulator, ExBiConsumer<R, R, ? extends E> combiner) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return collect(supplier.wrap(), accumulator.wrap(), combiner.wrap());
     }
 
@@ -422,7 +437,8 @@ public class ExLongStream implements LongStream {
      * @param predicate      see {@link LongStream#anyMatch}
      * @return see {@link LongStream#anyMatch}
      */
-    public <E extends Exception> boolean anyMatch(@SuppressWarnings("unused") Class<E> exceptionClass, ExLongPredicate<? extends E> predicate) {
+    public <E extends Exception> boolean anyMatch(Class<E> exceptionClass, ExLongPredicate<? extends E> predicate) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return anyMatch(predicate.wrap());
     }
 
@@ -437,7 +453,8 @@ public class ExLongStream implements LongStream {
      * @param predicate      see {@link LongStream#allMatch}
      * @return see {@link LongStream#allMatch}
      */
-    public <E extends Exception> boolean allMatch(@SuppressWarnings("unused") Class<E> exceptionClass, ExLongPredicate<? extends E> predicate) {
+    public <E extends Exception> boolean allMatch(Class<E> exceptionClass, ExLongPredicate<? extends E> predicate) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return allMatch(predicate.wrap());
     }
 
@@ -452,7 +469,8 @@ public class ExLongStream implements LongStream {
      * @param predicate      see {@link LongStream#noneMatch}
      * @return see {@link LongStream#noneMatch}
      */
-    public <E extends Exception> boolean noneMatch(@SuppressWarnings("unused") Class<E> exceptionClass, ExLongPredicate<? extends E> predicate) {
+    public <E extends Exception> boolean noneMatch(Class<E> exceptionClass, ExLongPredicate<? extends E> predicate) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return noneMatch(predicate.wrap());
     }
 

@@ -172,7 +172,8 @@ public class ExDoubleStream implements DoubleStream {
      * @param predicate      see {@link DoubleStream#filter}
      * @return see {@link DoubleStream#filter}
      */
-    public <E extends Exception> ExDoubleStream filter(@SuppressWarnings("unused") Class<E> exceptionClass, ExDoublePredicate<? extends E> predicate) {
+    public <E extends Exception> ExDoubleStream filter(Class<E> exceptionClass, ExDoublePredicate<? extends E> predicate) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return of(filter(predicate.wrap()));
     }
 
@@ -190,7 +191,8 @@ public class ExDoubleStream implements DoubleStream {
      * @param mapper         see {@link DoubleStream#map}
      * @return see {@link DoubleStream#map}
      */
-    public <E extends Exception> ExDoubleStream map(@SuppressWarnings("unused") Class<E> exceptionClass, ExDoubleUnaryOperator<? extends E> mapper) {
+    public <E extends Exception> ExDoubleStream map(Class<E> exceptionClass, ExDoubleUnaryOperator<? extends E> mapper) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return of(map(mapper.wrap()));
     }
 
@@ -209,7 +211,8 @@ public class ExDoubleStream implements DoubleStream {
      * @param mapper         see {@link DoubleStream#mapToObj}
      * @return see {@link DoubleStream#mapToObj}
      */
-    public <U, E extends Exception> ExStream<U> mapToObj(@SuppressWarnings("unused") Class<E> exceptionClass, ExDoubleFunction<? extends U, ? extends E> mapper) {
+    public <U, E extends Exception> ExStream<U> mapToObj(Class<E> exceptionClass, ExDoubleFunction<? extends U, ? extends E> mapper) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return ExStream.of(mapToObj(mapper.wrap()));
     }
 
@@ -227,7 +230,8 @@ public class ExDoubleStream implements DoubleStream {
      * @param mapper         see {@link DoubleStream#mapToInt}
      * @return see {@link DoubleStream#mapToInt}
      */
-    public <E extends Exception> ExIntStream mapToInt(@SuppressWarnings("unused") Class<E> exceptionClass, ExDoubleToIntFunction<? extends E> mapper) {
+    public <E extends Exception> ExIntStream mapToInt(Class<E> exceptionClass, ExDoubleToIntFunction<? extends E> mapper) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return ExIntStream.of(mapToInt(mapper.wrap()));
     }
 
@@ -245,7 +249,8 @@ public class ExDoubleStream implements DoubleStream {
      * @param mapper         see {@link DoubleStream#mapToLong}
      * @return see {@link DoubleStream#mapToLong}
      */
-    public <E extends Exception> ExLongStream mapToLong(@SuppressWarnings("unused") Class<E> exceptionClass, ExDoubleToLongFunction<? extends E> mapper) {
+    public <E extends Exception> ExLongStream mapToLong(Class<E> exceptionClass, ExDoubleToLongFunction<? extends E> mapper) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return ExLongStream.of(mapToLong(mapper.wrap()));
     }
 
@@ -263,8 +268,9 @@ public class ExDoubleStream implements DoubleStream {
      * @param mapper         see {@link DoubleStream#flatMap}
      * @return see {@link DoubleStream#flatMap}
      */
-    public <E extends Exception> ExDoubleStream flatMap(@SuppressWarnings("unused") Class<E> exceptionClass,
+    public <E extends Exception> ExDoubleStream flatMap(Class<E> exceptionClass,
                                                         ExDoubleFunction<? extends DoubleStream, ? extends E> mapper) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return of(flatMap(mapper.wrap()));
     }
 
@@ -282,7 +288,8 @@ public class ExDoubleStream implements DoubleStream {
      * @param mapper         see {@link DoubleStream#mapMulti}
      * @return see {@link DoubleStream#mapMulti}
      */
-    public <E extends Exception> ExDoubleStream mapMulti(@SuppressWarnings("unused") Class<E> exceptionClass, ExDoubleMapMultiConsumer<? extends E> mapper) {
+    public <E extends Exception> ExDoubleStream mapMulti(Class<E> exceptionClass, ExDoubleMapMultiConsumer<? extends E> mapper) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return of(mapMulti(mapper.wrap()));
     }
 
@@ -297,7 +304,8 @@ public class ExDoubleStream implements DoubleStream {
      * @param action         see {@link DoubleStream#peek}
      * @return see {@link DoubleStream#peek}
      */
-    public <E extends Exception> ExDoubleStream peek(@SuppressWarnings("unused") Class<E> exceptionClass, ExDoubleConsumer<? extends E> action) {
+    public <E extends Exception> ExDoubleStream peek(Class<E> exceptionClass, ExDoubleConsumer<? extends E> action) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return of(peek(action.wrap()));
     }
 
@@ -312,7 +320,8 @@ public class ExDoubleStream implements DoubleStream {
      * @param predicate      see {@link DoubleStream#takeWhile}
      * @return see {@link DoubleStream#takeWhile}
      */
-    public <E extends Exception> ExDoubleStream takeWhile(@SuppressWarnings("unused") Class<E> exceptionClass, ExDoublePredicate<? extends E> predicate) {
+    public <E extends Exception> ExDoubleStream takeWhile(Class<E> exceptionClass, ExDoublePredicate<? extends E> predicate) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return of(takeWhile(predicate.wrap()));
     }
 
@@ -325,7 +334,8 @@ public class ExDoubleStream implements DoubleStream {
      * @param predicate see {@link DoubleStream#dropWhile}
      * @return see {@link DoubleStream#dropWhile}
      */
-    public <E extends Exception> ExDoubleStream dropWhile(@SuppressWarnings("unused") Class<E> exceptionClass, ExDoublePredicate<? extends E> predicate) {
+    public <E extends Exception> ExDoubleStream dropWhile(Class<E> exceptionClass, ExDoublePredicate<? extends E> predicate) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return of(dropWhile(predicate.wrap()));
     }
 
@@ -339,7 +349,8 @@ public class ExDoubleStream implements DoubleStream {
      * @param exceptionClass The exception class for {@link E}
      * @param action         see {@link DoubleStream#forEach}
      */
-    public <E extends Exception> void forEach(@SuppressWarnings("unused") Class<E> exceptionClass, ExDoubleConsumer<? extends E> action) {
+    public <E extends Exception> void forEach(Class<E> exceptionClass, ExDoubleConsumer<? extends E> action) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         forEach(action.wrap());
     }
 
@@ -353,7 +364,8 @@ public class ExDoubleStream implements DoubleStream {
      * @param exceptionClass The exception class for {@link E}
      * @param action         see {@link DoubleStream#forEachOrdered}
      */
-    public <E extends Exception> void forEachOrdered(@SuppressWarnings("unused") Class<E> exceptionClass, ExDoubleConsumer<? extends E> action) {
+    public <E extends Exception> void forEachOrdered(Class<E> exceptionClass, ExDoubleConsumer<? extends E> action) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         forEachOrdered(action.wrap());
     }
 
@@ -369,7 +381,8 @@ public class ExDoubleStream implements DoubleStream {
      * @param op             see {@link DoubleStream#reduce(double, DoubleBinaryOperator)}
      * @return see {@link DoubleStream#reduce(double, DoubleBinaryOperator)}
      */
-    public <E extends Exception> double reduce(@SuppressWarnings("unused") Class<E> exceptionClass, double identity, ExDoubleBinaryOperator<? extends E> op) {
+    public <E extends Exception> double reduce(Class<E> exceptionClass, double identity, ExDoubleBinaryOperator<? extends E> op) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return reduce(identity, op.wrap());
     }
 
@@ -384,7 +397,8 @@ public class ExDoubleStream implements DoubleStream {
      * @param op             see {@link DoubleStream#reduce(DoubleBinaryOperator)}
      * @return see {@link DoubleStream#reduce(DoubleBinaryOperator)}
      */
-    public <E extends Exception> OptionalDouble reduce(@SuppressWarnings("unused") Class<E> exceptionClass, ExDoubleBinaryOperator<? extends E> op) {
+    public <E extends Exception> OptionalDouble reduce(Class<E> exceptionClass, ExDoubleBinaryOperator<? extends E> op) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return reduce(op.wrap());
     }
 
@@ -402,8 +416,9 @@ public class ExDoubleStream implements DoubleStream {
      * @param combiner       see {@link DoubleStream#collect}
      * @return see {@link DoubleStream#collect}
      */
-    public <R, E extends Exception> R collect(@SuppressWarnings("unused") Class<E> exceptionClass, ExSupplier<R, ? extends E> supplier,
+    public <R, E extends Exception> R collect(Class<E> exceptionClass, ExSupplier<R, ? extends E> supplier,
                                               ExObjDoubleConsumer<R, ? extends E> accumulator, ExBiConsumer<R, R, ? extends E> combiner) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return collect(supplier.wrap(), accumulator.wrap(), combiner.wrap());
     }
 
@@ -418,7 +433,8 @@ public class ExDoubleStream implements DoubleStream {
      * @param predicate      see {@link DoubleStream#anyMatch}
      * @return see {@link DoubleStream#anyMatch}
      */
-    public <E extends Exception> boolean anyMatch(@SuppressWarnings("unused") Class<E> exceptionClass, ExDoublePredicate<? extends E> predicate) {
+    public <E extends Exception> boolean anyMatch(Class<E> exceptionClass, ExDoublePredicate<? extends E> predicate) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return anyMatch(predicate.wrap());
     }
 
@@ -433,7 +449,8 @@ public class ExDoubleStream implements DoubleStream {
      * @param predicate      see {@link DoubleStream#allMatch}
      * @return see {@link DoubleStream#allMatch}
      */
-    public <E extends Exception> boolean allMatch(@SuppressWarnings("unused") Class<E> exceptionClass, ExDoublePredicate<? extends E> predicate) {
+    public <E extends Exception> boolean allMatch(Class<E> exceptionClass, ExDoublePredicate<? extends E> predicate) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return allMatch(predicate.wrap());
     }
 
@@ -448,7 +465,8 @@ public class ExDoubleStream implements DoubleStream {
      * @param predicate      see {@link DoubleStream#noneMatch}
      * @return see {@link DoubleStream#noneMatch}
      */
-    public <E extends Exception> boolean noneMatch(@SuppressWarnings("unused") Class<E> exceptionClass, ExDoublePredicate<? extends E> predicate) {
+    public <E extends Exception> boolean noneMatch(Class<E> exceptionClass, ExDoublePredicate<? extends E> predicate) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return noneMatch(predicate.wrap());
     }
 
