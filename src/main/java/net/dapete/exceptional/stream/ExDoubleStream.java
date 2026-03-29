@@ -331,7 +331,9 @@ public class ExDoubleStream implements DoubleStream {
      * If {@code predicate} throws a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param predicate see {@link DoubleStream#dropWhile}
+     * @param <E>            The exception type thrown by {@code predicate}
+     * @param exceptionClass The exception class for {@link E}
+     * @param predicate      see {@link DoubleStream#dropWhile}
      * @return see {@link DoubleStream#dropWhile}
      */
     public <E extends Exception> ExDoubleStream dropWhile(Class<E> exceptionClass, ExDoublePredicate<? extends E> predicate) {

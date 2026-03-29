@@ -335,7 +335,9 @@ public class ExLongStream implements LongStream {
      * If {@code predicate} throws a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param predicate see {@link LongStream#dropWhile}
+     * @param <E>            The exception type thrown by {@code predicate}
+     * @param exceptionClass The exception class for {@link E}
+     * @param predicate      see {@link LongStream#dropWhile}
      * @return see {@link LongStream#dropWhile}
      */
     public <E extends Exception> ExLongStream dropWhile(Class<E> exceptionClass, ExLongPredicate<? extends E> predicate) {

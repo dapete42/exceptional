@@ -341,7 +341,9 @@ public class ExIntStream implements IntStream {
      * If {@code predicate} throws a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param predicate see {@link IntStream#dropWhile}
+     * @param <E>            The exception type thrown by {@code predicate}
+     * @param exceptionClass The exception class for {@link E}
+     * @param predicate      see {@link IntStream#dropWhile}
      * @return see {@link IntStream#dropWhile}
      */
     public <E extends Exception> ExIntStream dropWhile(Class<E> exceptionClass, ExIntPredicate<? extends E> predicate) {

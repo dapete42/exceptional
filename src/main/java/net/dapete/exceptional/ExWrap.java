@@ -132,10 +132,24 @@ public final class ExWrap {
         }
     }
 
+    /**
+     * Check if unwrapping is currently active.
+     * This means the current thread is running within a call to {@link #unwrap(Class, Runnable)}, {@link #unwrap(Class, Supplier)} etc.
+     *
+     * @return {@code true} if unwrapping is active, {@code false} otherwise.
+     */
     public static boolean isUnwrapActive() {
         return activeUnwrappedExceptionsThreadLocal.get() != null;
     }
 
+    /**
+     * Verify unwrapping for the supplied {@code exceptionClass} is currently active.
+     * This means the current thread is running within a call to {@link #unwrap(Class, Runnable)}, {@link #unwrap(Class, Supplier)} etc. with this exception
+     * as one of the arguments.
+     *
+     * @param exceptionClass exception class.
+     * @throws IllegalArgumentException if unwrapping for the supplied {@code exceptionClass} is not currently active.
+     */
     public static void verifyUnwrapActive(Class<? extends Exception> exceptionClass) {
         final Set<Class<? extends Exception>> active = activeUnwrappedExceptionsThreadLocal.get();
         if (active != null && active.stream().noneMatch(exceptionClass::isAssignableFrom)) {
