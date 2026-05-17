@@ -1,5 +1,7 @@
 package net.dapete.exceptional;
 
+import java.util.HashSet;
+
 /**
  * General utility class for Exceptional!
  */
@@ -7,6 +9,51 @@ final class ExUtils {
 
     // Utility class with private constructor
     private ExUtils() {
+    }
+
+    /**
+     * Create a {@link HashSet} containing only the given value.
+     *
+     * @param value value.
+     * @param <T>   type of the value.
+     * @return {@link HashSet} containing only the given value.
+     */
+    public static <T> @SuppressWarnings("NonApiType") HashSet<T> hashSetOf(T value) {
+        final var hashSet = new HashSet<T>();
+        hashSet.add(value);
+        return hashSet;
+    }
+
+    /**
+     * Create a {@link HashSet} containing only the given values.
+     *
+     * @param value1 first value.
+     * @param value2 second value.
+     * @param <T>    type of the value.
+     * @return {@code HashSet} containing only the given values.
+     */
+    public static <T> @SuppressWarnings("NonApiType") HashSet<T> hashSetOf(T value1, T value2) {
+        final var hashSet = new HashSet<T>();
+        hashSet.add(value1);
+        hashSet.add(value2);
+        return hashSet;
+    }
+
+    /**
+     * Create a {@link HashSet} containing only the given values.
+     *
+     * @param value1 first value.
+     * @param value2 second value.
+     * @param value3 third value.
+     * @param <T>    type of the value.
+     * @return {@code HashSet} containing only the given values.
+     */
+    public static <T> @SuppressWarnings("NonApiType") HashSet<T> hashSetOf(T value1, T value2, T value3) {
+        final var hashSet = new HashSet<T>();
+        hashSet.add(value1);
+        hashSet.add(value2);
+        hashSet.add(value3);
+        return hashSet;
     }
 
     /**
