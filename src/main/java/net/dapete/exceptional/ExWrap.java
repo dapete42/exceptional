@@ -152,7 +152,7 @@ public final class ExWrap {
      */
     public static void verifyUnwrapActive(Class<? extends Exception> exceptionClass) {
         final Set<Class<? extends Exception>> active = activeUnwrappedExceptionsThreadLocal.get();
-        if (active != null && active.stream().noneMatch(exceptionClass::isAssignableFrom)) {
+        if (active == null || active.stream().noneMatch(activeClass -> activeClass.isAssignableFrom(exceptionClass))) {
             throw new IllegalArgumentException("Exception %s is not allowed here, must be included in ExWrap.unwrap(...) invocation"
                     .formatted(exceptionClass.getName()));
         }

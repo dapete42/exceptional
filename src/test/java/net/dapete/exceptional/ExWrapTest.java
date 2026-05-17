@@ -5,10 +5,13 @@ import net.dapete.exceptional.function.ExSupplier;
 import net.dapete.exceptional.stream.ExIntStream;
 import org.junit.jupiter.api.Test;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.MissingResourceException;
 import java.util.concurrent.atomic.AtomicReference;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ExWrapTest {
 
@@ -61,6 +64,50 @@ class ExWrapTest {
 
     }
 
+    @Test
+    void verifyUnwrapActive_notActive() {
+        final var thrown = assertThrows(IllegalArgumentException.class, () ->
+                ExWrap.verifyUnwrapActive(IOException.class)
+        );
+
+        assertEquals("Exception java.io.IOException is not allowed here, must be included in ExWrap.unwrap(...) invocation", thrown.getMessage());
+    }
+
+    @Test
+    void verifyUnwrapActive_active() throws IOException {
+        ExWrap.unwrap(IOException.class, () ->
+                ExWrap.verifyUnwrapActive(IOException.class)
+        );
+    }
+
+    @Test
+    void verifyUnwrapActive_activeForOtherClass() {
+        final var thrown = assertThrows(IllegalArgumentException.class, () ->
+                ExWrap.unwrap(IOException.class, () ->
+                        ExWrap.verifyUnwrapActive(MissingResourceException.class)
+                )
+        );
+
+        assertEquals("Exception java.util.MissingResourceException is not allowed here, must be included in ExWrap.unwrap(...) invocation", thrown.getMessage());
+    }
+
+    @Test
+    void verifyUnwrapActive_activeForSuperclass() throws IOException {
+        ExWrap.unwrap(IOException.class, () ->
+                ExWrap.verifyUnwrapActive(FileNotFoundException.class)
+        );
+    }
+
+    @Test
+    void verifyUnwrapActive_activeForSubclass() {
+        final var thrown = assertThrows(IllegalArgumentException.class, () ->
+                ExWrap.unwrap(FileNotFoundException.class, () ->
+                        ExWrap.verifyUnwrapActive(IOException.class)
+                )
+        );
+
+        assertEquals("Exception java.io.IOException is not allowed here, must be included in ExWrap.unwrap(...) invocation", thrown.getMessage());
+    }
 
     // TODO this is example code, not a test
     @Test
