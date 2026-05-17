@@ -3,7 +3,7 @@
 import net.dapete.exceptional.function.*;
 import org.jspecify.annotations.Nullable;
 
-import java.util.Objects;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Supplier;
 
@@ -185,7 +185,7 @@ public final class ExWrap {
      */
     public static &lt;E extends Exception&gt; void unwrap(Class&lt;E&gt; exceptionClass, Runnable runnable) throws E {
         try {
-<span class="fc" id="L188">            unwrapScope(Set.of(exceptionClass), runnable);</span>
+<span class="fc" id="L188">            unwrapScope(ExUtils.hashSetOf(exceptionClass), runnable);</span>
 <span class="fc" id="L189">        } catch (ExException e) {</span>
 <span class="nc" id="L190">            e.unwrap(exceptionClass);</span>
             // the compiler doesn't know that unwrap always throws an exception
@@ -212,7 +212,7 @@ public final class ExWrap {
     public static &lt;E1 extends Exception, E2 extends Exception&gt; void unwrap(
             Class&lt;E1&gt; exceptionClass1, Class&lt;E2&gt; exceptionClass2, Runnable runnable) throws E1, E2 {
         try {
-<span class="nc" id="L215">            unwrapScope(Set.of(exceptionClass1, exceptionClass2), runnable);</span>
+<span class="nc" id="L215">            unwrapScope(ExUtils.hashSetOf(exceptionClass1, exceptionClass2), runnable);</span>
 <span class="nc" id="L216">        } catch (ExException e) {</span>
 <span class="nc" id="L217">            e.unwrap(exceptionClass1, exceptionClass2);</span>
             // the compiler doesn't know that unwrap always throws an exception
@@ -241,7 +241,7 @@ public final class ExWrap {
     public static &lt;E1 extends Exception, E2 extends Exception, E3 extends Exception&gt; void unwrap(
             Class&lt;E1&gt; exceptionClass1, Class&lt;E2&gt; exceptionClass2, Class&lt;E3&gt; exceptionClass3, Runnable runnable) throws E1, E2, E3 {
         try {
-<span class="nc" id="L244">            unwrapScope(Set.of(exceptionClass1, exceptionClass2, exceptionClass3), runnable);</span>
+<span class="nc" id="L244">            unwrapScope(ExUtils.hashSetOf(exceptionClass1, exceptionClass2, exceptionClass3), runnable);</span>
 <span class="nc" id="L245">        } catch (ExException e) {</span>
 <span class="nc" id="L246">            e.unwrap(exceptionClass1, exceptionClass2, exceptionClass3);</span>
             // the compiler doesn't know that unwrap always throws an exception
@@ -279,7 +279,7 @@ public final class ExWrap {
      */
     public static &lt;T, E extends Exception&gt; T unwrap(Class&lt;E&gt; exceptionClass, Supplier&lt;T&gt; supplier) throws E {
         try {
-<span class="fc" id="L282">            return unwrapScope(Set.of(exceptionClass), supplier);</span>
+<span class="fc" id="L282">            return unwrapScope(ExUtils.hashSetOf(exceptionClass), supplier);</span>
 <span class="fc" id="L283">        } catch (ExException e) {</span>
 <span class="nc" id="L284">            e.unwrap(exceptionClass);</span>
             // the compiler doesn't know that unwrap always throws an exception
@@ -308,7 +308,7 @@ public final class ExWrap {
     public static &lt;T, E1 extends Exception, E2 extends Exception&gt; T unwrap(
             Class&lt;E1&gt; exceptionClass1, Class&lt;E2&gt; exceptionClass2, Supplier&lt;T&gt; supplier) throws E1, E2 {
         try {
-<span class="nc" id="L311">            return unwrapScope(Set.of(exceptionClass1, exceptionClass2), supplier);</span>
+<span class="nc" id="L311">            return unwrapScope(ExUtils.hashSetOf(exceptionClass1, exceptionClass2), supplier);</span>
 <span class="fc" id="L312">        } catch (ExException e) {</span>
 <span class="nc" id="L313">            e.unwrap(exceptionClass1, exceptionClass2);</span>
             // the compiler doesn't know that unwrap always throws an exception
@@ -341,7 +341,7 @@ public final class ExWrap {
     public static &lt;T, E1 extends Exception, E2 extends Exception, E3 extends Exception&gt; T unwrap(
             Class&lt;E1&gt; exceptionClass1, Class&lt;E2&gt; exceptionClass2, Class&lt;E3&gt; exceptionClass3, Supplier&lt;T&gt; supplier) throws E1, E2, E3 {
         try {
-<span class="nc" id="L344">            return unwrapScope(Set.of(exceptionClass1, exceptionClass2, exceptionClass3), supplier);</span>
+<span class="nc" id="L344">            return unwrapScope(ExUtils.hashSetOf(exceptionClass1, exceptionClass2, exceptionClass3), supplier);</span>
 <span class="nc" id="L345">        } catch (ExException e) {</span>
 <span class="nc" id="L346">            e.unwrap(exceptionClass1, exceptionClass2, exceptionClass3);</span>
             // the compiler doesn't know that unwrap always throws an exception
@@ -349,33 +349,43 @@ public final class ExWrap {
         }
     }
 
-    private static void unwrapScope(Set&lt;Class&lt;? extends Exception&gt;&gt; exceptionClasses, Runnable runnable) {
-<span class="fc" id="L353">        final Set&lt;Class&lt;? extends Exception&gt;&gt; previous = activeUnwrappedExceptionsThreadLocal.get();</span>
+    /*
+     * exceptionClasses may be modified to avoid instantiating more sets.
+     */
+    private static void unwrapScope(@SuppressWarnings(&quot;NonApiType&quot;) HashSet&lt;Class&lt;? extends Exception&gt;&gt; exceptionClasses, Runnable runnable) {
+<span class="fc" id="L356">        final var previousClasses = activeUnwrappedExceptionsThreadLocal.get();</span>
         try {
-<span class="fc" id="L355">            activeUnwrappedExceptionsThreadLocal.set(exceptionClasses);</span>
-<span class="fc" id="L356">            runnable.run();</span>
+<span class="fc" id="L358">            addActiveUnwrappedExceptions(previousClasses, exceptionClasses);</span>
+<span class="fc" id="L359">            runnable.run();</span>
         } finally {
-<span class="pc bpc" id="L358" title="1 of 2 branches missed.">            if (Objects.isNull(previous)) {</span>
-<span class="fc" id="L359">                activeUnwrappedExceptionsThreadLocal.remove();</span>
-            } else {
-<span class="nc" id="L361">                activeUnwrappedExceptionsThreadLocal.set(previous);</span>
-            }
+<span class="fc" id="L361">            activeUnwrappedExceptionsThreadLocal.set(previousClasses);</span>
         }
-<span class="fc" id="L364">    }</span>
+<span class="fc" id="L363">    }</span>
 
-    private static &lt;T&gt; T unwrapScope(Set&lt;Class&lt;? extends Exception&gt;&gt; exceptionClasses, Supplier&lt;T&gt; supplier) {
-<span class="fc" id="L367">        final Set&lt;Class&lt;? extends Exception&gt;&gt; previous = activeUnwrappedExceptionsThreadLocal.get();</span>
+    /*
+     * exceptionClasses may be modified to avoid instantiating more sets.
+     */
+    private static &lt;T&gt; T unwrapScope(@SuppressWarnings(&quot;NonApiType&quot;) HashSet&lt;Class&lt;? extends Exception&gt;&gt; exceptionClasses, Supplier&lt;T&gt; supplier) {
+<span class="fc" id="L369">        final var previousClasses = activeUnwrappedExceptionsThreadLocal.get();</span>
         try {
-<span class="fc" id="L369">            activeUnwrappedExceptionsThreadLocal.set(exceptionClasses);</span>
-<span class="fc" id="L370">            return supplier.get();</span>
+<span class="fc" id="L371">            addActiveUnwrappedExceptions(previousClasses, exceptionClasses);</span>
+<span class="fc" id="L372">            return supplier.get();</span>
         } finally {
-<span class="pc bpc" id="L372" title="1 of 2 branches missed.">            if (Objects.isNull(previous)) {</span>
-<span class="fc" id="L373">                activeUnwrappedExceptionsThreadLocal.remove();</span>
-            } else {
-<span class="nc" id="L375">                activeUnwrappedExceptionsThreadLocal.set(previous);</span>
-            }
+<span class="fc" id="L374">            activeUnwrappedExceptionsThreadLocal.set(previousClasses);</span>
         }
     }
+
+    /*
+     * previousClasses is passed as a parameter to avoid calling ThreadLocal.get() multiple times.
+     * exceptionClasses may be modified to avoid instantiating more sets.
+     */
+    private static void addActiveUnwrappedExceptions(@Nullable Set&lt;Class&lt;? extends Exception&gt;&gt; previousClasses,
+                                                     @SuppressWarnings(&quot;NonApiType&quot;) HashSet&lt;Class&lt;? extends Exception&gt;&gt; exceptionClasses) {
+<span class="fc bfc" id="L384" title="All 2 branches covered.">        if (previousClasses != null) {</span>
+<span class="fc" id="L385">            exceptionClasses.addAll(previousClasses);</span>
+        }
+<span class="fc" id="L387">        activeUnwrappedExceptionsThreadLocal.set(exceptionClasses);</span>
+<span class="fc" id="L388">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>

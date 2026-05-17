@@ -109,7 +109,7 @@ public final class ExStream&lt;T&gt; implements Stream&lt;T&gt; {
      * @return an instance containing a single element
      */
     public static &lt;T&gt; ExStream&lt;T&gt; of(T t) {
-<span class="nc" id="L112">        return of(Stream.of(t));</span>
+<span class="fc" id="L112">        return of(Stream.of(t));</span>
     }
 
     /**
@@ -572,9 +572,9 @@ public final class ExStream&lt;T&gt; implements Stream&lt;T&gt; {
      * @param action         see {@link Stream#forEach}
      */
     public &lt;E extends Exception&gt; void forEach(Class&lt;E&gt; exceptionClass, ExConsumer&lt;? super T, ? extends E&gt; action) {
-<span class="nc" id="L575">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
-<span class="nc" id="L576">        forEach(action.wrap());</span>
-<span class="nc" id="L577">    }</span>
+<span class="fc" id="L575">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
+<span class="fc" id="L576">        forEach(action.wrap());</span>
+<span class="fc" id="L577">    }</span>
 
     /**
      * Equivalent of {@link Stream#forEachOrdered}.

@@ -2,13 +2,13 @@
   "SPDXID" : "SPDXRef-DOCUMENT",
   "spdxVersion" : "SPDX-2.3",
   "creationInfo" : {
-    "created" : "2026-05-17T07:17:46Z",
+    "created" : "2026-05-17T13:52:02Z",
     "creators" : [ "Tool: spdx-maven-plugin" ],
     "licenseListVersion" : "3.28.0"
   },
   "name" : "Exceptional!",
   "dataLicense" : "CC0-1.0",
-  "documentNamespace" : "http://spdx.org/spdxpackages/net.dapete_exceptional-0.4.0",
+  "documentNamespace" : "http://spdx.org/spdxpackages/net.dapete_exceptional-0.4.1",
   "packages" : [ {
     "SPDXID" : "SPDXRef--1f8f17850",
     "copyrightText" : "UNSPECIFIED",
@@ -50,7 +50,7 @@
     "downloadLocation" : "NOASSERTION",
     "externalRefs" : [ {
       "referenceCategory" : "PACKAGE-MANAGER",
-      "referenceLocator" : "pkg:maven/net.dapete/exceptional@0.4.0",
+      "referenceLocator" : "pkg:maven/net.dapete/exceptional@0.4.1",
       "referenceType" : "purl"
     } ],
     "filesAnalyzed" : true,
@@ -61,11 +61,11 @@
     "name" : "Exceptional!",
     "packageFileName" : "NOASSERTION",
     "packageVerificationCode" : {
-      "packageVerificationCodeValue" : "1e5518ea61484ba2a749eacdd16aa7765bd13291"
+      "packageVerificationCodeValue" : "f692ed8ca2dbf742ce8b50488e655de4edabe47b"
     },
     "primaryPackagePurpose" : "LIBRARY",
     "summary" : "Library for functional interfaces and streams that support exceptions",
-    "versionInfo" : "0.4.0"
+    "versionInfo" : "0.4.1"
   }, {
     "SPDXID" : "SPDXRef--6c9a30430",
     "copyrightText" : "UNSPECIFIED",
@@ -579,7 +579,7 @@
     "SPDXID" : "SPDXRef--62efa7310",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "77b3b3160a7185b4edc6839d88a55dfbe16a35e6"
+      "checksumValue" : "f8414bcc87796e3cfd917a8d8167bc6d47796e5a"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/test/java/net/dapete/exceptional/stream/ExStreamTest.java",
@@ -634,7 +634,7 @@
     "SPDXID" : "SPDXRef--6af38b990",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "af627382533fe09143f979f51782f5055b27eba8"
+      "checksumValue" : "809d3a7c6e7748473bfff0b93a77a10916140ee9"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/ExWrap.java",
@@ -678,7 +678,7 @@
     "SPDXID" : "SPDXRef--72d2eb320",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "89ba55ae30c018f3b4fada40a40936e101b4d92a"
+      "checksumValue" : "dcc3030edbf1f5db12c91e465fd8085498177cdf"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/test/java/net/dapete/exceptional/ExWrapTest.java",
@@ -777,7 +777,7 @@
     "SPDXID" : "SPDXRef-2a5d3a3e0",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "73569c758f74d53c2e00b09304e4146b3cf5da4b"
+      "checksumValue" : "4c033edc2656d54f1eae7899c3c5966d120b7293"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/ExUtils.java",

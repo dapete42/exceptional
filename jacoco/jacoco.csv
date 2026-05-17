@@ -1,12 +1,12 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-Exceptional!,net.dapete.exceptional,ExUtils,0,23,0,4,0,6,0,4,0,2
-Exceptional!,net.dapete.exceptional,ExWrap,96,125,2,8,35,43,6,19,4,16
-Exceptional!,net.dapete.exceptional,ExException,15,50,0,4,6,14,0,8,0,6
+Exceptional!,net.dapete.exceptional,ExUtils,18,47,0,4,5,13,1,6,1,4
+Exceptional!,net.dapete.exceptional,ExWrap,90,129,0,8,33,45,4,21,4,17
+Exceptional!,net.dapete.exceptional,ExException,10,55,0,4,4,16,0,8,0,6
 Exceptional!,net.dapete.exceptional.function,ExDoubleConsumer,9,3,0,0,0,1,2,1,2,1
 Exceptional!,net.dapete.exceptional.function,ExToIntFunction,9,3,0,0,0,1,2,1,2,1
 Exceptional!,net.dapete.exceptional.function,ExDoublePredicate,9,3,0,0,0,1,2,1,2,1
 Exceptional!,net.dapete.exceptional.function,ExBiFunction,11,3,0,0,0,1,2,1,2,1
-Exceptional!,net.dapete.exceptional.function,ExConsumer,9,3,0,0,0,1,2,1,2,1
+Exceptional!,net.dapete.exceptional.function,ExConsumer,0,12,0,0,0,1,0,3,0,3
 Exceptional!,net.dapete.exceptional.function,ExDoubleToLongFunction,9,3,0,0,0,1,2,1,2,1
 Exceptional!,net.dapete.exceptional.function,ExIntConsumer,9,3,0,0,0,1,2,1,2,1
 Exceptional!,net.dapete.exceptional.function,ExIntBinaryOperator,11,3,0,0,0,1,2,1,2,1
@@ -46,7 +46,7 @@ Exceptional!,net.dapete.exceptional.function,ExIntPredicate,9,3,0,0,0,1,2,1,2,1
 Exceptional!,net.dapete.exceptional.function,ExFunction,0,12,0,0,0,1,0,3,0,3
 Exceptional!,net.dapete.exceptional.function,ExLongToDoubleFunction,9,3,0,0,0,1,2,1,2,1
 Exceptional!,net.dapete.exceptional.function,ExIntUnaryOperator,13,3,0,0,1,1,4,1,4,1
-Exceptional!,net.dapete.exceptional.stream,ExStream,296,38,0,0,69,10,46,7,46,7
+Exceptional!,net.dapete.exceptional.stream,ExStream,285,49,0,0,65,14,44,9,44,9
 Exceptional!,net.dapete.exceptional.stream,ExLongStream,228,34,0,0,53,9,34,6,34,6
 Exceptional!,net.dapete.exceptional.stream,ExDoubleStream,221,34,0,0,52,9,33,6,33,6
 Exceptional!,net.dapete.exceptional.stream,ExLongMapMultiConsumer,15,3,0,0,0,1,2,1,2,1

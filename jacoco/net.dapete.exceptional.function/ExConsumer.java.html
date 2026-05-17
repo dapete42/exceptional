@@ -24,7 +24,7 @@ public interface ExConsumer&lt;T, E extends Exception&gt; extends Wrappable&lt;C
 
     @Override
     default @NonNull Consumer&lt;T&gt; wrap() {
-<span class="pc" id="L27">        return t -&gt; ExWrap.wrap(() -&gt; accept(t));</span>
+<span class="fc" id="L27">        return t -&gt; ExWrap.wrap(() -&gt; accept(t));</span>
     }
 
 }
