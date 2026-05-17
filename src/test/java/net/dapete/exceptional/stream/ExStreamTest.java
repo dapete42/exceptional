@@ -15,7 +15,7 @@ class ExStreamTest {
     @Test
     void unwrapScope() {
         assertThrows(FileNotFoundException.class, () -> {
-                    final var ignore = ExWrap.unwrap(FileNotFoundException.class, FileSystemException.class, () ->
+                    @SuppressWarnings("unused") final var ignore = ExWrap.unwrap(FileNotFoundException.class, FileSystemException.class, () ->
                             ExStream.of(1, 2, 3)
                                     .map(FileSystemException.class, i -> i + 1)
                                     .map(FileNotFoundException.class, i -> {
