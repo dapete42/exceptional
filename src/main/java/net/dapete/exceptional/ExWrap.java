@@ -3,7 +3,7 @@ package net.dapete.exceptional;
 import net.dapete.exceptional.function.*;
 import org.jspecify.annotations.Nullable;
 
-import java.util.Objects;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Supplier;
 
@@ -350,31 +350,33 @@ public final class ExWrap {
     }
 
     private static void unwrapScope(Set<Class<? extends Exception>> exceptionClasses, Runnable runnable) {
-        final Set<Class<? extends Exception>> previous = activeUnwrappedExceptionsThreadLocal.get();
+        final var previousClasses = activeUnwrappedExceptionsThreadLocal.get();
         try {
-            activeUnwrappedExceptionsThreadLocal.set(exceptionClasses);
+            addActiveUnwrappedExceptions(previousClasses, exceptionClasses);
             runnable.run();
         } finally {
-            if (Objects.isNull(previous)) {
-                activeUnwrappedExceptionsThreadLocal.remove();
-            } else {
-                activeUnwrappedExceptionsThreadLocal.set(previous);
-            }
+            activeUnwrappedExceptionsThreadLocal.set(previousClasses);
         }
     }
 
     private static <T> T unwrapScope(Set<Class<? extends Exception>> exceptionClasses, Supplier<T> supplier) {
-        final Set<Class<? extends Exception>> previous = activeUnwrappedExceptionsThreadLocal.get();
+        final var previousClasses = activeUnwrappedExceptionsThreadLocal.get();
         try {
-            activeUnwrappedExceptionsThreadLocal.set(exceptionClasses);
+            addActiveUnwrappedExceptions(previousClasses, exceptionClasses);
             return supplier.get();
         } finally {
-            if (Objects.isNull(previous)) {
-                activeUnwrappedExceptionsThreadLocal.remove();
-            } else {
-                activeUnwrappedExceptionsThreadLocal.set(previous);
-            }
+            activeUnwrappedExceptionsThreadLocal.set(previousClasses);
         }
+    }
+
+
+    private static void addActiveUnwrappedExceptions(@Nullable Set<Class<? extends Exception>> previousClasses, Set<Class<? extends Exception>> exceptionClasses) {
+        final Set<Class<? extends Exception>> mergedClasses = new HashSet<>();
+        if (previousClasses != null) {
+            mergedClasses.addAll(previousClasses);
+        }
+        mergedClasses.addAll(exceptionClasses);
+        activeUnwrappedExceptionsThreadLocal.set(mergedClasses);
     }
 
 }
