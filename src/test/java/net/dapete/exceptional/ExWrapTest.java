@@ -3,15 +3,16 @@ package net.dapete.exceptional;
 import net.dapete.exceptional.function.ExRunnable;
 import net.dapete.exceptional.function.ExSupplier;
 import net.dapete.exceptional.stream.ExIntStream;
+import net.dapete.exceptional.stream.ExStream;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.MissingResourceException;
+import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicReference;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ExWrapTest {
 
@@ -62,6 +63,81 @@ class ExWrapTest {
 
         assertEquals("test", thrown.getCause().getMessage());
 
+    }
+
+    @Test
+    void unwrap_Runnable_nested() throws IOException {
+        ExWrap.unwrap(IOException.class, () -> {
+            try {
+                ExWrap.unwrap(TimeoutException.class, () ->
+                        ExStream.of(1)
+                                .forEach(IOException.class, x -> {
+                                })
+                );
+            } catch (TimeoutException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        assertFalse(ExWrap.isUnwrapActive());
+    }
+
+    @Test
+    void unwrap_Runnable_nestedThrowingException() {
+        assertThrows(IOException.class, () ->
+                ExWrap.unwrap(IOException.class, () -> {
+                    try {
+                        ExWrap.unwrap(TimeoutException.class, () ->
+                                ExStream.of(1)
+                                        .forEach(IOException.class, x -> {
+                                            throw new IOException();
+                                        })
+                        );
+                    } catch (TimeoutException e) {
+                        throw new RuntimeException(e);
+                    }
+                })
+        );
+
+        assertFalse(ExWrap.isUnwrapActive());
+    }
+
+    @Test
+    void unwrap_Supplier_nested() throws IOException {
+        @SuppressWarnings("unused") final var ignore = ExWrap.unwrap(IOException.class, () -> {
+            try {
+                return ExWrap.unwrap(TimeoutException.class, () ->
+                        ExStream.of(1)
+                                .map(IOException.class, x -> x)
+                                .findFirst()
+                );
+            } catch (TimeoutException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        assertFalse(ExWrap.isUnwrapActive());
+    }
+
+    @Test
+    void unwrap_Supplier_nestedThrowingException() {
+        assertThrows(IOException.class, () -> {
+            @SuppressWarnings("unused") final var ignore = ExWrap.unwrap(IOException.class, () -> {
+                try {
+                    return ExWrap.unwrap(TimeoutException.class, () ->
+                            ExStream.of(1)
+                                    .map(IOException.class, x -> {
+                                        throw new IOException();
+                                    })
+                                    .findFirst()
+                    );
+                } catch (TimeoutException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        });
+
+        assertFalse(ExWrap.isUnwrapActive());
     }
 
     @Test

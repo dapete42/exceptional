@@ -3,7 +3,7 @@ package net.dapete.exceptional;
 import net.dapete.exceptional.function.*;
 import org.jspecify.annotations.Nullable;
 
-import java.util.Objects;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Supplier;
 
@@ -185,7 +185,7 @@ public final class ExWrap {
      */
     public static <E extends Exception> void unwrap(Class<E> exceptionClass, Runnable runnable) throws E {
         try {
-            unwrapScope(Set.of(exceptionClass), runnable);
+            unwrapScope(ExUtils.hashSetOf(exceptionClass), runnable);
         } catch (ExException e) {
             e.unwrap(exceptionClass);
             // the compiler doesn't know that unwrap always throws an exception
@@ -212,7 +212,7 @@ public final class ExWrap {
     public static <E1 extends Exception, E2 extends Exception> void unwrap(
             Class<E1> exceptionClass1, Class<E2> exceptionClass2, Runnable runnable) throws E1, E2 {
         try {
-            unwrapScope(Set.of(exceptionClass1, exceptionClass2), runnable);
+            unwrapScope(ExUtils.hashSetOf(exceptionClass1, exceptionClass2), runnable);
         } catch (ExException e) {
             e.unwrap(exceptionClass1, exceptionClass2);
             // the compiler doesn't know that unwrap always throws an exception
@@ -241,7 +241,7 @@ public final class ExWrap {
     public static <E1 extends Exception, E2 extends Exception, E3 extends Exception> void unwrap(
             Class<E1> exceptionClass1, Class<E2> exceptionClass2, Class<E3> exceptionClass3, Runnable runnable) throws E1, E2, E3 {
         try {
-            unwrapScope(Set.of(exceptionClass1, exceptionClass2, exceptionClass3), runnable);
+            unwrapScope(ExUtils.hashSetOf(exceptionClass1, exceptionClass2, exceptionClass3), runnable);
         } catch (ExException e) {
             e.unwrap(exceptionClass1, exceptionClass2, exceptionClass3);
             // the compiler doesn't know that unwrap always throws an exception
@@ -279,7 +279,7 @@ public final class ExWrap {
      */
     public static <T, E extends Exception> T unwrap(Class<E> exceptionClass, Supplier<T> supplier) throws E {
         try {
-            return unwrapScope(Set.of(exceptionClass), supplier);
+            return unwrapScope(ExUtils.hashSetOf(exceptionClass), supplier);
         } catch (ExException e) {
             e.unwrap(exceptionClass);
             // the compiler doesn't know that unwrap always throws an exception
@@ -308,7 +308,7 @@ public final class ExWrap {
     public static <T, E1 extends Exception, E2 extends Exception> T unwrap(
             Class<E1> exceptionClass1, Class<E2> exceptionClass2, Supplier<T> supplier) throws E1, E2 {
         try {
-            return unwrapScope(Set.of(exceptionClass1, exceptionClass2), supplier);
+            return unwrapScope(ExUtils.hashSetOf(exceptionClass1, exceptionClass2), supplier);
         } catch (ExException e) {
             e.unwrap(exceptionClass1, exceptionClass2);
             // the compiler doesn't know that unwrap always throws an exception
@@ -341,7 +341,7 @@ public final class ExWrap {
     public static <T, E1 extends Exception, E2 extends Exception, E3 extends Exception> T unwrap(
             Class<E1> exceptionClass1, Class<E2> exceptionClass2, Class<E3> exceptionClass3, Supplier<T> supplier) throws E1, E2, E3 {
         try {
-            return unwrapScope(Set.of(exceptionClass1, exceptionClass2, exceptionClass3), supplier);
+            return unwrapScope(ExUtils.hashSetOf(exceptionClass1, exceptionClass2, exceptionClass3), supplier);
         } catch (ExException e) {
             e.unwrap(exceptionClass1, exceptionClass2, exceptionClass3);
             // the compiler doesn't know that unwrap always throws an exception
@@ -349,32 +349,42 @@ public final class ExWrap {
         }
     }
 
-    private static void unwrapScope(Set<Class<? extends Exception>> exceptionClasses, Runnable runnable) {
-        final Set<Class<? extends Exception>> previous = activeUnwrappedExceptionsThreadLocal.get();
+    /*
+     * exceptionClasses may be modified to avoid instantiating more sets.
+     */
+    private static void unwrapScope(@SuppressWarnings("NonApiType") HashSet<Class<? extends Exception>> exceptionClasses, Runnable runnable) {
+        final var previousClasses = activeUnwrappedExceptionsThreadLocal.get();
         try {
-            activeUnwrappedExceptionsThreadLocal.set(exceptionClasses);
+            addActiveUnwrappedExceptions(previousClasses, exceptionClasses);
             runnable.run();
         } finally {
-            if (Objects.isNull(previous)) {
-                activeUnwrappedExceptionsThreadLocal.remove();
-            } else {
-                activeUnwrappedExceptionsThreadLocal.set(previous);
-            }
+            activeUnwrappedExceptionsThreadLocal.set(previousClasses);
         }
     }
 
-    private static <T> T unwrapScope(Set<Class<? extends Exception>> exceptionClasses, Supplier<T> supplier) {
-        final Set<Class<? extends Exception>> previous = activeUnwrappedExceptionsThreadLocal.get();
+    /*
+     * exceptionClasses may be modified to avoid instantiating more sets.
+     */
+    private static <T> T unwrapScope(@SuppressWarnings("NonApiType") HashSet<Class<? extends Exception>> exceptionClasses, Supplier<T> supplier) {
+        final var previousClasses = activeUnwrappedExceptionsThreadLocal.get();
         try {
-            activeUnwrappedExceptionsThreadLocal.set(exceptionClasses);
+            addActiveUnwrappedExceptions(previousClasses, exceptionClasses);
             return supplier.get();
         } finally {
-            if (Objects.isNull(previous)) {
-                activeUnwrappedExceptionsThreadLocal.remove();
-            } else {
-                activeUnwrappedExceptionsThreadLocal.set(previous);
-            }
+            activeUnwrappedExceptionsThreadLocal.set(previousClasses);
         }
+    }
+
+    /*
+     * previousClasses is passed as a parameter to avoid calling ThreadLocal.get() multiple times.
+     * exceptionClasses may be modified to avoid instantiating more sets.
+     */
+    private static void addActiveUnwrappedExceptions(@Nullable Set<Class<? extends Exception>> previousClasses,
+                                                     @SuppressWarnings("NonApiType") HashSet<Class<? extends Exception>> exceptionClasses) {
+        if (previousClasses != null) {
+            exceptionClasses.addAll(previousClasses);
+        }
+        activeUnwrappedExceptionsThreadLocal.set(exceptionClasses);
     }
 
 }
