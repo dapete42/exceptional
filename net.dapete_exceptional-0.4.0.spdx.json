@@ -2,13 +2,13 @@
   "SPDXID" : "SPDXRef-DOCUMENT",
   "spdxVersion" : "SPDX-2.3",
   "creationInfo" : {
-    "created" : "2026-03-15T11:39:38Z",
+    "created" : "2026-05-17T07:17:46Z",
     "creators" : [ "Tool: spdx-maven-plugin" ],
     "licenseListVersion" : "3.28.0"
   },
   "name" : "Exceptional!",
   "dataLicense" : "CC0-1.0",
-  "documentNamespace" : "http://spdx.org/spdxpackages/net.dapete_exceptional-0.3.0",
+  "documentNamespace" : "http://spdx.org/spdxpackages/net.dapete_exceptional-0.4.0",
   "packages" : [ {
     "SPDXID" : "SPDXRef--1f8f17850",
     "copyrightText" : "UNSPECIFIED",
@@ -50,7 +50,7 @@
     "downloadLocation" : "NOASSERTION",
     "externalRefs" : [ {
       "referenceCategory" : "PACKAGE-MANAGER",
-      "referenceLocator" : "pkg:maven/net.dapete/exceptional@0.3.0",
+      "referenceLocator" : "pkg:maven/net.dapete/exceptional@0.4.0",
       "referenceType" : "purl"
     } ],
     "filesAnalyzed" : true,
@@ -61,19 +61,19 @@
     "name" : "Exceptional!",
     "packageFileName" : "NOASSERTION",
     "packageVerificationCode" : {
-      "packageVerificationCodeValue" : "ee97959d37046f145081980fc9dfdf419b0627f7"
+      "packageVerificationCodeValue" : "1e5518ea61484ba2a749eacdd16aa7765bd13291"
     },
     "primaryPackagePurpose" : "LIBRARY",
     "summary" : "Library for functional interfaces and streams that support exceptions",
-    "versionInfo" : "0.3.0"
+    "versionInfo" : "0.4.0"
   }, {
-    "SPDXID" : "SPDXRef--6c9a30450",
+    "SPDXID" : "SPDXRef--6c9a30430",
     "copyrightText" : "UNSPECIFIED",
     "description" : "Spice up your java: Automatic Resource Management, automatic generation of getters, setters, equals, hashCode and toString, and more!",
     "downloadLocation" : "NOASSERTION",
     "externalRefs" : [ {
       "referenceCategory" : "PACKAGE-MANAGER",
-      "referenceLocator" : "pkg:maven/org.projectlombok/lombok@1.18.44",
+      "referenceLocator" : "pkg:maven/org.projectlombok/lombok@1.18.46",
       "referenceType" : "purl"
     } ],
     "filesAnalyzed" : false,
@@ -82,7 +82,7 @@
     "licenseDeclared" : "NOASSERTION",
     "name" : "Project Lombok",
     "summary" : "Spice up your java: Automatic Resource Management, automatic generation of getters, setters, equals, hashCode and toString, and more!",
-    "versionInfo" : "1.18.44"
+    "versionInfo" : "1.18.46"
   }, {
     "SPDXID" : "SPDXRef--7c012cd90",
     "copyrightText" : "UNSPECIFIED",
@@ -414,7 +414,7 @@
     "SPDXID" : "SPDXRef--276e00020",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "8d7e2bddc4459955e96e6722b6dd363887ce65f6"
+      "checksumValue" : "b93a1b120ea782d4a05ad34dd27df5b8b403b4b4"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/test/java/net/dapete/exceptional/stream/ExDoubleStreamTest.java",
@@ -521,6 +521,17 @@
     "licenseConcluded" : "NOASSERTION",
     "licenseInfoInFiles" : [ "NOASSERTION" ]
   }, {
+    "SPDXID" : "SPDXRef--420723e40",
+    "checksums" : [ {
+      "algorithm" : "SHA1",
+      "checksumValue" : "eadc67b0d1e125872974ef2ef64158d6b6d4e92a"
+    } ],
+    "copyrightText" : "NOASSERTION",
+    "fileName" : "./src/test/java/net/dapete/exceptional/stream/ExStreamUtilsTest.java",
+    "fileTypes" : [ "SOURCE" ],
+    "licenseConcluded" : "NOASSERTION",
+    "licenseInfoInFiles" : [ "NOASSERTION" ]
+  }, {
     "SPDXID" : "SPDXRef--4217ce490",
     "checksums" : [ {
       "algorithm" : "SHA1",
@@ -557,7 +568,7 @@
     "SPDXID" : "SPDXRef--5919dc890",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "8d7a268e22d6a4a50083bf63d8e0f3a18a28d436"
+      "checksumValue" : "352f039a731e63d391097d746670ddaa1744ec2b"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/stream/ExIntStream.java",
@@ -568,7 +579,7 @@
     "SPDXID" : "SPDXRef--62efa7310",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "2c8affc8f2b58bde265a852960ceeeba3223a66c"
+      "checksumValue" : "77b3b3160a7185b4edc6839d88a55dfbe16a35e6"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/test/java/net/dapete/exceptional/stream/ExStreamTest.java",
@@ -623,7 +634,7 @@
     "SPDXID" : "SPDXRef--6af38b990",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "cc9fc3edb04260649c6b2ad444d898fa093478a6"
+      "checksumValue" : "af627382533fe09143f979f51782f5055b27eba8"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/ExWrap.java",
@@ -645,7 +656,7 @@
     "SPDXID" : "SPDXRef--6ec8bf860",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "6bf9d3afa6e7efed4e4890f6308996f22e33fda5"
+      "checksumValue" : "1eeb089f69cc53c88fd360ebc91bd38d5e926fb8"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/stream/ExStream.java",
@@ -667,7 +678,7 @@
     "SPDXID" : "SPDXRef--72d2eb320",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "a064e5404d2f54ebfb88a95ac3838e5a32b17f65"
+      "checksumValue" : "89ba55ae30c018f3b4fada40a40936e101b4d92a"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/test/java/net/dapete/exceptional/ExWrapTest.java",
@@ -700,7 +711,7 @@
     "SPDXID" : "SPDXRef--c5fe8a20",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "2b32c5b0a306018811a8c791d687bd139546eedb"
+      "checksumValue" : "91de0c4c37f7e1098cbbaa32b884aac4eff8f560"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/stream/ExLongStream.java",
@@ -708,10 +719,21 @@
     "licenseConcluded" : "NOASSERTION",
     "licenseInfoInFiles" : [ "NOASSERTION" ]
   }, {
+    "SPDXID" : "SPDXRef--f273d8b0",
+    "checksums" : [ {
+      "algorithm" : "SHA1",
+      "checksumValue" : "d809b4c6b40ad57f9b6907d61394d68441dddc4f"
+    } ],
+    "copyrightText" : "NOASSERTION",
+    "fileName" : "./src/main/java/net/dapete/exceptional/stream/ExStreamUtils.java",
+    "fileTypes" : [ "SOURCE" ],
+    "licenseConcluded" : "NOASSERTION",
+    "licenseInfoInFiles" : [ "NOASSERTION" ]
+  }, {
     "SPDXID" : "SPDXRef-10cf66b50",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "8b50d6a9edcc4a147596458f6a721ed7b1e57e4c"
+      "checksumValue" : "babc8207ebdcad94cb340a1c12c14b14e28e571a"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/test/java/net/dapete/exceptional/ExExceptionTest.java",
@@ -766,7 +788,7 @@
     "SPDXID" : "SPDXRef-2dd61fa90",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "b3183880dd581858f78f1234dbb46dd7719fc018"
+      "checksumValue" : "b11ae7728c30e3fa34b4e5ce362d13b8c14913e6"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/test/java/net/dapete/exceptional/test/AllExFunctionalInterfaces.java",
@@ -788,7 +810,7 @@
     "SPDXID" : "SPDXRef-34427e5e0",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "ed547465ca32815bf2f74878290418d74ec74087"
+      "checksumValue" : "c05341ec3fc7890fd858c5d9b9a74b8ab22ba7ef"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/test/java/net/dapete/exceptional/stream/ExIntStreamTest.java",
@@ -843,7 +865,7 @@
     "SPDXID" : "SPDXRef-3fc462330",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "49c92cc79eef9b58f1265884492a7ca31af35394"
+      "checksumValue" : "18caf79eb57fdce0b2558ea91ebfe84765c6af42"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/test/java/net/dapete/exceptional/stream/ExLongStreamTest.java",
@@ -887,7 +909,7 @@
     "SPDXID" : "SPDXRef-57fce8690",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "af59de7b85c70ef342b776179fca2ea0a8e4137e"
+      "checksumValue" : "2f6fe2eef75b8e9b6abdb37ad7216b5472b9a8f0"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/stream/ExDoubleStream.java",
@@ -1149,6 +1171,11 @@
     "relatedSpdxElement" : "SPDXRef--4b3779bf0",
     "comment" : ""
   }, {
+    "spdxElementId" : "SPDXRef--420723e40",
+    "relationshipType" : "GENERATES",
+    "relatedSpdxElement" : "SPDXRef--4b3779bf0",
+    "comment" : ""
+  }, {
     "spdxElementId" : "SPDXRef--4217ce490",
     "relationshipType" : "GENERATES",
     "relatedSpdxElement" : "SPDXRef--4b3779bf0",
@@ -1230,6 +1257,11 @@
     "comment" : ""
   }, {
     "spdxElementId" : "SPDXRef--c5fe8a20",
+    "relationshipType" : "GENERATES",
+    "relatedSpdxElement" : "SPDXRef--4b3779bf0",
+    "comment" : ""
+  }, {
+    "spdxElementId" : "SPDXRef--f273d8b0",
     "relationshipType" : "GENERATES",
     "relatedSpdxElement" : "SPDXRef--4b3779bf0",
     "comment" : ""
@@ -1386,7 +1418,7 @@
   }, {
     "spdxElementId" : "SPDXRef--4b3779bf0",
     "relationshipType" : "OTHER",
-    "relatedSpdxElement" : "SPDXRef--6c9a30450",
+    "relatedSpdxElement" : "SPDXRef--6c9a30430",
     "comment" : "Relationship based on Maven POM file dependency information"
   }, {
     "spdxElementId" : "SPDXRef--4b3779bf0",
@@ -1545,6 +1577,10 @@
   }, {
     "spdxElementId" : "SPDXRef--4b3779bf0",
     "relationshipType" : "CONTAINS",
+    "relatedSpdxElement" : "SPDXRef--420723e40"
+  }, {
+    "spdxElementId" : "SPDXRef--4b3779bf0",
+    "relationshipType" : "CONTAINS",
     "relatedSpdxElement" : "SPDXRef--4217ce490"
   }, {
     "spdxElementId" : "SPDXRef--4b3779bf0",
@@ -1610,6 +1646,10 @@
     "spdxElementId" : "SPDXRef--4b3779bf0",
     "relationshipType" : "CONTAINS",
     "relatedSpdxElement" : "SPDXRef--c5fe8a20"
+  }, {
+    "spdxElementId" : "SPDXRef--4b3779bf0",
+    "relationshipType" : "CONTAINS",
+    "relatedSpdxElement" : "SPDXRef--f273d8b0"
   }, {
     "spdxElementId" : "SPDXRef--4b3779bf0",
     "relationshipType" : "CONTAINS",

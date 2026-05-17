@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ExWrap.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Exceptional!</a> &gt; <a href="index.source.html" class="el_package">net.dapete.exceptional</a> &gt; <span class="el_source">ExWrap.java</span></div><h1>ExWrap.java</h1><pre class="source lang-java linenums">package net.dapete.exceptional;
 
 import net.dapete.exceptional.function.*;
+import org.jspecify.annotations.Nullable;
 
+import java.util.Objects;
+import java.util.Set;
 import java.util.function.Supplier;
 
 /**
  * Wrapping utility class for Exceptional!
  */
 public final class ExWrap {
+
+<span class="fc" id="L15">    private static final ThreadLocal&lt;@Nullable Set&lt;Class&lt;? extends Exception&gt;&gt;&gt; activeUnwrappedExceptionsThreadLocal = new ThreadLocal&lt;&gt;();</span>
 
     // Utility class with private constructor
     private ExWrap() {
@@ -27,9 +32,9 @@ public final class ExWrap {
      */
     public static &lt;T, E extends Exception&gt; T wrap(ExSupplier&lt;T, E&gt; supplier) {
         try {
-<span class="fc" id="L30">            return supplier.get();</span>
-<span class="fc" id="L31">        } catch (Exception e) {</span>
-<span class="fc" id="L32">            throw ExUtils.toRuntimeException(e);</span>
+<span class="fc" id="L35">            return supplier.get();</span>
+<span class="fc" id="L36">        } catch (Exception e) {</span>
+<span class="fc" id="L37">            throw ExUtils.toRuntimeException(e);</span>
         }
     }
 
@@ -46,9 +51,9 @@ public final class ExWrap {
      */
     public static &lt;E extends Exception&gt; boolean wrap(ExBooleanSupplier&lt;E&gt; supplier) {
         try {
-<span class="nc" id="L49">            return supplier.getAsBoolean();</span>
-<span class="nc" id="L50">        } catch (Exception e) {</span>
-<span class="nc" id="L51">            throw ExUtils.toRuntimeException(e);</span>
+<span class="nc" id="L54">            return supplier.getAsBoolean();</span>
+<span class="nc" id="L55">        } catch (Exception e) {</span>
+<span class="nc" id="L56">            throw ExUtils.toRuntimeException(e);</span>
         }
     }
 
@@ -65,9 +70,9 @@ public final class ExWrap {
      */
     public static &lt;E extends Exception&gt; double wrap(ExDoubleSupplier&lt;E&gt; supplier) {
         try {
-<span class="nc" id="L68">            return supplier.getAsDouble();</span>
-<span class="fc" id="L69">        } catch (Exception e) {</span>
-<span class="fc" id="L70">            throw ExUtils.toRuntimeException(e);</span>
+<span class="nc" id="L73">            return supplier.getAsDouble();</span>
+<span class="fc" id="L74">        } catch (Exception e) {</span>
+<span class="fc" id="L75">            throw ExUtils.toRuntimeException(e);</span>
         }
     }
 
@@ -84,9 +89,9 @@ public final class ExWrap {
      */
     public static &lt;E extends Exception&gt; int wrap(ExIntSupplier&lt;E&gt; supplier) {
         try {
-<span class="nc" id="L87">            return supplier.getAsInt();</span>
-<span class="fc" id="L88">        } catch (Exception e) {</span>
-<span class="fc" id="L89">            throw ExUtils.toRuntimeException(e);</span>
+<span class="nc" id="L92">            return supplier.getAsInt();</span>
+<span class="fc" id="L93">        } catch (Exception e) {</span>
+<span class="fc" id="L94">            throw ExUtils.toRuntimeException(e);</span>
         }
     }
 
@@ -103,9 +108,9 @@ public final class ExWrap {
      */
     public static &lt;E extends Exception&gt; long wrap(ExLongSupplier&lt;E&gt; supplier) {
         try {
-<span class="nc" id="L106">            return supplier.getAsLong();</span>
-<span class="fc" id="L107">        } catch (Exception e) {</span>
-<span class="fc" id="L108">            throw ExUtils.toRuntimeException(e);</span>
+<span class="nc" id="L111">            return supplier.getAsLong();</span>
+<span class="fc" id="L112">        } catch (Exception e) {</span>
+<span class="fc" id="L113">            throw ExUtils.toRuntimeException(e);</span>
         }
     }
 
@@ -121,11 +126,37 @@ public final class ExWrap {
      */
     public static &lt;E extends Exception&gt; void wrap(ExRunnable&lt;E&gt; runnable) {
         try {
-<span class="fc" id="L124">            runnable.run();</span>
-<span class="fc" id="L125">        } catch (Exception e) {</span>
-<span class="fc" id="L126">            throw ExUtils.toRuntimeException(e);</span>
-<span class="fc" id="L127">        }</span>
-<span class="fc" id="L128">    }</span>
+<span class="fc" id="L129">            runnable.run();</span>
+<span class="fc" id="L130">        } catch (Exception e) {</span>
+<span class="fc" id="L131">            throw ExUtils.toRuntimeException(e);</span>
+<span class="fc" id="L132">        }</span>
+<span class="fc" id="L133">    }</span>
+
+    /**
+     * Check if unwrapping is currently active.
+     * This means the current thread is running within a call to {@link #unwrap(Class, Runnable)}, {@link #unwrap(Class, Supplier)} etc.
+     *
+     * @return {@code true} if unwrapping is active, {@code false} otherwise.
+     */
+    public static boolean isUnwrapActive() {
+<span class="fc bfc" id="L142" title="All 2 branches covered.">        return activeUnwrappedExceptionsThreadLocal.get() != null;</span>
+    }
+
+    /**
+     * Verify unwrapping for the supplied {@code exceptionClass} is currently active.
+     * This means the current thread is running within a call to {@link #unwrap(Class, Runnable)}, {@link #unwrap(Class, Supplier)} etc. with this exception
+     * as one of the arguments.
+     *
+     * @param exceptionClass exception class.
+     * @throws IllegalArgumentException if unwrapping for the supplied {@code exceptionClass} is not currently active.
+     */
+    public static void verifyUnwrapActive(Class&lt;? extends Exception&gt; exceptionClass) {
+<span class="fc" id="L154">        final Set&lt;Class&lt;? extends Exception&gt;&gt; active = activeUnwrappedExceptionsThreadLocal.get();</span>
+<span class="fc bfc" id="L155" title="All 4 branches covered.">        if (active == null || active.stream().noneMatch(activeClass -&gt; activeClass.isAssignableFrom(exceptionClass))) {</span>
+<span class="fc" id="L156">            throw new IllegalArgumentException(&quot;Exception %s is not allowed here, must be included in ExWrap.unwrap(...) invocation&quot;</span>
+<span class="fc" id="L157">                    .formatted(exceptionClass.getName()));</span>
+        }
+<span class="fc" id="L159">    }</span>
 
     /**
      * Unwraps any {@code ExException} thrown when executing {@link Runnable#run() runnable.run()} and throws its {@link ExException#getCause() cause} instead.
@@ -135,11 +166,11 @@ public final class ExWrap {
      */
     public static void unwrap(Runnable runnable) throws Exception {
         try {
-<span class="nc" id="L138">            runnable.run();</span>
-<span class="fc" id="L139">        } catch (ExException e) {</span>
-<span class="fc" id="L140">            throw e.getCause();</span>
-<span class="nc" id="L141">        }</span>
-<span class="nc" id="L142">    }</span>
+<span class="nc" id="L169">            runnable.run();</span>
+<span class="fc" id="L170">        } catch (ExException e) {</span>
+<span class="fc" id="L171">            throw e.getCause();</span>
+<span class="nc" id="L172">        }</span>
+<span class="nc" id="L173">    }</span>
 
     /**
      * Unwraps any {@code ExException} thrown when executing {@link Runnable#run() runnable.run()} and throws its {@link ExException#getCause() cause} instead,
@@ -154,13 +185,13 @@ public final class ExWrap {
      */
     public static &lt;E extends Exception&gt; void unwrap(Class&lt;E&gt; exceptionClass, Runnable runnable) throws E {
         try {
-<span class="nc" id="L157">            runnable.run();</span>
-<span class="fc" id="L158">        } catch (ExException e) {</span>
-<span class="nc" id="L159">            e.unwrap(exceptionClass);</span>
+<span class="fc" id="L188">            unwrapScope(Set.of(exceptionClass), runnable);</span>
+<span class="fc" id="L189">        } catch (ExException e) {</span>
+<span class="nc" id="L190">            e.unwrap(exceptionClass);</span>
             // the compiler doesn't know that unwrap always throws an exception
-<span class="nc" id="L161">            throw e;</span>
-<span class="nc" id="L162">        }</span>
-<span class="nc" id="L163">    }</span>
+<span class="nc" id="L192">            throw e;</span>
+<span class="fc" id="L193">        }</span>
+<span class="fc" id="L194">    }</span>
 
     /**
      * Unwraps any {@code ExException} thrown when executing {@link Runnable#run() runnable.run()} and throws its {@link ExException#getCause() cause} instead,
@@ -181,13 +212,14 @@ public final class ExWrap {
     public static &lt;E1 extends Exception, E2 extends Exception&gt; void unwrap(
             Class&lt;E1&gt; exceptionClass1, Class&lt;E2&gt; exceptionClass2, Runnable runnable) throws E1, E2 {
         try {
-<span class="nc" id="L184">            runnable.run();</span>
-<span class="nc" id="L185">        } catch (ExException e) {</span>
-<span class="nc" id="L186">            e.unwrap(exceptionClass1, exceptionClass2);</span>
+<span class="nc" id="L215">            unwrapScope(Set.of(exceptionClass1, exceptionClass2), runnable);</span>
+<span class="nc" id="L216">        } catch (ExException e) {</span>
+<span class="nc" id="L217">            e.unwrap(exceptionClass1, exceptionClass2);</span>
             // the compiler doesn't know that unwrap always throws an exception
-<span class="nc" id="L188">            throw e;</span>
-<span class="nc" id="L189">        }</span>
-<span class="nc" id="L190">    }</span>
+<span class="nc" id="L219">            throw e;</span>
+<span class="nc" id="L220">        }</span>
+<span class="nc" id="L221">    }</span>
+
 
     /**
      * Unwraps any {@code ExException} thrown when executing {@link Runnable#run() runnable.run()} and throws its {@link ExException#getCause() cause} instead,
@@ -209,13 +241,13 @@ public final class ExWrap {
     public static &lt;E1 extends Exception, E2 extends Exception, E3 extends Exception&gt; void unwrap(
             Class&lt;E1&gt; exceptionClass1, Class&lt;E2&gt; exceptionClass2, Class&lt;E3&gt; exceptionClass3, Runnable runnable) throws E1, E2, E3 {
         try {
-<span class="nc" id="L212">            runnable.run();</span>
-<span class="nc" id="L213">        } catch (ExException e) {</span>
-<span class="nc" id="L214">            e.unwrap(exceptionClass1, exceptionClass2, exceptionClass3);</span>
+<span class="nc" id="L244">            unwrapScope(Set.of(exceptionClass1, exceptionClass2, exceptionClass3), runnable);</span>
+<span class="nc" id="L245">        } catch (ExException e) {</span>
+<span class="nc" id="L246">            e.unwrap(exceptionClass1, exceptionClass2, exceptionClass3);</span>
             // the compiler doesn't know that unwrap always throws an exception
-<span class="nc" id="L216">            throw e;</span>
-<span class="nc" id="L217">        }</span>
-<span class="nc" id="L218">    }</span>
+<span class="nc" id="L248">            throw e;</span>
+<span class="nc" id="L249">        }</span>
+<span class="nc" id="L250">    }</span>
 
     /**
      * Unwraps any {@code ExException} thrown when executing {@link Supplier#get() supplier.get()} and throws its {@link ExException#getCause() cause} instead.
@@ -227,9 +259,9 @@ public final class ExWrap {
      */
     public static &lt;T&gt; T unwrap(Supplier&lt;T&gt; supplier) throws Exception {
         try {
-<span class="nc" id="L230">            return supplier.get();</span>
-<span class="fc" id="L231">        } catch (ExException e) {</span>
-<span class="fc" id="L232">            throw e.getCause();</span>
+<span class="nc" id="L262">            return supplier.get();</span>
+<span class="fc" id="L263">        } catch (ExException e) {</span>
+<span class="fc" id="L264">            throw e.getCause();</span>
         }
     }
 
@@ -247,11 +279,11 @@ public final class ExWrap {
      */
     public static &lt;T, E extends Exception&gt; T unwrap(Class&lt;E&gt; exceptionClass, Supplier&lt;T&gt; supplier) throws E {
         try {
-<span class="fc" id="L250">            return supplier.get();</span>
-<span class="fc" id="L251">        } catch (ExException e) {</span>
-<span class="nc" id="L252">            e.unwrap(exceptionClass);</span>
+<span class="fc" id="L282">            return unwrapScope(Set.of(exceptionClass), supplier);</span>
+<span class="fc" id="L283">        } catch (ExException e) {</span>
+<span class="nc" id="L284">            e.unwrap(exceptionClass);</span>
             // the compiler doesn't know that unwrap always throws an exception
-<span class="nc" id="L254">            throw e;</span>
+<span class="nc" id="L286">            throw e;</span>
         }
     }
 
@@ -276,11 +308,11 @@ public final class ExWrap {
     public static &lt;T, E1 extends Exception, E2 extends Exception&gt; T unwrap(
             Class&lt;E1&gt; exceptionClass1, Class&lt;E2&gt; exceptionClass2, Supplier&lt;T&gt; supplier) throws E1, E2 {
         try {
-<span class="nc" id="L279">            return supplier.get();</span>
-<span class="nc" id="L280">        } catch (ExException e) {</span>
-<span class="nc" id="L281">            e.unwrap(exceptionClass1, exceptionClass2);</span>
+<span class="nc" id="L311">            return unwrapScope(Set.of(exceptionClass1, exceptionClass2), supplier);</span>
+<span class="fc" id="L312">        } catch (ExException e) {</span>
+<span class="nc" id="L313">            e.unwrap(exceptionClass1, exceptionClass2);</span>
             // the compiler doesn't know that unwrap always throws an exception
-<span class="nc" id="L283">            throw e;</span>
+<span class="nc" id="L315">            throw e;</span>
         }
     }
 
@@ -309,11 +341,39 @@ public final class ExWrap {
     public static &lt;T, E1 extends Exception, E2 extends Exception, E3 extends Exception&gt; T unwrap(
             Class&lt;E1&gt; exceptionClass1, Class&lt;E2&gt; exceptionClass2, Class&lt;E3&gt; exceptionClass3, Supplier&lt;T&gt; supplier) throws E1, E2, E3 {
         try {
-<span class="nc" id="L312">            return supplier.get();</span>
-<span class="nc" id="L313">        } catch (ExException e) {</span>
-<span class="nc" id="L314">            e.unwrap(exceptionClass1, exceptionClass2, exceptionClass3);</span>
+<span class="nc" id="L344">            return unwrapScope(Set.of(exceptionClass1, exceptionClass2, exceptionClass3), supplier);</span>
+<span class="nc" id="L345">        } catch (ExException e) {</span>
+<span class="nc" id="L346">            e.unwrap(exceptionClass1, exceptionClass2, exceptionClass3);</span>
             // the compiler doesn't know that unwrap always throws an exception
-<span class="nc" id="L316">            throw e;</span>
+<span class="nc" id="L348">            throw e;</span>
+        }
+    }
+
+    private static void unwrapScope(Set&lt;Class&lt;? extends Exception&gt;&gt; exceptionClasses, Runnable runnable) {
+<span class="fc" id="L353">        final Set&lt;Class&lt;? extends Exception&gt;&gt; previous = activeUnwrappedExceptionsThreadLocal.get();</span>
+        try {
+<span class="fc" id="L355">            activeUnwrappedExceptionsThreadLocal.set(exceptionClasses);</span>
+<span class="fc" id="L356">            runnable.run();</span>
+        } finally {
+<span class="pc bpc" id="L358" title="1 of 2 branches missed.">            if (Objects.isNull(previous)) {</span>
+<span class="fc" id="L359">                activeUnwrappedExceptionsThreadLocal.remove();</span>
+            } else {
+<span class="nc" id="L361">                activeUnwrappedExceptionsThreadLocal.set(previous);</span>
+            }
+        }
+<span class="fc" id="L364">    }</span>
+
+    private static &lt;T&gt; T unwrapScope(Set&lt;Class&lt;? extends Exception&gt;&gt; exceptionClasses, Supplier&lt;T&gt; supplier) {
+<span class="fc" id="L367">        final Set&lt;Class&lt;? extends Exception&gt;&gt; previous = activeUnwrappedExceptionsThreadLocal.get();</span>
+        try {
+<span class="fc" id="L369">            activeUnwrappedExceptionsThreadLocal.set(exceptionClasses);</span>
+<span class="fc" id="L370">            return supplier.get();</span>
+        } finally {
+<span class="pc bpc" id="L372" title="1 of 2 branches missed.">            if (Objects.isNull(previous)) {</span>
+<span class="fc" id="L373">                activeUnwrappedExceptionsThreadLocal.remove();</span>
+            } else {
+<span class="nc" id="L375">                activeUnwrappedExceptionsThreadLocal.set(previous);</span>
+            }
         }
     }
 

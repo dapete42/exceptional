@@ -12,7 +12,7 @@ import java.util.stream.DoubleStream;
  * A DoubleStream with additional functionality for functional interfaces that throw Exceptions.
  * &lt;p&gt;
  * Implements versions of all methods from DoubleStream that use functional interfaces, using their counterparts with Exceptions instead, e.g.
- * {@link #exMap} in parallel to {@link #map}.
+ * {@link #map(Class, ExDoubleUnaryOperator)} in parallel to {@link #map(DoubleUnaryOperator)}.
  * &lt;p&gt;
  * If these functional interfaces throw a checked exception, a {@link ExException} will be thrown instead.
  * This will have the original exception as its {@link ExException#getCause() cause}.
@@ -142,7 +142,7 @@ public class ExDoubleStream implements DoubleStream {
 <span class="nc" id="L142">        return of(stream.onClose(closeHandler));</span>
     }
 
-    /* Override all methods that usually return IntStream to return an ExIntStream. */
+    /* Override all methods that usually return DoubleStream to return an ExDoubleStream. */
 
     @Override
     public ExIntStream mapToInt(DoubleToIntFunction mapper) {
@@ -156,7 +156,7 @@ public class ExDoubleStream implements DoubleStream {
 <span class="nc" id="L156">        return ExLongStream.of(stream.mapToLong(mapper));</span>
     }
 
-    /* Implement versions of all methods from DoubleStream that use functional interfaces, using their counterparts with Exceptions instead. */
+    /* Implement versions of all methods from DoubleStream that use functional Doubleerfaces, using their counterparts with Exceptions instead. */
 
     /**
      * Equivalent of {@link DoubleStream#filter}.
@@ -167,11 +167,14 @@ public class ExDoubleStream implements DoubleStream {
      * Note that this exception will likely not be thrown when a method is called, but only when a &lt;em&gt;terminal operation&lt;/em&gt; or a
      * &lt;em&gt;stateful intermediate operation&lt;/em&gt; is used on the stream.
      *
-     * @param predicate see {@link DoubleStream#filter}
+     * @param &lt;E&gt;            The exception type thrown by {@code mapper}
+     * @param exceptionClass The exception class for {@link E}
+     * @param predicate      see {@link DoubleStream#filter}
      * @return see {@link DoubleStream#filter}
      */
-    public ExDoubleStream exFilter(ExDoublePredicate&lt;?&gt; predicate) {
-<span class="nc" id="L174">        return of(filter(predicate.wrap()));</span>
+    public &lt;E extends Exception&gt; ExDoubleStream filter(Class&lt;E&gt; exceptionClass, ExDoublePredicate&lt;? extends E&gt; predicate) {
+<span class="nc" id="L176">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
+<span class="nc" id="L177">        return of(filter(predicate.wrap()));</span>
     }
 
     /**
@@ -183,11 +186,14 @@ public class ExDoubleStream implements DoubleStream {
      * Note that this exception will likely not be thrown when a method is called, but only when a &lt;em&gt;terminal operation&lt;/em&gt; or a
      * &lt;em&gt;stateful intermediate operation&lt;/em&gt; is used on the stream.
      *
-     * @param mapper see {@link DoubleStream#map}
+     * @param &lt;E&gt;            The exception type thrown by {@code mapper}
+     * @param exceptionClass The exception class for {@link E}
+     * @param mapper         see {@link DoubleStream#map}
      * @return see {@link DoubleStream#map}
      */
-    public ExDoubleStream exMap(ExDoubleUnaryOperator&lt;?&gt; mapper) {
-<span class="fc" id="L190">        return of(map(mapper.wrap()));</span>
+    public &lt;E extends Exception&gt; ExDoubleStream map(Class&lt;E&gt; exceptionClass, ExDoubleUnaryOperator&lt;? extends E&gt; mapper) {
+<span class="fc" id="L195">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
+<span class="fc" id="L196">        return of(map(mapper.wrap()));</span>
     }
 
     /**
@@ -199,12 +205,15 @@ public class ExDoubleStream implements DoubleStream {
      * Note that this exception will likely not be thrown when a method is called, but only when a &lt;em&gt;terminal operation&lt;/em&gt; or a
      * &lt;em&gt;stateful intermediate operation&lt;/em&gt; is used on the stream.
      *
-     * @param &lt;U&gt;    the element type of the new stream
-     * @param mapper see {@link DoubleStream#mapToObj}
+     * @param &lt;U&gt;            the element type of the new stream
+     * @param &lt;E&gt;            The exception type thrown by {@code mapper}
+     * @param exceptionClass The exception class for {@link E}
+     * @param mapper         see {@link DoubleStream#mapToObj}
      * @return see {@link DoubleStream#mapToObj}
      */
-    public &lt;U&gt; ExStream&lt;U&gt; exMapToObj(ExDoubleFunction&lt;? extends U, ?&gt; mapper) {
-<span class="nc" id="L207">        return ExStream.of(mapToObj(mapper.wrap()));</span>
+    public &lt;U, E extends Exception&gt; ExStream&lt;U&gt; mapToObj(Class&lt;E&gt; exceptionClass, ExDoubleFunction&lt;? extends U, ? extends E&gt; mapper) {
+<span class="nc" id="L215">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
+<span class="nc" id="L216">        return ExStream.of(mapToObj(mapper.wrap()));</span>
     }
 
     /**
@@ -216,11 +225,14 @@ public class ExDoubleStream implements DoubleStream {
      * Note that this exception will likely not be thrown when a method is called, but only when a &lt;em&gt;terminal operation&lt;/em&gt; or a
      * &lt;em&gt;stateful intermediate operation&lt;/em&gt; is used on the stream.
      *
-     * @param mapper see {@link DoubleStream#mapToInt}
+     * @param &lt;E&gt;            The exception type thrown by {@code mapper}
+     * @param exceptionClass The exception class for {@link E}
+     * @param mapper         see {@link DoubleStream#mapToInt}
      * @return see {@link DoubleStream#mapToInt}
      */
-    public ExIntStream exMapToInt(ExDoubleToIntFunction&lt;?&gt; mapper) {
-<span class="nc" id="L223">        return ExIntStream.of(mapToInt(mapper.wrap()));</span>
+    public &lt;E extends Exception&gt; ExIntStream mapToInt(Class&lt;E&gt; exceptionClass, ExDoubleToIntFunction&lt;? extends E&gt; mapper) {
+<span class="nc" id="L234">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
+<span class="nc" id="L235">        return ExIntStream.of(mapToInt(mapper.wrap()));</span>
     }
 
     /**
@@ -232,11 +244,14 @@ public class ExDoubleStream implements DoubleStream {
      * Note that this exception will likely not be thrown when a method is called, but only when a &lt;em&gt;terminal operation&lt;/em&gt; or a
      * &lt;em&gt;stateful intermediate operation&lt;/em&gt; is used on the stream.
      *
-     * @param mapper see {@link DoubleStream#mapToLong}
+     * @param &lt;E&gt;            The exception type thrown by {@code mapper}
+     * @param exceptionClass The exception class for {@link E}
+     * @param mapper         see {@link DoubleStream#mapToLong}
      * @return see {@link DoubleStream#mapToLong}
      */
-    public ExLongStream exMapToLong(ExDoubleToLongFunction&lt;?&gt; mapper) {
-<span class="nc" id="L239">        return ExLongStream.of(mapToLong(mapper.wrap()));</span>
+    public &lt;E extends Exception&gt; ExLongStream mapToLong(Class&lt;E&gt; exceptionClass, ExDoubleToLongFunction&lt;? extends E&gt; mapper) {
+<span class="nc" id="L253">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
+<span class="nc" id="L254">        return ExLongStream.of(mapToLong(mapper.wrap()));</span>
     }
 
     /**
@@ -248,11 +263,15 @@ public class ExDoubleStream implements DoubleStream {
      * Note that this exception will likely not be thrown when a method is called, but only when a &lt;em&gt;terminal operation&lt;/em&gt; or a
      * &lt;em&gt;stateful intermediate operation&lt;/em&gt; is used on the stream.
      *
-     * @param mapper see {@link DoubleStream#flatMap}
+     * @param &lt;E&gt;            The exception type thrown by {@code mapper}
+     * @param exceptionClass The exception class for {@link E}
+     * @param mapper         see {@link DoubleStream#flatMap}
      * @return see {@link DoubleStream#flatMap}
      */
-    public ExDoubleStream exFlatMap(ExDoubleFunction&lt;? extends DoubleStream, ?&gt; mapper) {
-<span class="nc" id="L255">        return of(flatMap(mapper.wrap()));</span>
+    public &lt;E extends Exception&gt; ExDoubleStream flatMap(Class&lt;E&gt; exceptionClass,
+                                                        ExDoubleFunction&lt;? extends DoubleStream, ? extends E&gt; mapper) {
+<span class="nc" id="L273">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
+<span class="nc" id="L274">        return of(flatMap(mapper.wrap()));</span>
     }
 
     /**
@@ -264,11 +283,14 @@ public class ExDoubleStream implements DoubleStream {
      * Note that this exception will likely not be thrown when a method is called, but only when a &lt;em&gt;terminal operation&lt;/em&gt; or a
      * &lt;em&gt;stateful intermediate operation&lt;/em&gt; is used on the stream.
      *
-     * @param mapper see {@link DoubleStream#mapMulti}
+     * @param &lt;E&gt;            The exception type thrown by {@code mapper}
+     * @param exceptionClass The exception class for {@link E}
+     * @param mapper         see {@link DoubleStream#mapMulti}
      * @return see {@link DoubleStream#mapMulti}
      */
-    public ExDoubleStream exMapMulti(ExDoubleMapMultiConsumer&lt;?&gt; mapper) {
-<span class="nc" id="L271">        return of(mapMulti(mapper.wrap()));</span>
+    public &lt;E extends Exception&gt; ExDoubleStream mapMulti(Class&lt;E&gt; exceptionClass, ExDoubleMapMultiConsumer&lt;? extends E&gt; mapper) {
+<span class="nc" id="L292">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
+<span class="nc" id="L293">        return of(mapMulti(mapper.wrap()));</span>
     }
 
     /**
@@ -277,11 +299,14 @@ public class ExDoubleStream implements DoubleStream {
      * If {@code action} throws a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param action see {@link DoubleStream#peek}
+     * @param &lt;E&gt;            The exception type thrown by {@code action}
+     * @param exceptionClass The exception class for {@link E}
+     * @param action         see {@link DoubleStream#peek}
      * @return see {@link DoubleStream#peek}
      */
-    public ExDoubleStream exPeek(ExDoubleConsumer&lt;?&gt; action) {
-<span class="nc" id="L284">        return of(peek(action.wrap()));</span>
+    public &lt;E extends Exception&gt; ExDoubleStream peek(Class&lt;E&gt; exceptionClass, ExDoubleConsumer&lt;? extends E&gt; action) {
+<span class="nc" id="L308">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
+<span class="nc" id="L309">        return of(peek(action.wrap()));</span>
     }
 
     /**
@@ -290,11 +315,14 @@ public class ExDoubleStream implements DoubleStream {
      * If {@code predicate} throws a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param predicate see {@link DoubleStream#takeWhile}
+     * @param &lt;E&gt;            The exception type thrown by {@code predicate}
+     * @param exceptionClass The exception class for {@link E}
+     * @param predicate      see {@link DoubleStream#takeWhile}
      * @return see {@link DoubleStream#takeWhile}
      */
-    public ExDoubleStream exTakeWhile(ExDoublePredicate&lt;?&gt; predicate) {
-<span class="nc" id="L297">        return of(takeWhile(predicate.wrap()));</span>
+    public &lt;E extends Exception&gt; ExDoubleStream takeWhile(Class&lt;E&gt; exceptionClass, ExDoublePredicate&lt;? extends E&gt; predicate) {
+<span class="nc" id="L324">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
+<span class="nc" id="L325">        return of(takeWhile(predicate.wrap()));</span>
     }
 
     /**
@@ -303,11 +331,14 @@ public class ExDoubleStream implements DoubleStream {
      * If {@code predicate} throws a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param predicate see {@link DoubleStream#dropWhile}
+     * @param &lt;E&gt;            The exception type thrown by {@code predicate}
+     * @param exceptionClass The exception class for {@link E}
+     * @param predicate      see {@link DoubleStream#dropWhile}
      * @return see {@link DoubleStream#dropWhile}
      */
-    public ExDoubleStream exDropWhile(ExDoublePredicate&lt;?&gt; predicate) {
-<span class="nc" id="L310">        return of(dropWhile(predicate.wrap()));</span>
+    public &lt;E extends Exception&gt; ExDoubleStream dropWhile(Class&lt;E&gt; exceptionClass, ExDoublePredicate&lt;? extends E&gt; predicate) {
+<span class="nc" id="L340">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
+<span class="nc" id="L341">        return of(dropWhile(predicate.wrap()));</span>
     }
 
     /**
@@ -316,11 +347,14 @@ public class ExDoubleStream implements DoubleStream {
      * If {@code action} throws a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param action see {@link DoubleStream#forEach}
+     * @param &lt;E&gt;            The exception type thrown by {@code action}
+     * @param exceptionClass The exception class for {@link E}
+     * @param action         see {@link DoubleStream#forEach}
      */
-    public void exForEach(ExDoubleConsumer&lt;?&gt; action) {
-<span class="nc" id="L322">        forEach(action.wrap());</span>
-<span class="nc" id="L323">    }</span>
+    public &lt;E extends Exception&gt; void forEach(Class&lt;E&gt; exceptionClass, ExDoubleConsumer&lt;? extends E&gt; action) {
+<span class="nc" id="L355">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
+<span class="nc" id="L356">        forEach(action.wrap());</span>
+<span class="nc" id="L357">    }</span>
 
     /**
      * Equivalent of {@link DoubleStream#forEachOrdered}.
@@ -328,11 +362,14 @@ public class ExDoubleStream implements DoubleStream {
      * If {@code action} throws a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param action see {@link DoubleStream#forEachOrdered}
+     * @param &lt;E&gt;            The exception type thrown by {@code action}
+     * @param exceptionClass The exception class for {@link E}
+     * @param action         see {@link DoubleStream#forEachOrdered}
      */
-    public void exForEachOrdered(ExDoubleConsumer&lt;?&gt; action) {
-<span class="nc" id="L334">        forEachOrdered(action.wrap());</span>
-<span class="nc" id="L335">    }</span>
+    public &lt;E extends Exception&gt; void forEachOrdered(Class&lt;E&gt; exceptionClass, ExDoubleConsumer&lt;? extends E&gt; action) {
+<span class="nc" id="L370">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
+<span class="nc" id="L371">        forEachOrdered(action.wrap());</span>
+<span class="nc" id="L372">    }</span>
 
     /**
      * Equivalent of {@link DoubleStream#reduce(double, DoubleBinaryOperator)}.
@@ -340,12 +377,15 @@ public class ExDoubleStream implements DoubleStream {
      * If {@code action} throws a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param identity see {@link DoubleStream#reduce(double, DoubleBinaryOperator)}
-     * @param op       see {@link DoubleStream#reduce(double, DoubleBinaryOperator)}
+     * @param &lt;E&gt;            The exception type thrown by {@code op}
+     * @param exceptionClass The exception class for {@link E}
+     * @param identity       see {@link DoubleStream#reduce(double, DoubleBinaryOperator)}
+     * @param op             see {@link DoubleStream#reduce(double, DoubleBinaryOperator)}
      * @return see {@link DoubleStream#reduce(double, DoubleBinaryOperator)}
      */
-    public Double exReduce(double identity, ExDoubleBinaryOperator&lt;?&gt; op) {
-<span class="nc" id="L348">        return reduce(identity, op.wrap());</span>
+    public &lt;E extends Exception&gt; double reduce(Class&lt;E&gt; exceptionClass, double identity, ExDoubleBinaryOperator&lt;? extends E&gt; op) {
+<span class="nc" id="L387">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
+<span class="nc" id="L388">        return reduce(identity, op.wrap());</span>
     }
 
     /**
@@ -354,11 +394,14 @@ public class ExDoubleStream implements DoubleStream {
      * If {@code action} throws a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param op see {@link DoubleStream#reduce(DoubleBinaryOperator)}
+     * @param &lt;E&gt;            The exception type thrown by {@code op}
+     * @param exceptionClass The exception class for {@link E}
+     * @param op             see {@link DoubleStream#reduce(DoubleBinaryOperator)}
      * @return see {@link DoubleStream#reduce(DoubleBinaryOperator)}
      */
-    public OptionalDouble exReduce(ExDoubleBinaryOperator&lt;?&gt; op) {
-<span class="nc" id="L361">        return reduce(op.wrap());</span>
+    public &lt;E extends Exception&gt; OptionalDouble reduce(Class&lt;E&gt; exceptionClass, ExDoubleBinaryOperator&lt;? extends E&gt; op) {
+<span class="nc" id="L403">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
+<span class="nc" id="L404">        return reduce(op.wrap());</span>
     }
 
     /**
@@ -367,15 +410,18 @@ public class ExDoubleStream implements DoubleStream {
      * If {@code supplier}, {@code accumulator} or {@code combiner} throw a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param &lt;R&gt;         the type of the mutable result container
-     * @param supplier    see {@link DoubleStream#collect}
-     * @param accumulator see {@link DoubleStream#collect}
-     * @param combiner    see {@link DoubleStream#collect}
+     * @param &lt;R&gt;            the type of the mutable result container
+     * @param &lt;E&gt;            The exception type thrown by {@code supplier}, {@code accumulator} or {@code combiner}
+     * @param exceptionClass The exception class for {@link E}
+     * @param supplier       see {@link DoubleStream#collect}
+     * @param accumulator    see {@link DoubleStream#collect}
+     * @param combiner       see {@link DoubleStream#collect}
      * @return see {@link DoubleStream#collect}
      */
-    public &lt;R&gt; R exCollect(ExSupplier&lt;R, ?&gt; supplier, ExObjDoubleConsumer&lt;R, ?&gt; accumulator,
-                           ExBiConsumer&lt;R, R, ?&gt; combiner) {
-<span class="nc" id="L378">        return collect(supplier.wrap(), accumulator.wrap(), combiner.wrap());</span>
+    public &lt;R, E extends Exception&gt; R collect(Class&lt;E&gt; exceptionClass, ExSupplier&lt;R, ? extends E&gt; supplier,
+                                              ExObjDoubleConsumer&lt;R, ? extends E&gt; accumulator, ExBiConsumer&lt;R, R, ? extends E&gt; combiner) {
+<span class="nc" id="L423">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
+<span class="nc" id="L424">        return collect(supplier.wrap(), accumulator.wrap(), combiner.wrap());</span>
     }
 
     /**
@@ -384,11 +430,14 @@ public class ExDoubleStream implements DoubleStream {
      * If {@code predicate} throws a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param predicate see {@link DoubleStream#anyMatch}
+     * @param &lt;E&gt;            The exception type thrown by {@code predicate}
+     * @param exceptionClass The exception class for {@link E}
+     * @param predicate      see {@link DoubleStream#anyMatch}
      * @return see {@link DoubleStream#anyMatch}
      */
-    public boolean exAnyMatch(ExDoublePredicate&lt;?&gt; predicate) {
-<span class="nc" id="L391">        return anyMatch(predicate.wrap());</span>
+    public &lt;E extends Exception&gt; boolean anyMatch(Class&lt;E&gt; exceptionClass, ExDoublePredicate&lt;? extends E&gt; predicate) {
+<span class="nc" id="L439">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
+<span class="nc" id="L440">        return anyMatch(predicate.wrap());</span>
     }
 
     /**
@@ -397,11 +446,14 @@ public class ExDoubleStream implements DoubleStream {
      * If {@code predicate} throws a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param predicate see {@link DoubleStream#allMatch}
+     * @param &lt;E&gt;            The exception type thrown by {@code predicate}
+     * @param exceptionClass The exception class for {@link E}
+     * @param predicate      see {@link DoubleStream#allMatch}
      * @return see {@link DoubleStream#allMatch}
      */
-    public boolean exAllMatch(ExDoublePredicate&lt;?&gt; predicate) {
-<span class="nc" id="L404">        return allMatch(predicate.wrap());</span>
+    public &lt;E extends Exception&gt; boolean allMatch(Class&lt;E&gt; exceptionClass, ExDoublePredicate&lt;? extends E&gt; predicate) {
+<span class="nc" id="L455">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
+<span class="nc" id="L456">        return allMatch(predicate.wrap());</span>
     }
 
     /**
@@ -410,11 +462,14 @@ public class ExDoubleStream implements DoubleStream {
      * If {@code predicate} throws a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param predicate see {@link DoubleStream#noneMatch}
+     * @param &lt;E&gt;            The exception type thrown by {@code predicate}
+     * @param exceptionClass The exception class for {@link E}
+     * @param predicate      see {@link DoubleStream#noneMatch}
      * @return see {@link DoubleStream#noneMatch}
      */
-    public boolean exNoneMatch(ExDoublePredicate&lt;?&gt; predicate) {
-<span class="nc" id="L417">        return noneMatch(predicate.wrap());</span>
+    public &lt;E extends Exception&gt; boolean noneMatch(Class&lt;E&gt; exceptionClass, ExDoublePredicate&lt;? extends E&gt; predicate) {
+<span class="nc" id="L471">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
+<span class="nc" id="L472">        return noneMatch(predicate.wrap());</span>
     }
 
 }

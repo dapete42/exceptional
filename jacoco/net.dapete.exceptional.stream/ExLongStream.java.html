@@ -12,7 +12,7 @@ import java.util.stream.LongStream;
  * A LongStream with additional functionality for functional interfaces that throw Exceptions.
  * &lt;p&gt;
  * Implements versions of all methods from LongStream that use functional interfaces, using their counterparts with Exceptions instead, e.g.
- * {@link #exMap} in parallel to {@link #map}.
+ * {@link #map(Class, ExLongUnaryOperator)} in parallel to {@link #map(LongUnaryOperator)}.
  * &lt;p&gt;
  * If these functional interfaces throw a checked exception, a {@link ExException} will be thrown instead.
  * This will have the original exception as its {@link ExException#getCause() cause}.
@@ -172,11 +172,14 @@ public class ExLongStream implements LongStream {
      * Note that this exception will likely not be thrown when a method is called, but only when a &lt;em&gt;terminal operation&lt;/em&gt; or a
      * &lt;em&gt;stateful intermediate operation&lt;/em&gt; is used on the stream.
      *
-     * @param predicate see {@link LongStream#filter}
+     * @param &lt;E&gt;            The exception type thrown by {@code predicate}
+     * @param exceptionClass The exception class for {@link E}
+     * @param predicate      see {@link LongStream#filter}
      * @return see {@link LongStream#filter}
      */
-    public ExLongStream exFilter(ExLongPredicate&lt;?&gt; predicate) {
-<span class="nc" id="L179">        return of(filter(predicate.wrap()));</span>
+    public &lt;E extends Exception&gt; ExLongStream filter(Class&lt;E&gt; exceptionClass, ExLongPredicate&lt;? extends E&gt; predicate) {
+<span class="nc" id="L181">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
+<span class="nc" id="L182">        return of(filter(predicate.wrap()));</span>
     }
 
     /**
@@ -188,11 +191,14 @@ public class ExLongStream implements LongStream {
      * Note that this exception will likely not be thrown when a method is called, but only when a &lt;em&gt;terminal operation&lt;/em&gt; or a
      * &lt;em&gt;stateful intermediate operation&lt;/em&gt; is used on the stream.
      *
-     * @param mapper see {@link LongStream#map}
+     * @param &lt;E&gt;            The exception type thrown by {@code mapper}
+     * @param exceptionClass The exception class for {@link E}
+     * @param mapper         see {@link LongStream#map}
      * @return see {@link LongStream#map}
      */
-    public ExLongStream exMap(ExLongUnaryOperator&lt;?&gt; mapper) {
-<span class="fc" id="L195">        return of(map(mapper.wrap()));</span>
+    public &lt;E extends Exception&gt; ExLongStream map(Class&lt;E&gt; exceptionClass, ExLongUnaryOperator&lt;? extends E&gt; mapper) {
+<span class="fc" id="L200">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
+<span class="fc" id="L201">        return of(map(mapper.wrap()));</span>
     }
 
     /**
@@ -204,12 +210,15 @@ public class ExLongStream implements LongStream {
      * Note that this exception will likely not be thrown when a method is called, but only when a &lt;em&gt;terminal operation&lt;/em&gt; or a
      * &lt;em&gt;stateful intermediate operation&lt;/em&gt; is used on the stream.
      *
-     * @param &lt;U&gt;    the element type of the new stream
-     * @param mapper see {@link LongStream#mapToObj}
+     * @param &lt;U&gt;            the element type of the new stream
+     * @param &lt;E&gt;            The exception type thrown by {@code mapper}
+     * @param exceptionClass The exception class for {@link E}
+     * @param mapper         see {@link LongStream#mapToObj}
      * @return see {@link LongStream#mapToObj}
      */
-    public &lt;U&gt; ExStream&lt;U&gt; exMapToObj(ExLongFunction&lt;? extends U, ?&gt; mapper) {
-<span class="nc" id="L212">        return ExStream.of(mapToObj(mapper.wrap()));</span>
+    public &lt;U, E extends Exception&gt; ExStream&lt;U&gt; mapToObj(Class&lt;E&gt; exceptionClass, ExLongFunction&lt;? extends U, ? extends E&gt; mapper) {
+<span class="nc" id="L220">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
+<span class="nc" id="L221">        return ExStream.of(mapToObj(mapper.wrap()));</span>
     }
 
     /**
@@ -221,11 +230,14 @@ public class ExLongStream implements LongStream {
      * Note that this exception will likely not be thrown when a method is called, but only when a &lt;em&gt;terminal operation&lt;/em&gt; or a
      * &lt;em&gt;stateful intermediate operation&lt;/em&gt; is used on the stream.
      *
-     * @param mapper see {@link LongStream#mapToDouble}
+     * @param &lt;E&gt;            The exception type thrown by {@code mapper}
+     * @param exceptionClass The exception class for {@link E}
+     * @param mapper         see {@link LongStream#mapToDouble}
      * @return see {@link LongStream#mapToDouble}
      */
-    public ExDoubleStream exMapToDouble(ExLongToDoubleFunction&lt;?&gt; mapper) {
-<span class="nc" id="L228">        return ExDoubleStream.of(mapToDouble(mapper.wrap()));</span>
+    public &lt;E extends Exception&gt; ExDoubleStream mapToDouble(Class&lt;E&gt; exceptionClass, ExLongToDoubleFunction&lt;? extends E&gt; mapper) {
+<span class="nc" id="L239">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
+<span class="nc" id="L240">        return ExDoubleStream.of(mapToDouble(mapper.wrap()));</span>
     }
 
     /**
@@ -237,11 +249,14 @@ public class ExLongStream implements LongStream {
      * Note that this exception will likely not be thrown when a method is called, but only when a &lt;em&gt;terminal operation&lt;/em&gt; or a
      * &lt;em&gt;stateful intermediate operation&lt;/em&gt; is used on the stream.
      *
-     * @param mapper see {@link LongStream#mapToInt}
+     * @param &lt;E&gt;            The exception type thrown by {@code mapper}
+     * @param exceptionClass The exception class for {@link E}
+     * @param mapper         see {@link LongStream#mapToInt}
      * @return see {@link LongStream#mapToInt}
      */
-    public ExIntStream exMapToInt(ExLongToIntFunction&lt;?&gt; mapper) {
-<span class="nc" id="L244">        return ExIntStream.of(mapToInt(mapper.wrap()));</span>
+    public &lt;E extends Exception&gt; ExIntStream mapToInt(Class&lt;E&gt; exceptionClass, ExLongToIntFunction&lt;? extends E&gt; mapper) {
+<span class="nc" id="L258">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
+<span class="nc" id="L259">        return ExIntStream.of(mapToInt(mapper.wrap()));</span>
     }
 
     /**
@@ -253,11 +268,14 @@ public class ExLongStream implements LongStream {
      * Note that this exception will likely not be thrown when a method is called, but only when a &lt;em&gt;terminal operation&lt;/em&gt; or a
      * &lt;em&gt;stateful intermediate operation&lt;/em&gt; is used on the stream.
      *
-     * @param mapper see {@link LongStream#flatMap}
+     * @param &lt;E&gt;            The exception type thrown by {@code mapper}
+     * @param exceptionClass The exception class for {@link E}
+     * @param mapper         see {@link LongStream#flatMap}
      * @return see {@link LongStream#flatMap}
      */
-    public ExLongStream exFlatMap(ExLongFunction&lt;? extends LongStream, ?&gt; mapper) {
-<span class="nc" id="L260">        return of(flatMap(mapper.wrap()));</span>
+    public &lt;E extends Exception&gt; ExLongStream flatMap(Class&lt;E&gt; exceptionClass, ExLongFunction&lt;? extends LongStream, ? extends E&gt; mapper) {
+<span class="nc" id="L277">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
+<span class="nc" id="L278">        return of(flatMap(mapper.wrap()));</span>
     }
 
     /**
@@ -269,11 +287,14 @@ public class ExLongStream implements LongStream {
      * Note that this exception will likely not be thrown when a method is called, but only when a &lt;em&gt;terminal operation&lt;/em&gt; or a
      * &lt;em&gt;stateful intermediate operation&lt;/em&gt; is used on the stream.
      *
-     * @param mapper see {@link LongStream#mapMulti}
+     * @param &lt;E&gt;            The exception type thrown by {@code mapper}
+     * @param exceptionClass The exception class for {@link E}
+     * @param mapper         see {@link LongStream#mapMulti}
      * @return see {@link LongStream#mapMulti}
      */
-    public ExLongStream exMapMulti(ExLongMapMultiConsumer&lt;?&gt; mapper) {
-<span class="nc" id="L276">        return of(mapMulti(mapper.wrap()));</span>
+    public &lt;E extends Exception&gt; ExLongStream mapMulti(Class&lt;E&gt; exceptionClass, ExLongMapMultiConsumer&lt;? extends E&gt; mapper) {
+<span class="nc" id="L296">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
+<span class="nc" id="L297">        return of(mapMulti(mapper.wrap()));</span>
     }
 
     /**
@@ -282,11 +303,14 @@ public class ExLongStream implements LongStream {
      * If {@code action} throws a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param action see {@link LongStream#peek}
+     * @param &lt;E&gt;            The exception type thrown by {@code action}
+     * @param exceptionClass The exception class for {@link E}
+     * @param action         see {@link LongStream#peek}
      * @return see {@link LongStream#peek}
      */
-    public ExLongStream exPeek(ExLongConsumer&lt;?&gt; action) {
-<span class="nc" id="L289">        return of(peek(action.wrap()));</span>
+    public &lt;E extends Exception&gt; ExLongStream peek(Class&lt;E&gt; exceptionClass, ExLongConsumer&lt;? extends E&gt; action) {
+<span class="nc" id="L312">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
+<span class="nc" id="L313">        return of(peek(action.wrap()));</span>
     }
 
     /**
@@ -295,11 +319,14 @@ public class ExLongStream implements LongStream {
      * If {@code predicate} throws a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param predicate see {@link LongStream#takeWhile}
+     * @param &lt;E&gt;            The exception type thrown by {@code predicate}
+     * @param exceptionClass The exception class for {@link E}
+     * @param predicate      see {@link LongStream#takeWhile}
      * @return see {@link LongStream#takeWhile}
      */
-    public ExLongStream exTakeWhile(ExLongPredicate&lt;?&gt; predicate) {
-<span class="nc" id="L302">        return of(takeWhile(predicate.wrap()));</span>
+    public &lt;E extends Exception&gt; ExLongStream takeWhile(Class&lt;E&gt; exceptionClass, ExLongPredicate&lt;? extends E&gt; predicate) {
+<span class="nc" id="L328">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
+<span class="nc" id="L329">        return of(takeWhile(predicate.wrap()));</span>
     }
 
     /**
@@ -308,11 +335,14 @@ public class ExLongStream implements LongStream {
      * If {@code predicate} throws a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param predicate see {@link LongStream#dropWhile}
+     * @param &lt;E&gt;            The exception type thrown by {@code predicate}
+     * @param exceptionClass The exception class for {@link E}
+     * @param predicate      see {@link LongStream#dropWhile}
      * @return see {@link LongStream#dropWhile}
      */
-    public ExLongStream exDropWhile(ExLongPredicate&lt;?&gt; predicate) {
-<span class="nc" id="L315">        return of(dropWhile(predicate.wrap()));</span>
+    public &lt;E extends Exception&gt; ExLongStream dropWhile(Class&lt;E&gt; exceptionClass, ExLongPredicate&lt;? extends E&gt; predicate) {
+<span class="nc" id="L344">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
+<span class="nc" id="L345">        return of(dropWhile(predicate.wrap()));</span>
     }
 
     /**
@@ -321,11 +351,14 @@ public class ExLongStream implements LongStream {
      * If {@code action} throws a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param action see {@link LongStream#forEach}
+     * @param &lt;E&gt;            The exception type thrown by {@code action}
+     * @param exceptionClass The exception class for {@link E}
+     * @param action         see {@link LongStream#forEach}
      */
-    public void exForEach(ExLongConsumer&lt;?&gt; action) {
-<span class="nc" id="L327">        forEach(action.wrap());</span>
-<span class="nc" id="L328">    }</span>
+    public &lt;E extends Exception&gt; void forEach(Class&lt;E&gt; exceptionClass, ExLongConsumer&lt;? extends E&gt; action) {
+<span class="nc" id="L359">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
+<span class="nc" id="L360">        forEach(action.wrap());</span>
+<span class="nc" id="L361">    }</span>
 
     /**
      * Equivalent of {@link LongStream#forEachOrdered}.
@@ -333,11 +366,14 @@ public class ExLongStream implements LongStream {
      * If {@code action} throws a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param action see {@link LongStream#forEachOrdered}
+     * @param &lt;E&gt;            The exception type thrown by {@code action}
+     * @param exceptionClass The exception class for {@link E}
+     * @param action         see {@link LongStream#forEachOrdered}
      */
-    public void exForEachOrdered(ExLongConsumer&lt;?&gt; action) {
-<span class="nc" id="L339">        forEachOrdered(action.wrap());</span>
-<span class="nc" id="L340">    }</span>
+    public &lt;E extends Exception&gt; void forEachOrdered(Class&lt;E&gt; exceptionClass, ExLongConsumer&lt;? extends E&gt; action) {
+<span class="nc" id="L374">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
+<span class="nc" id="L375">        forEachOrdered(action.wrap());</span>
+<span class="nc" id="L376">    }</span>
 
     /**
      * Equivalent of {@link LongStream#reduce(long, LongBinaryOperator)}.
@@ -345,12 +381,15 @@ public class ExLongStream implements LongStream {
      * If {@code action} throws a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param identity see {@link LongStream#reduce(long, LongBinaryOperator)}
-     * @param op       see {@link LongStream#reduce(long, LongBinaryOperator)}
+     * @param &lt;E&gt;            The exception type thrown by {@code op}
+     * @param exceptionClass The exception class for {@link E}
+     * @param identity       see {@link LongStream#reduce(long, LongBinaryOperator)}
+     * @param op             see {@link LongStream#reduce(long, LongBinaryOperator)}
      * @return see {@link LongStream#reduce(long, LongBinaryOperator)}
      */
-    public Long exReduce(Long identity, ExLongBinaryOperator&lt;?&gt; op) {
-<span class="nc" id="L353">        return reduce(identity, op.wrap());</span>
+    public &lt;E extends Exception&gt; Long reduce(Class&lt;E&gt; exceptionClass, Long identity, ExLongBinaryOperator&lt;? extends E&gt; op) {
+<span class="nc" id="L391">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
+<span class="nc" id="L392">        return reduce(identity, op.wrap());</span>
     }
 
     /**
@@ -359,11 +398,14 @@ public class ExLongStream implements LongStream {
      * If {@code action} throws a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param op see {@link LongStream#reduce(LongBinaryOperator)}
+     * @param &lt;E&gt;            The exception type thrown by {@code op}
+     * @param exceptionClass The exception class for {@link E}
+     * @param op             see {@link LongStream#reduce(LongBinaryOperator)}
      * @return see {@link LongStream#reduce(LongBinaryOperator)}
      */
-    public OptionalLong exReduce(ExLongBinaryOperator&lt;?&gt; op) {
-<span class="nc" id="L366">        return reduce(op.wrap());</span>
+    public &lt;E extends Exception&gt; OptionalLong reduce(Class&lt;E&gt; exceptionClass, ExLongBinaryOperator&lt;? extends E&gt; op) {
+<span class="nc" id="L407">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
+<span class="nc" id="L408">        return reduce(op.wrap());</span>
     }
 
     /**
@@ -372,15 +414,18 @@ public class ExLongStream implements LongStream {
      * If {@code supplier}, {@code accumulator} or {@code combiner} throw a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param &lt;R&gt;         the type of the mutable result container
-     * @param supplier    see {@link LongStream#collect}
-     * @param accumulator see {@link LongStream#collect}
-     * @param combiner    see {@link LongStream#collect}
+     * @param &lt;R&gt;            the type of the mutable result container
+     * @param &lt;E&gt;            The exception type thrown by {@code supplier}, {@code accumulator} or {@code combiner}
+     * @param exceptionClass The exception class for {@link E}
+     * @param supplier       see {@link LongStream#collect}
+     * @param accumulator    see {@link LongStream#collect}
+     * @param combiner       see {@link LongStream#collect}
      * @return see {@link LongStream#collect}
      */
-    public &lt;R&gt; R exCollect(ExSupplier&lt;R, ?&gt; supplier, ExObjLongConsumer&lt;R, ?&gt; accumulator,
-                           ExBiConsumer&lt;R, R, ?&gt; combiner) {
-<span class="nc" id="L383">        return collect(supplier.wrap(), accumulator.wrap(), combiner.wrap());</span>
+    public &lt;R, E extends Exception&gt; R collect(Class&lt;E&gt; exceptionClass, ExSupplier&lt;R, ? extends E&gt; supplier,
+                                              ExObjLongConsumer&lt;R, ? extends E&gt; accumulator, ExBiConsumer&lt;R, R, ? extends E&gt; combiner) {
+<span class="nc" id="L427">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
+<span class="nc" id="L428">        return collect(supplier.wrap(), accumulator.wrap(), combiner.wrap());</span>
     }
 
     /**
@@ -389,11 +434,14 @@ public class ExLongStream implements LongStream {
      * If {@code predicate} throws a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param predicate see {@link LongStream#anyMatch}
+     * @param &lt;E&gt;            The exception type thrown by {@code predicate}
+     * @param exceptionClass The exception class for {@link E}
+     * @param predicate      see {@link LongStream#anyMatch}
      * @return see {@link LongStream#anyMatch}
      */
-    public boolean exAnyMatch(ExLongPredicate&lt;?&gt; predicate) {
-<span class="nc" id="L396">        return anyMatch(predicate.wrap());</span>
+    public &lt;E extends Exception&gt; boolean anyMatch(Class&lt;E&gt; exceptionClass, ExLongPredicate&lt;? extends E&gt; predicate) {
+<span class="nc" id="L443">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
+<span class="nc" id="L444">        return anyMatch(predicate.wrap());</span>
     }
 
     /**
@@ -402,11 +450,14 @@ public class ExLongStream implements LongStream {
      * If {@code predicate} throws a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param predicate see {@link LongStream#allMatch}
+     * @param &lt;E&gt;            The exception type thrown by {@code predicate}
+     * @param exceptionClass The exception class for {@link E}
+     * @param predicate      see {@link LongStream#allMatch}
      * @return see {@link LongStream#allMatch}
      */
-    public boolean exAllMatch(ExLongPredicate&lt;?&gt; predicate) {
-<span class="nc" id="L409">        return allMatch(predicate.wrap());</span>
+    public &lt;E extends Exception&gt; boolean allMatch(Class&lt;E&gt; exceptionClass, ExLongPredicate&lt;? extends E&gt; predicate) {
+<span class="nc" id="L459">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
+<span class="nc" id="L460">        return allMatch(predicate.wrap());</span>
     }
 
     /**
@@ -415,11 +466,14 @@ public class ExLongStream implements LongStream {
      * If {@code predicate} throws a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param predicate see {@link LongStream#noneMatch}
+     * @param &lt;E&gt;            The exception type thrown by {@code predicate}
+     * @param exceptionClass The exception class for {@link E}
+     * @param predicate      see {@link LongStream#noneMatch}
      * @return see {@link LongStream#noneMatch}
      */
-    public boolean exNoneMatch(ExLongPredicate&lt;?&gt; predicate) {
-<span class="nc" id="L422">        return noneMatch(predicate.wrap());</span>
+    public &lt;E extends Exception&gt; boolean noneMatch(Class&lt;E&gt; exceptionClass, ExLongPredicate&lt;? extends E&gt; predicate) {
+<span class="nc" id="L475">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
+<span class="nc" id="L476">        return noneMatch(predicate.wrap());</span>
     }
 
 }
