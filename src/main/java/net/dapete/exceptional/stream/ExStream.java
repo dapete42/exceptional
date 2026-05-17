@@ -18,7 +18,7 @@ import java.util.stream.Stream;
  * A Stream with additional functionality for functional interfaces that throw Exceptions.
  * <p>
  * Implements versions of all methods from Stream that use functional interfaces, using their counterparts with Exceptions instead, e.g.
- * {@link #exMap} in parallel to {@link #map}.
+ * {@link #map(Class, ExFunction)} in parallel to {@link #map(Function)}.
  * <p>
  * If these functional interfaces throw a checked exception, a {@link ExException} will be thrown instead.
  * This will have the original exception as its {@link ExException#getCause() cause}.
@@ -259,10 +259,13 @@ public final class ExStream<T> implements Stream<T> {
      * Note that this exception will likely not be thrown when a method is called, but only when a <em>terminal operation</em> or a
      * <em>stateful intermediate operation</em> is used on the stream.
      *
-     * @param predicate see {@link Stream#filter}
+     * @param <E>            The exception type thrown by {@code mapper}
+     * @param exceptionClass The exception class for {@link E}
+     * @param predicate      see {@link Stream#filter}
      * @return see {@link Stream#filter}
      */
-    public ExStream<T> exFilter(ExPredicate<? super T, ?> predicate) {
+    public <E extends Exception> ExStream<T> filter(Class<E> exceptionClass, ExPredicate<? super T, ? extends E> predicate) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return filter(predicate.wrap());
     }
 
@@ -275,11 +278,15 @@ public final class ExStream<T> implements Stream<T> {
      * Note that this exception will likely not be thrown when a method is called, but only when a <em>terminal operation</em> or a
      * <em>stateful intermediate operation</em> is used on the stream.
      *
-     * @param <R>    The element type of the new stream
-     * @param mapper see {@link Stream#map}
+     * @param <R>            The element type of the new stream
+     * @param <E>            The exception type thrown by {@code mapper}
+     * @param exceptionClass The exception class for {@link E}
+     * @param mapper         see {@link Stream#map}
      * @return see {@link Stream#map}
      */
-    public <R> ExStream<R> exMap(ExFunction<? super T, ? extends R, ?> mapper) {
+    public <R, E extends Exception> ExStream<R> map(
+            Class<E> exceptionClass, ExFunction<? super T, ? extends R, ? extends E> mapper) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return map(mapper.wrap());
     }
 
@@ -292,11 +299,15 @@ public final class ExStream<T> implements Stream<T> {
      * Note that this exception will likely not be thrown when a method is called, but only when a <em>terminal operation</em> or a
      * <em>stateful intermediate operation</em> is used on the stream.
      *
-     * @param mapper see {@link Stream#mapToDouble}
+     * @param <E>            The exception type thrown by {@code mapper}
+     * @param exceptionClass The exception class for {@link E}
+     * @param mapper         see {@link Stream#mapToDouble}
      * @return see {@link Stream#mapToDouble}
      */
-    public ExDoubleStream exMapToDouble(ExToDoubleFunction<? super T, ?> mapper) {
-        return ExDoubleStream.of(mapToDouble(mapper.wrap()));
+    public <E extends Exception> ExDoubleStream mapToDouble(
+            Class<E> exceptionClass, ExToDoubleFunction<? super T, ? extends E> mapper) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
+        return mapToDouble(mapper.wrap());
     }
 
     /**
@@ -308,10 +319,13 @@ public final class ExStream<T> implements Stream<T> {
      * Note that this exception will likely not be thrown when a method is called, but only when a <em>terminal operation</em> or a
      * <em>stateful intermediate operation</em> is used on the stream.
      *
-     * @param mapper see {@link Stream#mapToInt}
+     * @param <E>            The exception type thrown by {@code mapper}
+     * @param exceptionClass The exception class for {@link E}
+     * @param mapper         see {@link Stream#mapToInt}
      * @return see {@link Stream#mapToInt}
      */
-    public ExIntStream exMapToInt(ExToIntFunction<? super T, ?> mapper) {
+    public <E extends Exception> ExIntStream mapToInt(Class<E> exceptionClass, ExToIntFunction<? super T, ? extends E> mapper) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return mapToInt(mapper.wrap());
     }
 
@@ -324,11 +338,14 @@ public final class ExStream<T> implements Stream<T> {
      * Note that this exception will likely not be thrown when a method is called, but only when a <em>terminal operation</em> or a
      * <em>stateful intermediate operation</em> is used on the stream.
      *
-     * @param mapper see {@link Stream#mapToLong}
+     * @param <E>            The exception type thrown by {@code mapper}
+     * @param exceptionClass The exception class for {@link E}
+     * @param mapper         see {@link Stream#mapToLong}
      * @return see {@link Stream#mapToLong}
      */
-    public ExLongStream exMapToLong(ExToLongFunction<? super T, ?> mapper) {
-        return ExLongStream.of(mapToLong(mapper.wrap()));
+    public <E extends Exception> ExLongStream mapToLong(Class<E> exceptionClass, ExToLongFunction<? super T, ? extends E> mapper) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
+        return mapToLong(mapper.wrap());
     }
 
     /**
@@ -340,11 +357,15 @@ public final class ExStream<T> implements Stream<T> {
      * Note that this exception will likely not be thrown when a method is called, but only when a <em>terminal operation</em> or a
      * <em>stateful intermediate operation</em> is used on the stream.
      *
-     * @param <R>    The element type of the new stream
-     * @param mapper see {@link Stream#flatMap}
+     * @param <R>            The element type of the new stream
+     * @param <E>            The exception type thrown by {@code mapper}
+     * @param exceptionClass The exception class for {@link E}
+     * @param mapper         see {@link Stream#flatMap}
      * @return see {@link Stream#flatMap}
      */
-    public <R> ExStream<R> exFlatMap(ExFunction<? super T, ? extends Stream<? extends R>, ?> mapper) {
+    public <R, E extends Exception> ExStream<R> flatMap(
+            Class<E> exceptionClass, ExFunction<? super T, ? extends Stream<? extends R>, ? extends E> mapper) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return flatMap(mapper.wrap());
     }
 
@@ -357,11 +378,15 @@ public final class ExStream<T> implements Stream<T> {
      * Note that this exception will likely not be thrown when a method is called, but only when a <em>terminal operation</em> or a
      * <em>stateful intermediate operation</em> is used on the stream.
      *
-     * @param mapper see {@link Stream#flatMapToDouble}
+     * @param <E>            The exception type thrown by {@code mapper}
+     * @param exceptionClass The exception class for {@link E}
+     * @param mapper         see {@link Stream#flatMapToDouble}
      * @return see {@link Stream#flatMapToDouble}
      */
-    public ExDoubleStream exFlatMapToDouble(ExFunction<? super T, ? extends DoubleStream, ?> mapper) {
-        return ExDoubleStream.of(flatMapToDouble(mapper.wrap()));
+    public <E extends Exception> ExDoubleStream flatMapToDouble(
+            Class<E> exceptionClass, ExFunction<? super T, ? extends DoubleStream, ? extends E> mapper) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
+        return flatMapToDouble(mapper.wrap());
     }
 
     /**
@@ -373,11 +398,15 @@ public final class ExStream<T> implements Stream<T> {
      * Note that this exception will likely not be thrown when a method is called, but only when a <em>terminal operation</em> or a
      * <em>stateful intermediate operation</em> is used on the stream.
      *
-     * @param mapper see {@link Stream#flatMapToInt}
+     * @param <E>            The exception type thrown by {@code mapper}
+     * @param exceptionClass The exception class for {@link E}
+     * @param mapper         see {@link Stream#flatMapToInt}
      * @return see {@link Stream#flatMapToInt}
      */
-    public ExIntStream exFlatMapToInt(ExFunction<? super T, ? extends IntStream, ?> mapper) {
-        return ExIntStream.of(flatMapToInt(mapper.wrap()));
+    public <E extends Exception> ExIntStream flatMapToInt(
+            Class<E> exceptionClass, ExFunction<? super T, ? extends IntStream, ? extends E> mapper) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
+        return flatMapToInt(mapper.wrap());
     }
 
     /**
@@ -389,11 +418,15 @@ public final class ExStream<T> implements Stream<T> {
      * Note that this exception will likely not be thrown when a method is called, but only when a <em>terminal operation</em> or a
      * <em>stateful intermediate operation</em> is used on the stream.
      *
-     * @param mapper see {@link Stream#flatMapToLong}
+     * @param <E>            The exception type thrown by {@code mapper}
+     * @param exceptionClass The exception class for {@link E}
+     * @param mapper         see {@link Stream#flatMapToLong}
      * @return see {@link Stream#flatMapToLong}
      */
-    public ExLongStream exFlatMapToLong(ExFunction<? super T, ? extends LongStream, ?> mapper) {
-        return ExLongStream.of(flatMapToLong(mapper.wrap()));
+    public <E extends Exception> ExLongStream flatMapToLong(
+            Class<E> exceptionClass, ExFunction<? super T, ? extends LongStream, ? extends E> mapper) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
+        return flatMapToLong(mapper.wrap());
     }
 
     /**
@@ -405,11 +438,15 @@ public final class ExStream<T> implements Stream<T> {
      * Note that this exception will likely not be thrown when a method is called, but only when a <em>terminal operation</em> or a
      * <em>stateful intermediate operation</em> is used on the stream.
      *
-     * @param <R>    The element type of the new stream
-     * @param mapper see {@link Stream#mapMulti}
+     * @param <R>            The element type of the new stream
+     * @param <E>            The exception type thrown by {@code mapper}
+     * @param exceptionClass The exception class for {@link E}
+     * @param mapper         see {@link Stream#mapMulti}
      * @return see {@link Stream#mapMulti}
      */
-    public <R> ExStream<R> exMapMulti(ExBiConsumer<? super T, ? super Consumer<R>, ?> mapper) {
+    public <R, E extends Exception> ExStream<R> mapMulti(
+            Class<E> exceptionClass, ExBiConsumer<? super T, ? super Consumer<R>, ? extends E> mapper) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return mapMulti(mapper.wrap());
     }
 
@@ -422,10 +459,14 @@ public final class ExStream<T> implements Stream<T> {
      * Note that this exception will likely not be thrown when a method is called, but only when a <em>terminal operation</em> or a
      * <em>stateful intermediate operation</em> is used on the stream.
      *
-     * @param mapper see {@link Stream#mapMultiToDouble}
+     * @param <E>            The exception type thrown by {@code mapper}
+     * @param exceptionClass The exception class for {@link E}
+     * @param mapper         see {@link Stream#mapMultiToDouble}
      * @return see {@link Stream#mapMultiToDouble}
      */
-    public ExDoubleStream exMapMultiToDouble(ExBiConsumer<? super T, ? super DoubleConsumer, ?> mapper) {
+    public <E extends Exception> ExDoubleStream mapMultiToDouble(
+            Class<E> exceptionClass, ExBiConsumer<? super T, ? super DoubleConsumer, ? extends E> mapper) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return mapMultiToDouble(mapper.wrap());
     }
 
@@ -438,10 +479,14 @@ public final class ExStream<T> implements Stream<T> {
      * Note that this exception will likely not be thrown when a method is called, but only when a <em>terminal operation</em> or a
      * <em>stateful intermediate operation</em> is used on the stream.
      *
-     * @param mapper see {@link Stream#mapMultiToInt}
+     * @param <E>            The exception type thrown by {@code mapper}
+     * @param exceptionClass The exception class for {@link E}
+     * @param mapper         see {@link Stream#mapMultiToInt}
      * @return see {@link Stream#mapMultiToInt}
      */
-    public ExIntStream exMapMultiToInt(ExBiConsumer<? super T, ? super IntConsumer, ?> mapper) {
+    public <E extends Exception> ExIntStream mapMultiToInt(
+            Class<E> exceptionClass, ExBiConsumer<? super T, ? super IntConsumer, ? extends E> mapper) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return mapMultiToInt(mapper.wrap());
     }
 
@@ -454,10 +499,14 @@ public final class ExStream<T> implements Stream<T> {
      * Note that this exception will likely not be thrown when a method is called, but only when a <em>terminal operation</em> or a
      * <em>stateful intermediate operation</em> is used on the stream.
      *
-     * @param mapper see {@link Stream#mapMultiToLong}
+     * @param <E>            The exception type thrown by {@code mapper}
+     * @param exceptionClass The exception class for {@link E}
+     * @param mapper         see {@link Stream#mapMultiToLong}
      * @return see {@link Stream#mapMultiToLong}
      */
-    public ExLongStream exMapMultiToLong(ExBiConsumer<? super T, ? super LongConsumer, ?> mapper) {
+    public <E extends Exception> ExLongStream mapMultiToLong(
+            Class<E> exceptionClass, ExBiConsumer<? super T, ? super LongConsumer, ? extends E> mapper) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return mapMultiToLong(mapper.wrap());
     }
 
@@ -467,10 +516,13 @@ public final class ExStream<T> implements Stream<T> {
      * If {@code action} throws a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param action see {@link Stream#peek}
+     * @param <E>            The exception type thrown by {@code action}
+     * @param exceptionClass The exception class for {@link E}
+     * @param action         see {@link Stream#peek}
      * @return see {@link Stream#peek}
      */
-    public ExStream<T> exPeek(ExConsumer<? super T, ?> action) {
+    public <E extends Exception> ExStream<T> peek(Class<E> exceptionClass, ExConsumer<? super T, ? extends E> action) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return peek(action.wrap());
     }
 
@@ -480,10 +532,13 @@ public final class ExStream<T> implements Stream<T> {
      * If {@code predicate} throws a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param predicate see {@link Stream#takeWhile}
+     * @param <E>            The exception type thrown by {@code predicate}
+     * @param exceptionClass The exception class for {@link E}
+     * @param predicate      see {@link Stream#takeWhile}
      * @return see {@link Stream#takeWhile}
      */
-    public ExStream<T> exTakeWhile(ExPredicate<? super T, ?> predicate) {
+    public <E extends Exception> ExStream<T> takeWhile(Class<E> exceptionClass, ExPredicate<? super T, ? extends E> predicate) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return takeWhile(predicate.wrap());
     }
 
@@ -496,10 +551,13 @@ public final class ExStream<T> implements Stream<T> {
      * Note that this exception will likely not be thrown when this method is called, but only when a <em>terminal operation</em> like {@link Stream#toList()}
      * is used on the stream.
      *
-     * @param predicate see {@link Stream#dropWhile}
+     * @param <E>            The exception type thrown by {@code predicate}
+     * @param exceptionClass The exception class for {@link E}
+     * @param predicate      see {@link Stream#dropWhile}
      * @return see {@link Stream#dropWhile}
      */
-    public ExStream<T> exDropWhile(ExPredicate<? super T, ?> predicate) {
+    public <E extends Exception> ExStream<T> dropWhile(Class<E> exceptionClass, ExPredicate<? super T, ? extends E> predicate) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return dropWhile(predicate.wrap());
     }
 
@@ -509,9 +567,12 @@ public final class ExStream<T> implements Stream<T> {
      * If {@code action} throws a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param action see {@link Stream#forEach}
+     * @param <E>            The exception type thrown by {@code action}
+     * @param exceptionClass The exception class for {@link E}
+     * @param action         see {@link Stream#forEach}
      */
-    public void exForEach(ExConsumer<? super T, ?> action) {
+    public <E extends Exception> void forEach(Class<E> exceptionClass, ExConsumer<? super T, ? extends E> action) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         forEach(action.wrap());
     }
 
@@ -521,9 +582,12 @@ public final class ExStream<T> implements Stream<T> {
      * If {@code action} throws a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param action see {@link Stream#forEachOrdered}
+     * @param <E>            The exception type thrown by {@code action}
+     * @param exceptionClass The exception class for {@link E}
+     * @param action         see {@link Stream#forEachOrdered}
      */
-    public void exForEachOrdered(ExConsumer<? super T, ?> action) {
+    public <E extends Exception> void forEachOrdered(Class<E> exceptionClass, ExConsumer<? super T, ? extends E> action) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         forEachOrdered(action.wrap());
     }
 
@@ -533,10 +597,13 @@ public final class ExStream<T> implements Stream<T> {
      * If {@code accumulator} throws a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param accumulator see {@link Stream#reduce(BinaryOperator)}
+     * @param <E>            The exception type thrown by {@code accumulator}
+     * @param exceptionClass The exception class for {@link E}
+     * @param accumulator    see {@link Stream#reduce(BinaryOperator)}
      * @return see {@link Stream#reduce(BinaryOperator)}
      */
-    public Optional<T> exReduce(ExBinaryOperator<T, ?> accumulator) {
+    public <E extends Exception> Optional<T> reduce(Class<E> exceptionClass, ExBinaryOperator<T, ? extends E> accumulator) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return reduce(accumulator.wrap());
     }
 
@@ -546,11 +613,14 @@ public final class ExStream<T> implements Stream<T> {
      * If {@code accumulator} throws a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param identity    see {@link Stream#reduce(Object, BiFunction, BinaryOperator)}
-     * @param accumulator see {@link Stream#reduce(Object, BinaryOperator)}
+     * @param <E>            The exception type thrown by {@code accumulator}
+     * @param exceptionClass The exception class for {@link E}
+     * @param identity       see {@link Stream#reduce(Object, BiFunction, BinaryOperator)}
+     * @param accumulator    see {@link Stream#reduce(Object, BinaryOperator)}
      * @return see {@link Stream#reduce(Object, BinaryOperator)}
      */
-    public T exReduce(T identity, ExBinaryOperator<T, ?> accumulator) {
+    public <E extends Exception> T reduce(Class<E> exceptionClass, T identity, ExBinaryOperator<T, ? extends E> accumulator) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return reduce(identity, accumulator.wrap());
     }
 
@@ -560,14 +630,17 @@ public final class ExStream<T> implements Stream<T> {
      * If {@code accumulator} or {@code combiner} throw a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param <U>         the element type of the new stream
-     * @param identity    see {@link Stream#reduce(Object, BiFunction, BinaryOperator)}
-     * @param accumulator see {@link Stream#reduce(Object, BiFunction, BinaryOperator)}
-     * @param combiner    see {@link Stream#reduce(Object, BiFunction, BinaryOperator)}
+     * @param <U>            the element type of the new stream
+     * @param <E>            The exception type thrown by {@code accumulator} or {@code combiner}
+     * @param exceptionClass The exception class for {@link E}
+     * @param identity       see {@link Stream#reduce(Object, BiFunction, BinaryOperator)}
+     * @param accumulator    see {@link Stream#reduce(Object, BiFunction, BinaryOperator)}
+     * @param combiner       see {@link Stream#reduce(Object, BiFunction, BinaryOperator)}
      * @return see {@link Stream#reduce(Object, BiFunction, BinaryOperator)}
      */
-    public <U> U exReduce(U identity, ExBiFunction<U, ? super T, U, ?> accumulator,
-                          ExBinaryOperator<U, ?> combiner) {
+    public <U, E extends Exception> U reduce(
+            Class<E> exceptionClass, U identity, ExBiFunction<U, ? super T, U, ? extends E> accumulator, ExBinaryOperator<U, ? extends E> combiner) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return reduce(identity, accumulator.wrap(), combiner.wrap());
     }
 
@@ -577,14 +650,18 @@ public final class ExStream<T> implements Stream<T> {
      * If {@code supplier}, {@code accumulator} or {@code combiner} throw a checked exception, a {@link ExException} will be thrown instead.
      * This will have the original exception as its {@link ExException#getCause() cause}.
      *
-     * @param <R>         the type of the mutable result container
-     * @param supplier    see {@link Stream#collect(Supplier, BiConsumer, BiConsumer)}
-     * @param accumulator see {@link Stream#collect(Supplier, BiConsumer, BiConsumer)}
-     * @param combiner    see {@link Stream#collect(Supplier, BiConsumer, BiConsumer)}
+     * @param <R>            the type of the mutable result container
+     * @param <E>            The exception type thrown by {@code supplier}, {@code accumulator} or {@code combiner}
+     * @param exceptionClass The exception class for {@link E}
+     * @param supplier       see {@link Stream#collect(Supplier, BiConsumer, BiConsumer)}
+     * @param accumulator    see {@link Stream#collect(Supplier, BiConsumer, BiConsumer)}
+     * @param combiner       see {@link Stream#collect(Supplier, BiConsumer, BiConsumer)}
      * @return see {@link Stream#collect(Supplier, BiConsumer, BiConsumer)}
      */
-    public <R> R exCollect(ExSupplier<R, ?> supplier, ExBiConsumer<R, ? super T, ?> accumulator,
-                           ExBiConsumer<R, R, ?> combiner) {
+    public <R, E extends Exception> R collect(
+            Class<E> exceptionClass, ExSupplier<R, ? extends E> supplier, ExBiConsumer<R, ? super T, ? extends E> accumulator,
+            ExBiConsumer<R, R, ? extends E> combiner) {
+        ExStreamUtils.verifyExceptionAllowed(exceptionClass);
         return collect(supplier.wrap(), accumulator.wrap(), combiner.wrap());
     }
 
