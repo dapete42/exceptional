@@ -350,7 +350,7 @@ public final class ExWrap {
     }
 
     /*
-     * exceptionClasses may be modified to avoid instantiating more maps.
+     * exceptionClasses may be modified to avoid instantiating more sets.
      */
     private static void unwrapScope(@SuppressWarnings("NonApiType") HashSet<Class<? extends Exception>> exceptionClasses, Runnable runnable) {
         final var previousClasses = activeUnwrappedExceptionsThreadLocal.get();
@@ -363,7 +363,7 @@ public final class ExWrap {
     }
 
     /*
-     * exceptionClasses may be modified to avoid instantiating more maps.
+     * exceptionClasses may be modified to avoid instantiating more sets.
      */
     private static <T> T unwrapScope(@SuppressWarnings("NonApiType") HashSet<Class<? extends Exception>> exceptionClasses, Supplier<T> supplier) {
         final var previousClasses = activeUnwrappedExceptionsThreadLocal.get();
@@ -377,7 +377,7 @@ public final class ExWrap {
 
     /*
      * previousClasses is passed as a parameter to avoid calling ThreadLocal.get() multiple times.
-     * exceptionClasses may be modified to avoid instantiating more maps.
+     * exceptionClasses may be modified to avoid instantiating more sets.
      */
     private static void addActiveUnwrappedExceptions(@Nullable Set<Class<? extends Exception>> previousClasses,
                                                      @SuppressWarnings("NonApiType") HashSet<Class<? extends Exception>> exceptionClasses) {
