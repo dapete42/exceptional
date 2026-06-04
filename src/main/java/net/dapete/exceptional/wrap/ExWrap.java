@@ -1,8 +1,8 @@
 package net.dapete.exceptional.wrap;
 
 import net.dapete.exceptional.ExException;
-import net.dapete.exceptional.ExUtils;
 import net.dapete.exceptional.function.*;
+import net.dapete.exceptional.internal.ExUtils;
 import org.jspecify.annotations.Nullable;
 
 import java.util.HashSet;

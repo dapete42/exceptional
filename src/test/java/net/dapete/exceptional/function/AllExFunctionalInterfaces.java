@@ -1,8 +1,7 @@
-package net.dapete.exceptional.test;
+package net.dapete.exceptional.function;
 
-import net.dapete.exceptional.wrap.ExWrap;
-import net.dapete.exceptional.function.Wrappable;
 import net.dapete.exceptional.stream.ExStream;
+import net.dapete.exceptional.wrap.ExWrap;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.NullMarked;
 import org.junit.jupiter.api.extension.ExtensionContext;

@@ -1,4 +1,6 @@
-package net.dapete.exceptional;
+package net.dapete.exceptional.internal;
+
+import net.dapete.exceptional.ExException;
 
 import java.util.HashSet;
 

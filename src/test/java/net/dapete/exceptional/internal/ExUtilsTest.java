@@ -1,5 +1,6 @@
-package net.dapete.exceptional;
+package net.dapete.exceptional.internal;
 
+import net.dapete.exceptional.ExException;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;

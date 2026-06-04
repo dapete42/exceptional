@@ -1,6 +1,7 @@
 package net.dapete.exceptional.function;
 
 import net.dapete.exceptional.ExException;
+import net.dapete.exceptional.wrap.ExWrap;
 import org.jspecify.annotations.NonNull;
 
 /**
@@ -22,6 +23,22 @@ public interface Wrappable<W> {
      *
      * @return a wrapped instance of type {@code W}
      */
-    @NonNull W wrap();
+    @NonNull
+    W wrap();
+
+    /**
+     * Wraps this functional interface, allowing it to be used in contexts where exceptions are not allowed to be thrown directly, if unwrapping is either not
+     * active at all or active for the supplied {@code exceptionClass}.
+     * <p>
+     * If an exception of type {@code exceptionClass} is thrown, an {@link ExException}, which is a runtime exception, will be thrown instead.
+     * This will have the original exception as its {@link ExException#getCause() cause}.
+     *
+     * @param exceptionClass the class of the exception to wrap.
+     * @return a wrapped instance of type {@code W}
+     */
+    default @NonNull W wrap(@NonNull Class<? extends Exception> exceptionClass) {
+        ExWrap.verifyExceptionAllowed(exceptionClass);
+        return wrap();
+    }
 
 }
