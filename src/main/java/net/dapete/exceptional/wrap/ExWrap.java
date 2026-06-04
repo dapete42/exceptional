@@ -1,5 +1,7 @@
-package net.dapete.exceptional;
+package net.dapete.exceptional.wrap;
 
+import net.dapete.exceptional.ExException;
+import net.dapete.exceptional.ExUtils;
 import net.dapete.exceptional.function.*;
 import org.jspecify.annotations.Nullable;
 
@@ -155,6 +157,18 @@ public final class ExWrap {
         if (active == null || active.stream().noneMatch(activeClass -> activeClass.isAssignableFrom(exceptionClass))) {
             throw new IllegalArgumentException("Exception %s is not allowed here, must be included in ExWrap.unwrap(...) invocation"
                     .formatted(exceptionClass.getName()));
+        }
+    }
+
+    /**
+     * If unwrapping is active, verify it is active for the supplied {@code exceptionClass}.
+     *
+     * @param exceptionClass exception class.
+     * @throws IllegalArgumentException if unwrapping is active, but not for the supplied {@code exceptionClass}.
+     */
+    public static void verifyExceptionAllowed(Class<? extends Exception> exceptionClass) {
+        if (isUnwrapActive()) {
+            verifyUnwrapActive(exceptionClass);
         }
     }
 

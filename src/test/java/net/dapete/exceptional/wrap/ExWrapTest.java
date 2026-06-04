@@ -1,5 +1,6 @@
-package net.dapete.exceptional;
+package net.dapete.exceptional.wrap;
 
+import net.dapete.exceptional.ExException;
 import net.dapete.exceptional.function.ExRunnable;
 import net.dapete.exceptional.function.ExSupplier;
 import net.dapete.exceptional.stream.ExIntStream;
@@ -271,6 +272,47 @@ class ExWrapTest {
             System.out.println("IOException was thrown");
         }
 
+    }
+
+    @Test
+    void verifyExceptionAllowed_notActive() {
+        ExWrap.verifyExceptionAllowed(IOException.class);
+    }
+
+    @Test
+    void verifyExceptionAllowed_active() throws IOException {
+        ExWrap.unwrap(IOException.class, () ->
+                ExWrap.verifyExceptionAllowed(IOException.class)
+        );
+    }
+
+    @Test
+    void verifyExceptionAllowed_activeForOtherClass() {
+        final var thrown = assertThrows(IllegalArgumentException.class, () ->
+                ExWrap.unwrap(IOException.class, () ->
+                        ExWrap.verifyExceptionAllowed(MissingResourceException.class)
+                )
+        );
+
+        assertEquals("Exception java.util.MissingResourceException is not allowed here, must be included in ExWrap.unwrap(...) invocation", thrown.getMessage());
+    }
+
+    @Test
+    void verifyExceptionAllowed_activeForSuperclass() throws IOException {
+        ExWrap.unwrap(IOException.class, () ->
+                ExWrap.verifyExceptionAllowed(FileNotFoundException.class)
+        );
+    }
+
+    @Test
+    void verifyExceptionAllowed_activeForSubclass() {
+        final var thrown = assertThrows(IllegalArgumentException.class, () ->
+                ExWrap.unwrap(FileNotFoundException.class, () ->
+                        ExWrap.verifyExceptionAllowed(IOException.class)
+                )
+        );
+
+        assertEquals("Exception java.io.IOException is not allowed here, must be included in ExWrap.unwrap(...) invocation", thrown.getMessage());
     }
 
 }

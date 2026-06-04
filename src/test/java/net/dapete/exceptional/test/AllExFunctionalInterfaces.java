@@ -1,6 +1,6 @@
 package net.dapete.exceptional.test;
 
-import net.dapete.exceptional.ExWrap;
+import net.dapete.exceptional.wrap.ExWrap;
 import net.dapete.exceptional.function.Wrappable;
 import net.dapete.exceptional.stream.ExStream;
 import org.jspecify.annotations.NonNull;

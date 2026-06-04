@@ -5,7 +5,7 @@ import java.util.HashSet;
 /**
  * General utility class for Exceptional!
  */
-final class ExUtils {
+public final class ExUtils {
 
     // Utility class with private constructor
     private ExUtils() {

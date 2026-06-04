@@ -1,7 +1,7 @@
 package net.dapete.exceptional.stream;
 
 import net.dapete.exceptional.ExException;
-import net.dapete.exceptional.ExWrap;
+import net.dapete.exceptional.wrap.ExWrap;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
