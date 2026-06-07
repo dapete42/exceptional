@@ -24,7 +24,7 @@ public final class ExWrap {
      * Executes an {@link ExSupplier}, calling its {@code get()} method and returning the result.
      * <p>
      * If a checked exception is thrown, an {@link ExException}, which is a runtime exception, will be thrown instead.
-     * This will have the original exception as its {@link ExException#getCause()}  cause}.
+     * This will have the original exception as its {@link ExException#getCause() cause}.
      *
      * @param supplier an {@code ExSupplier} to execute.
      * @param <T>      the type of results supplied by {@code supplier}.
@@ -44,7 +44,7 @@ public final class ExWrap {
      * Executes an {@link ExBooleanSupplier}, calling its {@code getAsBoolean()} method and returning the result.
      * <p>
      * If a checked exception is thrown, an {@link ExException}, which is a runtime exception, will be thrown instead.
-     * This will have the original exception as its {@link ExException#getCause()}  cause}.
+     * This will have the original exception as its {@link ExException#getCause() cause}.
      *
      * @param supplier an {@code ExBooleanSupplier} to execute.
      * @param <E>      the type of exception thrown by the {@code ExBooleanSupplier}.
@@ -63,7 +63,7 @@ public final class ExWrap {
      * Executes an {@link ExDoubleSupplier}, calling its {@code getAsDouble()} method and returning the result.
      * <p>
      * If a checked exception is thrown, an {@link ExException}, which is a runtime exception, will be thrown instead.
-     * This will have the original exception as its {@link ExException#getCause()}  cause}.
+     * This will have the original exception as its {@link ExException#getCause() cause}.
      *
      * @param supplier an {@code ExDoubleSupplier} to execute.
      * @param <E>      the type of exception thrown by the {@code ExDoubleSupplier}.
@@ -82,7 +82,7 @@ public final class ExWrap {
      * Executes an {@link ExIntSupplier}, calling its {@code getAsInt()} method and returning the result.
      * <p>
      * If a checked exception is thrown, an {@link ExException}, which is a runtime exception, will be thrown instead.
-     * This will have the original exception as its {@link ExException#getCause()}  cause}.
+     * This will have the original exception as its {@link ExException#getCause() cause}.
      *
      * @param supplier an {@code ExIntSupplier} to execute.
      * @param <E>      the type of exception thrown by the {@code ExIntSupplier}.
@@ -101,7 +101,7 @@ public final class ExWrap {
      * Executes an {@link ExLongSupplier}, calling its {@code getAsLong()} method and returning the result.
      * <p>
      * If a checked exception is thrown, an {@link ExException}, which is a runtime exception, will be thrown instead.
-     * This will have the original exception as its {@link ExException#getCause()}  cause}.
+     * This will have the original exception as its {@link ExException#getCause() cause}.
      *
      * @param supplier an {@code ExLongSupplier} to execute.
      * @param <E>      the type of exception thrown by the {@code ExLongSupplier}.

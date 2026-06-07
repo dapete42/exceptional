@@ -156,7 +156,7 @@ public class ExDoubleStream implements DoubleStream {
         return ExLongStream.of(stream.mapToLong(mapper));
     }
 
-    /* Implement versions of all methods from DoubleStream that use functional Doubleerfaces, using their counterparts with Exceptions instead. */
+    /* Implement versions of all methods from DoubleStream that use functional interfaces, using their counterparts with Exceptions instead. */
 
     /**
      * Equivalent of {@link DoubleStream#filter}.
