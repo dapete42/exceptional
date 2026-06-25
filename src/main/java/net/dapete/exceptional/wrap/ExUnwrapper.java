@@ -11,9 +11,9 @@ import java.util.function.Supplier;
 /**
  * Unwraps exceptions of the supplied type. All or some of these types may be identical if less than 3 are supplied.
  *
- * @param <E1> the type of first exception to unwrap.
- * @param <E2> the type of second exception to unwrap.
- * @param <E3> tgs type of third exception to unwrap.
+ * @param <E1> the type of the first exception to unwrap.
+ * @param <E2> the type of the second exception to unwrap.
+ * @param <E3> the type of the third exception to unwrap.
  */
 public class ExUnwrapper<E1 extends Exception, E2 extends Exception, E3 extends Exception> {
 
