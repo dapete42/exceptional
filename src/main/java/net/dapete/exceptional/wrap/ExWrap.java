@@ -3,18 +3,13 @@ package net.dapete.exceptional.wrap;
 import net.dapete.exceptional.ExException;
 import net.dapete.exceptional.function.*;
 import net.dapete.exceptional.internal.ExUtils;
-import org.jspecify.annotations.Nullable;
 
-import java.util.HashSet;
-import java.util.Set;
 import java.util.function.Supplier;
 
 /**
  * Wrapping utility class for Exceptional!
  */
 public final class ExWrap {
-
-    private static final ThreadLocal<@Nullable Set<Class<? extends Exception>>> activeUnwrappedExceptionsThreadLocal = new ThreadLocal<>();
 
     // Utility class with private constructor
     private ExWrap() {
@@ -135,44 +130,6 @@ public final class ExWrap {
     }
 
     /**
-     * Check if unwrapping is currently active.
-     * This means the current thread is running within a call to {@link #unwrap(Class, Runnable)}, {@link #unwrap(Class, Supplier)} etc.
-     *
-     * @return {@code true} if unwrapping is active, {@code false} otherwise.
-     */
-    public static boolean isUnwrapActive() {
-        return activeUnwrappedExceptionsThreadLocal.get() != null;
-    }
-
-    /**
-     * Verify unwrapping for the supplied {@code exceptionClass} is currently active.
-     * This means the current thread is running within a call to {@link #unwrap(Class, Runnable)}, {@link #unwrap(Class, Supplier)} etc. with this exception
-     * as one of the arguments.
-     *
-     * @param exceptionClass exception class.
-     * @throws IllegalArgumentException if unwrapping for the supplied {@code exceptionClass} is not currently active.
-     */
-    public static void verifyUnwrapActive(Class<? extends Exception> exceptionClass) {
-        final Set<Class<? extends Exception>> active = activeUnwrappedExceptionsThreadLocal.get();
-        if (active == null || active.stream().noneMatch(activeClass -> activeClass.isAssignableFrom(exceptionClass))) {
-            throw new IllegalArgumentException("Exception %s is not allowed here, must be included in ExWrap.unwrap(...) invocation"
-                    .formatted(exceptionClass.getName()));
-        }
-    }
-
-    /**
-     * If unwrapping is active, verify it is active for the supplied {@code exceptionClass}.
-     *
-     * @param exceptionClass exception class.
-     * @throws IllegalArgumentException if unwrapping is active, but not for the supplied {@code exceptionClass}.
-     */
-    public static void verifyExceptionAllowed(Class<? extends Exception> exceptionClass) {
-        if (isUnwrapActive()) {
-            verifyUnwrapActive(exceptionClass);
-        }
-    }
-
-    /**
      * Unwraps any {@code ExException} thrown when executing {@link Runnable#run() runnable.run()} and throws its {@link ExException#getCause() cause} instead.
      *
      * @param runnable a runnable that may throw an {@code ExException}.
@@ -183,83 +140,6 @@ public final class ExWrap {
             runnable.run();
         } catch (ExException e) {
             throw e.getCause();
-        }
-    }
-
-    /**
-     * Unwraps any {@code ExException} thrown when executing {@link Runnable#run() runnable.run()} and throws its {@link ExException#getCause() cause} instead,
-     * if it is an instance of {@code exceptionClass}.
-     *
-     * @param exceptionClass the class of the cause possible of the {@code ExException}.
-     * @param runnable       a runnable that may throw an {@code ExException}.
-     * @param <E>            the type of the cause of the {@code ExException}.
-     * @throws E           the cause of the {@code ExException}, if {@code runnable} throws one and its cause is an instance of
-     *                     {@code exceptionClass}.
-     * @throws ExException the {@code ExException}, if one was thrown and its cause is not an instance of {@code exceptionClass}.
-     */
-    public static <E extends Exception> void unwrap(Class<E> exceptionClass, Runnable runnable) throws E {
-        try {
-            unwrapScope(ExUtils.hashSetOf(exceptionClass), runnable);
-        } catch (ExException e) {
-            e.unwrap(exceptionClass);
-            // the compiler doesn't know that unwrap always throws an exception
-            throw e;
-        }
-    }
-
-    /**
-     * Unwraps any {@code ExException} thrown when executing {@link Runnable#run() runnable.run()} and throws its {@link ExException#getCause() cause} instead,
-     * if it is an instance of {@code exceptionClass1} or {@code exceptionClass2}.
-     *
-     * @param exceptionClass1 the class of the first possible cause of the {@code ExException}.
-     * @param exceptionClass2 the class of the second possible cause of the {@code ExException}.
-     * @param runnable        a runnable that may throw an {@code ExException}.
-     * @param <E1>            the type of the first possible cause of the {@code ExException}.
-     * @param <E2>            the type of the second possible cause of the {@code ExException}.
-     * @throws E1          the cause of the {@code ExException}, if {@code runnable} throws one and its cause is an instance of
-     *                     {@code exceptionClass1}.
-     * @throws E2          the cause of the {@code ExException}, if {@code runnable} throws one and its cause is an instance of
-     *                     {@code exceptionClass2}.
-     * @throws ExException the {@code ExException}, if one was thrown and its cause is not an instance of {@code exceptionClass1} or
-     *                     {@code exceptionClass2}.
-     */
-    public static <E1 extends Exception, E2 extends Exception> void unwrap(
-            Class<E1> exceptionClass1, Class<E2> exceptionClass2, Runnable runnable) throws E1, E2 {
-        try {
-            unwrapScope(ExUtils.hashSetOf(exceptionClass1, exceptionClass2), runnable);
-        } catch (ExException e) {
-            e.unwrap(exceptionClass1, exceptionClass2);
-            // the compiler doesn't know that unwrap always throws an exception
-            throw e;
-        }
-    }
-
-
-    /**
-     * Unwraps any {@code ExException} thrown when executing {@link Runnable#run() runnable.run()} and throws its {@link ExException#getCause() cause} instead,
-     * if it is an instance of {@code exceptionClass1}, {@code exceptionClass2} or {@code exceptionClass3}.
-     *
-     * @param exceptionClass1 the class of the first possible cause of the {@code ExException}.
-     * @param exceptionClass2 the class of the second possible cause of the {@code ExException}.
-     * @param exceptionClass3 the class of the third possible cause of the {@code ExException}.
-     * @param runnable        a runnable that may throw an {@code ExException}.
-     * @param <E1>            the type of the first possible cause of the {@code ExException}.
-     * @param <E2>            the type of the second possible cause of the {@code ExException}.
-     * @param <E3>            the type of the third possible cause of the {@code ExException}.
-     * @throws E1          the cause of the {@code ExException}, if {@code runnable} throws one and its cause is an instance of {@code exceptionClass1}.
-     * @throws E2          the cause of the {@code ExException}, if {@code runnable} throws one and its cause is an instance of {@code exceptionClass2}.
-     * @throws E3          the cause of the {@code ExException}, if {@code runnable} throws one and its cause is an instance of {@code exceptionClass3}.
-     * @throws ExException the {@code ExException}, if one was thrown and its cause is not an instance of {@code exceptionClass1},
-     *                     {@code exceptionClass2} or {@code exceptionClass3}.
-     */
-    public static <E1 extends Exception, E2 extends Exception, E3 extends Exception> void unwrap(
-            Class<E1> exceptionClass1, Class<E2> exceptionClass2, Class<E3> exceptionClass3, Runnable runnable) throws E1, E2, E3 {
-        try {
-            unwrapScope(ExUtils.hashSetOf(exceptionClass1, exceptionClass2, exceptionClass3), runnable);
-        } catch (ExException e) {
-            e.unwrap(exceptionClass1, exceptionClass2, exceptionClass3);
-            // the compiler doesn't know that unwrap always throws an exception
-            throw e;
         }
     }
 
@@ -279,126 +159,17 @@ public final class ExWrap {
         }
     }
 
-    /**
-     * Unwraps any {@code ExException} thrown when executing {@link Supplier#get() supplier.get()} and throws its {@link ExException#getCause() cause} instead,
-     * if it is an instance of {@code exceptionClass}.
-     *
-     * @param exceptionClass the class of the cause of the {@code ExException}.
-     * @param supplier       a supplier that may throw an {@code ExException}.
-     * @param <T>            the return type of {@code supplier.get()}.
-     * @param <E>            the type of the cause of the {@code ExException}.
-     * @return the result of {@code supplier.get()}.
-     * @throws E           the cause of the {@code ExException}, if {@code supplier} throws one and its cause is an instance of {@code exceptionClass}.
-     * @throws ExException the {@code ExException}, if one was thrown and its cause is not an instance of {@code exceptionClass}.
-     */
-    public static <T, E extends Exception> T unwrap(Class<E> exceptionClass, Supplier<T> supplier) throws E {
-        try {
-            return unwrapScope(ExUtils.hashSetOf(exceptionClass), supplier);
-        } catch (ExException e) {
-            e.unwrap(exceptionClass);
-            // the compiler doesn't know that unwrap always throws an exception
-            throw e;
-        }
+    public static <E extends Exception> ExUnwrapper<E, E, E> unwrapper(Class<E> exceptionClass) {
+        return new ExUnwrapper<>(exceptionClass, exceptionClass, exceptionClass);
     }
 
-    /**
-     * Unwraps any {@code ExException} thrown when executing {@link Supplier#get() supplier.get()} and throws its {@link ExException#getCause() cause} instead,
-     * if it is an instance of {@code exceptionClass1} or {@code exceptionClass2}.
-     *
-     * @param exceptionClass1 the class of the first possible cause of the {@code ExException}.
-     * @param exceptionClass2 the class of the second possible cause of the {@code ExException}.
-     * @param supplier        a supplier that may throw an {@code ExException}.
-     * @param <T>             the return type of {@code supplier.get()}.
-     * @param <E1>            the type of the first possible cause of the {@code ExException}.
-     * @param <E2>            the type of the second possible cause of the {@code ExException}.
-     * @return the result of {@code supplier.get()}.
-     * @throws E1          the cause of the {@code ExException}, if {@code supplier} throws one and its cause is an instance of
-     *                     {@code exceptionClass1}.
-     * @throws E2          the cause of the {@code ExException}, if {@code supplier} throws one and its cause is an instance of
-     *                     {@code exceptionClass2}.
-     * @throws ExException the {@code ExException}, if one was thrown and its cause is not an instance of {@code exceptionClass1} or
-     *                     {@code exceptionClass2}.
-     */
-    public static <T, E1 extends Exception, E2 extends Exception> T unwrap(
-            Class<E1> exceptionClass1, Class<E2> exceptionClass2, Supplier<T> supplier) throws E1, E2 {
-        try {
-            return unwrapScope(ExUtils.hashSetOf(exceptionClass1, exceptionClass2), supplier);
-        } catch (ExException e) {
-            e.unwrap(exceptionClass1, exceptionClass2);
-            // the compiler doesn't know that unwrap always throws an exception
-            throw e;
-        }
+    public static <E1 extends Exception, E2 extends Exception> ExUnwrapper<E1, E2, E2> unwrapper(Class<E1> exceptionClass1, Class<E2> exceptionClass2) {
+        return new ExUnwrapper<>(exceptionClass1, exceptionClass2, exceptionClass2);
     }
 
-    /**
-     * Unwraps any {@code ExException} thrown when executing {@link Supplier#get() supplier.get()} and throws its {@link ExException#getCause() cause} instead,
-     * if it is an instance of {@code exceptionClass1}, {@code exceptionClass2} or {@code exceptionClass3}.
-     *
-     * @param exceptionClass1 the class of the first possible cause of the {@code ExException}.
-     * @param exceptionClass2 the class of the second possible cause of the {@code ExException}.
-     * @param exceptionClass3 the class of the third possible cause of the {@code ExException}.
-     * @param supplier        a supplier that may throw an {@code ExException}.
-     * @param <T>             the return type of {@code supplier.get()}.
-     * @param <E1>            the type of the first possible cause of the {@code ExException}.
-     * @param <E2>            the type of the second possible cause of the {@code ExException}.
-     * @param <E3>            the type of the third possible cause of the {@code ExException}.
-     * @return the result of {@code supplier.get()}.
-     * @throws E1          the cause of the {@code ExException}, if {@code supplier} throws one and its cause is an instance of
-     *                     {@code exceptionClass1}.
-     * @throws E2          the cause of the {@code ExException}, if {@code supplier} throws one and its cause is an instance of
-     *                     {@code exceptionClass2}.
-     * @throws E3          the cause of the {@code ExException}, if {@code supplier} throws one and its cause is an instance of
-     *                     {@code exceptionClass3}.
-     * @throws ExException the {@code ExException}, if one was thrown and its cause is not an instance of {@code exceptionClass1},
-     *                     {@code exceptionClass2} or {@code exceptionClass3}.
-     */
-    public static <T, E1 extends Exception, E2 extends Exception, E3 extends Exception> T unwrap(
-            Class<E1> exceptionClass1, Class<E2> exceptionClass2, Class<E3> exceptionClass3, Supplier<T> supplier) throws E1, E2, E3 {
-        try {
-            return unwrapScope(ExUtils.hashSetOf(exceptionClass1, exceptionClass2, exceptionClass3), supplier);
-        } catch (ExException e) {
-            e.unwrap(exceptionClass1, exceptionClass2, exceptionClass3);
-            // the compiler doesn't know that unwrap always throws an exception
-            throw e;
-        }
-    }
-
-    /*
-     * exceptionClasses may be modified to avoid instantiating more sets.
-     */
-    private static void unwrapScope(@SuppressWarnings("NonApiType") HashSet<Class<? extends Exception>> exceptionClasses, Runnable runnable) {
-        final var previousClasses = activeUnwrappedExceptionsThreadLocal.get();
-        try {
-            addActiveUnwrappedExceptions(previousClasses, exceptionClasses);
-            runnable.run();
-        } finally {
-            activeUnwrappedExceptionsThreadLocal.set(previousClasses);
-        }
-    }
-
-    /*
-     * exceptionClasses may be modified to avoid instantiating more sets.
-     */
-    private static <T> T unwrapScope(@SuppressWarnings("NonApiType") HashSet<Class<? extends Exception>> exceptionClasses, Supplier<T> supplier) {
-        final var previousClasses = activeUnwrappedExceptionsThreadLocal.get();
-        try {
-            addActiveUnwrappedExceptions(previousClasses, exceptionClasses);
-            return supplier.get();
-        } finally {
-            activeUnwrappedExceptionsThreadLocal.set(previousClasses);
-        }
-    }
-
-    /*
-     * previousClasses is passed as a parameter to avoid calling ThreadLocal.get() multiple times.
-     * exceptionClasses may be modified to avoid instantiating more sets.
-     */
-    private static void addActiveUnwrappedExceptions(@Nullable Set<Class<? extends Exception>> previousClasses,
-                                                     @SuppressWarnings("NonApiType") HashSet<Class<? extends Exception>> exceptionClasses) {
-        if (previousClasses != null) {
-            exceptionClasses.addAll(previousClasses);
-        }
-        activeUnwrappedExceptionsThreadLocal.set(exceptionClasses);
+    public static <E1 extends Exception, E2 extends Exception, E3 extends Exception> ExUnwrapper<E1, E2, E3> unwrapper(
+            Class<E1> exceptionClass1, Class<E2> exceptionClass2, Class<E3> exceptionClass3) {
+        return new ExUnwrapper<>(exceptionClass1, exceptionClass2, exceptionClass3);
     }
 
 }

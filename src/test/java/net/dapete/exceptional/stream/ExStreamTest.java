@@ -1,7 +1,7 @@
 package net.dapete.exceptional.stream;
 
 import net.dapete.exceptional.ExException;
-import net.dapete.exceptional.wrap.ExWrap;
+import net.dapete.exceptional.wrap.ExUnwrapper;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
@@ -15,14 +15,14 @@ class ExStreamTest {
     @Test
     void unwrapScope() {
         assertThrows(FileNotFoundException.class, () -> {
-                    @SuppressWarnings("unused") final var ignore = ExWrap.unwrap(FileNotFoundException.class, FileSystemException.class, () ->
-                            ExStream.of(1, 2, 3)
+                    @SuppressWarnings("unused") final var ignore = ExUnwrapper.of(FileNotFoundException.class, FileSystemException.class)
+                            .unwrap(() -> ExStream.of(1, 2, 3)
                                     .map(FileSystemException.class, i -> i + 1)
                                     .map(FileNotFoundException.class, i -> {
                                         throw new FileNotFoundException();
                                     })
                                     .findFirst()
-                    );
+                            );
                 }
         );
     }
@@ -30,17 +30,17 @@ class ExStreamTest {
     @Test
     void unwrapScopeWrongException() {
         final var thrown = assertThrows(IllegalArgumentException.class, () ->
-                ExWrap.unwrap(FileNotFoundException.class, () ->
-                        ExStream.of(1, 2, 3)
+                ExUnwrapper.of(FileNotFoundException.class)
+                        .unwrap(() -> ExStream.of(1, 2, 3)
                                 .map(FileSystemException.class, i -> i + 1)
                                 .map(FileNotFoundException.class, i -> {
                                     throw new FileNotFoundException();
                                 })
                                 .findFirst()
-                )
+                        )
         );
 
-        assertEquals("Exception java.nio.file.FileSystemException is not allowed here, must be included in ExWrap.unwrap(...) invocation", thrown.getMessage());
+        assertEquals("Exception java.nio.file.FileSystemException is not allowed here, must be included in ExUnwrapper.of(...) invocation", thrown.getMessage());
     }
 
     @Test
