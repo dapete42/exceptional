@@ -15,40 +15,24 @@ public final class ExUnwrap {
     private ExUnwrap() {
     }
 
-    /*
-     * exceptionClasses may be modified to avoid instantiating more sets.
-     */
-    static void unwrapScope(@SuppressWarnings("NonApiType") HashSet<Class<? extends Exception>> exceptionClasses, Runnable runnable) {
+    static void unwrapScope(Set<Class<? extends Exception>> exceptionClasses, Runnable runnable) {
         final var previousClasses = getActiveUnwrappedExceptions();
         try {
-            addActiveUnwrappedExceptions(previousClasses, exceptionClasses);
+            setActiveUnwrappedExceptions(previousClasses, exceptionClasses);
             runnable.run();
-        } finally {
-            activeUnwrappedExceptionsThreadLocal.set(previousClasses);
-        }
-    }
-
-    /*
-     * exceptionClasses may be modified to avoid instantiating more sets.
-     */
-    static <T> T unwrapScope(@SuppressWarnings("NonApiType") HashSet<Class<? extends Exception>> exceptionClasses, Supplier<T> supplier) {
-        final var previousClasses = getActiveUnwrappedExceptions();
-        try {
-            addActiveUnwrappedExceptions(previousClasses, exceptionClasses);
-            return supplier.get();
         } finally {
             setActiveUnwrappedExceptions(previousClasses);
         }
     }
 
-    /*
-     * previousClasses is passed as a parameter to avoid calling ThreadLocal.get() multiple times.
-     * exceptionClasses may be modified to avoid instantiating more sets.
-     */
-    private static void addActiveUnwrappedExceptions(Set<Class<? extends Exception>> previousClasses,
-                                                     @SuppressWarnings("NonApiType") HashSet<Class<? extends Exception>> exceptionClasses) {
-        exceptionClasses.addAll(previousClasses);
-        setActiveUnwrappedExceptions(exceptionClasses);
+    static <T> T unwrapScope(Set<Class<? extends Exception>> exceptionClasses, Supplier<T> supplier) {
+        final var previousClasses = getActiveUnwrappedExceptions();
+        try {
+            setActiveUnwrappedExceptions(previousClasses, exceptionClasses);
+            return supplier.get();
+        } finally {
+            setActiveUnwrappedExceptions(previousClasses);
+        }
     }
 
     private static Set<Class<? extends Exception>> getActiveUnwrappedExceptions() {
@@ -57,6 +41,14 @@ public final class ExUnwrap {
 
     private static void setActiveUnwrappedExceptions(Set<Class<? extends Exception>> activeUnwrappedExceptions) {
         activeUnwrappedExceptionsThreadLocal.set(activeUnwrappedExceptions);
+    }
+
+    private static void setActiveUnwrappedExceptions(Set<Class<? extends Exception>> previousClasses,
+                                                     Set<Class<? extends Exception>> exceptionClasses) {
+        final HashSet<Class<? extends Exception>> allClasses = new HashSet<>(previousClasses.size() + exceptionClasses.size());
+        allClasses.addAll(previousClasses);
+        allClasses.addAll(exceptionClasses);
+        setActiveUnwrappedExceptions(allClasses);
     }
 
     /**

@@ -1,8 +1,9 @@
 package net.dapete.exceptional.wrap;
 
 import net.dapete.exceptional.ExException;
-import net.dapete.exceptional.internal.ExUtils;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.function.Supplier;
 
 /**
@@ -18,10 +19,15 @@ public final class ExUnwrapper<E1 extends Exception, E2 extends Exception, E3 ex
     private final Class<E2> exceptionClass2;
     private final Class<E3> exceptionClass3;
 
+    private final Set<Class<? extends Exception>> exceptionClasses = new HashSet<>();
+
     ExUnwrapper(Class<E1> exceptionClass1, Class<E2> exceptionClass2, Class<E3> exceptionClass3) {
         this.exceptionClass1 = exceptionClass1;
         this.exceptionClass2 = exceptionClass2;
         this.exceptionClass3 = exceptionClass3;
+        exceptionClasses.add(exceptionClass1);
+        exceptionClasses.add(exceptionClass2);
+        exceptionClasses.add(exceptionClass3);
     }
 
     /**
@@ -66,7 +72,7 @@ public final class ExUnwrapper<E1 extends Exception, E2 extends Exception, E3 ex
 
     public void unwrap(Runnable runnable) throws E1, E2, E3 {
         try {
-            ExUnwrap.unwrapScope(ExUtils.hashSetOf(exceptionClass1, exceptionClass2, exceptionClass3), runnable);
+            ExUnwrap.unwrapScope(exceptionClasses, runnable);
         } catch (ExException e) {
             e.unwrap(exceptionClass1, exceptionClass2, exceptionClass3);
             // the compiler doesn't know that unwrap always throws an exception
@@ -76,7 +82,7 @@ public final class ExUnwrapper<E1 extends Exception, E2 extends Exception, E3 ex
 
     public <T> T unwrap(Supplier<T> supplier) throws E1, E2, E3 {
         try {
-            return ExUnwrap.unwrapScope(ExUtils.hashSetOf(exceptionClass1, exceptionClass2, exceptionClass3), supplier);
+            return ExUnwrap.unwrapScope(exceptionClasses, supplier);
         } catch (ExException e) {
             e.unwrap(exceptionClass1, exceptionClass2, exceptionClass3);
             // the compiler doesn't know that unwrap always throws an exception
