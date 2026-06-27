@@ -159,17 +159,4 @@ public final class ExWrap {
         }
     }
 
-    public static <E extends Exception> ExUnwrapper<E, E, E> unwrapper(Class<E> exceptionClass) {
-        return new ExUnwrapper<>(exceptionClass, exceptionClass, exceptionClass);
-    }
-
-    public static <E1 extends Exception, E2 extends Exception> ExUnwrapper<E1, E2, E2> unwrapper(Class<E1> exceptionClass1, Class<E2> exceptionClass2) {
-        return new ExUnwrapper<>(exceptionClass1, exceptionClass2, exceptionClass2);
-    }
-
-    public static <E1 extends Exception, E2 extends Exception, E3 extends Exception> ExUnwrapper<E1, E2, E3> unwrapper(
-            Class<E1> exceptionClass1, Class<E2> exceptionClass2, Class<E3> exceptionClass3) {
-        return new ExUnwrapper<>(exceptionClass1, exceptionClass2, exceptionClass3);
-    }
-
 }
