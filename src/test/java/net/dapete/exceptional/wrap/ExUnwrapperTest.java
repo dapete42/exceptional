@@ -4,12 +4,11 @@ import net.dapete.exceptional.stream.ExIntStream;
 import net.dapete.exceptional.stream.ExStream;
 import org.junit.jupiter.api.Test;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.MissingResourceException;
 import java.util.concurrent.TimeoutException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ExUnwrapperTest {
 
@@ -28,7 +27,7 @@ public class ExUnwrapperTest {
                     }
                 });
 
-        assertFalse(ExUnwrapper.isUnwrapActive());
+        assertFalse(ExUnwrap.isUnwrapActive());
     }
 
     @Test
@@ -49,7 +48,7 @@ public class ExUnwrapperTest {
                         })
         );
 
-        assertFalse(ExUnwrapper.isUnwrapActive());
+        assertFalse(ExUnwrap.isUnwrapActive());
     }
 
     @Test
@@ -67,7 +66,7 @@ public class ExUnwrapperTest {
                     }
                 });
 
-        assertFalse(ExUnwrapper.isUnwrapActive());
+        assertFalse(ExUnwrap.isUnwrapActive());
     }
 
     @Test
@@ -89,48 +88,7 @@ public class ExUnwrapperTest {
                     });
         });
 
-        assertFalse(ExUnwrapper.isUnwrapActive());
-    }
-
-    @Test
-    void verifyUnwrapActive_notActive() {
-        final var thrown = assertThrows(IllegalArgumentException.class, () ->
-                ExUnwrapper.verifyUnwrapActive(IOException.class)
-        );
-
-        assertEquals("Exception java.io.IOException is not allowed here, must be included in ExUnwrapper.of(...) invocation", thrown.getMessage());
-    }
-
-    @Test
-    void verifyUnwrapActive_active() throws IOException {
-        ExUnwrapper.of(IOException.class)
-                .unwrap(() -> ExUnwrapper.verifyUnwrapActive(IOException.class));
-    }
-
-    @Test
-    void verifyUnwrapActive_activeForOtherClass() {
-        final var thrown = assertThrows(IllegalArgumentException.class, () ->
-                ExUnwrapper.of(IOException.class)
-                        .unwrap(() -> ExUnwrapper.verifyUnwrapActive(MissingResourceException.class))
-        );
-
-        assertEquals("Exception java.util.MissingResourceException is not allowed here, must be included in ExUnwrapper.of(...) invocation", thrown.getMessage());
-    }
-
-    @Test
-    void verifyUnwrapActive_activeForSuperclass() throws IOException {
-        ExUnwrapper.of(IOException.class)
-                .unwrap(() -> ExUnwrapper.verifyUnwrapActive(FileNotFoundException.class));
-    }
-
-    @Test
-    void verifyUnwrapActive_activeForSubclass() {
-        final var thrown = assertThrows(IllegalArgumentException.class, () ->
-                ExUnwrapper.of(FileNotFoundException.class)
-                        .unwrap(() -> ExUnwrapper.verifyUnwrapActive(IOException.class))
-        );
-
-        assertEquals("Exception java.io.IOException is not allowed here, must be included in ExUnwrapper.of(...) invocation", thrown.getMessage());
+        assertFalse(ExUnwrap.isUnwrapActive());
     }
 
     // TODO this is example code, not a test
@@ -175,43 +133,5 @@ public class ExUnwrapperTest {
 
     }
 
-    @Test
-    void verifyExceptionAllowed_notActive() {
-        ExUnwrapper.verifyExceptionAllowed(IOException.class);
-    }
-
-    @Test
-    void verifyExceptionAllowed_active() throws IOException {
-        ExUnwrapper.of(IOException.class)
-                .unwrap(() -> ExUnwrapper.verifyExceptionAllowed(IOException.class));
-    }
-
-    @Test
-    void verifyExceptionAllowed_activeForOtherClass() {
-        final var thrown = assertThrows(IllegalArgumentException.class, () ->
-                ExUnwrapper.of(IOException.class)
-                        .unwrap(() -> ExUnwrapper.verifyExceptionAllowed(MissingResourceException.class))
-        );
-
-        assertEquals("Exception java.util.MissingResourceException is not allowed here, must be included in ExUnwrapper.of(...) invocation", thrown.getMessage());
-    }
-
-    @Test
-    void verifyExceptionAllowed_activeForSuperclass() throws IOException {
-        ExUnwrapper.of(IOException.class)
-                .unwrap(() -> ExUnwrapper.verifyExceptionAllowed(FileNotFoundException.class));
-    }
-
-    @Test
-    void verifyExceptionAllowed_activeForSubclass() {
-        final var thrown = assertThrows(IllegalArgumentException.class, () ->
-                ExUnwrapper.of(FileNotFoundException.class)
-                        .unwrap(() ->
-                                ExUnwrapper.verifyExceptionAllowed(IOException.class)
-                        )
-        );
-
-        assertEquals("Exception java.io.IOException is not allowed here, must be included in ExUnwrapper.of(...) invocation", thrown.getMessage());
-    }
 
 }

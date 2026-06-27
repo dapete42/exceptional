@@ -1,7 +1,7 @@
 package net.dapete.exceptional.function;
 
 import net.dapete.exceptional.ExException;
-import net.dapete.exceptional.wrap.ExUnwrapper;
+import net.dapete.exceptional.wrap.ExUnwrap;
 import org.jspecify.annotations.NonNull;
 
 /**
@@ -37,7 +37,7 @@ public interface Wrappable<W> {
      * @return a wrapped instance of type {@code W}
      */
     default @NonNull W wrap(@NonNull Class<? extends Exception> exceptionClass) {
-        ExUnwrapper.verifyExceptionAllowed(exceptionClass);
+        ExUnwrap.verifyExceptionAllowed(exceptionClass);
         return wrap();
     }
 

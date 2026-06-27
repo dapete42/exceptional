@@ -1,6 +1,6 @@
 package net.dapete.exceptional.function;
 
-import net.dapete.exceptional.wrap.ExUnwrapper;
+import net.dapete.exceptional.wrap.ExUnwrap;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -51,11 +51,11 @@ public class AllExFunctionalInterfacesTest {
         final var result1 = wrapMethod1.invoke(interfaceMock);
         assertInstanceOf(returnType, result1);
 
-        try (var exUnwrapMock = Mockito.mockStatic(ExUnwrapper.class)) {
+        try (var exUnwrapMock = Mockito.mockStatic(ExUnwrap.class)) {
             final var result2 = wrapMethod2.invoke(interfaceMock, IOException.class);
             assertInstanceOf(returnType, result2);
             final ArgumentCaptor<Class<? extends Exception>> captor = ArgumentCaptor.captor();
-            exUnwrapMock.verify(() -> ExUnwrapper.verifyExceptionAllowed(captor.capture()));
+            exUnwrapMock.verify(() -> ExUnwrap.verifyExceptionAllowed(captor.capture()));
             assertEquals(IOException.class, captor.getValue());
         }
 
