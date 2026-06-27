@@ -3,7 +3,6 @@ package net.dapete.exceptional.wrap;
 import org.jspecify.annotations.Nullable;
 
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 import java.util.function.Supplier;
 
@@ -16,7 +15,7 @@ public final class ExUnwrap {
     }
 
     static void unwrapScope(Set<Class<? extends Exception>> exceptionClasses, Runnable runnable) {
-        final var previousClasses = getActiveUnwrappedExceptions();
+        final var previousClasses = activeUnwrappedExceptionsThreadLocal.get();
         try {
             setActiveUnwrappedExceptions(previousClasses, exceptionClasses);
             runnable.run();
@@ -26,7 +25,7 @@ public final class ExUnwrap {
     }
 
     static <T> T unwrapScope(Set<Class<? extends Exception>> exceptionClasses, Supplier<T> supplier) {
-        final var previousClasses = getActiveUnwrappedExceptions();
+        final var previousClasses = activeUnwrappedExceptionsThreadLocal.get();
         try {
             setActiveUnwrappedExceptions(previousClasses, exceptionClasses);
             return supplier.get();
@@ -35,19 +34,24 @@ public final class ExUnwrap {
         }
     }
 
-    private static Set<Class<? extends Exception>> getActiveUnwrappedExceptions() {
-        return Objects.requireNonNullElse(activeUnwrappedExceptionsThreadLocal.get(), Set.of());
+    private static void setActiveUnwrappedExceptions(@Nullable Set<Class<? extends Exception>> exceptionClasses) {
+        if (exceptionClasses == null || exceptionClasses.isEmpty()) {
+            activeUnwrappedExceptionsThreadLocal.remove();
+        } else {
+            activeUnwrappedExceptionsThreadLocal.set(exceptionClasses);
+        }
     }
 
-    private static void setActiveUnwrappedExceptions(Set<Class<? extends Exception>> activeUnwrappedExceptions) {
-        activeUnwrappedExceptionsThreadLocal.set(activeUnwrappedExceptions);
-    }
-
-    private static void setActiveUnwrappedExceptions(Set<Class<? extends Exception>> previousClasses,
+    private static void setActiveUnwrappedExceptions(@Nullable Set<Class<? extends Exception>> previousClasses,
                                                      Set<Class<? extends Exception>> exceptionClasses) {
-        final HashSet<Class<? extends Exception>> allClasses = new HashSet<>(previousClasses.size() + exceptionClasses.size());
-        allClasses.addAll(previousClasses);
-        allClasses.addAll(exceptionClasses);
+        final HashSet<Class<? extends Exception>> allClasses;
+        if (previousClasses == null) {
+            allClasses = new HashSet<>(exceptionClasses);
+        } else {
+            allClasses = new HashSet<>(previousClasses.size() + exceptionClasses.size());
+            allClasses.addAll(previousClasses);
+            allClasses.addAll(exceptionClasses);
+        }
         setActiveUnwrappedExceptions(allClasses);
     }
 
@@ -57,7 +61,8 @@ public final class ExUnwrap {
      * @return {@code true} if unwrapping is active, {@code false} otherwise.
      */
     public static boolean isUnwrapActive() {
-        return !getActiveUnwrappedExceptions().isEmpty();
+        final var active = activeUnwrappedExceptionsThreadLocal.get();
+        return isUnwrapActiveInternal(active);
     }
 
     /**
@@ -67,11 +72,8 @@ public final class ExUnwrap {
      * @throws IllegalArgumentException if unwrapping for the supplied {@code exceptionClass} is not currently active.
      */
     public static void verifyUnwrapActive(Class<? extends Exception> exceptionClass) {
-        final Set<Class<? extends Exception>> active = getActiveUnwrappedExceptions();
-        if (active.stream().noneMatch(activeClass -> activeClass.isAssignableFrom(exceptionClass))) {
-            throw new IllegalArgumentException("Exception %s is not allowed here, must be included in ExUnwrapper.of(...) invocation"
-                    .formatted(exceptionClass.getName()));
-        }
+        final Set<Class<? extends Exception>> active = activeUnwrappedExceptionsThreadLocal.get();
+        verifyUnwrapActiveInternal(active, exceptionClass);
     }
 
     /**
@@ -81,8 +83,20 @@ public final class ExUnwrap {
      * @throws IllegalArgumentException if unwrapping is active, but not for the supplied {@code exceptionClass}.
      */
     public static void verifyExceptionAllowed(Class<? extends Exception> exceptionClass) {
-        if (isUnwrapActive()) {
-            verifyUnwrapActive(exceptionClass);
+        final var active = activeUnwrappedExceptionsThreadLocal.get();
+        if (isUnwrapActiveInternal(active)) {
+            verifyUnwrapActiveInternal(active, exceptionClass);
+        }
+    }
+
+    private static boolean isUnwrapActiveInternal(@Nullable Set<Class<? extends Exception>> active) {
+        return active != null && !active.isEmpty();
+    }
+
+    private static void verifyUnwrapActiveInternal(@Nullable Set<Class<? extends Exception>> active, Class<? extends Exception> exceptionClass) {
+        if (active == null || active.stream().noneMatch(activeClass -> activeClass.isAssignableFrom(exceptionClass))) {
+            throw new IllegalArgumentException("Exception %s is not allowed here, must be included in ExUnwrapper.of(...) invocation"
+                    .formatted(exceptionClass.getName()));
         }
     }
 
