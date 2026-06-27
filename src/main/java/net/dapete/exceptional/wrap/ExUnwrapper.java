@@ -15,7 +15,7 @@ import java.util.function.Supplier;
  * @param <E2> the type of the second exception to unwrap.
  * @param <E3> the type of the third exception to unwrap.
  */
-public class ExUnwrapper<E1 extends Exception, E2 extends Exception, E3 extends Exception> {
+public final class ExUnwrapper<E1 extends Exception, E2 extends Exception, E3 extends Exception> {
 
     private static final ThreadLocal<@Nullable Set<Class<? extends Exception>>> activeUnwrappedExceptionsThreadLocal = new ThreadLocal<>();
 
