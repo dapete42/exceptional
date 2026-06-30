@@ -8,42 +8,46 @@ import java.util.function.Supplier;
 
 public final class ExUnwrap {
 
-    private static final ThreadLocal<@Nullable Set<Class<? extends Exception>>> activeUnwrappedExceptionsThreadLocal = new ThreadLocal<>();
+    private static final ThreadLocal<@Nullable Set<Class<? extends Exception>>> activeExceptionClasses = new ThreadLocal<>();
 
     // Utility class with private constructor
     private ExUnwrap() {
     }
 
     static void unwrapScope(Set<Class<? extends Exception>> exceptionClasses, Runnable runnable) {
-        final var previousClasses = activeUnwrappedExceptionsThreadLocal.get();
+        final var previousExceptionClasses = getActiveExceptionClasses();
         try {
-            setActiveUnwrappedExceptions(previousClasses, exceptionClasses);
+            addActiveExceptionClasses(previousExceptionClasses, exceptionClasses);
             runnable.run();
         } finally {
-            setActiveUnwrappedExceptions(previousClasses);
+            setActiveExceptionClasses(previousExceptionClasses);
         }
     }
 
     static <T> T unwrapScope(Set<Class<? extends Exception>> exceptionClasses, Supplier<T> supplier) {
-        final var previousClasses = activeUnwrappedExceptionsThreadLocal.get();
+        final var previousExceptionClasses = getActiveExceptionClasses();
         try {
-            setActiveUnwrappedExceptions(previousClasses, exceptionClasses);
+            addActiveExceptionClasses(previousExceptionClasses, exceptionClasses);
             return supplier.get();
         } finally {
-            setActiveUnwrappedExceptions(previousClasses);
+            setActiveExceptionClasses(previousExceptionClasses);
         }
     }
 
-    private static void setActiveUnwrappedExceptions(@Nullable Set<Class<? extends Exception>> exceptionClasses) {
+    private static @Nullable Set<Class<? extends Exception>> getActiveExceptionClasses() {
+        return activeExceptionClasses.get();
+    }
+
+    private static void setActiveExceptionClasses(@Nullable Set<Class<? extends Exception>> exceptionClasses) {
         if (exceptionClasses == null || exceptionClasses.isEmpty()) {
-            activeUnwrappedExceptionsThreadLocal.remove();
+            activeExceptionClasses.remove();
         } else {
-            activeUnwrappedExceptionsThreadLocal.set(exceptionClasses);
+            activeExceptionClasses.set(exceptionClasses);
         }
     }
 
-    private static void setActiveUnwrappedExceptions(@Nullable Set<Class<? extends Exception>> previousClasses,
-                                                     Set<Class<? extends Exception>> exceptionClasses) {
+    private static void addActiveExceptionClasses(@Nullable Set<Class<? extends Exception>> previousClasses,
+                                                  Set<Class<? extends Exception>> exceptionClasses) {
         final HashSet<Class<? extends Exception>> allClasses;
         if (previousClasses == null) {
             allClasses = new HashSet<>(exceptionClasses);
@@ -52,7 +56,7 @@ public final class ExUnwrap {
             allClasses.addAll(previousClasses);
             allClasses.addAll(exceptionClasses);
         }
-        setActiveUnwrappedExceptions(allClasses);
+        setActiveExceptionClasses(allClasses);
     }
 
     /**
@@ -61,8 +65,8 @@ public final class ExUnwrap {
      * @return {@code true} if unwrapping is active, {@code false} otherwise.
      */
     public static boolean isUnwrapActive() {
-        final var active = activeUnwrappedExceptionsThreadLocal.get();
-        return isUnwrapActiveInternal(active);
+        final var activeExceptionClasses = getActiveExceptionClasses();
+        return isUnwrapActive(activeExceptionClasses);
     }
 
     /**
@@ -72,8 +76,8 @@ public final class ExUnwrap {
      * @throws IllegalArgumentException if unwrapping for the supplied {@code exceptionClass} is not currently active.
      */
     public static void verifyUnwrapActive(Class<? extends Exception> exceptionClass) {
-        final Set<Class<? extends Exception>> active = activeUnwrappedExceptionsThreadLocal.get();
-        verifyUnwrapActiveInternal(active, exceptionClass);
+        final Set<Class<? extends Exception>> activeExceptionClasses = getActiveExceptionClasses();
+        verifyUnwrapActive(activeExceptionClasses, exceptionClass);
     }
 
     /**
@@ -83,18 +87,20 @@ public final class ExUnwrap {
      * @throws IllegalArgumentException if unwrapping is active, but not for the supplied {@code exceptionClass}.
      */
     public static void verifyExceptionAllowed(Class<? extends Exception> exceptionClass) {
-        final var active = activeUnwrappedExceptionsThreadLocal.get();
-        if (isUnwrapActiveInternal(active)) {
-            verifyUnwrapActiveInternal(active, exceptionClass);
+        final var activeExceptionClasses = getActiveExceptionClasses();
+        if (isUnwrapActive(activeExceptionClasses)) {
+            verifyUnwrapActive(activeExceptionClasses, exceptionClass);
         }
     }
 
-    private static boolean isUnwrapActiveInternal(@Nullable Set<Class<? extends Exception>> active) {
-        return active != null && !active.isEmpty();
+    private static boolean isUnwrapActive(@Nullable Set<Class<? extends Exception>> activeExceptionClasses) {
+        return activeExceptionClasses != null
+               && !activeExceptionClasses.isEmpty();
     }
 
-    private static void verifyUnwrapActiveInternal(@Nullable Set<Class<? extends Exception>> active, Class<? extends Exception> exceptionClass) {
-        if (active == null || active.stream().noneMatch(activeClass -> activeClass.isAssignableFrom(exceptionClass))) {
+    private static void verifyUnwrapActive(@Nullable Set<Class<? extends Exception>> activeExceptionClasses, Class<? extends Exception> exceptionClass) {
+        if (activeExceptionClasses == null ||
+            activeExceptionClasses.stream().noneMatch(activeClass -> activeClass.isAssignableFrom(exceptionClass))) {
             throw new IllegalArgumentException("Exception %s is not allowed here, must be included in ExUnwrapper.of(...) invocation"
                     .formatted(exceptionClass.getName()));
         }
