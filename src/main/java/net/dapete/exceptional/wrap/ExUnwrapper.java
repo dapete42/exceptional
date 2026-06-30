@@ -1,8 +1,8 @@
 package net.dapete.exceptional.wrap;
 
 import net.dapete.exceptional.ExException;
+import net.dapete.exceptional.internal.ExUtils;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Supplier;
 
@@ -19,15 +19,13 @@ public final class ExUnwrapper<E1 extends Exception, E2 extends Exception, E3 ex
     private final Class<E2> exceptionClass2;
     private final Class<E3> exceptionClass3;
 
-    private final Set<Class<? extends Exception>> exceptionClasses = new HashSet<>();
+    private final Set<Class<? extends Exception>> exceptionClasses;
 
     ExUnwrapper(Class<E1> exceptionClass1, Class<E2> exceptionClass2, Class<E3> exceptionClass3) {
         this.exceptionClass1 = exceptionClass1;
         this.exceptionClass2 = exceptionClass2;
         this.exceptionClass3 = exceptionClass3;
-        exceptionClasses.add(exceptionClass1);
-        exceptionClasses.add(exceptionClass2);
-        exceptionClasses.add(exceptionClass3);
+        this.exceptionClasses = ExUtils.setOf3(exceptionClass1, exceptionClass2, exceptionClass3);
     }
 
     /**

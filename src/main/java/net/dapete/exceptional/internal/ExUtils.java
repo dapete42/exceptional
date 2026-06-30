@@ -2,6 +2,9 @@ package net.dapete.exceptional.internal;
 
 import net.dapete.exceptional.ExException;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * General utility class for Exceptional!
  */
@@ -9,6 +12,23 @@ public final class ExUtils {
 
     // Utility class with private constructor
     private ExUtils() {
+    }
+
+    /**
+     * Create a set containing the given elements. This supports equal values, which {@link Set#of(Object...)} does not.
+     *
+     * @param element1 the first element.
+     * @param element2 the second element.
+     * @param element3 the third element.
+     * @param <T>      the type of the element.
+     * @return a set containing the given elements.
+     */
+    public static <T> Set<T> setOf3(T element1, T element2, T element3) {
+        final Set<T> exceptionClasses = new HashSet<>();
+        exceptionClasses.add(element1);
+        exceptionClasses.add(element2);
+        exceptionClasses.add(element3);
+        return exceptionClasses;
     }
 
     /**
