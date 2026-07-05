@@ -149,7 +149,7 @@ public final class ExWrap {
      * @param supplier a supplier that may throw an {@code ExException}.
      * @param <T>      the return type of {@code supplier.get()}.
      * @return the result of {@code supplier.get()}.
-     * @throws Exception the cause of the {@code ExceptionalExceptionExceptionalException}, if {@code runnable} throws one.
+     * @throws Exception the cause of the {@code ExException}, if {@code supplier} throws one.
      */
     public static <T> T unwrap(Supplier<T> supplier) throws Exception {
         try {
