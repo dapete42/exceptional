@@ -2,13 +2,13 @@
   "SPDXID" : "SPDXRef-DOCUMENT",
   "spdxVersion" : "SPDX-2.3",
   "creationInfo" : {
-    "created" : "2026-07-24T20:08:52Z",
+    "created" : "2026-07-24T20:12:43Z",
     "creators" : [ "Tool: spdx-maven-plugin" ],
     "licenseListVersion" : "3.28.0"
   },
   "name" : "Exceptional!",
   "dataLicense" : "CC0-1.0",
-  "documentNamespace" : "http://spdx.org/spdxpackages/net.dapete_exceptional-0.5.0",
+  "documentNamespace" : "http://spdx.org/spdxpackages/net.dapete_exceptional-0.5.1",
   "packages" : [ {
     "SPDXID" : "SPDXRef--1f8f13c50",
     "copyrightText" : "UNSPECIFIED",
@@ -50,7 +50,7 @@
     "downloadLocation" : "NOASSERTION",
     "externalRefs" : [ {
       "referenceCategory" : "PACKAGE-MANAGER",
-      "referenceLocator" : "pkg:maven/net.dapete/exceptional@0.5.0",
+      "referenceLocator" : "pkg:maven/net.dapete/exceptional@0.5.1",
       "referenceType" : "purl"
     } ],
     "filesAnalyzed" : true,
@@ -65,7 +65,7 @@
     },
     "primaryPackagePurpose" : "LIBRARY",
     "summary" : "Library for functional interfaces and streams that support exceptions",
-    "versionInfo" : "0.5.0"
+    "versionInfo" : "0.5.1"
   }, {
     "SPDXID" : "SPDXRef--6c9a30430",
     "copyrightText" : "UNSPECIFIED",
