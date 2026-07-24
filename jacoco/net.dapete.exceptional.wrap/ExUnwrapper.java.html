@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ExUnwrapper.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Exceptional!</a> &gt; <a href="index.source.html" class="el_package">net.dapete.exceptional.wrap</a> &gt; <span class="el_source">ExUnwrapper.java</span></div><h1>ExUnwrapper.java</h1><pre class="source lang-java linenums">package net.dapete.exceptional.wrap;
+
+import net.dapete.exceptional.ExException;
+import net.dapete.exceptional.internal.ExUtils;
+
+import java.util.Set;
+import java.util.function.Supplier;
+
+/**
+ * Unwraps exceptions of the supplied type. All or some of these types may be identical if less than 3 are supplied.
+ *
+ * @param &lt;E1&gt; the type of the first exception to unwrap.
+ * @param &lt;E2&gt; the type of the second exception to unwrap.
+ * @param &lt;E3&gt; the type of the third exception to unwrap.
+ */
+public final class ExUnwrapper&lt;E1 extends Exception, E2 extends Exception, E3 extends Exception&gt; {
+
+    private final Class&lt;E1&gt; exceptionClass1;
+    private final Class&lt;E2&gt; exceptionClass2;
+    private final Class&lt;E3&gt; exceptionClass3;
+
+    private final Set&lt;Class&lt;? extends Exception&gt;&gt; exceptionClasses;
+
+<span class="fc" id="L24">    ExUnwrapper(Class&lt;E1&gt; exceptionClass1, Class&lt;E2&gt; exceptionClass2, Class&lt;E3&gt; exceptionClass3) {</span>
+<span class="fc" id="L25">        this.exceptionClass1 = exceptionClass1;</span>
+<span class="fc" id="L26">        this.exceptionClass2 = exceptionClass2;</span>
+<span class="fc" id="L27">        this.exceptionClass3 = exceptionClass3;</span>
+<span class="fc" id="L28">        this.exceptionClasses = ExUtils.setOf3(exceptionClass1, exceptionClass2, exceptionClass3);</span>
+<span class="fc" id="L29">    }</span>
+
+    /**
+     * Create an instance to unwrap the supplied exception class.
+     *
+     * @param exceptionClass the exception class.
+     * @param &lt;E&gt;            the type of the exception class.
+     * @return an instance to unwrap the supplied exception class.
+     */
+    public static &lt;E extends Exception&gt; ExUnwrapper&lt;E, E, E&gt; of(Class&lt;E&gt; exceptionClass) {
+<span class="fc" id="L39">        return new ExUnwrapper&lt;&gt;(exceptionClass, exceptionClass, exceptionClass);</span>
+    }
+
+    /**
+     * Create an instance to unwrap the supplied exception classes.
+     *
+     * @param exceptionClass1 the first exception class.
+     * @param exceptionClass2 the second exception class.
+     * @param &lt;E1&gt;            the type of the first exception class.
+     * @param &lt;E2&gt;            the type of the second exception class.
+     * @return an instance to unwrap the supplied exception classes.
+     */
+    public static &lt;E1 extends Exception, E2 extends Exception&gt; ExUnwrapper&lt;E1, E2, E2&gt; of(Class&lt;E1&gt; exceptionClass1, Class&lt;E2&gt; exceptionClass2) {
+<span class="fc" id="L52">        return new ExUnwrapper&lt;&gt;(exceptionClass1, exceptionClass2, exceptionClass2);</span>
+    }
+
+    /**
+     * Create an instance to unwrap the supplied exception classes.
+     *
+     * @param exceptionClass1 the first exception class.
+     * @param exceptionClass2 the second exception class.
+     * @param exceptionClass3 the third exception class.
+     * @param &lt;E1&gt;            the type of the first exception class.
+     * @param &lt;E2&gt;            the type of the second exception class.
+     * @param &lt;E3&gt;            the type of the third exception class.
+     * @return an instance to unwrap the supplied exception classes.
+     */
+    public static &lt;E1 extends Exception, E2 extends Exception, E3 extends Exception&gt; ExUnwrapper&lt;E1, E2, E3&gt; of(
+            Class&lt;E1&gt; exceptionClass1, Class&lt;E2&gt; exceptionClass2, Class&lt;E3&gt; exceptionClass3) {
+<span class="nc" id="L68">        return new ExUnwrapper&lt;&gt;(exceptionClass1, exceptionClass2, exceptionClass3);</span>
+    }
+
+    public void unwrap(Runnable runnable) throws E1, E2, E3 {
+        try {
+<span class="fc" id="L73">            ExUnwrap.unwrapScope(exceptionClasses, runnable);</span>
+<span class="fc" id="L74">        } catch (ExException e) {</span>
+<span class="nc" id="L75">            e.unwrap(exceptionClass1, exceptionClass2, exceptionClass3);</span>
+            // the compiler doesn't know that unwrap always throws an exception
+<span class="nc" id="L77">            throw e;</span>
+<span class="fc" id="L78">        }</span>
+<span class="fc" id="L79">    }</span>
+
+    public &lt;T&gt; T unwrap(Supplier&lt;T&gt; supplier) throws E1, E2, E3 {
+        try {
+<span class="fc" id="L83">            return ExUnwrap.unwrapScope(exceptionClasses, supplier);</span>
+<span class="fc" id="L84">        } catch (ExException e) {</span>
+<span class="nc" id="L85">            e.unwrap(exceptionClass1, exceptionClass2, exceptionClass3);</span>
+            // the compiler doesn't know that unwrap always throws an exception
+<span class="nc" id="L87">            throw e;</span>
+        }
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>

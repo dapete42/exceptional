@@ -2,21 +2,21 @@
   "SPDXID" : "SPDXRef-DOCUMENT",
   "spdxVersion" : "SPDX-2.3",
   "creationInfo" : {
-    "created" : "2026-05-17T13:52:02Z",
+    "created" : "2026-07-24T20:08:52Z",
     "creators" : [ "Tool: spdx-maven-plugin" ],
     "licenseListVersion" : "3.28.0"
   },
   "name" : "Exceptional!",
   "dataLicense" : "CC0-1.0",
-  "documentNamespace" : "http://spdx.org/spdxpackages/net.dapete_exceptional-0.4.1",
+  "documentNamespace" : "http://spdx.org/spdxpackages/net.dapete_exceptional-0.5.0",
   "packages" : [ {
-    "SPDXID" : "SPDXRef--1f8f17850",
+    "SPDXID" : "SPDXRef--1f8f13c50",
     "copyrightText" : "UNSPECIFIED",
     "description" : "Module \"junit-jupiter-engine\" of JUnit",
     "downloadLocation" : "NOASSERTION",
     "externalRefs" : [ {
       "referenceCategory" : "PACKAGE-MANAGER",
-      "referenceLocator" : "pkg:maven/org.junit.jupiter/junit-jupiter-engine@6.0.3",
+      "referenceLocator" : "pkg:maven/org.junit.jupiter/junit-jupiter-engine@6.1.2",
       "referenceType" : "purl"
     } ],
     "filesAnalyzed" : false,
@@ -25,7 +25,7 @@
     "licenseDeclared" : "EPL-2.0",
     "name" : "JUnit Jupiter Engine",
     "summary" : "Module \"junit-jupiter-engine\" of JUnit",
-    "versionInfo" : "6.0.3"
+    "versionInfo" : "6.1.2"
   }, {
     "SPDXID" : "SPDXRef--4831b1a30",
     "copyrightText" : "UNSPECIFIED",
@@ -50,7 +50,7 @@
     "downloadLocation" : "NOASSERTION",
     "externalRefs" : [ {
       "referenceCategory" : "PACKAGE-MANAGER",
-      "referenceLocator" : "pkg:maven/net.dapete/exceptional@0.4.1",
+      "referenceLocator" : "pkg:maven/net.dapete/exceptional@0.5.0",
       "referenceType" : "purl"
     } ],
     "filesAnalyzed" : true,
@@ -61,11 +61,11 @@
     "name" : "Exceptional!",
     "packageFileName" : "NOASSERTION",
     "packageVerificationCode" : {
-      "packageVerificationCodeValue" : "f692ed8ca2dbf742ce8b50488e655de4edabe47b"
+      "packageVerificationCodeValue" : "31d6bfc187d36d4b6a24233ea08ff8ed1ff2d2d7"
     },
     "primaryPackagePurpose" : "LIBRARY",
     "summary" : "Library for functional interfaces and streams that support exceptions",
-    "versionInfo" : "0.4.1"
+    "versionInfo" : "0.5.0"
   }, {
     "SPDXID" : "SPDXRef--6c9a30430",
     "copyrightText" : "UNSPECIFIED",
@@ -84,13 +84,13 @@
     "summary" : "Spice up your java: Automatic Resource Management, automatic generation of getters, setters, equals, hashCode and toString, and more!",
     "versionInfo" : "1.18.46"
   }, {
-    "SPDXID" : "SPDXRef--7c012cd90",
+    "SPDXID" : "SPDXRef--7c0129190",
     "copyrightText" : "UNSPECIFIED",
     "description" : "Module \"junit-jupiter-api\" of JUnit",
     "downloadLocation" : "NOASSERTION",
     "externalRefs" : [ {
       "referenceCategory" : "PACKAGE-MANAGER",
-      "referenceLocator" : "pkg:maven/org.junit.jupiter/junit-jupiter-api@6.0.3",
+      "referenceLocator" : "pkg:maven/org.junit.jupiter/junit-jupiter-api@6.1.2",
       "referenceType" : "purl"
     } ],
     "filesAnalyzed" : false,
@@ -99,15 +99,15 @@
     "licenseDeclared" : "EPL-2.0",
     "name" : "JUnit Jupiter API",
     "summary" : "Module \"junit-jupiter-api\" of JUnit",
-    "versionInfo" : "6.0.3"
+    "versionInfo" : "6.1.2"
   }, {
-    "SPDXID" : "SPDXRef--cf9b410",
+    "SPDXID" : "SPDXRef--cf97810",
     "copyrightText" : "UNSPECIFIED",
     "description" : "Module \"junit-jupiter-params\" of JUnit",
     "downloadLocation" : "NOASSERTION",
     "externalRefs" : [ {
       "referenceCategory" : "PACKAGE-MANAGER",
-      "referenceLocator" : "pkg:maven/org.junit.jupiter/junit-jupiter-params@6.0.3",
+      "referenceLocator" : "pkg:maven/org.junit.jupiter/junit-jupiter-params@6.1.2",
       "referenceType" : "purl"
     } ],
     "filesAnalyzed" : false,
@@ -116,15 +116,15 @@
     "licenseDeclared" : "EPL-2.0",
     "name" : "JUnit Jupiter Params",
     "summary" : "Module \"junit-jupiter-params\" of JUnit",
-    "versionInfo" : "6.0.3"
+    "versionInfo" : "6.1.2"
   }, {
-    "SPDXID" : "SPDXRef-22f8759a0",
+    "SPDXID" : "SPDXRef-22f8795a0",
     "copyrightText" : "UNSPECIFIED",
     "description" : "Module \"junit-jupiter\" of JUnit",
     "downloadLocation" : "NOASSERTION",
     "externalRefs" : [ {
       "referenceCategory" : "PACKAGE-MANAGER",
-      "referenceLocator" : "pkg:maven/org.junit.jupiter/junit-jupiter@6.0.3",
+      "referenceLocator" : "pkg:maven/org.junit.jupiter/junit-jupiter@6.1.2",
       "referenceType" : "purl"
     } ],
     "filesAnalyzed" : false,
@@ -133,7 +133,7 @@
     "licenseDeclared" : "EPL-2.0",
     "name" : "JUnit Jupiter (Aggregator)",
     "summary" : "Module \"junit-jupiter\" of JUnit",
-    "versionInfo" : "6.0.3"
+    "versionInfo" : "6.1.2"
   }, {
     "SPDXID" : "SPDXRef-3401be2a0",
     "copyrightText" : "UNSPECIFIED",
@@ -153,13 +153,13 @@
     "summary" : "A library for instantiating Java objects",
     "versionInfo" : "3.3"
   }, {
-    "SPDXID" : "SPDXRef-40642c430",
+    "SPDXID" : "SPDXRef-406430030",
     "copyrightText" : "UNSPECIFIED",
     "description" : "Module \"junit-platform-engine\" of JUnit",
     "downloadLocation" : "NOASSERTION",
     "externalRefs" : [ {
       "referenceCategory" : "PACKAGE-MANAGER",
-      "referenceLocator" : "pkg:maven/org.junit.platform/junit-platform-engine@6.0.3",
+      "referenceLocator" : "pkg:maven/org.junit.platform/junit-platform-engine@6.1.2",
       "referenceType" : "purl"
     } ],
     "filesAnalyzed" : false,
@@ -168,7 +168,7 @@
     "licenseDeclared" : "EPL-2.0",
     "name" : "JUnit Platform Engine API",
     "summary" : "Module \"junit-platform-engine\" of JUnit",
-    "versionInfo" : "6.0.3"
+    "versionInfo" : "6.1.2"
   }, {
     "SPDXID" : "SPDXRef-494d73e00",
     "copyrightText" : "UNSPECIFIED",
@@ -187,13 +187,13 @@
     "summary" : "The Byte Buddy agent offers convenience for attaching an agent to the local or a remote VM.",
     "versionInfo" : "1.17.7"
   }, {
-    "SPDXID" : "SPDXRef-4f045aad0",
+    "SPDXID" : "SPDXRef-4f045e6d0",
     "copyrightText" : "UNSPECIFIED",
     "description" : "Module \"junit-platform-commons\" of JUnit",
     "downloadLocation" : "NOASSERTION",
     "externalRefs" : [ {
       "referenceCategory" : "PACKAGE-MANAGER",
-      "referenceLocator" : "pkg:maven/org.junit.platform/junit-platform-commons@6.0.3",
+      "referenceLocator" : "pkg:maven/org.junit.platform/junit-platform-commons@6.1.2",
       "referenceType" : "purl"
     } ],
     "filesAnalyzed" : false,
@@ -202,7 +202,7 @@
     "licenseDeclared" : "EPL-2.0",
     "name" : "JUnit Platform Commons",
     "summary" : "Module \"junit-platform-commons\" of JUnit",
-    "versionInfo" : "6.0.3"
+    "versionInfo" : "6.1.2"
   }, {
     "SPDXID" : "SPDXRef-507cce4b0",
     "copyrightText" : "UNSPECIFIED",
@@ -293,7 +293,7 @@
     "SPDXID" : "SPDXRef--10e30ef00",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "3397b98b2f7077b0071433d3bc86afa7e65f50ff"
+      "checksumValue" : "c2d8003198035ead9aa4cd554c08fd289cc2a8c8"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/function/ExObjDoubleConsumer.java",
@@ -304,7 +304,7 @@
     "SPDXID" : "SPDXRef--11c49100",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "9c4f5720fb932c5c200cf963be6d32e94fec7180"
+      "checksumValue" : "d46b135e4322811188ca811d5865649d4b9a9166"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/function/package-info.java",
@@ -315,7 +315,7 @@
     "SPDXID" : "SPDXRef--11dc556d0",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "605758a55571da7bce88744014688b99e8423ddc"
+      "checksumValue" : "0a6d200145a5bd2f14e20f04958fe03909ae6efe"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/function/ExIntSupplier.java",
@@ -326,7 +326,7 @@
     "SPDXID" : "SPDXRef--132a53c0",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "f5109b67dcd2e3474c317877f3eb680bd039b123"
+      "checksumValue" : "5405d66527aefe1dbf779085581b197974fbb3b4"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/module-info.java",
@@ -337,7 +337,7 @@
     "SPDXID" : "SPDXRef--133143ad0",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "218c224292bdd9176fd3651aaaadb0058bb2ceae"
+      "checksumValue" : "2d2fa32a182f9fd6f6c30ac6a43493628b7255a0"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/function/ExDoubleToIntFunction.java",
@@ -348,7 +348,7 @@
     "SPDXID" : "SPDXRef--13b967f90",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "15cbe18b21bbc2ad8fa76a02be91874337fa0e96"
+      "checksumValue" : "0b0280e7ed829be3c169834915b4172aeda6439c"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/function/ExIntFunction.java",
@@ -359,7 +359,7 @@
     "SPDXID" : "SPDXRef--16799a2b0",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "c00e9905a42e9be89b5dd77a2319e1fc62854394"
+      "checksumValue" : "3bb020d0f757696f88f99a1711bc946eb4cf95f5"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/function/ExRunnable.java",
@@ -370,7 +370,7 @@
     "SPDXID" : "SPDXRef--1742086f0",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "f11c631e8c9ea2ab285c9ef5de6f613912e8764c"
+      "checksumValue" : "91f707dd5b9d6ab0aab918499bf36852b69e168f"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/function/ExLongBinaryOperator.java",
@@ -381,7 +381,7 @@
     "SPDXID" : "SPDXRef--18b8ccad0",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "d1a7412dbc085423ff53c4d575b8222646730761"
+      "checksumValue" : "b38c5bacc3fa99f0ba9be8a93c4b235fb424b952"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/function/ExLongPredicate.java",
@@ -392,7 +392,7 @@
     "SPDXID" : "SPDXRef--1bc99bb60",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "ba84d09e10b94687bf78b7b05cbfa5d45168ca62"
+      "checksumValue" : "f00aa0e2fc77537581209b5a16bb40a2c1b9a79b"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/function/ExIntPredicate.java",
@@ -403,10 +403,32 @@
     "SPDXID" : "SPDXRef--2138c4680",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "dcb57b9fc1bf070df42067079738ef9e8341e105"
+      "checksumValue" : "7d939b719de6a20cff731b1047d7ed1bf2a173fd"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/stream/package-info.java",
+    "fileTypes" : [ "SOURCE" ],
+    "licenseConcluded" : "NOASSERTION",
+    "licenseInfoInFiles" : [ "NOASSERTION" ]
+  }, {
+    "SPDXID" : "SPDXRef--237989c80",
+    "checksums" : [ {
+      "algorithm" : "SHA1",
+      "checksumValue" : "7147c2436abebed3a714623b4c49a6b4622a0c69"
+    } ],
+    "copyrightText" : "NOASSERTION",
+    "fileName" : "./src/main/java/net/dapete/exceptional/internal/ExUtils.java",
+    "fileTypes" : [ "SOURCE" ],
+    "licenseConcluded" : "NOASSERTION",
+    "licenseInfoInFiles" : [ "NOASSERTION" ]
+  }, {
+    "SPDXID" : "SPDXRef--25d32a3f0",
+    "checksums" : [ {
+      "algorithm" : "SHA1",
+      "checksumValue" : "e54c880fef2d547d82acc8f888923cd87b967a81"
+    } ],
+    "copyrightText" : "NOASSERTION",
+    "fileName" : "./src/main/java/net/dapete/exceptional/wrap/ExUnwrap.java",
     "fileTypes" : [ "SOURCE" ],
     "licenseConcluded" : "NOASSERTION",
     "licenseInfoInFiles" : [ "NOASSERTION" ]
@@ -425,7 +447,7 @@
     "SPDXID" : "SPDXRef--2a3ac7490",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "0daab6d7c12a29d18273866c0efdccbb946002da"
+      "checksumValue" : "e2b2c29d9a03e40a80c2086b650e7157bd83725b"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/function/ExPredicate.java",
@@ -436,7 +458,7 @@
     "SPDXID" : "SPDXRef--2dbda5900",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "a350574a1901209cb30896d3930ee36c1f84083e"
+      "checksumValue" : "8ba62d40e2c7ab1ea73904bf53759ead3206371b"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/function/ExIntToLongFunction.java",
@@ -444,10 +466,21 @@
     "licenseConcluded" : "NOASSERTION",
     "licenseInfoInFiles" : [ "NOASSERTION" ]
   }, {
+    "SPDXID" : "SPDXRef--30b3056b0",
+    "checksums" : [ {
+      "algorithm" : "SHA1",
+      "checksumValue" : "0a7157649c4fc6a36157e4dbd4f1ba2c6313a1e4"
+    } ],
+    "copyrightText" : "NOASSERTION",
+    "fileName" : "./src/main/java/net/dapete/exceptional/internal/package-info.java",
+    "fileTypes" : [ "SOURCE" ],
+    "licenseConcluded" : "NOASSERTION",
+    "licenseInfoInFiles" : [ "NOASSERTION" ]
+  }, {
     "SPDXID" : "SPDXRef--31d905fb0",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "b51dbd126875f0d974067109f05e1213610b68fc"
+      "checksumValue" : "80be05b4a729d006acb22a338be8a2a177f7e200"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/function/ExObjLongConsumer.java",
@@ -455,10 +488,21 @@
     "licenseConcluded" : "NOASSERTION",
     "licenseInfoInFiles" : [ "NOASSERTION" ]
   }, {
+    "SPDXID" : "SPDXRef--32be55210",
+    "checksums" : [ {
+      "algorithm" : "SHA1",
+      "checksumValue" : "3760c5a2b0d407e75532d7e3c0f239ba2c55a03a"
+    } ],
+    "copyrightText" : "NOASSERTION",
+    "fileName" : "./src/test/java/net/dapete/exceptional/internal/ExUtilsTest.java",
+    "fileTypes" : [ "SOURCE" ],
+    "licenseConcluded" : "NOASSERTION",
+    "licenseInfoInFiles" : [ "NOASSERTION" ]
+  }, {
     "SPDXID" : "SPDXRef--36ad76d20",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "76fd6c526f9782441a797093d6713fd0d17a994d"
+      "checksumValue" : "58436dfe6f6cf17a0b8f26fc7236d44b3d5b0f30"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/function/ExToDoubleFunction.java",
@@ -469,7 +513,7 @@
     "SPDXID" : "SPDXRef--381ca1690",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "6e5f3cbe56a4f7a81a20f32c499bed84d7772a1d"
+      "checksumValue" : "ea75e7ec3cd95db26916d4db1f561f27ce072131"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/function/ExLongUnaryOperator.java",
@@ -480,7 +524,7 @@
     "SPDXID" : "SPDXRef--3b9deb7a0",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "e781a0838db0f1141a954c8f590319edc61b8ab9"
+      "checksumValue" : "a418cb49f353734172ea5798f846df489925a232"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/function/ExSupplier.java",
@@ -491,7 +535,7 @@
     "SPDXID" : "SPDXRef--3cc094060",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "790bdf028977d9b3a24812310e26885e836853c4"
+      "checksumValue" : "058ae7547b4563b30ce25452fc3c1c22dadc9c3f"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/function/ExBooleanSupplier.java",
@@ -502,7 +546,7 @@
     "SPDXID" : "SPDXRef--3d7afe060",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "c746ab433250163d897cb1782feedb6ec38fdd7c"
+      "checksumValue" : "60dbecc2fe4f469466747a15de6774b11a80e94c"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/function/ExFunction.java",
@@ -513,7 +557,7 @@
     "SPDXID" : "SPDXRef--3ff1a5350",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "99e5ece3c75cecdfaf937b7b6d141d211397aaf4"
+      "checksumValue" : "2f943e899f1c42758727126cc17d74eb93c4e555"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/function/ExDoubleConsumer.java",
@@ -521,32 +565,10 @@
     "licenseConcluded" : "NOASSERTION",
     "licenseInfoInFiles" : [ "NOASSERTION" ]
   }, {
-    "SPDXID" : "SPDXRef--420723e40",
-    "checksums" : [ {
-      "algorithm" : "SHA1",
-      "checksumValue" : "eadc67b0d1e125872974ef2ef64158d6b6d4e92a"
-    } ],
-    "copyrightText" : "NOASSERTION",
-    "fileName" : "./src/test/java/net/dapete/exceptional/stream/ExStreamUtilsTest.java",
-    "fileTypes" : [ "SOURCE" ],
-    "licenseConcluded" : "NOASSERTION",
-    "licenseInfoInFiles" : [ "NOASSERTION" ]
-  }, {
-    "SPDXID" : "SPDXRef--4217ce490",
-    "checksums" : [ {
-      "algorithm" : "SHA1",
-      "checksumValue" : "d1f4c2b9f9dfb8199af5bcf137d22067d7e78029"
-    } ],
-    "copyrightText" : "NOASSERTION",
-    "fileName" : "./src/test/java/net/dapete/exceptional/test/AllExFunctionalInterfacesTest.java",
-    "fileTypes" : [ "SOURCE" ],
-    "licenseConcluded" : "NOASSERTION",
-    "licenseInfoInFiles" : [ "NOASSERTION" ]
-  }, {
     "SPDXID" : "SPDXRef--550c0850",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "fc92ae069f61b9ecd9cdc9a8dd906c9b1af0cd21"
+      "checksumValue" : "cb697cb529d527e454d443eda21c0cf2e7c8ba04"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/function/Wrappable.java",
@@ -557,7 +579,7 @@
     "SPDXID" : "SPDXRef--55b856ee0",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "4fffd869882d3efd35f3b327723b9c95e184b83c"
+      "checksumValue" : "7312562824cf3adef865d0d866509cb2959624b1"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/function/ExDoubleToLongFunction.java",
@@ -568,7 +590,7 @@
     "SPDXID" : "SPDXRef--5919dc890",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "352f039a731e63d391097d746670ddaa1744ec2b"
+      "checksumValue" : "0b2cd73b0f99b7a2a99342c436ad4509ce6c3d63"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/stream/ExIntStream.java",
@@ -579,7 +601,7 @@
     "SPDXID" : "SPDXRef--62efa7310",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "f8414bcc87796e3cfd917a8d8167bc6d47796e5a"
+      "checksumValue" : "a2347db5f8adb161be830c527e9bad9fdbed46fb"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/test/java/net/dapete/exceptional/stream/ExStreamTest.java",
@@ -590,7 +612,7 @@
     "SPDXID" : "SPDXRef--6457a9960",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "86d95214d408c26c7cd466f9f7e5e491a48f5fa4"
+      "checksumValue" : "3ab5c8fd68d1ce46955aa68583ca358c592e6696"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/function/ExLongSupplier.java",
@@ -601,7 +623,7 @@
     "SPDXID" : "SPDXRef--6634bc220",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "e9eb01727900757542218a170d51b06e75ac7d4d"
+      "checksumValue" : "80bce6ac68830198e13f4207128a6dbda7f0b138"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/function/ExLongFunction.java",
@@ -612,7 +634,7 @@
     "SPDXID" : "SPDXRef--6932478d0",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "074e9c4de32380d480481632ec804e7df4d0f28b"
+      "checksumValue" : "cb56b78a816780d46572056eebdbaa457ca1e8ff"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/function/ExBiFunction.java",
@@ -623,7 +645,7 @@
     "SPDXID" : "SPDXRef--69fd3a3c0",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "736b0b5d5450c2b01f02de0ad3beee2e2ef8770e"
+      "checksumValue" : "1d927707d474b81d7039d9c5423a26507ed03733"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/stream/ExIntMapMultiConsumer.java",
@@ -631,21 +653,10 @@
     "licenseConcluded" : "NOASSERTION",
     "licenseInfoInFiles" : [ "NOASSERTION" ]
   }, {
-    "SPDXID" : "SPDXRef--6af38b990",
-    "checksums" : [ {
-      "algorithm" : "SHA1",
-      "checksumValue" : "809d3a7c6e7748473bfff0b93a77a10916140ee9"
-    } ],
-    "copyrightText" : "NOASSERTION",
-    "fileName" : "./src/main/java/net/dapete/exceptional/ExWrap.java",
-    "fileTypes" : [ "SOURCE" ],
-    "licenseConcluded" : "NOASSERTION",
-    "licenseInfoInFiles" : [ "NOASSERTION" ]
-  }, {
     "SPDXID" : "SPDXRef--6ca7ee050",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "030e505f0209ac6a3a7e7b935325810daec29d21"
+      "checksumValue" : "e29d22acff3c6f833ae127b05e900caab2fa4a5b"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/function/ExUnaryOperator.java",
@@ -656,7 +667,7 @@
     "SPDXID" : "SPDXRef--6ec8bf860",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "1eeb089f69cc53c88fd360ebc91bd38d5e926fb8"
+      "checksumValue" : "c3f49fc0c56b47c471f9870a5b85d55ff9214b15"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/stream/ExStream.java",
@@ -667,7 +678,7 @@
     "SPDXID" : "SPDXRef--6f4676420",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "42024ca4b65afcbd2e174a614d8e2288846a8d06"
+      "checksumValue" : "d044bbf581ed9fdddb7955d816c75960e9bf14e8"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/function/ExLongToIntFunction.java",
@@ -675,13 +686,13 @@
     "licenseConcluded" : "NOASSERTION",
     "licenseInfoInFiles" : [ "NOASSERTION" ]
   }, {
-    "SPDXID" : "SPDXRef--72d2eb320",
+    "SPDXID" : "SPDXRef--712106dd0",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "dcc3030edbf1f5db12c91e465fd8085498177cdf"
+      "checksumValue" : "e34428834e2da4d5daf1fbc16a750c2aef5ee26f"
     } ],
     "copyrightText" : "NOASSERTION",
-    "fileName" : "./src/test/java/net/dapete/exceptional/ExWrapTest.java",
+    "fileName" : "./src/test/java/net/dapete/exceptional/function/AllExFunctionalInterfaces.java",
     "fileTypes" : [ "SOURCE" ],
     "licenseConcluded" : "NOASSERTION",
     "licenseInfoInFiles" : [ "NOASSERTION" ]
@@ -689,7 +700,7 @@
     "SPDXID" : "SPDXRef--74204f530",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "b12d0a1ab1c8fab79c0eaa38f9c957a9bd28b3c5"
+      "checksumValue" : "47e02eba09d1e5404e48443f8cfc5609137e94d2"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/function/ExBinaryOperator.java",
@@ -697,10 +708,21 @@
     "licenseConcluded" : "NOASSERTION",
     "licenseInfoInFiles" : [ "NOASSERTION" ]
   }, {
+    "SPDXID" : "SPDXRef--75221f1e0",
+    "checksums" : [ {
+      "algorithm" : "SHA1",
+      "checksumValue" : "15f528f8535babc79c116ee3e4f8c8456685fd42"
+    } ],
+    "copyrightText" : "NOASSERTION",
+    "fileName" : "./src/main/java/net/dapete/exceptional/wrap/package-info.java",
+    "fileTypes" : [ "SOURCE" ],
+    "licenseConcluded" : "NOASSERTION",
+    "licenseInfoInFiles" : [ "NOASSERTION" ]
+  }, {
     "SPDXID" : "SPDXRef--756caea20",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "7a0c4b584fe93aece4e7bf0e1e87b71d07e9e136"
+      "checksumValue" : "efb075c551d20903b270cd0946546d2cdfd4c624"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/function/ExBiPredicate.java",
@@ -708,10 +730,21 @@
     "licenseConcluded" : "NOASSERTION",
     "licenseInfoInFiles" : [ "NOASSERTION" ]
   }, {
+    "SPDXID" : "SPDXRef--7cf258170",
+    "checksums" : [ {
+      "algorithm" : "SHA1",
+      "checksumValue" : "b7087a1b4990452a8dab7340ae392d1de8d3bfe0"
+    } ],
+    "copyrightText" : "NOASSERTION",
+    "fileName" : "./src/test/java/net/dapete/exceptional/wrap/ExUnwrapperTest.java",
+    "fileTypes" : [ "SOURCE" ],
+    "licenseConcluded" : "NOASSERTION",
+    "licenseInfoInFiles" : [ "NOASSERTION" ]
+  }, {
     "SPDXID" : "SPDXRef--c5fe8a20",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "91de0c4c37f7e1098cbbaa32b884aac4eff8f560"
+      "checksumValue" : "7b0bb68529f13fb8c7556e8a9e3d7a51d551ad84"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/stream/ExLongStream.java",
@@ -719,21 +752,10 @@
     "licenseConcluded" : "NOASSERTION",
     "licenseInfoInFiles" : [ "NOASSERTION" ]
   }, {
-    "SPDXID" : "SPDXRef--f273d8b0",
-    "checksums" : [ {
-      "algorithm" : "SHA1",
-      "checksumValue" : "d809b4c6b40ad57f9b6907d61394d68441dddc4f"
-    } ],
-    "copyrightText" : "NOASSERTION",
-    "fileName" : "./src/main/java/net/dapete/exceptional/stream/ExStreamUtils.java",
-    "fileTypes" : [ "SOURCE" ],
-    "licenseConcluded" : "NOASSERTION",
-    "licenseInfoInFiles" : [ "NOASSERTION" ]
-  }, {
     "SPDXID" : "SPDXRef-10cf66b50",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "babc8207ebdcad94cb340a1c12c14b14e28e571a"
+      "checksumValue" : "d03003f66fbe5d8919470b9344c7aa2d9053b9f8"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/test/java/net/dapete/exceptional/ExExceptionTest.java",
@@ -741,10 +763,32 @@
     "licenseConcluded" : "NOASSERTION",
     "licenseInfoInFiles" : [ "NOASSERTION" ]
   }, {
+    "SPDXID" : "SPDXRef-1c9b53a0",
+    "checksums" : [ {
+      "algorithm" : "SHA1",
+      "checksumValue" : "412c2b198972c6d15c1eb510445ec95c15d3f312"
+    } ],
+    "copyrightText" : "NOASSERTION",
+    "fileName" : "./src/main/java/net/dapete/exceptional/wrap/ExWrap.java",
+    "fileTypes" : [ "SOURCE" ],
+    "licenseConcluded" : "NOASSERTION",
+    "licenseInfoInFiles" : [ "NOASSERTION" ]
+  }, {
+    "SPDXID" : "SPDXRef-201e88420",
+    "checksums" : [ {
+      "algorithm" : "SHA1",
+      "checksumValue" : "fccfab7627f75b724e65555dde79b503e7dc0e54"
+    } ],
+    "copyrightText" : "NOASSERTION",
+    "fileName" : "./src/main/java/net/dapete/exceptional/wrap/ExUnwrapper.java",
+    "fileTypes" : [ "SOURCE" ],
+    "licenseConcluded" : "NOASSERTION",
+    "licenseInfoInFiles" : [ "NOASSERTION" ]
+  }, {
     "SPDXID" : "SPDXRef-205642a70",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "3bf30fa3569bad0a3622d8b6ea19e33494d2df7a"
+      "checksumValue" : "743ec50af9661fb2bcefefafb21a0464b2d50a9c"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/function/ExToDoubleBiFunction.java",
@@ -755,7 +799,7 @@
     "SPDXID" : "SPDXRef-23f8912c0",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "fb158206366e2c6df7917aae2ebdf9c47bd3acb6"
+      "checksumValue" : "c0c94b799e153674ebaf71b03af2e2e46d2b2730"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/function/ExDoubleUnaryOperator.java",
@@ -766,7 +810,7 @@
     "SPDXID" : "SPDXRef-26d842230",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "325d720ce45fb848ac98b016eddd6b0218940326"
+      "checksumValue" : "dc420ea269ce79565aa58d01d0ff71671b13553b"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/function/ExToLongFunction.java",
@@ -774,32 +818,10 @@
     "licenseConcluded" : "NOASSERTION",
     "licenseInfoInFiles" : [ "NOASSERTION" ]
   }, {
-    "SPDXID" : "SPDXRef-2a5d3a3e0",
-    "checksums" : [ {
-      "algorithm" : "SHA1",
-      "checksumValue" : "4c033edc2656d54f1eae7899c3c5966d120b7293"
-    } ],
-    "copyrightText" : "NOASSERTION",
-    "fileName" : "./src/main/java/net/dapete/exceptional/ExUtils.java",
-    "fileTypes" : [ "SOURCE" ],
-    "licenseConcluded" : "NOASSERTION",
-    "licenseInfoInFiles" : [ "NOASSERTION" ]
-  }, {
-    "SPDXID" : "SPDXRef-2dd61fa90",
-    "checksums" : [ {
-      "algorithm" : "SHA1",
-      "checksumValue" : "b11ae7728c30e3fa34b4e5ce362d13b8c14913e6"
-    } ],
-    "copyrightText" : "NOASSERTION",
-    "fileName" : "./src/test/java/net/dapete/exceptional/test/AllExFunctionalInterfaces.java",
-    "fileTypes" : [ "SOURCE" ],
-    "licenseConcluded" : "NOASSERTION",
-    "licenseInfoInFiles" : [ "NOASSERTION" ]
-  }, {
     "SPDXID" : "SPDXRef-3351925c0",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "a1037c5a9400ab664697f9e57f9bfd9da7a5cecf"
+      "checksumValue" : "8bbc2b452540ced2a178661662fa2f1e945e5ec0"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/function/ExToLongBiFunction.java",
@@ -821,7 +843,7 @@
     "SPDXID" : "SPDXRef-3707549c0",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "1fbee2c8049c192af1e1029504148f570f30b4a6"
+      "checksumValue" : "91f73dca724c805529ef2f827f927c7353bd3932"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/function/ExConsumer.java",
@@ -832,7 +854,7 @@
     "SPDXID" : "SPDXRef-3749c8fa0",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "dc42f753a140d91b4fcb949593d49178d865b30d"
+      "checksumValue" : "70e1a671c243b049f74903e455fe1c30bc9ea881"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/function/ExIntBinaryOperator.java",
@@ -843,7 +865,7 @@
     "SPDXID" : "SPDXRef-374dca4f0",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "c81e797dabbf385bef9fd763dff088e11c5d34a2"
+      "checksumValue" : "b361f82ce280a840d4fb0484542e4c143754141b"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/package-info.java",
@@ -854,7 +876,7 @@
     "SPDXID" : "SPDXRef-3ca584360",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "b8d9fefa07ecc29fd005ba04f6579275136ca146"
+      "checksumValue" : "e79b67380f9c15058b1197c273da171ad87bda1f"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/stream/ExDoubleMapMultiConsumer.java",
@@ -876,7 +898,7 @@
     "SPDXID" : "SPDXRef-4297c23b0",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "c25b85f67568f0a766ee005649e8d1d84fe9e1ac"
+      "checksumValue" : "0e1b26876db8257cdb3b54ac51a9cfcc04c76d8d"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/function/ExIntToDoubleFunction.java",
@@ -887,7 +909,7 @@
     "SPDXID" : "SPDXRef-4b8c08290",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "93b61082235d0397e732d938c53212a390cc85ec"
+      "checksumValue" : "d1cc98c78bb827e2d100577568679dd91a74777a"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/function/ExDoubleFunction.java",
@@ -898,7 +920,7 @@
     "SPDXID" : "SPDXRef-4d691ab50",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "c6deb4dbd1553863d52d4378cad2038671f053af"
+      "checksumValue" : "24c9d0d319090288c39506170abcf35ef4a8c373"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/function/ExDoubleSupplier.java",
@@ -906,10 +928,21 @@
     "licenseConcluded" : "NOASSERTION",
     "licenseInfoInFiles" : [ "NOASSERTION" ]
   }, {
+    "SPDXID" : "SPDXRef-5393be310",
+    "checksums" : [ {
+      "algorithm" : "SHA1",
+      "checksumValue" : "5c29742f2e66d0481afe6451dbdcbf5ad75128cb"
+    } ],
+    "copyrightText" : "NOASSERTION",
+    "fileName" : "./src/test/java/net/dapete/exceptional/function/AllExFunctionalInterfacesTest.java",
+    "fileTypes" : [ "SOURCE" ],
+    "licenseConcluded" : "NOASSERTION",
+    "licenseInfoInFiles" : [ "NOASSERTION" ]
+  }, {
     "SPDXID" : "SPDXRef-57fce8690",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "2f6fe2eef75b8e9b6abdb37ad7216b5472b9a8f0"
+      "checksumValue" : "341ab61bbe549f889218816cd314e225ac6b8f2d"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/stream/ExDoubleStream.java",
@@ -920,7 +953,7 @@
     "SPDXID" : "SPDXRef-5c2e3d220",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "d2f3d9177a7c517a3d6e0be5800cd35220053b1d"
+      "checksumValue" : "c1100c198d6d5e7f06253296cf3e0c7852b2c570"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/function/ExToIntFunction.java",
@@ -931,7 +964,7 @@
     "SPDXID" : "SPDXRef-5eaaf5e00",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "41a624c738a999190ebbd77f01888e1e036f1154"
+      "checksumValue" : "2d4ad31c62d0f76ccd97d2259e8006948dac8d95"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/ExException.java",
@@ -942,7 +975,7 @@
     "SPDXID" : "SPDXRef-60c8eaa90",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "c3398678b5013fc266bd2e941ba99d3c71372ae5"
+      "checksumValue" : "41224fac0f74f431e98f0dcbba4c529bfdcc3374"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/function/ExIntConsumer.java",
@@ -953,7 +986,7 @@
     "SPDXID" : "SPDXRef-67533c0e0",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "b6d1bf6f8f0eb78d3f650774089e31501998df1d"
+      "checksumValue" : "83578266aa939dbb00d24c673d510aeaa5039e88"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/function/ExIntUnaryOperator.java",
@@ -964,7 +997,7 @@
     "SPDXID" : "SPDXRef-67baa7120",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "f5c2bd22365c8fb234adb546927a106637529fb6"
+      "checksumValue" : "d521c297027bad5a02102b37f64ed493115f47f8"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/function/ExLongToDoubleFunction.java",
@@ -972,21 +1005,10 @@
     "licenseConcluded" : "NOASSERTION",
     "licenseInfoInFiles" : [ "NOASSERTION" ]
   }, {
-    "SPDXID" : "SPDXRef-690687930",
-    "checksums" : [ {
-      "algorithm" : "SHA1",
-      "checksumValue" : "04806baae44d9478be959a737c47387519caf6ca"
-    } ],
-    "copyrightText" : "NOASSERTION",
-    "fileName" : "./src/test/java/net/dapete/exceptional/ExUtilsTest.java",
-    "fileTypes" : [ "SOURCE" ],
-    "licenseConcluded" : "NOASSERTION",
-    "licenseInfoInFiles" : [ "NOASSERTION" ]
-  }, {
     "SPDXID" : "SPDXRef-6b14c99b0",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "6bb68806576de900fa15f220812738b29dee1101"
+      "checksumValue" : "0b209f355f5a66f023e11f953df9bf6e722483b3"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/function/ExToIntBiFunction.java",
@@ -997,7 +1019,7 @@
     "SPDXID" : "SPDXRef-6d9ef8680",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "a52df18769cc9d40204c11a9be8b272dd1578b8c"
+      "checksumValue" : "271b80147599a33a014409837fbc6aa44c771c2b"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/function/ExDoublePredicate.java",
@@ -1005,10 +1027,32 @@
     "licenseConcluded" : "NOASSERTION",
     "licenseInfoInFiles" : [ "NOASSERTION" ]
   }, {
+    "SPDXID" : "SPDXRef-7660f8560",
+    "checksums" : [ {
+      "algorithm" : "SHA1",
+      "checksumValue" : "47999ac20d3f4e3551609cf5ebe7bd8f3a5643fb"
+    } ],
+    "copyrightText" : "NOASSERTION",
+    "fileName" : "./src/test/java/net/dapete/exceptional/wrap/ExUnwrapTest.java",
+    "fileTypes" : [ "SOURCE" ],
+    "licenseConcluded" : "NOASSERTION",
+    "licenseInfoInFiles" : [ "NOASSERTION" ]
+  }, {
+    "SPDXID" : "SPDXRef-7d6ae90f0",
+    "checksums" : [ {
+      "algorithm" : "SHA1",
+      "checksumValue" : "c1f259df86a69f1774558dbd2f04b9dbe1a6c751"
+    } ],
+    "copyrightText" : "NOASSERTION",
+    "fileName" : "./src/test/java/net/dapete/exceptional/wrap/ExWrapTest.java",
+    "fileTypes" : [ "SOURCE" ],
+    "licenseConcluded" : "NOASSERTION",
+    "licenseInfoInFiles" : [ "NOASSERTION" ]
+  }, {
     "SPDXID" : "SPDXRef-7f8644eb0",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "cb88ceac84db47be9f6e6210027347bdc2f8551a"
+      "checksumValue" : "82507b58adfb3313f3192bf3ab68b4a98b68f843"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/stream/ExLongMapMultiConsumer.java",
@@ -1019,7 +1063,7 @@
     "SPDXID" : "SPDXRef-b500b150",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "e07fa154be1305ba510af2e8b84f8cf52fc4705a"
+      "checksumValue" : "0babdae46c919a7cc85a80082aea8264ca0f69a3"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/function/ExBiConsumer.java",
@@ -1030,7 +1074,7 @@
     "SPDXID" : "SPDXRef-c2282840",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "2221af710b7da93548ccde6080ce0fc34055e9cf"
+      "checksumValue" : "be663e6f7a6552a0c93b8e9bcf4db4eb0c22d231"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/function/ExObjIntConsumer.java",
@@ -1041,7 +1085,7 @@
     "SPDXID" : "SPDXRef-e4d96800",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "7f6054958f4d5469cce0faae3917289e91e38045"
+      "checksumValue" : "4829454bc3e866c037a15991510feec252d22eaf"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/function/ExLongConsumer.java",
@@ -1052,7 +1096,7 @@
     "SPDXID" : "SPDXRef-f4f179c0",
     "checksums" : [ {
       "algorithm" : "SHA1",
-      "checksumValue" : "c91c2ec9907e4073099efbd58c363d3d743eef60"
+      "checksumValue" : "d1bd0b8b77053b0d4ce70edc2cb1b0da2701f344"
     } ],
     "copyrightText" : "NOASSERTION",
     "fileName" : "./src/main/java/net/dapete/exceptional/function/ExDoubleBinaryOperator.java",
@@ -1121,6 +1165,16 @@
     "relatedSpdxElement" : "SPDXRef--4b3779bf0",
     "comment" : ""
   }, {
+    "spdxElementId" : "SPDXRef--237989c80",
+    "relationshipType" : "GENERATES",
+    "relatedSpdxElement" : "SPDXRef--4b3779bf0",
+    "comment" : ""
+  }, {
+    "spdxElementId" : "SPDXRef--25d32a3f0",
+    "relationshipType" : "GENERATES",
+    "relatedSpdxElement" : "SPDXRef--4b3779bf0",
+    "comment" : ""
+  }, {
     "spdxElementId" : "SPDXRef--276e00020",
     "relationshipType" : "GENERATES",
     "relatedSpdxElement" : "SPDXRef--4b3779bf0",
@@ -1136,7 +1190,17 @@
     "relatedSpdxElement" : "SPDXRef--4b3779bf0",
     "comment" : ""
   }, {
+    "spdxElementId" : "SPDXRef--30b3056b0",
+    "relationshipType" : "GENERATES",
+    "relatedSpdxElement" : "SPDXRef--4b3779bf0",
+    "comment" : ""
+  }, {
     "spdxElementId" : "SPDXRef--31d905fb0",
+    "relationshipType" : "GENERATES",
+    "relatedSpdxElement" : "SPDXRef--4b3779bf0",
+    "comment" : ""
+  }, {
+    "spdxElementId" : "SPDXRef--32be55210",
     "relationshipType" : "GENERATES",
     "relatedSpdxElement" : "SPDXRef--4b3779bf0",
     "comment" : ""
@@ -1167,16 +1231,6 @@
     "comment" : ""
   }, {
     "spdxElementId" : "SPDXRef--3ff1a5350",
-    "relationshipType" : "GENERATES",
-    "relatedSpdxElement" : "SPDXRef--4b3779bf0",
-    "comment" : ""
-  }, {
-    "spdxElementId" : "SPDXRef--420723e40",
-    "relationshipType" : "GENERATES",
-    "relatedSpdxElement" : "SPDXRef--4b3779bf0",
-    "comment" : ""
-  }, {
-    "spdxElementId" : "SPDXRef--4217ce490",
     "relationshipType" : "GENERATES",
     "relatedSpdxElement" : "SPDXRef--4b3779bf0",
     "comment" : ""
@@ -1221,11 +1275,6 @@
     "relatedSpdxElement" : "SPDXRef--4b3779bf0",
     "comment" : ""
   }, {
-    "spdxElementId" : "SPDXRef--6af38b990",
-    "relationshipType" : "GENERATES",
-    "relatedSpdxElement" : "SPDXRef--4b3779bf0",
-    "comment" : ""
-  }, {
     "spdxElementId" : "SPDXRef--6ca7ee050",
     "relationshipType" : "GENERATES",
     "relatedSpdxElement" : "SPDXRef--4b3779bf0",
@@ -1241,7 +1290,7 @@
     "relatedSpdxElement" : "SPDXRef--4b3779bf0",
     "comment" : ""
   }, {
-    "spdxElementId" : "SPDXRef--72d2eb320",
+    "spdxElementId" : "SPDXRef--712106dd0",
     "relationshipType" : "GENERATES",
     "relatedSpdxElement" : "SPDXRef--4b3779bf0",
     "comment" : ""
@@ -1251,7 +1300,17 @@
     "relatedSpdxElement" : "SPDXRef--4b3779bf0",
     "comment" : ""
   }, {
+    "spdxElementId" : "SPDXRef--75221f1e0",
+    "relationshipType" : "GENERATES",
+    "relatedSpdxElement" : "SPDXRef--4b3779bf0",
+    "comment" : ""
+  }, {
     "spdxElementId" : "SPDXRef--756caea20",
+    "relationshipType" : "GENERATES",
+    "relatedSpdxElement" : "SPDXRef--4b3779bf0",
+    "comment" : ""
+  }, {
+    "spdxElementId" : "SPDXRef--7cf258170",
     "relationshipType" : "GENERATES",
     "relatedSpdxElement" : "SPDXRef--4b3779bf0",
     "comment" : ""
@@ -1261,12 +1320,17 @@
     "relatedSpdxElement" : "SPDXRef--4b3779bf0",
     "comment" : ""
   }, {
-    "spdxElementId" : "SPDXRef--f273d8b0",
+    "spdxElementId" : "SPDXRef-10cf66b50",
     "relationshipType" : "GENERATES",
     "relatedSpdxElement" : "SPDXRef--4b3779bf0",
     "comment" : ""
   }, {
-    "spdxElementId" : "SPDXRef-10cf66b50",
+    "spdxElementId" : "SPDXRef-1c9b53a0",
+    "relationshipType" : "GENERATES",
+    "relatedSpdxElement" : "SPDXRef--4b3779bf0",
+    "comment" : ""
+  }, {
+    "spdxElementId" : "SPDXRef-201e88420",
     "relationshipType" : "GENERATES",
     "relatedSpdxElement" : "SPDXRef--4b3779bf0",
     "comment" : ""
@@ -1282,16 +1346,6 @@
     "comment" : ""
   }, {
     "spdxElementId" : "SPDXRef-26d842230",
-    "relationshipType" : "GENERATES",
-    "relatedSpdxElement" : "SPDXRef--4b3779bf0",
-    "comment" : ""
-  }, {
-    "spdxElementId" : "SPDXRef-2a5d3a3e0",
-    "relationshipType" : "GENERATES",
-    "relatedSpdxElement" : "SPDXRef--4b3779bf0",
-    "comment" : ""
-  }, {
-    "spdxElementId" : "SPDXRef-2dd61fa90",
     "relationshipType" : "GENERATES",
     "relatedSpdxElement" : "SPDXRef--4b3779bf0",
     "comment" : ""
@@ -1346,6 +1400,11 @@
     "relatedSpdxElement" : "SPDXRef--4b3779bf0",
     "comment" : ""
   }, {
+    "spdxElementId" : "SPDXRef-5393be310",
+    "relationshipType" : "GENERATES",
+    "relatedSpdxElement" : "SPDXRef--4b3779bf0",
+    "comment" : ""
+  }, {
     "spdxElementId" : "SPDXRef-57fce8690",
     "relationshipType" : "GENERATES",
     "relatedSpdxElement" : "SPDXRef--4b3779bf0",
@@ -1376,17 +1435,22 @@
     "relatedSpdxElement" : "SPDXRef--4b3779bf0",
     "comment" : ""
   }, {
-    "spdxElementId" : "SPDXRef-690687930",
-    "relationshipType" : "GENERATES",
-    "relatedSpdxElement" : "SPDXRef--4b3779bf0",
-    "comment" : ""
-  }, {
     "spdxElementId" : "SPDXRef-6b14c99b0",
     "relationshipType" : "GENERATES",
     "relatedSpdxElement" : "SPDXRef--4b3779bf0",
     "comment" : ""
   }, {
     "spdxElementId" : "SPDXRef-6d9ef8680",
+    "relationshipType" : "GENERATES",
+    "relatedSpdxElement" : "SPDXRef--4b3779bf0",
+    "comment" : ""
+  }, {
+    "spdxElementId" : "SPDXRef-7660f8560",
+    "relationshipType" : "GENERATES",
+    "relatedSpdxElement" : "SPDXRef--4b3779bf0",
+    "comment" : ""
+  }, {
+    "spdxElementId" : "SPDXRef-7d6ae90f0",
     "relationshipType" : "GENERATES",
     "relatedSpdxElement" : "SPDXRef--4b3779bf0",
     "comment" : ""
@@ -1426,29 +1490,29 @@
     "relatedSpdxElement" : "SPDXRef-507cce4b0",
     "comment" : "Relationship based on Maven POM file dependency information"
   }, {
-    "spdxElementId" : "SPDXRef-22f8759a0",
+    "spdxElementId" : "SPDXRef-22f8795a0",
     "relationshipType" : "TEST_DEPENDENCY_OF",
-    "relatedSpdxElement" : "SPDXRef--1f8f17850",
+    "relatedSpdxElement" : "SPDXRef--1f8f13c50",
     "comment" : "Relationship created based on Maven POM information"
   }, {
-    "spdxElementId" : "SPDXRef--7c012cd90",
+    "spdxElementId" : "SPDXRef--7c0129190",
     "relationshipType" : "TEST_DEPENDENCY_OF",
     "relatedSpdxElement" : "SPDXRef--4831b1a30",
     "comment" : "Relationship created based on Maven POM information"
   }, {
-    "spdxElementId" : "SPDXRef-22f8759a0",
+    "spdxElementId" : "SPDXRef-22f8795a0",
     "relationshipType" : "TEST_DEPENDENCY_OF",
-    "relatedSpdxElement" : "SPDXRef--7c012cd90",
+    "relatedSpdxElement" : "SPDXRef--7c0129190",
     "comment" : "Relationship created based on Maven POM information"
   }, {
-    "spdxElementId" : "SPDXRef-22f8759a0",
+    "spdxElementId" : "SPDXRef-22f8795a0",
     "relationshipType" : "TEST_DEPENDENCY_OF",
-    "relatedSpdxElement" : "SPDXRef--cf9b410",
+    "relatedSpdxElement" : "SPDXRef--cf97810",
     "comment" : "Relationship created based on Maven POM information"
   }, {
     "spdxElementId" : "SPDXRef--4b3779bf0",
     "relationshipType" : "TEST_DEPENDENCY_OF",
-    "relatedSpdxElement" : "SPDXRef-22f8759a0",
+    "relatedSpdxElement" : "SPDXRef-22f8795a0",
     "comment" : "Relationship created based on Maven POM information"
   }, {
     "spdxElementId" : "SPDXRef-595902fa0",
@@ -1456,9 +1520,9 @@
     "relatedSpdxElement" : "SPDXRef-3401be2a0",
     "comment" : "Relationship created based on Maven POM information"
   }, {
-    "spdxElementId" : "SPDXRef--1f8f17850",
+    "spdxElementId" : "SPDXRef--1f8f13c50",
     "relationshipType" : "TEST_DEPENDENCY_OF",
-    "relatedSpdxElement" : "SPDXRef-40642c430",
+    "relatedSpdxElement" : "SPDXRef-406430030",
     "comment" : "Relationship created based on Maven POM information"
   }, {
     "spdxElementId" : "SPDXRef-595902fa0",
@@ -1466,9 +1530,9 @@
     "relatedSpdxElement" : "SPDXRef-494d73e00",
     "comment" : "Relationship created based on Maven POM information"
   }, {
-    "spdxElementId" : "SPDXRef--7c012cd90",
+    "spdxElementId" : "SPDXRef--7c0129190",
     "relationshipType" : "TEST_DEPENDENCY_OF",
-    "relatedSpdxElement" : "SPDXRef-4f045aad0",
+    "relatedSpdxElement" : "SPDXRef-4f045e6d0",
     "comment" : "Relationship created based on Maven POM information"
   }, {
     "spdxElementId" : "SPDXRef-61af20150",
@@ -1476,7 +1540,7 @@
     "relatedSpdxElement" : "SPDXRef-595902fa0",
     "comment" : "Relationship created based on Maven POM information"
   }, {
-    "spdxElementId" : "SPDXRef--7c012cd90",
+    "spdxElementId" : "SPDXRef--7c0129190",
     "relationshipType" : "TEST_DEPENDENCY_OF",
     "relatedSpdxElement" : "SPDXRef-60dab2ee0",
     "comment" : "Relationship created based on Maven POM information"
@@ -1537,6 +1601,14 @@
   }, {
     "spdxElementId" : "SPDXRef--4b3779bf0",
     "relationshipType" : "CONTAINS",
+    "relatedSpdxElement" : "SPDXRef--237989c80"
+  }, {
+    "spdxElementId" : "SPDXRef--4b3779bf0",
+    "relationshipType" : "CONTAINS",
+    "relatedSpdxElement" : "SPDXRef--25d32a3f0"
+  }, {
+    "spdxElementId" : "SPDXRef--4b3779bf0",
+    "relationshipType" : "CONTAINS",
     "relatedSpdxElement" : "SPDXRef--276e00020"
   }, {
     "spdxElementId" : "SPDXRef--4b3779bf0",
@@ -1549,7 +1621,15 @@
   }, {
     "spdxElementId" : "SPDXRef--4b3779bf0",
     "relationshipType" : "CONTAINS",
+    "relatedSpdxElement" : "SPDXRef--30b3056b0"
+  }, {
+    "spdxElementId" : "SPDXRef--4b3779bf0",
+    "relationshipType" : "CONTAINS",
     "relatedSpdxElement" : "SPDXRef--31d905fb0"
+  }, {
+    "spdxElementId" : "SPDXRef--4b3779bf0",
+    "relationshipType" : "CONTAINS",
+    "relatedSpdxElement" : "SPDXRef--32be55210"
   }, {
     "spdxElementId" : "SPDXRef--4b3779bf0",
     "relationshipType" : "CONTAINS",
@@ -1574,14 +1654,6 @@
     "spdxElementId" : "SPDXRef--4b3779bf0",
     "relationshipType" : "CONTAINS",
     "relatedSpdxElement" : "SPDXRef--3ff1a5350"
-  }, {
-    "spdxElementId" : "SPDXRef--4b3779bf0",
-    "relationshipType" : "CONTAINS",
-    "relatedSpdxElement" : "SPDXRef--420723e40"
-  }, {
-    "spdxElementId" : "SPDXRef--4b3779bf0",
-    "relationshipType" : "CONTAINS",
-    "relatedSpdxElement" : "SPDXRef--4217ce490"
   }, {
     "spdxElementId" : "SPDXRef--4b3779bf0",
     "relationshipType" : "CONTAINS",
@@ -1617,10 +1689,6 @@
   }, {
     "spdxElementId" : "SPDXRef--4b3779bf0",
     "relationshipType" : "CONTAINS",
-    "relatedSpdxElement" : "SPDXRef--6af38b990"
-  }, {
-    "spdxElementId" : "SPDXRef--4b3779bf0",
-    "relationshipType" : "CONTAINS",
     "relatedSpdxElement" : "SPDXRef--6ca7ee050"
   }, {
     "spdxElementId" : "SPDXRef--4b3779bf0",
@@ -1633,7 +1701,7 @@
   }, {
     "spdxElementId" : "SPDXRef--4b3779bf0",
     "relationshipType" : "CONTAINS",
-    "relatedSpdxElement" : "SPDXRef--72d2eb320"
+    "relatedSpdxElement" : "SPDXRef--712106dd0"
   }, {
     "spdxElementId" : "SPDXRef--4b3779bf0",
     "relationshipType" : "CONTAINS",
@@ -1641,7 +1709,15 @@
   }, {
     "spdxElementId" : "SPDXRef--4b3779bf0",
     "relationshipType" : "CONTAINS",
+    "relatedSpdxElement" : "SPDXRef--75221f1e0"
+  }, {
+    "spdxElementId" : "SPDXRef--4b3779bf0",
+    "relationshipType" : "CONTAINS",
     "relatedSpdxElement" : "SPDXRef--756caea20"
+  }, {
+    "spdxElementId" : "SPDXRef--4b3779bf0",
+    "relationshipType" : "CONTAINS",
+    "relatedSpdxElement" : "SPDXRef--7cf258170"
   }, {
     "spdxElementId" : "SPDXRef--4b3779bf0",
     "relationshipType" : "CONTAINS",
@@ -1649,11 +1725,15 @@
   }, {
     "spdxElementId" : "SPDXRef--4b3779bf0",
     "relationshipType" : "CONTAINS",
-    "relatedSpdxElement" : "SPDXRef--f273d8b0"
+    "relatedSpdxElement" : "SPDXRef-10cf66b50"
   }, {
     "spdxElementId" : "SPDXRef--4b3779bf0",
     "relationshipType" : "CONTAINS",
-    "relatedSpdxElement" : "SPDXRef-10cf66b50"
+    "relatedSpdxElement" : "SPDXRef-1c9b53a0"
+  }, {
+    "spdxElementId" : "SPDXRef--4b3779bf0",
+    "relationshipType" : "CONTAINS",
+    "relatedSpdxElement" : "SPDXRef-201e88420"
   }, {
     "spdxElementId" : "SPDXRef--4b3779bf0",
     "relationshipType" : "CONTAINS",
@@ -1666,14 +1746,6 @@
     "spdxElementId" : "SPDXRef--4b3779bf0",
     "relationshipType" : "CONTAINS",
     "relatedSpdxElement" : "SPDXRef-26d842230"
-  }, {
-    "spdxElementId" : "SPDXRef--4b3779bf0",
-    "relationshipType" : "CONTAINS",
-    "relatedSpdxElement" : "SPDXRef-2a5d3a3e0"
-  }, {
-    "spdxElementId" : "SPDXRef--4b3779bf0",
-    "relationshipType" : "CONTAINS",
-    "relatedSpdxElement" : "SPDXRef-2dd61fa90"
   }, {
     "spdxElementId" : "SPDXRef--4b3779bf0",
     "relationshipType" : "CONTAINS",
@@ -1717,6 +1789,10 @@
   }, {
     "spdxElementId" : "SPDXRef--4b3779bf0",
     "relationshipType" : "CONTAINS",
+    "relatedSpdxElement" : "SPDXRef-5393be310"
+  }, {
+    "spdxElementId" : "SPDXRef--4b3779bf0",
+    "relationshipType" : "CONTAINS",
     "relatedSpdxElement" : "SPDXRef-57fce8690"
   }, {
     "spdxElementId" : "SPDXRef--4b3779bf0",
@@ -1741,15 +1817,19 @@
   }, {
     "spdxElementId" : "SPDXRef--4b3779bf0",
     "relationshipType" : "CONTAINS",
-    "relatedSpdxElement" : "SPDXRef-690687930"
-  }, {
-    "spdxElementId" : "SPDXRef--4b3779bf0",
-    "relationshipType" : "CONTAINS",
     "relatedSpdxElement" : "SPDXRef-6b14c99b0"
   }, {
     "spdxElementId" : "SPDXRef--4b3779bf0",
     "relationshipType" : "CONTAINS",
     "relatedSpdxElement" : "SPDXRef-6d9ef8680"
+  }, {
+    "spdxElementId" : "SPDXRef--4b3779bf0",
+    "relationshipType" : "CONTAINS",
+    "relatedSpdxElement" : "SPDXRef-7660f8560"
+  }, {
+    "spdxElementId" : "SPDXRef--4b3779bf0",
+    "relationshipType" : "CONTAINS",
+    "relatedSpdxElement" : "SPDXRef-7d6ae90f0"
   }, {
     "spdxElementId" : "SPDXRef--4b3779bf0",
     "relationshipType" : "CONTAINS",

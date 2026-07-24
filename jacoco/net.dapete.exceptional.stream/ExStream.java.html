@@ -265,8 +265,7 @@ public final class ExStream&lt;T&gt; implements Stream&lt;T&gt; {
      * @return see {@link Stream#filter}
      */
     public &lt;E extends Exception&gt; ExStream&lt;T&gt; filter(Class&lt;E&gt; exceptionClass, ExPredicate&lt;? super T, ? extends E&gt; predicate) {
-<span class="nc" id="L268">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
-<span class="nc" id="L269">        return filter(predicate.wrap());</span>
+<span class="nc" id="L268">        return filter(predicate.wrap(exceptionClass));</span>
     }
 
     /**
@@ -286,8 +285,7 @@ public final class ExStream&lt;T&gt; implements Stream&lt;T&gt; {
      */
     public &lt;R, E extends Exception&gt; ExStream&lt;R&gt; map(
             Class&lt;E&gt; exceptionClass, ExFunction&lt;? super T, ? extends R, ? extends E&gt; mapper) {
-<span class="fc" id="L289">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
-<span class="fc" id="L290">        return map(mapper.wrap());</span>
+<span class="fc" id="L288">        return map(mapper.wrap(exceptionClass));</span>
     }
 
     /**
@@ -306,8 +304,7 @@ public final class ExStream&lt;T&gt; implements Stream&lt;T&gt; {
      */
     public &lt;E extends Exception&gt; ExDoubleStream mapToDouble(
             Class&lt;E&gt; exceptionClass, ExToDoubleFunction&lt;? super T, ? extends E&gt; mapper) {
-<span class="nc" id="L309">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
-<span class="nc" id="L310">        return mapToDouble(mapper.wrap());</span>
+<span class="nc" id="L307">        return mapToDouble(mapper.wrap(exceptionClass));</span>
     }
 
     /**
@@ -325,8 +322,7 @@ public final class ExStream&lt;T&gt; implements Stream&lt;T&gt; {
      * @return see {@link Stream#mapToInt}
      */
     public &lt;E extends Exception&gt; ExIntStream mapToInt(Class&lt;E&gt; exceptionClass, ExToIntFunction&lt;? super T, ? extends E&gt; mapper) {
-<span class="nc" id="L328">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
-<span class="nc" id="L329">        return mapToInt(mapper.wrap());</span>
+<span class="nc" id="L325">        return mapToInt(mapper.wrap(exceptionClass));</span>
     }
 
     /**
@@ -344,8 +340,7 @@ public final class ExStream&lt;T&gt; implements Stream&lt;T&gt; {
      * @return see {@link Stream#mapToLong}
      */
     public &lt;E extends Exception&gt; ExLongStream mapToLong(Class&lt;E&gt; exceptionClass, ExToLongFunction&lt;? super T, ? extends E&gt; mapper) {
-<span class="nc" id="L347">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
-<span class="nc" id="L348">        return mapToLong(mapper.wrap());</span>
+<span class="nc" id="L343">        return mapToLong(mapper.wrap(exceptionClass));</span>
     }
 
     /**
@@ -365,8 +360,7 @@ public final class ExStream&lt;T&gt; implements Stream&lt;T&gt; {
      */
     public &lt;R, E extends Exception&gt; ExStream&lt;R&gt; flatMap(
             Class&lt;E&gt; exceptionClass, ExFunction&lt;? super T, ? extends Stream&lt;? extends R&gt;, ? extends E&gt; mapper) {
-<span class="nc" id="L368">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
-<span class="nc" id="L369">        return flatMap(mapper.wrap());</span>
+<span class="nc" id="L363">        return flatMap(mapper.wrap(exceptionClass));</span>
     }
 
     /**
@@ -385,8 +379,7 @@ public final class ExStream&lt;T&gt; implements Stream&lt;T&gt; {
      */
     public &lt;E extends Exception&gt; ExDoubleStream flatMapToDouble(
             Class&lt;E&gt; exceptionClass, ExFunction&lt;? super T, ? extends DoubleStream, ? extends E&gt; mapper) {
-<span class="nc" id="L388">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
-<span class="nc" id="L389">        return flatMapToDouble(mapper.wrap());</span>
+<span class="nc" id="L382">        return flatMapToDouble(mapper.wrap(exceptionClass));</span>
     }
 
     /**
@@ -405,8 +398,7 @@ public final class ExStream&lt;T&gt; implements Stream&lt;T&gt; {
      */
     public &lt;E extends Exception&gt; ExIntStream flatMapToInt(
             Class&lt;E&gt; exceptionClass, ExFunction&lt;? super T, ? extends IntStream, ? extends E&gt; mapper) {
-<span class="nc" id="L408">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
-<span class="nc" id="L409">        return flatMapToInt(mapper.wrap());</span>
+<span class="nc" id="L401">        return flatMapToInt(mapper.wrap(exceptionClass));</span>
     }
 
     /**
@@ -425,8 +417,7 @@ public final class ExStream&lt;T&gt; implements Stream&lt;T&gt; {
      */
     public &lt;E extends Exception&gt; ExLongStream flatMapToLong(
             Class&lt;E&gt; exceptionClass, ExFunction&lt;? super T, ? extends LongStream, ? extends E&gt; mapper) {
-<span class="nc" id="L428">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
-<span class="nc" id="L429">        return flatMapToLong(mapper.wrap());</span>
+<span class="nc" id="L420">        return flatMapToLong(mapper.wrap(exceptionClass));</span>
     }
 
     /**
@@ -446,8 +437,7 @@ public final class ExStream&lt;T&gt; implements Stream&lt;T&gt; {
      */
     public &lt;R, E extends Exception&gt; ExStream&lt;R&gt; mapMulti(
             Class&lt;E&gt; exceptionClass, ExBiConsumer&lt;? super T, ? super Consumer&lt;R&gt;, ? extends E&gt; mapper) {
-<span class="nc" id="L449">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
-<span class="nc" id="L450">        return mapMulti(mapper.wrap());</span>
+<span class="nc" id="L440">        return mapMulti(mapper.wrap(exceptionClass));</span>
     }
 
     /**
@@ -466,8 +456,7 @@ public final class ExStream&lt;T&gt; implements Stream&lt;T&gt; {
      */
     public &lt;E extends Exception&gt; ExDoubleStream mapMultiToDouble(
             Class&lt;E&gt; exceptionClass, ExBiConsumer&lt;? super T, ? super DoubleConsumer, ? extends E&gt; mapper) {
-<span class="nc" id="L469">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
-<span class="nc" id="L470">        return mapMultiToDouble(mapper.wrap());</span>
+<span class="nc" id="L459">        return mapMultiToDouble(mapper.wrap(exceptionClass));</span>
     }
 
     /**
@@ -486,8 +475,7 @@ public final class ExStream&lt;T&gt; implements Stream&lt;T&gt; {
      */
     public &lt;E extends Exception&gt; ExIntStream mapMultiToInt(
             Class&lt;E&gt; exceptionClass, ExBiConsumer&lt;? super T, ? super IntConsumer, ? extends E&gt; mapper) {
-<span class="nc" id="L489">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
-<span class="nc" id="L490">        return mapMultiToInt(mapper.wrap());</span>
+<span class="nc" id="L478">        return mapMultiToInt(mapper.wrap(exceptionClass));</span>
     }
 
     /**
@@ -506,8 +494,7 @@ public final class ExStream&lt;T&gt; implements Stream&lt;T&gt; {
      */
     public &lt;E extends Exception&gt; ExLongStream mapMultiToLong(
             Class&lt;E&gt; exceptionClass, ExBiConsumer&lt;? super T, ? super LongConsumer, ? extends E&gt; mapper) {
-<span class="nc" id="L509">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
-<span class="nc" id="L510">        return mapMultiToLong(mapper.wrap());</span>
+<span class="nc" id="L497">        return mapMultiToLong(mapper.wrap(exceptionClass));</span>
     }
 
     /**
@@ -522,8 +509,7 @@ public final class ExStream&lt;T&gt; implements Stream&lt;T&gt; {
      * @return see {@link Stream#peek}
      */
     public &lt;E extends Exception&gt; ExStream&lt;T&gt; peek(Class&lt;E&gt; exceptionClass, ExConsumer&lt;? super T, ? extends E&gt; action) {
-<span class="nc" id="L525">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
-<span class="nc" id="L526">        return peek(action.wrap());</span>
+<span class="nc" id="L512">        return peek(action.wrap(exceptionClass));</span>
     }
 
     /**
@@ -538,8 +524,7 @@ public final class ExStream&lt;T&gt; implements Stream&lt;T&gt; {
      * @return see {@link Stream#takeWhile}
      */
     public &lt;E extends Exception&gt; ExStream&lt;T&gt; takeWhile(Class&lt;E&gt; exceptionClass, ExPredicate&lt;? super T, ? extends E&gt; predicate) {
-<span class="nc" id="L541">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
-<span class="nc" id="L542">        return takeWhile(predicate.wrap());</span>
+<span class="nc" id="L527">        return takeWhile(predicate.wrap(exceptionClass));</span>
     }
 
     /**
@@ -557,8 +542,7 @@ public final class ExStream&lt;T&gt; implements Stream&lt;T&gt; {
      * @return see {@link Stream#dropWhile}
      */
     public &lt;E extends Exception&gt; ExStream&lt;T&gt; dropWhile(Class&lt;E&gt; exceptionClass, ExPredicate&lt;? super T, ? extends E&gt; predicate) {
-<span class="nc" id="L560">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
-<span class="nc" id="L561">        return dropWhile(predicate.wrap());</span>
+<span class="nc" id="L545">        return dropWhile(predicate.wrap(exceptionClass));</span>
     }
 
     /**
@@ -572,9 +556,8 @@ public final class ExStream&lt;T&gt; implements Stream&lt;T&gt; {
      * @param action         see {@link Stream#forEach}
      */
     public &lt;E extends Exception&gt; void forEach(Class&lt;E&gt; exceptionClass, ExConsumer&lt;? super T, ? extends E&gt; action) {
-<span class="fc" id="L575">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
-<span class="fc" id="L576">        forEach(action.wrap());</span>
-<span class="fc" id="L577">    }</span>
+<span class="fc" id="L559">        forEach(action.wrap(exceptionClass));</span>
+<span class="fc" id="L560">    }</span>
 
     /**
      * Equivalent of {@link Stream#forEachOrdered}.
@@ -587,9 +570,8 @@ public final class ExStream&lt;T&gt; implements Stream&lt;T&gt; {
      * @param action         see {@link Stream#forEachOrdered}
      */
     public &lt;E extends Exception&gt; void forEachOrdered(Class&lt;E&gt; exceptionClass, ExConsumer&lt;? super T, ? extends E&gt; action) {
-<span class="nc" id="L590">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
-<span class="nc" id="L591">        forEachOrdered(action.wrap());</span>
-<span class="nc" id="L592">    }</span>
+<span class="nc" id="L573">        forEachOrdered(action.wrap(exceptionClass));</span>
+<span class="nc" id="L574">    }</span>
 
     /**
      * Equivalent of {@link Stream#reduce(BinaryOperator)}.
@@ -603,8 +585,7 @@ public final class ExStream&lt;T&gt; implements Stream&lt;T&gt; {
      * @return see {@link Stream#reduce(BinaryOperator)}
      */
     public &lt;E extends Exception&gt; Optional&lt;T&gt; reduce(Class&lt;E&gt; exceptionClass, ExBinaryOperator&lt;T, ? extends E&gt; accumulator) {
-<span class="nc" id="L606">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
-<span class="nc" id="L607">        return reduce(accumulator.wrap());</span>
+<span class="nc" id="L588">        return reduce(accumulator.wrap(exceptionClass));</span>
     }
 
     /**
@@ -620,8 +601,7 @@ public final class ExStream&lt;T&gt; implements Stream&lt;T&gt; {
      * @return see {@link Stream#reduce(Object, BinaryOperator)}
      */
     public &lt;E extends Exception&gt; T reduce(Class&lt;E&gt; exceptionClass, T identity, ExBinaryOperator&lt;T, ? extends E&gt; accumulator) {
-<span class="nc" id="L623">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
-<span class="nc" id="L624">        return reduce(identity, accumulator.wrap());</span>
+<span class="nc" id="L604">        return reduce(identity, accumulator.wrap(exceptionClass));</span>
     }
 
     /**
@@ -640,8 +620,7 @@ public final class ExStream&lt;T&gt; implements Stream&lt;T&gt; {
      */
     public &lt;U, E extends Exception&gt; U reduce(
             Class&lt;E&gt; exceptionClass, U identity, ExBiFunction&lt;U, ? super T, U, ? extends E&gt; accumulator, ExBinaryOperator&lt;U, ? extends E&gt; combiner) {
-<span class="nc" id="L643">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
-<span class="nc" id="L644">        return reduce(identity, accumulator.wrap(), combiner.wrap());</span>
+<span class="nc" id="L623">        return reduce(identity, accumulator.wrap(exceptionClass), combiner.wrap(exceptionClass));</span>
     }
 
     /**
@@ -661,9 +640,8 @@ public final class ExStream&lt;T&gt; implements Stream&lt;T&gt; {
     public &lt;R, E extends Exception&gt; R collect(
             Class&lt;E&gt; exceptionClass, ExSupplier&lt;R, ? extends E&gt; supplier, ExBiConsumer&lt;R, ? super T, ? extends E&gt; accumulator,
             ExBiConsumer&lt;R, R, ? extends E&gt; combiner) {
-<span class="nc" id="L664">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
-<span class="nc" id="L665">        return collect(supplier.wrap(), accumulator.wrap(), combiner.wrap());</span>
+<span class="nc" id="L643">        return collect(supplier.wrap(exceptionClass), accumulator.wrap(exceptionClass), combiner.wrap(exceptionClass));</span>
     }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>

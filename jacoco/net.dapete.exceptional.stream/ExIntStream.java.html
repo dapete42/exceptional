@@ -183,8 +183,7 @@ public class ExIntStream implements IntStream {
      * @return see {@link IntStream#filter}
      */
     public &lt;E extends Exception&gt; ExIntStream filter(Class&lt;E&gt; exceptionClass, ExIntPredicate&lt;? extends E&gt; predicate) {
-<span class="nc" id="L186">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
-<span class="nc" id="L187">        return of(filter(predicate.wrap()));</span>
+<span class="nc" id="L186">        return of(filter(predicate.wrap(exceptionClass)));</span>
     }
 
     /**
@@ -202,8 +201,7 @@ public class ExIntStream implements IntStream {
      * @return see {@link IntStream#map}
      */
     public &lt;E extends Exception&gt; ExIntStream map(Class&lt;E&gt; exceptionClass, ExIntUnaryOperator&lt;? extends E&gt; mapper) {
-<span class="fc" id="L205">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
-<span class="fc" id="L206">        return of(map(mapper.wrap()));</span>
+<span class="fc" id="L204">        return of(map(mapper.wrap(exceptionClass)));</span>
     }
 
     /**
@@ -222,8 +220,7 @@ public class ExIntStream implements IntStream {
      * @return see {@link IntStream#mapToObj}
      */
     public &lt;U, E extends Exception&gt; ExStream&lt;U&gt; mapToObj(Class&lt;E&gt; exceptionClass, ExIntFunction&lt;? extends U, ? extends E&gt; mapper) {
-<span class="nc" id="L225">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
-<span class="nc" id="L226">        return ExStream.of(mapToObj(mapper.wrap()));</span>
+<span class="nc" id="L223">        return ExStream.of(mapToObj(mapper.wrap(exceptionClass)));</span>
     }
 
     /**
@@ -241,8 +238,7 @@ public class ExIntStream implements IntStream {
      * @return see {@link IntStream#mapToDouble}
      */
     public &lt;E extends Exception&gt; ExDoubleStream mapToDouble(Class&lt;E&gt; exceptionClass, ExIntToDoubleFunction&lt;? extends E&gt; mapper) {
-<span class="nc" id="L244">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
-<span class="nc" id="L245">        return ExDoubleStream.of(mapToDouble(mapper.wrap()));</span>
+<span class="nc" id="L241">        return ExDoubleStream.of(mapToDouble(mapper.wrap(exceptionClass)));</span>
     }
 
     /**
@@ -260,8 +256,7 @@ public class ExIntStream implements IntStream {
      * @return see {@link IntStream#mapToLong}
      */
     public &lt;E extends Exception&gt; ExLongStream mapToLong(Class&lt;E&gt; exceptionClass, ExIntToLongFunction&lt;? extends E&gt; mapper) {
-<span class="nc" id="L263">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
-<span class="nc" id="L264">        return ExLongStream.of(mapToLong(mapper.wrap()));</span>
+<span class="nc" id="L259">        return ExLongStream.of(mapToLong(mapper.wrap(exceptionClass)));</span>
     }
 
     /**
@@ -280,8 +275,7 @@ public class ExIntStream implements IntStream {
      */
     public &lt;E extends Exception&gt; ExIntStream flatMap(Class&lt;E&gt; exceptionClass,
                                                      ExIntFunction&lt;? extends IntStream, ? extends E&gt; mapper) {
-<span class="nc" id="L283">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
-<span class="nc" id="L284">        return of(flatMap(mapper.wrap()));</span>
+<span class="nc" id="L278">        return of(flatMap(mapper.wrap(exceptionClass)));</span>
     }
 
     /**
@@ -299,8 +293,7 @@ public class ExIntStream implements IntStream {
      * @return see {@link IntStream#mapMulti}
      */
     public &lt;E extends Exception&gt; ExIntStream mapMulti(Class&lt;E&gt; exceptionClass, ExIntMapMultiConsumer&lt;? extends E&gt; mapper) {
-<span class="nc" id="L302">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
-<span class="nc" id="L303">        return of(mapMulti(mapper.wrap()));</span>
+<span class="nc" id="L296">        return of(mapMulti(mapper.wrap(exceptionClass)));</span>
     }
 
     /**
@@ -315,8 +308,7 @@ public class ExIntStream implements IntStream {
      * @return see {@link IntStream#peek}
      */
     public &lt;E extends Exception&gt; ExIntStream peek(Class&lt;E&gt; exceptionClass, ExIntConsumer&lt;? extends E&gt; action) {
-<span class="nc" id="L318">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
-<span class="nc" id="L319">        return of(peek(action.wrap()));</span>
+<span class="nc" id="L311">        return of(peek(action.wrap(exceptionClass)));</span>
     }
 
     /**
@@ -331,8 +323,7 @@ public class ExIntStream implements IntStream {
      * @return see {@link IntStream#takeWhile}
      */
     public &lt;E extends Exception&gt; ExIntStream takeWhile(Class&lt;E&gt; exceptionClass, ExIntPredicate&lt;? extends E&gt; predicate) {
-<span class="nc" id="L334">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
-<span class="nc" id="L335">        return of(takeWhile(predicate.wrap()));</span>
+<span class="nc" id="L326">        return of(takeWhile(predicate.wrap(exceptionClass)));</span>
     }
 
     /**
@@ -347,8 +338,7 @@ public class ExIntStream implements IntStream {
      * @return see {@link IntStream#dropWhile}
      */
     public &lt;E extends Exception&gt; ExIntStream dropWhile(Class&lt;E&gt; exceptionClass, ExIntPredicate&lt;? extends E&gt; predicate) {
-<span class="nc" id="L350">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
-<span class="nc" id="L351">        return of(dropWhile(predicate.wrap()));</span>
+<span class="nc" id="L341">        return of(dropWhile(predicate.wrap(exceptionClass)));</span>
     }
 
     /**
@@ -362,9 +352,8 @@ public class ExIntStream implements IntStream {
      * @param action         see {@link IntStream#forEach}
      */
     public &lt;E extends Exception&gt; void forEach(Class&lt;E&gt; exceptionClass, ExIntConsumer&lt;? extends E&gt; action) {
-<span class="fc" id="L365">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
-<span class="nc" id="L366">        forEach(action.wrap());</span>
-<span class="nc" id="L367">    }</span>
+<span class="nc" id="L355">        forEach(action.wrap(exceptionClass));</span>
+<span class="nc" id="L356">    }</span>
 
     /**
      * Equivalent of {@link IntStream#forEachOrdered}.
@@ -377,9 +366,8 @@ public class ExIntStream implements IntStream {
      * @param action         see {@link IntStream#forEachOrdered}
      */
     public &lt;E extends Exception&gt; void forEachOrdered(Class&lt;E&gt; exceptionClass, ExIntConsumer&lt;? extends E&gt; action) {
-<span class="nc" id="L380">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
-<span class="nc" id="L381">        forEachOrdered(action.wrap());</span>
-<span class="nc" id="L382">    }</span>
+<span class="nc" id="L369">        forEachOrdered(action.wrap(exceptionClass));</span>
+<span class="nc" id="L370">    }</span>
 
     /**
      * Equivalent of {@link IntStream#reduce(int, IntBinaryOperator)}.
@@ -394,8 +382,7 @@ public class ExIntStream implements IntStream {
      * @return see {@link IntStream#reduce(int, IntBinaryOperator)}
      */
     public &lt;E extends Exception&gt; Integer reduce(Class&lt;E&gt; exceptionClass, Integer identity, ExIntBinaryOperator&lt;? extends E&gt; op) {
-<span class="nc" id="L397">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
-<span class="nc" id="L398">        return reduce(identity, op.wrap());</span>
+<span class="nc" id="L385">        return reduce(identity, op.wrap(exceptionClass));</span>
     }
 
     /**
@@ -410,8 +397,7 @@ public class ExIntStream implements IntStream {
      * @return see {@link IntStream#reduce(IntBinaryOperator)}
      */
     public &lt;E extends Exception&gt; OptionalInt reduce(Class&lt;E&gt; exceptionClass, ExIntBinaryOperator&lt;? extends E&gt; op) {
-<span class="nc" id="L413">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
-<span class="nc" id="L414">        return reduce(op.wrap());</span>
+<span class="nc" id="L400">        return reduce(op.wrap(exceptionClass));</span>
     }
 
     /**
@@ -430,8 +416,7 @@ public class ExIntStream implements IntStream {
      */
     public &lt;R, E extends Exception&gt; R collect(Class&lt;E&gt; exceptionClass, ExSupplier&lt;R, ? extends E&gt; supplier,
                                               ExObjIntConsumer&lt;R, ? extends E&gt; accumulator, ExBiConsumer&lt;R, R, ? extends E&gt; combiner) {
-<span class="nc" id="L433">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
-<span class="nc" id="L434">        return collect(supplier.wrap(), accumulator.wrap(), combiner.wrap());</span>
+<span class="nc" id="L419">        return collect(supplier.wrap(exceptionClass), accumulator.wrap(exceptionClass), combiner.wrap(exceptionClass));</span>
     }
 
     /**
@@ -446,8 +431,7 @@ public class ExIntStream implements IntStream {
      * @return see {@link IntStream#anyMatch}
      */
     public &lt;E extends Exception&gt; boolean anyMatch(Class&lt;E&gt; exceptionClass, ExIntPredicate&lt;? extends E&gt; predicate) {
-<span class="nc" id="L449">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
-<span class="nc" id="L450">        return anyMatch(predicate.wrap());</span>
+<span class="nc" id="L434">        return anyMatch(predicate.wrap(exceptionClass));</span>
     }
 
     /**
@@ -462,8 +446,7 @@ public class ExIntStream implements IntStream {
      * @return see {@link IntStream#allMatch}
      */
     public &lt;E extends Exception&gt; boolean allMatch(Class&lt;E&gt; exceptionClass, ExIntPredicate&lt;? extends E&gt; predicate) {
-<span class="nc" id="L465">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
-<span class="nc" id="L466">        return allMatch(predicate.wrap());</span>
+<span class="nc" id="L449">        return allMatch(predicate.wrap(exceptionClass));</span>
     }
 
     /**
@@ -478,9 +461,8 @@ public class ExIntStream implements IntStream {
      * @return see {@link IntStream#noneMatch}
      */
     public &lt;E extends Exception&gt; boolean noneMatch(Class&lt;E&gt; exceptionClass, ExIntPredicate&lt;? extends E&gt; predicate) {
-<span class="nc" id="L481">        ExStreamUtils.verifyExceptionAllowed(exceptionClass);</span>
-<span class="nc" id="L482">        return noneMatch(predicate.wrap());</span>
+<span class="nc" id="L464">        return noneMatch(predicate.wrap(exceptionClass));</span>
     }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>

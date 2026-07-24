@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Wrappable.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Exceptional!</a> &gt; <a href="index.source.html" class="el_package">net.dapete.exceptional.function</a> &gt; <span class="el_source">Wrappable.java</span></div><h1>Wrappable.java</h1><pre class="source lang-java linenums">package net.dapete.exceptional.function;
+
+import net.dapete.exceptional.ExException;
+import net.dapete.exceptional.wrap.ExUnwrap;
+import org.jspecify.annotations.NonNull;
+
+/**
+ * Interfaces which extend this can wrap functional interfaces throwing exceptions using the {@link #wrap()} method, allowing them to be used in contexts where
+ * exceptions are not allowed to be thrown directly.
+ * &lt;p&gt;
+ * If a checked exception is thrown, an {@link ExException}, which is a runtime exception, will be thrown instead.
+ * This will have the original exception as its {@link ExException#getCause() cause}.
+ *
+ * @param &lt;W&gt; the type the functional interface returned by {@link #wrap()}
+ */
+public interface Wrappable&lt;W&gt; {
+
+    /**
+     * Wraps this functional interface, allowing it to be used in contexts where exceptions are not allowed to be thrown directly.
+     * &lt;p&gt;
+     * If a checked exception is thrown, an {@link ExException}, which is a runtime exception, will be thrown instead.
+     * This will have the original exception as its {@link ExException#getCause() cause}.
+     *
+     * @return a wrapped instance of type {@code W}
+     */
+    @NonNull
+    W wrap();
+
+    /**
+     * Wraps this functional interface, allowing it to be used in contexts where exceptions are not allowed to be thrown directly, if unwrapping is either not
+     * active at all or active for the supplied {@code exceptionClass}.
+     * &lt;p&gt;
+     * If an exception of type {@code exceptionClass} is thrown, an {@link ExException}, which is a runtime exception, will be thrown instead.
+     * This will have the original exception as its {@link ExException#getCause() cause}.
+     *
+     * @param exceptionClass the class of the exception to wrap.
+     * @return a wrapped instance of type {@code W}
+     */
+    default @NonNull W wrap(@NonNull Class&lt;? extends Exception&gt; exceptionClass) {
+<span class="fc" id="L40">        ExUnwrap.verifyExceptionAllowed(exceptionClass);</span>
+<span class="fc" id="L41">        return wrap();</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>

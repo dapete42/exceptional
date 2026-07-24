@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ExUnwrap.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Exceptional!</a> &gt; <a href="index.source.html" class="el_package">net.dapete.exceptional.wrap</a> &gt; <span class="el_source">ExUnwrap.java</span></div><h1>ExUnwrap.java</h1><pre class="source lang-java linenums">package net.dapete.exceptional.wrap;
+
+import org.jspecify.annotations.Nullable;
+
+import java.util.HashSet;
+import java.util.Set;
+import java.util.function.Supplier;
+
+public final class ExUnwrap {
+
+<span class="fc" id="L11">    private static final ThreadLocal&lt;@Nullable Set&lt;Class&lt;? extends Exception&gt;&gt;&gt; activeExceptionClasses = new ThreadLocal&lt;&gt;();</span>
+
+    // Utility class with private constructor
+    private ExUnwrap() {
+    }
+
+    static void unwrapScope(Set&lt;Class&lt;? extends Exception&gt;&gt; exceptionClasses, Runnable runnable) {
+<span class="fc" id="L18">        final var previousExceptionClasses = getActiveExceptionClasses();</span>
+        try {
+<span class="fc" id="L20">            addActiveExceptionClasses(previousExceptionClasses, exceptionClasses);</span>
+<span class="fc" id="L21">            runnable.run();</span>
+        } finally {
+<span class="fc" id="L23">            setActiveExceptionClasses(previousExceptionClasses);</span>
+        }
+<span class="fc" id="L25">    }</span>
+
+    static &lt;T&gt; T unwrapScope(Set&lt;Class&lt;? extends Exception&gt;&gt; exceptionClasses, Supplier&lt;T&gt; supplier) {
+<span class="fc" id="L28">        final var previousExceptionClasses = getActiveExceptionClasses();</span>
+        try {
+<span class="fc" id="L30">            addActiveExceptionClasses(previousExceptionClasses, exceptionClasses);</span>
+<span class="fc" id="L31">            return supplier.get();</span>
+        } finally {
+<span class="fc" id="L33">            setActiveExceptionClasses(previousExceptionClasses);</span>
+        }
+    }
+
+    private static @Nullable Set&lt;Class&lt;? extends Exception&gt;&gt; getActiveExceptionClasses() {
+<span class="fc" id="L38">        return activeExceptionClasses.get();</span>
+    }
+
+    private static void setActiveExceptionClasses(@Nullable Set&lt;Class&lt;? extends Exception&gt;&gt; exceptionClasses) {
+<span class="pc bpc" id="L42" title="1 of 4 branches missed.">        if (exceptionClasses == null || exceptionClasses.isEmpty()) {</span>
+<span class="fc" id="L43">            activeExceptionClasses.remove();</span>
+        } else {
+<span class="fc" id="L45">            activeExceptionClasses.set(exceptionClasses);</span>
+        }
+<span class="fc" id="L47">    }</span>
+
+    private static void addActiveExceptionClasses(@Nullable Set&lt;Class&lt;? extends Exception&gt;&gt; previousClasses,
+                                                  Set&lt;Class&lt;? extends Exception&gt;&gt; exceptionClasses) {
+        final HashSet&lt;Class&lt;? extends Exception&gt;&gt; allClasses;
+<span class="fc bfc" id="L52" title="All 2 branches covered.">        if (previousClasses == null) {</span>
+<span class="fc" id="L53">            allClasses = new HashSet&lt;&gt;(exceptionClasses);</span>
+        } else {
+<span class="fc" id="L55">            allClasses = new HashSet&lt;&gt;(previousClasses.size() + exceptionClasses.size());</span>
+<span class="fc" id="L56">            allClasses.addAll(previousClasses);</span>
+<span class="fc" id="L57">            allClasses.addAll(exceptionClasses);</span>
+        }
+<span class="fc" id="L59">        setActiveExceptionClasses(allClasses);</span>
+<span class="fc" id="L60">    }</span>
+
+    /**
+     * Check if unwrapping is currently active.
+     *
+     * @return {@code true} if unwrapping is active, {@code false} otherwise.
+     */
+    public static boolean isUnwrapActive() {
+<span class="fc" id="L68">        final var activeExceptionClasses = getActiveExceptionClasses();</span>
+<span class="fc" id="L69">        return isUnwrapActive(activeExceptionClasses);</span>
+    }
+
+    /**
+     * Verify unwrapping for the supplied {@code exceptionClass} is currently active.
+     *
+     * @param exceptionClass exception class.
+     * @throws IllegalArgumentException if unwrapping for the supplied {@code exceptionClass} is not currently active.
+     */
+    public static void verifyUnwrapActive(Class&lt;? extends Exception&gt; exceptionClass) {
+<span class="fc" id="L79">        final Set&lt;Class&lt;? extends Exception&gt;&gt; activeExceptionClasses = getActiveExceptionClasses();</span>
+<span class="fc" id="L80">        verifyUnwrapActive(activeExceptionClasses, exceptionClass);</span>
+<span class="fc" id="L81">    }</span>
+
+    /**
+     * If unwrapping is active, verify it is active for the supplied {@code exceptionClass}.
+     *
+     * @param exceptionClass exception class.
+     * @throws IllegalArgumentException if unwrapping is active, but not for the supplied {@code exceptionClass}.
+     */
+    public static void verifyExceptionAllowed(Class&lt;? extends Exception&gt; exceptionClass) {
+<span class="fc" id="L90">        final var activeExceptionClasses = getActiveExceptionClasses();</span>
+<span class="fc bfc" id="L91" title="All 2 branches covered.">        if (isUnwrapActive(activeExceptionClasses)) {</span>
+<span class="fc" id="L92">            verifyUnwrapActive(activeExceptionClasses, exceptionClass);</span>
+        }
+<span class="fc" id="L94">    }</span>
+
+    private static boolean isUnwrapActive(@Nullable Set&lt;Class&lt;? extends Exception&gt;&gt; activeExceptionClasses) {
+<span class="fc bfc" id="L97" title="All 2 branches covered.">        return activeExceptionClasses != null</span>
+<span class="pc bpc" id="L98" title="1 of 2 branches missed.">               &amp;&amp; !activeExceptionClasses.isEmpty();</span>
+    }
+
+    private static void verifyUnwrapActive(@Nullable Set&lt;Class&lt;? extends Exception&gt;&gt; activeExceptionClasses, Class&lt;? extends Exception&gt; exceptionClass) {
+<span class="fc bfc" id="L102" title="All 2 branches covered.">        if (activeExceptionClasses == null ||</span>
+<span class="fc bfc" id="L103" title="All 2 branches covered.">            activeExceptionClasses.stream().noneMatch(activeClass -&gt; activeClass.isAssignableFrom(exceptionClass))) {</span>
+<span class="fc" id="L104">            throw new IllegalArgumentException(&quot;Exception %s is not allowed here, must be included in ExUnwrapper.of(...) invocation&quot;</span>
+<span class="fc" id="L105">                    .formatted(exceptionClass.getName()));</span>
+        }
+<span class="fc" id="L107">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>

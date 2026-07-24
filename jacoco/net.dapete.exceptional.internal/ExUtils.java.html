@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ExUtils.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Exceptional!</a> &gt; <a href="index.source.html" class="el_package">net.dapete.exceptional.internal</a> &gt; <span class="el_source">ExUtils.java</span></div><h1>ExUtils.java</h1><pre class="source lang-java linenums">package net.dapete.exceptional.internal;
+
+import net.dapete.exceptional.ExException;
+
+import java.util.HashSet;
+import java.util.Set;
+
+/**
+ * General utility class for Exceptional!
+ */
+public final class ExUtils {
+
+    // Utility class with private constructor
+    private ExUtils() {
+    }
+
+    /**
+     * Create a set containing the given elements. This supports equal values, which {@link Set#of(Object...)} does not.
+     *
+     * @param element1 the first element.
+     * @param element2 the second element.
+     * @param element3 the third element.
+     * @param &lt;T&gt;      the type of the element.
+     * @return a set containing the given elements.
+     */
+    public static &lt;T&gt; Set&lt;T&gt; setOf3(T element1, T element2, T element3) {
+<span class="fc" id="L27">        final Set&lt;T&gt; exceptionClasses = new HashSet&lt;&gt;();</span>
+<span class="fc" id="L28">        exceptionClasses.add(element1);</span>
+<span class="fc" id="L29">        exceptionClasses.add(element2);</span>
+<span class="fc" id="L30">        exceptionClasses.add(element3);</span>
+<span class="fc" id="L31">        return exceptionClasses;</span>
+    }
+
+    /**
+     * If the {@code exception} is an instance of {@code exceptionClass}, throw it.
+     *
+     * @param exceptionClass the class of the exception.
+     * @param exception      the exception.
+     * @param &lt;E&gt;            the type of the exception.
+     * @throws E if the {@code exception} is an instance of {@code exceptionClass}.
+     */
+    public static &lt;E extends Exception&gt; void throwIfInstance(Class&lt;E&gt; exceptionClass, Exception exception) throws E {
+<span class="fc bfc" id="L43" title="All 2 branches covered.">        if (exceptionClass.isInstance(exception)) {</span>
+<span class="fc" id="L44">            throw exceptionClass.cast(exception);</span>
+        }
+<span class="fc" id="L46">    }</span>
+
+    /**
+     * If {@code exception} is not already a runtime exception, wrap it in an {@link ExException}.
+     *
+     * @param exception exception
+     * @return {@code exception} or {@code exception} wrapped in an {@link ExException}
+     */
+    public static RuntimeException toRuntimeException(Exception exception) {
+<span class="fc bfc" id="L55" title="All 2 branches covered.">        if (exception instanceof RuntimeException runtimeException) {</span>
+<span class="fc" id="L56">            return runtimeException;</span>
+        } else {
+<span class="fc" id="L58">            return new ExException(exception);</span>
+        }
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>
