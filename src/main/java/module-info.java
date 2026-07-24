@@ -14,4 +14,5 @@ module net.dapete.exceptional {
     exports net.dapete.exceptional;
     exports net.dapete.exceptional.function;
     exports net.dapete.exceptional.stream;
+    exports net.dapete.exceptional.wrap;
 }

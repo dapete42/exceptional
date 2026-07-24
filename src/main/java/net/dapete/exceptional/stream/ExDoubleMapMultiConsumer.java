@@ -1,6 +1,6 @@
 package net.dapete.exceptional.stream;
 
-import net.dapete.exceptional.ExWrap;
+import net.dapete.exceptional.wrap.ExWrap;
 import net.dapete.exceptional.function.ExDoubleConsumer;
 import net.dapete.exceptional.function.Wrappable;
 

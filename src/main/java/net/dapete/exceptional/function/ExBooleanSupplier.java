@@ -1,7 +1,7 @@
 package net.dapete.exceptional.function;
 
 
-import net.dapete.exceptional.ExWrap;
+import net.dapete.exceptional.wrap.ExWrap;
 import org.jspecify.annotations.NonNull;
 
 import java.util.function.BooleanSupplier;

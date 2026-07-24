@@ -1,5 +1,7 @@
 package net.dapete.exceptional;
 
+import net.dapete.exceptional.internal.ExUtils;
+
 import java.io.Serial;
 
 /**
@@ -8,15 +10,17 @@ import java.io.Serial;
 public final class ExException extends RuntimeException {
 
     @Serial
-    private static final long serialVersionUID = 2311138051728963821L;
+    private static final long serialVersionUID = 2575704266897491327L;
 
     /**
-     * Create a new instance. The {@code cause} must not be a {@link RuntimeException}.
+     * Create a new instance. Should only be used internally by <em>Exceptional!</em>
+     * <p>
+     * The {@code cause} must not be a {@link RuntimeException}.
      *
      * @param cause the cause of this exception. Must not be a {@code RuntimeException}.
      * @throws IllegalArgumentException if {@code cause} is a {@code RuntimeException}.
      */
-    ExException(Exception cause) {
+    public ExException(Exception cause) {
         super(cause);
         if (cause instanceof RuntimeException) {
             throw new IllegalArgumentException("The cause of an ExException must not be a RuntimeException");

@@ -1,5 +1,6 @@
 package net.dapete.exceptional;
 
+import net.dapete.exceptional.internal.ExUtils;
 import net.dapete.exceptional.stream.ExIntStream;
 import org.junit.jupiter.api.Test;
 

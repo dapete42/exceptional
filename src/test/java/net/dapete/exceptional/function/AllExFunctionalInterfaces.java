@@ -1,8 +1,7 @@
-package net.dapete.exceptional.test;
+package net.dapete.exceptional.function;
 
-import net.dapete.exceptional.ExWrap;
-import net.dapete.exceptional.function.Wrappable;
 import net.dapete.exceptional.stream.ExStream;
+import net.dapete.exceptional.wrap.ExUnwrapper;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.NullMarked;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -37,8 +36,8 @@ public class AllExFunctionalInterfaces implements ArgumentsProvider {
         final var packagePath = packageName.replace('.', '/');
         try {
             final var filesNames = filesNamesInDirectory("src/main/java/" + packagePath);
-            return ExWrap.unwrap(ClassNotFoundException.class, () ->
-                    ExStream.of(filesNames)
+            return ExUnwrapper.of(ClassNotFoundException.class)
+                    .unwrap(() -> ExStream.of(filesNames)
                             .filter(fileName -> fileName.startsWith("Ex"))
                             .filter(fileName -> fileName.endsWith(".java"))
                             .map(fileName -> fileName.replaceFirst("\\.java$", ""))
@@ -47,7 +46,7 @@ public class AllExFunctionalInterfaces implements ArgumentsProvider {
                             .filter(Wrappable.class::isAssignableFrom)
                             .toList()
                             .stream()
-            );
+                    );
         } catch (ClassNotFoundException | IOException e) {
             throw new RuntimeException(e);
         }
